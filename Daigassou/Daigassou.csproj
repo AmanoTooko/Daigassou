@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="hotkey.cs" />
     <Compile Include="KeyController.cs" />
+    <Compile Include="MidiToKey.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

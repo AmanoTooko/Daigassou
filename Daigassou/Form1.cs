@@ -12,7 +12,8 @@ namespace Daigassou
 {
     public partial class Form1 : Form
     {
-        
+        private MidiToKey mtk;
+        private List<string> tmpScore;
         public Form1()
         {
             InitializeComponent();
@@ -22,7 +23,19 @@ namespace Daigassou
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            mtk=new MidiToKey();
+            mtk.OpenFile(@"C:\Users\tooko\Documents\MuseScore2\乐谱\小星星.mid");
+            tmpScore  = mtk.getTrackManagers();
+            List<string> tmp=new List<string>();
+            for (int i = 0; i < tmpScore.Count; i++)
+            {
+                tmp.Add("track"+i.ToString());
+            }
+
+            trackComboBox.DataSource = tmp;
+
+
+
         }
 
         private void testFunction()
@@ -37,5 +50,9 @@ namespace Daigassou
             
         }
 
+        private void trackComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            noteTextBox.Text = tmpScore[trackComboBox.SelectedIndex];
+        }
     }
 }
