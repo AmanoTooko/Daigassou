@@ -43,6 +43,7 @@ namespace Daigassou
         /// <returns></returns>
         public List<string> getTrackManagers() 
         {
+            tracks.Clear();
             List<string> score=new List<string>();
             foreach (var track in midi.GetTrackChunks())
             {

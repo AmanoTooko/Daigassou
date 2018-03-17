@@ -13,19 +13,21 @@ using GlobalHotKey;
 
 namespace Daigassou
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private MidiToKey mtk= new MidiToKey();
         private List<string> _tmpScore;
         private readonly HotKeyManager hotKeyManager = new HotKeyManager();
         private HotKey _hotKeyF10;
         private HotKey _hotKeyF12;
-        private Task _t;
-        readonly CancellationTokenSource cts = new CancellationTokenSource();
-        public Form1()
+
+        private CancellationTokenSource cts = new CancellationTokenSource();
+        private KeyBindForm keyForm=new  KeyBindForm();
+        private bool runningFlag = false;
+        public MainForm()
         {
             InitializeComponent();
-
+            KeyBinding.LoadConfig();
         }
 
 
@@ -33,17 +35,29 @@ namespace Daigassou
 
         private void HotKeyManagerPressed(object sender, KeyPressedEventArgs e)
         {
-            if (e.HotKey.Key == Key.F5&&(_t==null||_t.Status!=TaskStatus.Running))
+            
+            if (e.HotKey.Key == Key.F10&&runningFlag==false)
             {
-                _t = new Task(() => { KeyController.KeyPlayBack(mtk.ArrangeKeyPlays(mtk.Index), 1); },cts.Token);
-                _t.Start();
+                runningFlag = true;
+                cts=new CancellationTokenSource();
+                NewCancellableTask(cts.Token);
             }
-            if (e.HotKey.Key == Key.F11 &&_t!=null)
+            if (e.HotKey.Key == Key.F11&&runningFlag==true)
             {
+                runningFlag = false;
                 cts.Cancel();
             }
  
         }
+        private Task NewCancellableTask(CancellationToken token)
+        {
+            return Task.Run(() =>
+            {
+                Queue<KeyPlayList> keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
+                KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
+            });
+        }
+
         private void trackComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             noteTextBox.Text = _tmpScore[trackComboBox.SelectedIndex];
@@ -52,8 +66,8 @@ namespace Daigassou
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            _hotKeyF10 = hotKeyManager.Register(Key.F10, System.Windows.Input.ModifierKeys.None);
-            _hotKeyF12 = hotKeyManager.Register(Key.F11, System.Windows.Input.ModifierKeys.None);
+            _hotKeyF10 = hotKeyManager.Register(Key.F10, System.Windows.Input.ModifierKeys.Control);
+            _hotKeyF12 = hotKeyManager.Register(Key.F11, System.Windows.Input.ModifierKeys.Control);
             hotKeyManager.KeyPressed += HotKeyManagerPressed;
         }
 
@@ -113,6 +127,11 @@ namespace Daigassou
             hotKeyManager.Unregister(_hotKeyF12);
             // Dispose the hotkey manager.
             hotKeyManager.Dispose();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            keyForm.Show();
         }
     }
 }

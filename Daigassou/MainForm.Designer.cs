@@ -1,6 +1,6 @@
 ﻿namespace Daigassou
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.RadioButton radioButton3;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.trackComboBox = new System.Windows.Forms.ComboBox();
             this.noteTextBox = new System.Windows.Forms.RichTextBox();
             this.midiGroupBox = new System.Windows.Forms.GroupBox();
@@ -325,6 +326,7 @@
             this.button4.TabIndex = 4;
             this.button4.Text = "还没有";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // label7
             // 
@@ -359,7 +361,7 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "演奏用的键位设置好了吗？";
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -370,9 +372,10 @@
             this.Controls.Add(this.midiGroupBox);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "大合奏！[喵？]";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);

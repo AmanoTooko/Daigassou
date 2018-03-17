@@ -32,13 +32,13 @@ namespace Daigassou
                 keybd_event(viKeys, (byte)MapVirtualKey((uint)viKeys, 0), 2, 0);
         }
 
-        public static void KeyPlayBack(Queue<KeyPlayList> keyQueue,int tick)
+        public static void KeyPlayBack(Queue<KeyPlayList> keyQueue,int tick, CancellationToken token)
         {
-            CancellationTokenSource cts = new CancellationTokenSource();
+           
             int startTime = Environment.TickCount;
             long targetTime = startTime;
             int duration = 0;
-                while (keyQueue.Any() == true && !cts.Token.IsCancellationRequested)
+                while (keyQueue.Any() == true && !token.IsCancellationRequested)
                 {
                     KeyPlayList nextKey = keyQueue.Dequeue();
                     duration=(int)(tick * nextKey.Tick);
