@@ -63,13 +63,13 @@ namespace Daigassou
     }
     public class KeyPlayList
     {
-        public KeyPlayList(Keys key,uint tick)
+        public KeyPlayList(Keys key,int tick)
         {
             Tick = tick;
             Key =key;
         }
 
-        public uint Tick;
+        public int Tick;
         public Keys Key;
     }
 }
