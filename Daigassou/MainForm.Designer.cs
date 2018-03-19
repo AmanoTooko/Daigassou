@@ -46,6 +46,7 @@
             this.midFileDiag = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.button5 = new System.Windows.Forms.Button();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -54,11 +55,14 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.midiGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // radioButton3
@@ -162,6 +166,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.numericUpDown2);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.SyncButton);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
@@ -171,7 +177,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.groupBox1.Location = new System.Drawing.Point(0, 313);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(354, 115);
+            this.groupBox1.Size = new System.Drawing.Size(354, 140);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "同步演奏";
@@ -182,7 +188,7 @@
             this.SyncButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SyncButton.Font = new System.Drawing.Font("微软雅黑", 10F);
             this.SyncButton.ForeColor = System.Drawing.Color.White;
-            this.SyncButton.Location = new System.Drawing.Point(246, 68);
+            this.SyncButton.Location = new System.Drawing.Point(261, 103);
             this.SyncButton.Name = "SyncButton";
             this.SyncButton.Size = new System.Drawing.Size(81, 29);
             this.SyncButton.TabIndex = 3;
@@ -195,7 +201,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label4.Location = new System.Drawing.Point(13, 74);
+            this.label4.Location = new System.Drawing.Point(14, 71);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 21);
             this.label4.TabIndex = 2;
@@ -228,8 +234,13 @@
             this.midFileDiag.FileName = "openFileDialog1";
             this.midFileDiag.Filter = "mid文件|*.mid";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.linkLabel1);
             this.groupBox2.Controls.Add(this.numericUpDown1);
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Controls.Add(radioButton3);
@@ -242,12 +253,24 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Font = new System.Drawing.Font("微软雅黑", 15.25F);
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.groupBox2.Location = new System.Drawing.Point(0, 428);
+            this.groupBox2.Location = new System.Drawing.Point(0, 453);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(354, 206);
+            this.groupBox2.Size = new System.Drawing.Size(354, 231);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "高级设置";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("微软雅黑", 9.25F);
+            this.linkLabel1.Location = new System.Drawing.Point(298, 173);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(56, 19);
+            this.linkLabel1.TabIndex = 10;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "About...";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // numericUpDown1
             // 
@@ -348,7 +371,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(177, 20);
             this.label5.TabIndex = 1;
-            this.label5.Text = "这里可以设置采集区的音调";
+            this.label5.Text = "这里设置是否将原曲升降调";
             // 
             // label6
             // 
@@ -361,12 +384,41 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "演奏用的键位设置好了吗？";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label8.Location = new System.Drawing.Point(14, 106);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(74, 21);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "网络延迟";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.numericUpDown2.Location = new System.Drawing.Point(102, 104);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(120, 29);
+            this.numericUpDown2.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(354, 631);
+            this.ClientSize = new System.Drawing.Size(354, 661);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.midiGroupBox);
@@ -386,6 +438,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -402,7 +455,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.OpenFileDialog midFileDiag;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button SyncButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -414,6 +466,10 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button button4;
+        public System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Label label8;
     }
 }
 

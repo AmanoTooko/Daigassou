@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using GlobalHotKey;
+
 
 namespace Daigassou
 {
@@ -118,7 +120,10 @@ namespace Daigassou
 
         private void SyncButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("我还没准备好啊-功能未实装");
+            timer1.Enabled = true;
+            TimeSpan interval = dateTimePicker1.Value - DateTime.Now;
+            timer1.Interval = ((int)interval.TotalMilliseconds + (int)numericUpDown2.Value)<=0?1000: ((int)interval.TotalMilliseconds + (int)numericUpDown2.Value);
+            timer1.Start();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -132,6 +137,19 @@ namespace Daigassou
         private void button4_Click(object sender, EventArgs e)
         {
             keyForm.Show();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            runningFlag = true;
+            cts = new CancellationTokenSource();
+            NewCancellableTask(cts.Token);
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new AboutForm().ShowDialog();
         }
     }
 }
