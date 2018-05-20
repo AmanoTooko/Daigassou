@@ -20,12 +20,12 @@ namespace Daigassou
 
         public static void KeyboardPress(Keys ctrKeys, Keys viKeys)
         {
-#if __DEBUG
-            Console.WriteLine($"{viKeys.ToString()} has been pressed at {Environment.TickCount}");
+#if DEBUG
+            Console.WriteLine($"{ctrKeys.ToString() + viKeys.ToString()} has been pressed at {Environment.TickCount}");
 #endif
             keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 0, 0);
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
-            Thread.Sleep(3);
+            Thread.Sleep(55);
             keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 2, 0);
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 2, 0);
         }

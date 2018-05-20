@@ -11,7 +11,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using GlobalHotKey;
-
+using Midi.Devices;
+using Midi.Enums;
+using Midi.Instruments;
+using Midi.Messages;
 
 namespace Daigassou
 {
@@ -24,14 +27,35 @@ namespace Daigassou
         private HotKey _hotKeyF12;
 
         private CancellationTokenSource cts = new CancellationTokenSource();
-        private KeyBindFormOld _keyFormOld=new  KeyBindFormOld();
+        private KeyBindForm keyForm=new KeyBindForm();
         private bool runningFlag = false;
+        private IInputDevice midiKeyboard;
         public MainForm()
         {
             InitializeComponent();
             KeyBinding.LoadConfig();
+            DeviceManager.UpdateInputDevices();
+            if (DeviceManager.InputDevices.Count == 1)
+            {
+                
+                midiKeyboard= DeviceManager.InputDevices.First();
+                midiKeyboard.Open();
+                midiKeyboard.StartReceiving(null);
+                midiKeyboard.NoteOn += NoteOn;
+            }
+            
         }
+        public void NoteOn(NoteOnMessage msg)
+        {
+            lock (this)
+            {
+                if (Convert.ToInt32(msg.Pitch)<=82&&Convert.ToInt32(msg.Pitch)>=48)
+                {
+                    KeyController.KeyboardPress(KeyBinding.GetNoteToCtrlKey(Convert.ToInt32(msg.Pitch)), KeyBinding.GetNoteToKey(Convert.ToInt32(msg.Pitch)));
 
+                }
+            }
+        }
 
 
 
@@ -132,11 +156,14 @@ namespace Daigassou
             hotKeyManager.Unregister(_hotKeyF12);
             // Dispose the hotkey manager.
             hotKeyManager.Dispose();
+            midiKeyboard.StopReceiving();
+            midiKeyboard.Close();
+            midiKeyboard.RemoveAllEventHandlers();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            _keyFormOld.Show();
+            keyForm.Show();
         }
 
         private void timer1_Tick(object sender, EventArgs e)

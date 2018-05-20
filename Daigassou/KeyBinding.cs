@@ -41,7 +41,7 @@ namespace Daigassou
             {69, Keys.Y},
             {70, Keys.D7},
             {71, Keys.U},
-            {72, Keys.Q},
+            {72, Keys.I},
             {73, Keys.D2},
             {74, Keys.W},
             {75, Keys.D3},
@@ -59,7 +59,7 @@ namespace Daigassou
         private static Dictionary<string, Keys> CtrKeyMap = new Dictionary<string, Keys>
         {
             {"OctaveLower", Keys.Alt},
-            {"OctaveHigher", Keys.Control}
+            {"OctaveHigher", Keys.ControlKey}
         };
 
         public static Keys GetNoteToKey(int note)
@@ -77,8 +77,11 @@ namespace Daigassou
             {
                 return CtrKeyMap["OctaveHigher"];
             }
+            else
+            {
+                return Keys.None;
+            }
 
-            return Keys.None;
         }
         public static void SetKeyToNote_OLD(int note, Keys key)
         {
@@ -113,7 +116,7 @@ namespace Daigassou
             {
                 CtrKeyMap["OctaveHigher"]=key;
             }
-            SaveConfig();
+            //SaveConfig();
         }
 
         public static void SaveConfig()
@@ -137,19 +140,19 @@ namespace Daigassou
         public static void LoadConfig()
         {
             var settingArrayList = Properties.Settings.Default.KeyBinding;
-            var settingKeyArrayList = Properties.Settings.Default.CtrlKeyBinding;
+           // var settingKeyArrayList = Properties.Settings.Default.CtrlKeyBinding;
             if (settingArrayList != null)
             {
                 for (int i = 0; i < settingArrayList.Count; i++)
                 {
-                    keymap[i + 48] = (Keys) settingArrayList[i];
+                    keymap[i + 60] = (Keys) settingArrayList[i];
                 }
             }
-            if (settingKeyArrayList != null)
-            {
-                CtrKeyMap["OctaveLower"]= (Keys)settingKeyArrayList[0];
-                CtrKeyMap["OctaveHigher"] = (Keys)settingKeyArrayList[1];
-            }
+          //  if (settingKeyArrayList != null)
+           // {
+           //     CtrKeyMap["OctaveLower"]= (Keys)settingKeyArrayList[0];
+           //     CtrKeyMap["OctaveHigher"] = (Keys)settingKeyArrayList[1];
+          //  }
         }
     }
 }

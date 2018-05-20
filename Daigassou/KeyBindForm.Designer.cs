@@ -239,6 +239,7 @@
             this.comboBoxLow.Size = new System.Drawing.Size(111, 28);
             this.comboBoxLow.TabIndex = 14;
             this.comboBoxLow.Text = "Alt";
+            this.comboBoxLow.SelectedIndexChanged += new System.EventHandler(this.comboBoxLow_SelectedIndexChanged);
             // 
             // button1
             // 

@@ -41,16 +41,19 @@ namespace Daigassou
             TextBox tmpBox = (TextBox) sender;
             if (tmpBox == null) throw new ArgumentNullException(nameof(tmpBox));
             tmpBox.Text = e.KeyCode.ToString();
-            KeyBinding.SetKeyToNote(Array.IndexOf(keyBoxs, tmpBox) + 48, e.KeyCode);
+            KeyBinding.SetKeyToNote(Array.IndexOf(keyBoxs, tmpBox) + 60, e.KeyCode);
         }
 
         private void KeyBindForm_Load(object sender, EventArgs e)
         {
             KeyBinding.LoadConfig();
-            for (int i = 0; i < 13; i++)
+            for (int i = 0; i < 12; i++)
             {
-                keyBoxs[i].Text = KeyBinding.GetNoteToKey(i + 48).ToString();
+                keyBoxs[i].Text = KeyBinding.GetNoteToKey(i + 60).ToString();
             }
+            keyBoxs[12].Text = KeyBinding.GetNoteToKey(84).ToString();
+            
+            
         }
 
         private void KeyBindForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -66,7 +69,60 @@ namespace Daigassou
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string tmpSelection = comboBoxLow.SelectedItem.ToString();
 
+
+            switch (comboBox1.SelectedItem.ToString())
+            {
+                case "Ctrl":
+                    KeyBinding.SetCtrlKeyToNote(72, Keys.ControlKey);
+                    break;
+                case "Alt":
+                    KeyBinding.SetCtrlKeyToNote(72, Keys.Alt);
+                    break;
+                case "Shift":
+                    KeyBinding.SetCtrlKeyToNote(72, Keys.ShiftKey);
+                    break;
+                default:
+                    break;
+            }
+            List<String> tmpDataSource = new List<string> { "Ctrl", "Alt", "Shift" };
+
+            tmpDataSource.Remove(comboBox1.SelectedItem.ToString());
+            comboBoxLow.SelectedIndexChanged -= comboBoxLow_SelectedIndexChanged;
+            comboBoxLow.DataSource = tmpDataSource;
+            comboBoxLow.SelectedItem = tmpSelection;
+            comboBoxLow.SelectedIndexChanged += comboBoxLow_SelectedIndexChanged;
+
+
+
+
+        }
+
+        private void comboBoxLow_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string tmpSelection = comboBox1.SelectedItem.ToString();
+            switch (comboBoxLow.SelectedItem.ToString())
+            {
+                case "Ctrl":
+                    KeyBinding.SetCtrlKeyToNote(59, Keys.ControlKey);
+                    break;
+                case "Alt":
+                    KeyBinding.SetCtrlKeyToNote(59, Keys.Alt);
+                    break;
+                case "Shift":
+                    KeyBinding.SetCtrlKeyToNote(59, Keys.ShiftKey);
+                    break;
+                default:
+                    break;
+            }
+            List<String> tmpDataSource = new List<string> { "Ctrl", "Alt", "Shift" };
+
+            tmpDataSource.Remove(comboBoxLow.SelectedItem.ToString());
+            comboBox1.SelectedIndexChanged -= comboBox1_SelectedIndexChanged;
+            comboBox1.DataSource = tmpDataSource;
+            comboBox1.SelectedItem = tmpSelection;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
         }
     }
 }
