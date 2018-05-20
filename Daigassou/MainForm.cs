@@ -24,7 +24,7 @@ namespace Daigassou
         private HotKey _hotKeyF12;
 
         private CancellationTokenSource cts = new CancellationTokenSource();
-        private KeyBindForm keyForm=new  KeyBindForm();
+        private KeyBindFormOld _keyFormOld=new  KeyBindFormOld();
         private bool runningFlag = false;
         public MainForm()
         {
@@ -136,7 +136,7 @@ namespace Daigassou
 
         private void button4_Click(object sender, EventArgs e)
         {
-            keyForm.Show();
+            _keyFormOld.Show();
         }
 
         private void timer1_Tick(object sender, EventArgs e)

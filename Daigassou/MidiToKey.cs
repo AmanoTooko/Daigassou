@@ -12,13 +12,14 @@ using Melanchall.DryWetMidi.Smf.Interaction;
 
 namespace Daigassou
 {
-    enum EnumPitchOffset:int
+    internal enum EnumPitchOffset
     {
-        OctaveLower=-12,
-        None=0,
-        OctaveHigher=+12
+        OctaveLower = -12,
+        None = 0,
+        OctaveHigher = +12
     }
-    class MidiToKey
+
+    internal class MidiToKey
     {
         private MidiFile midi;
         private List<NotesManager> tracks;
@@ -26,31 +27,32 @@ namespace Daigassou
         public EnumPitchOffset Offset { get; set; }
         public int Bpm { get; set; }
         public int Index = 0;
+
         public MidiToKey()
         {
-            tracks=new  List<NotesManager>();
+            tracks = new List<NotesManager>();
             Bpm = 80;
             Offset = EnumPitchOffset.None;
         }
+
         public void OpenFile(string path)
         {
-           midi=MidiFile.Read(path);
+            midi = MidiFile.Read(path);
             Tmap = midi.GetTempoMap();
         }
+
         /// <summary>
-        /// Get a String list of Note name from noteManager
+        ///     Get a String list of Note name from noteManager
         /// </summary>
         /// <returns></returns>
-        public List<string> getTrackManagers() 
+        public List<string> getTrackManagers()
         {
             tracks.Clear();
-            List<string> score=new List<string>();
+            List<string> score = new List<string>();
             foreach (var track in midi.GetTrackChunks())
             {
                 tracks.Add(track.ManageNotes());
-  
             }
-
 
 
             foreach (var noteManager in tracks)
@@ -60,8 +62,8 @@ namespace Daigassou
                 {
                     track.Append(note.ToString() + " ");
                 }
+
                 score.Add(track.ToString());
-                
             }
 
             return score;
@@ -69,11 +71,10 @@ namespace Daigassou
 
         public int GetTimerTick()
         {
-          
             return 0;
         }
 
-        public  Queue<KeyPlayList> ArrangeKeyPlays(int index)
+        public Queue<KeyPlayList> ArrangeKeyPlays(int index)
         {
             try
             {
@@ -83,12 +84,14 @@ namespace Daigassou
                 foreach (var note in noteManager.Notes)
                 {
                     var timeInterval = note.Time - lastTime;
-                    var noteNumber = note.NoteNumber + (int)Offset;
+                    var noteNumber = note.NoteNumber + (int) Offset;
                     var tickCount = 0;
                     if (timeInterval == 0) continue;
                     if (noteNumber >= 84 || noteNumber <= 48) continue;
-                    tickCount = (int)((60000 / (float)Bpm) / Convert.ToDouble(midi.TimeDivision.ToString().TrimEnd(" ticks/qnote".ToCharArray())) * timeInterval);
-                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyBinding.GetNoteToKey(noteNumber), tickCount));
+                    tickCount = (int) ((60000 / (float) Bpm) /
+                                       Convert.ToDouble(midi.TimeDivision.ToString()
+                                           .TrimEnd(" ticks/qnote".ToCharArray())) * timeInterval);
+                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyBinding.GetNoteToCtrlKey(noteNumber),KeyBinding.GetNoteToKey(noteNumber), tickCount));
                     lastTime = note.Time;
                 }
 
@@ -99,9 +102,6 @@ namespace Daigassou
                 Console.WriteLine(e);
                 throw;
             }
-            
-
-           
         }
     }
 }

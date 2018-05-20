@@ -45,5 +45,16 @@ namespace Daigassou.Properties {
                 this["StartKey"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.ArrayList CtrlKeyBinding {
+            get {
+                return ((global::System.Collections.ArrayList)(this["CtrlKeyBinding"]));
+            }
+            set {
+                this["CtrlKeyBinding"] = value;
+            }
+        }
     }
 }

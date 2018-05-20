@@ -42,9 +42,9 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.label1.Location = new System.Drawing.Point(228, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 63);
+            this.label1.Size = new System.Drawing.Size(162, 63);
             this.label1.TabIndex = 1;
-            this.label1.Text = "大合奏！Ver 0.1.25\r\n\r\n         免责声明";
+            this.label1.Text = "大合奏！Ver 1.0.0.27\r\n\r\n         免责声明";
             // 
             // label2
             // 
@@ -61,11 +61,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(182, 211);
+            this.label3.Location = new System.Drawing.Point(182, 206);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(212, 51);
+            this.label3.Size = new System.Drawing.Size(212, 68);
             this.label3.TabIndex = 3;
-            this.label3.Text = "程序：不愿意透露姓名的猫@神意之地\r\n美工：不愿意透露姓名的肥@神意之地\r\n测试：不愿意透露姓名的龙@神意之地\r\n";
+            this.label3.Text = "程序：不愿意透露姓名的猫@神意之地\r\n美工：不愿意透露姓名的肥@神意之地\r\nBug反馈裙：720145203\r\n\r\n";
             // 
             // pictureBox1
             // 
