@@ -49,7 +49,7 @@ namespace Daigassou
         {
             lock (this)
             {
-                if (Convert.ToInt32(msg.Pitch)<=82&&Convert.ToInt32(msg.Pitch)>=48)
+                if (Convert.ToInt32(msg.Pitch)<=84&&Convert.ToInt32(msg.Pitch)>=48)
                 {
                     KeyController.KeyboardPress(KeyBinding.GetNoteToCtrlKey(Convert.ToInt32(msg.Pitch)), KeyBinding.GetNoteToKey(Convert.ToInt32(msg.Pitch)));
 
@@ -156,9 +156,13 @@ namespace Daigassou
             hotKeyManager.Unregister(_hotKeyF12);
             // Dispose the hotkey manager.
             hotKeyManager.Dispose();
-            midiKeyboard.StopReceiving();
-            midiKeyboard.Close();
-            midiKeyboard.RemoveAllEventHandlers();
+            if (midiKeyboard!=null)
+            {
+                midiKeyboard.StopReceiving();
+                midiKeyboard.Close();
+                midiKeyboard.RemoveAllEventHandlers();
+            }
+
         }
 
         private void button4_Click(object sender, EventArgs e)

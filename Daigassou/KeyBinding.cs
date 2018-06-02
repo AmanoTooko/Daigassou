@@ -58,7 +58,7 @@ namespace Daigassou
 
         private static Dictionary<string, Keys> CtrKeyMap = new Dictionary<string, Keys>
         {
-            {"OctaveLower", Keys.Alt},
+            {"OctaveLower", Keys.ShiftKey},
             {"OctaveHigher", Keys.ControlKey}
         };
 
@@ -140,12 +140,15 @@ namespace Daigassou
         public static void LoadConfig()
         {
             var settingArrayList = Properties.Settings.Default.KeyBinding;
+            //ArrayList clear = new ArrayList();
+            //Properties.Settings.Default.KeyBinding = clear;
+            //Properties.Settings.Default.Save();
            // var settingKeyArrayList = Properties.Settings.Default.CtrlKeyBinding;
             if (settingArrayList != null)
             {
                 for (int i = 0; i < settingArrayList.Count; i++)
                 {
-                    keymap[i + 60] = (Keys) settingArrayList[i];
+                    keymap[i + 48] = (Keys) settingArrayList[i];
                 }
             }
           //  if (settingKeyArrayList != null)
