@@ -35,13 +35,15 @@ namespace Daigassou
             InitializeComponent();
             KeyBinding.LoadConfig();
             DeviceManager.UpdateInputDevices();
-            if (DeviceManager.InputDevices.Count == 1)
+            if (DeviceManager.InputDevices.Count >= 1)
             {
-                
-                midiKeyboard= DeviceManager.InputDevices.First();
+               
+                midiKeyboard = DeviceManager.InputDevices.First();
                 midiKeyboard.Open();
                 midiKeyboard.StartReceiving(null);
                 midiKeyboard.NoteOn += NoteOn;
+                cbMidiKeyboard.Text = midiKeyboard.Name;
+
             }
             
         }

@@ -57,6 +57,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.cbMidiKeyboard = new System.Windows.Forms.ComboBox();
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.midiGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -284,7 +285,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.groupBox2.Location = new System.Drawing.Point(0, 453);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(354, 231);
+            this.groupBox2.Size = new System.Drawing.Size(354, 196);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "高级设置";
@@ -413,12 +414,23 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "演奏用的键位设置好了吗？";
             // 
+            // cbMidiKeyboard
+            // 
+            this.cbMidiKeyboard.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbMidiKeyboard.FormattingEnabled = true;
+            this.cbMidiKeyboard.Location = new System.Drawing.Point(18, 652);
+            this.cbMidiKeyboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cbMidiKeyboard.Name = "cbMidiKeyboard";
+            this.cbMidiKeyboard.Size = new System.Drawing.Size(188, 28);
+            this.cbMidiKeyboard.TabIndex = 8;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(354, 661);
+            this.ClientSize = new System.Drawing.Size(354, 683);
+            this.Controls.Add(this.cbMidiKeyboard);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.midiGroupBox);
@@ -470,6 +482,7 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cbMidiKeyboard;
     }
 }
 

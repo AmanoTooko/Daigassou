@@ -44,7 +44,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(162, 63);
             this.label1.TabIndex = 1;
-            this.label1.Text = "大合奏！Ver 1.0.0.27\r\n\r\n         免责声明";
+            this.label1.Text = "大合奏！Ver 1.1.0.54\r\n\r\n         免责声明";
             // 
             // label2
             // 

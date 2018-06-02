@@ -41,7 +41,7 @@ namespace Daigassou
             {69, Keys.Y},
             {70, Keys.D7},
             {71, Keys.U},
-            {72, Keys.I},
+            {72, Keys.Q},
             {73, Keys.D2},
             {74, Keys.W},
             {75, Keys.D3},
