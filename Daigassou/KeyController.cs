@@ -21,7 +21,7 @@ namespace Daigassou
         public static void KeyboardPress(Keys ctrKeys, Keys viKeys)
         {
 #if DEBUG
-            Console.WriteLine($"{ctrKeys.ToString() + viKeys.ToString()} has been pressed at {Environment.TickCount}");
+            Console.WriteLine($@"{ctrKeys.ToString() + viKeys.ToString()} has been pressed at {Environment.TickCount}");
 #endif
             keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 0, 0);
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
@@ -33,19 +33,17 @@ namespace Daigassou
         public static void KeyPlayBack(Queue<KeyPlayList> keyQueue, int tick, CancellationToken token)
         {
             var startTime = Environment.TickCount;
-            long targetTime = startTime;
-            var duration = 0;
             while (keyQueue.Any() && !token.IsCancellationRequested)
             {
                 var nextKey = keyQueue.Dequeue();
-                duration = tick * nextKey.Tick;
-                targetTime = startTime + duration;
+                var duration = tick * nextKey.Tick;
+                long targetTime = startTime + duration;
                 while (true)
                     if (targetTime <= Environment.TickCount)
                         break;
 
                 startTime = Environment.TickCount;
-                Console.WriteLine($" i called function at {startTime} with target time is {targetTime}");
+                Console.WriteLine($@" i called function at {startTime} with target time is {targetTime}");
                 KeyboardPress(nextKey.CtrKey,nextKey.Key);
             }
         }

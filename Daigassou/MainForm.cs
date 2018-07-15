@@ -108,7 +108,7 @@ namespace Daigassou
             }
 
             pathTextBox.Text = midFileDiag.FileName;
-            _tmpScore = mtk.getTrackManagers();//note tracks
+            _tmpScore = mtk.GetTrackManagers();//note tracks
             List<string> tmp = new List<string>();
             for (int i = 0; i < _tmpScore.Count; i++)
             {
@@ -150,6 +150,7 @@ namespace Daigassou
             TimeSpan interval = dateTimePicker1.Value - DateTime.Now;
             timer1.Interval = ((int)interval.TotalMilliseconds + (int)numericUpDown2.Value)<=0?1000: ((int)interval.TotalMilliseconds + (int)numericUpDown2.Value);
             timer1.Start();
+            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

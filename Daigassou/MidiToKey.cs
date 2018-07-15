@@ -45,7 +45,7 @@ namespace Daigassou
         ///     Get a String list of Note name from noteManager
         /// </summary>
         /// <returns></returns>
-        public List<string> getTrackManagers()
+        public List<string> GetTrackManagers()
         {
             tracks.Clear();
             List<string> score = new List<string>();

@@ -127,13 +127,13 @@ namespace Daigassou
                 keyArrayList.Add(key.Value);
             }
 
-            ArrayList CtrlKeyArrayList=new  ArrayList();
+            ArrayList ctrlKeyArrayList=new  ArrayList();
             foreach (var key in CtrKeyMap)
             {
-                CtrlKeyArrayList.Add(key.Value);
+                ctrlKeyArrayList.Add(key.Value);
             }
             Properties.Settings.Default.KeyBinding = keyArrayList;
-            Properties.Settings.Default.CtrlKeyBinding = CtrlKeyArrayList;
+            Properties.Settings.Default.CtrlKeyBinding = ctrlKeyArrayList;
             Properties.Settings.Default.Save();
         }
 
