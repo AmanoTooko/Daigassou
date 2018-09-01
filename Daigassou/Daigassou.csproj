@@ -171,7 +171,6 @@
     <Content Include="ico_128.ico" />
     <None Include="Resources\TIM图片20180319212757.png" />
     <None Include="Resources\keybindingBGimg.png" />
-    <Content Include="toDoList.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

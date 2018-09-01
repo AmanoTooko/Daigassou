@@ -1,2 +1,35 @@
-# Daigassou
-A simple software to simulate keyboard for game.
+# Daigassou-大合奏-
+A simple software to simulate keyboard for FFXIV.
+
+终于可以用中文写设计说明，爽爆。
+
+
+
+##### 这是什么？
+
+这是一款辅助工具，或者说是外挂，可以帮助你在最终幻想14中更好地享受演奏系统。
+
+他可以帮助你连接Midi键盘和游戏，也可以在没有键盘的时候代替你进行自动演奏。
+
+##### 主要功能
+
+- 导入，读取Midi文件，绑定按键后在游戏中模拟键盘输入
+- 可识别多个midi轨道，但只能选择一个
+- 可选择BPM，高低八度
+- 可选择演奏延迟，以方便进行多玩家合奏
+- 可连接Midi键盘
+
+##### To Do List V2.0 感情鸽手
+
+- [ ] Bug修正
+- [ ] 4.3更新的长按系统对应
+- [ ] 4.3更新的两种按键绑定模式的对应
+- [ ] Midi键盘连接的逻辑优化
+- [ ] 开始/停止快捷键绑定
+
+##### To Do List V3.0 音游计划
+
+- [ ] Midi作为谱面进行解析，浮动界面，下落式音游
+- [ ] Note分为 面条Note和普通Note以及控制Note（高低八度）
+- [ ] 追加AutoMode和AssistMode
+- [ ] 界面迁移至WPF
