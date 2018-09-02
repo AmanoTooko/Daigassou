@@ -125,6 +125,7 @@ namespace Daigassou
             hotKeyManager.Unregister(_hotKeyF12);
             // Dispose the hotkey manager.
             hotKeyManager.Dispose();
+            KeyboardUtilities.Disconnect();
 
         }
 

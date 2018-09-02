@@ -9,16 +9,11 @@ using Midi.Messages;
 
 namespace Daigassou.Input_Midi
 {
-    public class KeyboardUtilities
+    public static class KeyboardUtilities
     {
         private static IInputDevice midiKeyboard;
         private static object NoteOnlock=new object();
         private static object NoteOfflock = new object();
-        KeyboardUtilities()
-        {
-
-        }
-
         public static int Connect(int index)
         {
             midiKeyboard = DeviceManager.InputDevices[index];
@@ -71,13 +66,6 @@ namespace Daigassou.Input_Midi
             }
 
             return ret;
-        }
-        ~KeyboardUtilities()
-        {
-            if (midiKeyboard == null) return;
-            midiKeyboard.StopReceiving();
-            midiKeyboard.Close();
-            midiKeyboard.RemoveAllEventHandlers();
         }
 
         public static void NoteOn(NoteOnMessage msg)
