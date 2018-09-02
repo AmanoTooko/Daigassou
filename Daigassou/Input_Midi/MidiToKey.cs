@@ -51,6 +51,7 @@ namespace Daigassou
             List<string> score = new List<string>();
             foreach (var track in midi.GetTrackChunks())
             {
+                
                 tracks.Add(track.ManageNotes());
             }
 
@@ -79,10 +80,12 @@ namespace Daigassou
             try
             {
                 NotesManager noteManager = tracks[index];
+                
                 Queue<KeyPlayList> retKeyPlayLists = new Queue<KeyPlayList>();
                 long lastTime = -1;
                 foreach (var note in noteManager.Notes)
                 {
+                    
                     var timeInterval = note.Time - lastTime;
                     var noteNumber = note.NoteNumber + (int) Offset;
                     var tickCount = 0;

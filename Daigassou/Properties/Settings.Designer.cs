@@ -56,5 +56,28 @@ namespace Daigassou.Properties {
                 this["CtrlKeyBinding"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsEightKeyLayout {
+            get {
+                return ((bool)(this["IsEightKeyLayout"]));
+            }
+            set {
+                this["IsEightKeyLayout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.ArrayList KeyBinding22 {
+            get {
+                return ((global::System.Collections.ArrayList)(this["KeyBinding22"]));
+            }
+            set {
+                this["KeyBinding22"] = value;
+            }
+        }
     }
 }

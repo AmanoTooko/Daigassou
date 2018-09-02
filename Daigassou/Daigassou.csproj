@@ -52,7 +52,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>ico_128.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\ico_128.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -100,6 +100,7 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Input_Midi\KeyboardUtilities.cs" />
     <Compile Include="KeyBindForm old.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,9 +119,9 @@
     <Compile Include="KeyBindForm.Designer.cs">
       <DependentUpon>KeyBindForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="KeyBinding.cs" />
-    <Compile Include="KeyController.cs" />
-    <Compile Include="MidiToKey.cs" />
+    <Compile Include="Output_Key\KeyBinding.cs" />
+    <Compile Include="Output_Key\KeyController.cs" />
+    <Compile Include="Input_Midi\MidiToKey.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutForm.resx">
@@ -168,7 +169,7 @@
     <None Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="ico_128.ico" />
+    <Content Include="Resources\ico_128.ico" />
     <None Include="Resources\TIM图片20180319212757.png" />
     <None Include="Resources\keybindingBGimg.png" />
   </ItemGroup>

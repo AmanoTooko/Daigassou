@@ -1,94 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting.Channels;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Daigassou.Input_Midi;
+using Daigassou.Properties;
 using GlobalHotKey;
 using Midi.Devices;
-using Midi.Enums;
-using Midi.Instruments;
 using Midi.Messages;
 
 namespace Daigassou
 {
     public partial class MainForm : Form
     {
-        private MidiToKey mtk= new MidiToKey();
-        private List<string> _tmpScore;
         private readonly HotKeyManager hotKeyManager = new HotKeyManager();
         private HotKey _hotKeyF10;
         private HotKey _hotKeyF12;
+        private bool _runningFlag;
+        private List<string> _tmpScore;
 
         private CancellationTokenSource cts = new CancellationTokenSource();
-        private KeyBindForm keyForm=new KeyBindForm();
-        private bool runningFlag = false;
-        private IInputDevice midiKeyboard;
+        private readonly KeyBindForm keyForm = new KeyBindForm();
+
+        private readonly MidiToKey mtk = new MidiToKey();
+
         public MainForm()
         {
             InitializeComponent();
             KeyBinding.LoadConfig();
-            DeviceManager.UpdateInputDevices();
-            if (DeviceManager.InputDevices.Count >= 1)
-            {
-               
-                midiKeyboard = DeviceManager.InputDevices.First();
-                midiKeyboard.Open();
-                midiKeyboard.StartReceiving(null);
-                midiKeyboard.NoteOn += NoteOn;
-                cbMidiKeyboard.Text = midiKeyboard.Name;
 
-            }
-            
-        }
-        public void NoteOn(NoteOnMessage msg)
-        {
-            lock (this)
-            {
-                if (Convert.ToInt32(msg.Pitch)<=84&&Convert.ToInt32(msg.Pitch)>=48)
-                {
-                    KeyController.KeyboardPress(KeyBinding.GetNoteToCtrlKey(Convert.ToInt32(msg.Pitch)), KeyBinding.GetNoteToKey(Convert.ToInt32(msg.Pitch)));
 
-                }
-            }
+
+            cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
         }
 
 
 
         private void HotKeyManagerPressed(object sender, KeyPressedEventArgs e)
         {
-            
-            if (e.HotKey.Key == Key.F10&&runningFlag==false)
+            switch (e.HotKey.Key)
             {
-                runningFlag = true;
-                cts=new CancellationTokenSource();
-                NewCancellableTask(cts.Token);
+                case Key.F10 when _runningFlag == false:
+                    _runningFlag = true;
+                    cts = new CancellationTokenSource();
+                    NewCancellableTask(cts.Token);
+                    break;
+                case Key.F11 when _runningFlag:
+                    _runningFlag = false;
+                    cts.Cancel();
+                    break;
             }
-            if (e.HotKey.Key == Key.F11&&runningFlag==true)
-            {
-                runningFlag = false;
-                cts.Cancel();
-            }
- 
         }
+
         private Task NewCancellableTask(CancellationToken token)
         {
             return Task.Run(() =>
             {
-                Queue<KeyPlayList> keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
+                var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
                 KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
-            });
+            }, token);
         }
 
         private void trackComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            noteTextBox.Text = _tmpScore[trackComboBox.SelectedIndex];
             mtk.Index = trackComboBox.SelectedIndex;
         }
 
@@ -101,28 +77,17 @@ namespace Daigassou
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
-            
-            if (midFileDiag.ShowDialog()==DialogResult.OK)
-            {
-                mtk.OpenFile(midFileDiag.FileName);
-            }
+            if (midFileDiag.ShowDialog() == DialogResult.OK) mtk.OpenFile(midFileDiag.FileName);
 
             pathTextBox.Text = midFileDiag.FileName;
-            _tmpScore = mtk.GetTrackManagers();//note tracks
-            List<string> tmp = new List<string>();
-            for (int i = 0; i < _tmpScore.Count; i++)
-            {
-                tmp.Add("track_" + i.ToString());
-            }
+            _tmpScore = mtk.GetTrackManagers(); //note tracks
+            var tmp = new List<string>();
+            for (var i = 0; i < _tmpScore.Count; i++) tmp.Add("track_" + i);
+
             trackComboBox.DataSource = tmp;
             trackComboBox.SelectedIndex = 0;
-
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("设好了瞎点什么，给我关了");
-        }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
@@ -141,16 +106,17 @@ namespace Daigassou
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            mtk.Bpm = (int)numericUpDown1.Value;
+            mtk.Bpm = (int) numericUpDown1.Value;
         }
 
         private void SyncButton_Click(object sender, EventArgs e)
         {
             timer1.Enabled = true;
-            TimeSpan interval = dateTimePicker1.Value - DateTime.Now;
-            timer1.Interval = ((int)interval.TotalMilliseconds + (int)numericUpDown2.Value)<=0?1000: ((int)interval.TotalMilliseconds + (int)numericUpDown2.Value);
+            var interval = dateTimePicker1.Value - DateTime.Now;
+            timer1.Interval = (int) interval.TotalMilliseconds + (int) numericUpDown2.Value <= 0
+                ? 1000
+                : (int) interval.TotalMilliseconds + (int) numericUpDown2.Value;
             timer1.Start();
-            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -159,12 +125,6 @@ namespace Daigassou
             hotKeyManager.Unregister(_hotKeyF12);
             // Dispose the hotkey manager.
             hotKeyManager.Dispose();
-            if (midiKeyboard!=null)
-            {
-                midiKeyboard.StopReceiving();
-                midiKeyboard.Close();
-                midiKeyboard.RemoveAllEventHandlers();
-            }
 
         }
 
@@ -176,7 +136,7 @@ namespace Daigassou
         private void timer1_Tick(object sender, EventArgs e)
         {
             timer1.Enabled = false;
-            runningFlag = true;
+            _runningFlag = true;
             cts = new CancellationTokenSource();
             NewCancellableTask(cts.Token);
         }
@@ -184,6 +144,42 @@ namespace Daigassou
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             new AboutForm().ShowDialog();
+        }
+
+        private void RBEightKey_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.IsEightKeyLayout = true;
+        }
+
+        private void RB22Key_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.IsEightKeyLayout = false;
+        }
+
+        private void btnKeyboardConnect_Click(object sender, EventArgs e)
+        {
+            if (cbMidiKeyboard.Enabled==true)
+            {
+                if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedIndex) == 0)
+                {
+                    cbMidiKeyboard.Enabled = false;
+                    btnKeyboardConnect.Text = "断开";
+                }
+            }
+            else
+            {
+                KeyboardUtilities.Disconnect();
+                cbMidiKeyboard.Enabled = true;
+                cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
+                btnKeyboardConnect.Text = "连接";
+            }
+            
+            
+        }
+
+        private void cbMidiKeyboard_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
         }
     }
 }

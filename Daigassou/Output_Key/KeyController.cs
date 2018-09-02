@@ -16,18 +16,43 @@ namespace Daigassou
         [DllImport("user32.dll")]
         private static extern uint MapVirtualKey(uint uCode, uint uMapType);
 
-        private Stopwatch sw = new Stopwatch();
-
+        private static Keys _lastCtrlKey;
         public static void KeyboardPress(Keys ctrKeys, Keys viKeys)
         {
 #if DEBUG
             Console.WriteLine($@"{ctrKeys.ToString() + viKeys.ToString()} has been pressed at {Environment.TickCount}");
 #endif
+            keybd_event(_lastCtrlKey, (byte)MapVirtualKey((uint)_lastCtrlKey, 0), 2, 0);
+            Thread.Sleep(1);
             keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 0, 0);
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
-            Thread.Sleep(55);
-            keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 2, 0);
-            keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 2, 0);
+            _lastCtrlKey = ctrKeys;
+            Thread.Sleep(10);
+
+        }
+
+        public static void KeyboardPress(Keys viKeys)
+        {
+
+            keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
+            Thread.Sleep(10);
+
+        }
+
+
+        public static void KeyboardRelease(Keys ctrKeys, Keys viKeys)
+        {
+
+            keybd_event(ctrKeys, (byte)MapVirtualKey((uint)ctrKeys, 0), 2, 0);
+            keybd_event(viKeys, (byte)MapVirtualKey((uint)viKeys, 0), 2, 0);
+
+        }
+
+
+        public static void KeyboardRelease(Keys viKeys)
+        {
+            keybd_event(viKeys, (byte)MapVirtualKey((uint)viKeys, 0), 2, 0);
+
         }
 
         public static void KeyPlayBack(Queue<KeyPlayList> keyQueue, int tick, CancellationToken token)
@@ -48,7 +73,7 @@ namespace Daigassou
             }
         }
     }
-
+     
     public class KeyPlayList
     {
         public KeyPlayList(Keys ctrKey,Keys key, int tick)
