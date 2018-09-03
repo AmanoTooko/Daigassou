@@ -15,7 +15,7 @@ namespace Daigassou
 {
     public static class KeyBinding
     {
-        private static Dictionary<int, Keys> keymap = new Dictionary<int, Keys>
+        private static Dictionary<int, Keys> _keymap = new Dictionary<int, Keys>
         {
             {48, Keys.Q},
             {49, Keys.D2},
@@ -56,7 +56,7 @@ namespace Daigassou
             {84, Keys.I}
         };
 
-        private static Dictionary<string, Keys> CtrKeyMap = new Dictionary<string, Keys>
+        private static Dictionary<string, Keys> _ctrKeyMap = new Dictionary<string, Keys>
         {
             {"OctaveLower", Keys.ShiftKey},
             {"OctaveHigher", Keys.ControlKey}
@@ -64,18 +64,18 @@ namespace Daigassou
 
         public static Keys GetNoteToKey(int note)
         {
-            return keymap[note];
+            return _keymap[note];
         }
 
         public static Keys GetNoteToCtrlKey(int note)
         {
             if (note < 60)
             {
-                return CtrKeyMap["OctaveLower"];
+                return _ctrKeyMap["OctaveLower"];
             }
              else if(note>71)
             {
-                return CtrKeyMap["OctaveHigher"];
+                return _ctrKeyMap["OctaveHigher"];
             }
             else
             {
@@ -83,24 +83,24 @@ namespace Daigassou
             }
 
         }
-        public static void SetKeyToNote_OLD(int note, Keys key)
+        public static void SetKeyToNote_22(int note, Keys key)
         {
-            keymap[note] = key;
+            _keymap[note] = key;
             SaveConfig();
         }
 
-        public static void SetKeyToNote(int note, Keys key)
+        public static void SetKeyToNote_8(int note, Keys key)
         {
             var offset = note % 48;
             if (note == 72)
             {
-                keymap[84] = key;
+                _keymap[84] = key;
             }
             else
             {
-                keymap[48 + offset] = key;
-                keymap[60 + offset] = key;
-                keymap[72 + offset] = key;
+                _keymap[48 + offset] = key;
+                _keymap[60 + offset] = key;
+                _keymap[72 + offset] = key;
             }
 
             SaveConfig();
@@ -110,52 +110,65 @@ namespace Daigassou
         {
             if (note < 60)
             {
-                 CtrKeyMap["OctaveLower"]=key;
+                 _ctrKeyMap["OctaveLower"]=key;
             }
             else if (note > 71)
             {
-                CtrKeyMap["OctaveHigher"]=key;
+                _ctrKeyMap["OctaveHigher"]=key;
             }
             //SaveConfig();
         }
 
         public static void SaveConfig()
         {
-            ArrayList keyArrayList = new ArrayList();
-            foreach (var key in keymap)
+            var keyArrayList = new ArrayList();
+            foreach (var key in _keymap)
             {
                 keyArrayList.Add(key.Value);
             }
 
-            ArrayList ctrlKeyArrayList=new  ArrayList();
-            foreach (var key in CtrKeyMap)
+            var ctrlKeyArrayList=new  ArrayList();
+            foreach (var key in _ctrKeyMap)
             {
                 ctrlKeyArrayList.Add(key.Value);
             }
-            Properties.Settings.Default.KeyBinding = keyArrayList;
-            Properties.Settings.Default.CtrlKeyBinding = ctrlKeyArrayList;
+
+            if (Properties.Settings.Default.IsEightKeyLayout == true)
+            {
+                Properties.Settings.Default.KeyBinding8 = keyArrayList;
+                Properties.Settings.Default.CtrlKeyBinding = ctrlKeyArrayList;
+            }
+            else
+            {
+                Properties.Settings.Default.KeyBinding22 = keyArrayList;
+            }
             Properties.Settings.Default.Save();
         }
 
         public static void LoadConfig()
         {
-            var settingArrayList = Properties.Settings.Default.KeyBinding;
+            var settingArrayList = Properties.Settings.Default.KeyBinding22;
+
+            if (Properties.Settings.Default.IsEightKeyLayout == true)
+            {
+                settingArrayList = Properties.Settings.Default.KeyBinding8;
+            }
+            
             //ArrayList clear = new ArrayList();
-            //Properties.Settings.Default.KeyBinding = clear;
+            //Properties.Settings.Default.KeyBinding8 = clear;
             //Properties.Settings.Default.Save();
-           // var settingKeyArrayList = Properties.Settings.Default.CtrlKeyBinding;
+            var settingKeyArrayList = Properties.Settings.Default.CtrlKeyBinding;
             if (settingArrayList != null)
             {
-                for (int i = 0; i < settingArrayList.Count; i++)
+                for (var i = 0; i < settingArrayList.Count; i++)
                 {
-                    keymap[i + 48] = (Keys) settingArrayList[i];
+                    _keymap[i + 48] = (Keys) settingArrayList[i];
                 }
             }
-          //  if (settingKeyArrayList != null)
-           // {
-           //     CtrKeyMap["OctaveLower"]= (Keys)settingKeyArrayList[0];
-           //     CtrKeyMap["OctaveHigher"] = (Keys)settingKeyArrayList[1];
-          //  }
+
+            if (settingKeyArrayList == null) return;
+            _ctrKeyMap["OctaveLower"]= (Keys)settingKeyArrayList[0];
+            _ctrKeyMap["OctaveHigher"] = (Keys)settingKeyArrayList[1];
         }
     }
 }

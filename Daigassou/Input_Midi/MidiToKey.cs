@@ -39,6 +39,7 @@ namespace Daigassou
         {
             midi = MidiFile.Read(path);
             Tmap = midi.GetTempoMap();
+
         }
 
         /// <summary>
@@ -79,23 +80,53 @@ namespace Daigassou
         {
             try
             {
-                NotesManager noteManager = tracks[index];
                 
+                var trunkEvents = midi.GetTrackChunks().ElementAt(index).Events;
                 Queue<KeyPlayList> retKeyPlayLists = new Queue<KeyPlayList>();
-                long lastTime = -1;
-                foreach (var note in noteManager.Notes)
+                long lastTime = 0;
+                var tickbase = (int) ((60000 / (float) Bpm) /
+                                   Convert.ToDouble(midi.TimeDivision.ToString()
+                                       .TrimEnd(" ticks/qnote".ToCharArray())) );
+                foreach (var ev in trunkEvents)
                 {
-                    
-                    var timeInterval = note.Time - lastTime;
-                    var noteNumber = note.NoteNumber + (int) Offset;
-                    var tickCount = 0;
-                    if (timeInterval == 0) continue;
-                    if (noteNumber >= 84 || noteNumber <= 48) continue;
-                    tickCount = (int) ((60000 / (float) Bpm) /
-                                       Convert.ToDouble(midi.TimeDivision.ToString()
-                                           .TrimEnd(" ticks/qnote".ToCharArray())) * timeInterval);
-                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyBinding.GetNoteToCtrlKey(noteNumber),KeyBinding.GetNoteToKey(noteNumber), tickCount));
-                    lastTime = note.Time;
+                   
+                    switch (ev)
+                    {
+                        case NoteOnEvent _:
+                        {
+                            
+                            var @event = ev as NoteOnEvent;
+                            if (@event != null && @event.DeltaTime==0)
+                            {
+                                continue;
+                            }
+                            if (@event.NoteNumber >= 84 || @event.NoteNumber <= 48)
+                            {
+                                continue;
+                            }
+                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn, @event.NoteNumber, tickbase*@event.DeltaTime));
+
+
+
+
+                            }
+                            break;
+                        case NoteOffEvent _:
+                        {
+                            var @event = ev as NoteOffEvent;
+                            if (@event != null && @event.DeltaTime == 0)
+                            {
+                                continue;
+                            }
+                                if (@event.NoteNumber >= 84 || @event.NoteNumber <= 48)
+                            {
+                                continue;
+                            }
+                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff, @event.NoteNumber, tickbase * @event.DeltaTime));
+                            }
+                            break;
+                    }
+                   
                 }
 
                 return retKeyPlayLists;

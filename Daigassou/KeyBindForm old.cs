@@ -66,7 +66,7 @@ namespace Daigassou
             TextBox tmpBox = (TextBox) sender;
             if (tmpBox == null) throw new ArgumentNullException(nameof(tmpBox));
             tmpBox.Text = e.KeyCode.ToString();
-            KeyBinding.SetKeyToNote(Array.IndexOf(keyBoxs,tmpBox)+48,e.KeyCode);
+            KeyBinding.SetKeyToNote_8(Array.IndexOf(keyBoxs,tmpBox)+48,e.KeyCode);
         }
 
         private void KeyBindForm_Load(object sender, EventArgs e)

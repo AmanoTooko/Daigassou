@@ -25,12 +25,12 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.ArrayList KeyBinding {
+        public global::System.Collections.ArrayList KeyBinding8 {
             get {
-                return ((global::System.Collections.ArrayList)(this["KeyBinding"]));
+                return ((global::System.Collections.ArrayList)(this["KeyBinding8"]));
             }
             set {
-                this["KeyBinding"] = value;
+                this["KeyBinding8"] = value;
             }
         }
         
@@ -48,12 +48,12 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.ArrayList CtrlKeyBinding {
+        public global::System.Collections.ArrayList CtrlKeyBinding8 {
             get {
-                return ((global::System.Collections.ArrayList)(this["CtrlKeyBinding"]));
+                return ((global::System.Collections.ArrayList)(this["CtrlKeyBinding8"]));
             }
             set {
-                this["CtrlKeyBinding"] = value;
+                this["CtrlKeyBinding8"] = value;
             }
         }
         
@@ -71,12 +71,12 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.ArrayList KeyBinding22 {
+        public global::System.Collections.ArrayList KeyBinding822 {
             get {
-                return ((global::System.Collections.ArrayList)(this["KeyBinding22"]));
+                return ((global::System.Collections.ArrayList)(this["KeyBinding822"]));
             }
             set {
-                this["KeyBinding22"] = value;
+                this["KeyBinding822"] = value;
             }
         }
     }

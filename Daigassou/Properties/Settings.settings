@@ -2,19 +2,19 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Daigassou.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="KeyBinding" Type="System.Collections.ArrayList" Scope="User">
+    <Setting Name="KeyBinding8" Type="System.Collections.ArrayList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="StartKey" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="CtrlKeyBinding" Type="System.Collections.ArrayList" Scope="User">
+    <Setting Name="CtrlKeyBinding8" Type="System.Collections.ArrayList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="IsEightKeyLayout" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="KeyBinding22" Type="System.Collections.ArrayList" Scope="User">
+    <Setting Name="KeyBinding822" Type="System.Collections.ArrayList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

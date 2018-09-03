@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using Melanchall.DryWetMidi.Smf;
 
 namespace Daigassou
 {
@@ -17,6 +18,21 @@ namespace Daigassou
         private static extern uint MapVirtualKey(uint uCode, uint uMapType);
 
         private static Keys _lastCtrlKey;
+
+        public static void KeyboardPress(int pitch)
+        {
+            if (Properties.Settings.Default.IsEightKeyLayout==true)
+            {
+                KeyboardPress(KeyBinding.GetNoteToCtrlKey(pitch),KeyBinding.GetNoteToKey(pitch));
+                return;
+            }
+            else
+            {
+                KeyboardPress(KeyBinding.GetNoteToKey(pitch));
+            }
+
+        }
+
         public static void KeyboardPress(Keys ctrKeys, Keys viKeys)
         {
 #if DEBUG
@@ -31,7 +47,7 @@ namespace Daigassou
 
         }
 
-        public static void KeyboardPress(Keys viKeys)
+        private static void KeyboardPress(Keys viKeys)
         {
 
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
@@ -40,6 +56,18 @@ namespace Daigassou
         }
 
 
+        public static void KeyboardRelease(int pitch)
+        {
+            if (Properties.Settings.Default.IsEightKeyLayout == true)
+            {
+                KeyboardRelease(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
+                return;
+            }
+            else
+            {
+                KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
+            }
+        }
         public static void KeyboardRelease(Keys ctrKeys, Keys viKeys)
         {
 
@@ -68,23 +96,41 @@ namespace Daigassou
                         break;
 
                 startTime = Environment.TickCount;
+                
+                if (nextKey.Ev==KeyPlayList.NoteEvent.NoteOn)
+                {
+                    KeyboardPress(nextKey.Pitch);
+                }
+                else
+                {
+                    KeyboardRelease(nextKey.Pitch);
+                }
+
+#if _log
                 Console.WriteLine($@" i called function at {startTime} with target time is {targetTime}");
-                KeyboardPress(nextKey.CtrKey,nextKey.Key);
+#endif
             }
         }
     }
      
     public class KeyPlayList
     {
-        public KeyPlayList(Keys ctrKey,Keys key, int tick)
+        public KeyPlayList(NoteEvent ev, int pitch, long tick)
         {
             Tick = tick;
-            Key = key;
-            CtrKey = ctrKey;
+            Ev = ev;
+            Pitch = pitch;
         }
 
-        public int Tick;
-        public Keys Key;
-        public Keys CtrKey;
+
+        public enum  NoteEvent:int
+        {
+            NoteOff,
+            NoteOn
+        }
+
+        public NoteEvent Ev;
+        public long Tick;
+        public int Pitch;
     }
 }
