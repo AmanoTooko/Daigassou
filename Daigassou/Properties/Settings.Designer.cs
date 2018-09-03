@@ -48,12 +48,12 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.ArrayList CtrlKeyBinding8 {
+        public global::System.Collections.ArrayList CtrlKeyBinding {
             get {
-                return ((global::System.Collections.ArrayList)(this["CtrlKeyBinding8"]));
+                return ((global::System.Collections.ArrayList)(this["CtrlKeyBinding"]));
             }
             set {
-                this["CtrlKeyBinding8"] = value;
+                this["CtrlKeyBinding"] = value;
             }
         }
         
@@ -71,12 +71,12 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.ArrayList KeyBinding822 {
+        public global::System.Collections.ArrayList KeyBinding22 {
             get {
-                return ((global::System.Collections.ArrayList)(this["KeyBinding822"]));
+                return ((global::System.Collections.ArrayList)(this["KeyBinding22"]));
             }
             set {
-                this["KeyBinding822"] = value;
+                this["KeyBinding22"] = value;
             }
         }
     }
