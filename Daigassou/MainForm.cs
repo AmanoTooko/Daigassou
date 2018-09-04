@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -8,37 +7,53 @@ using System.Windows.Input;
 using Daigassou.Input_Midi;
 using Daigassou.Properties;
 using GlobalHotKey;
-using Midi.Devices;
-using Midi.Messages;
 
 namespace Daigassou
 {
     public partial class MainForm : Form
     {
         private readonly HotKeyManager hotKeyManager = new HotKeyManager();
+        private readonly KeyBindForm keyForm8 = new KeyBindForm();
+        private readonly KeyBindFormOld keyForm22 = new KeyBindFormOld();
+        private readonly MidiToKey mtk = new MidiToKey();
         private HotKey _hotKeyF10;
         private HotKey _hotKeyF12;
         private bool _runningFlag;
         private List<string> _tmpScore;
 
         private CancellationTokenSource cts = new CancellationTokenSource();
-        private readonly KeyBindForm keyForm = new KeyBindForm();
-
-        private readonly MidiToKey mtk = new MidiToKey();
 
         public MainForm()
         {
             InitializeComponent();
-            loadConfig();
+            formUpdate();
             KeyBinding.LoadConfig();
-
 
 
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
         }
 
+        private void formUpdate()
+        {
+            if (Settings.Default.IsEightKeyLayout)
+            {
+                btn8key.BackgroundImage = Resources.ka1;
+                btn22key.BackgroundImage = Resources.kb0;
+                btnSwitch.BackgroundImage = Resources.a0;
+                btn8key.Enabled = true;
+                btn22key.Enabled = false;
+            }
+            else
+            {
+                btn8key.BackgroundImage = Resources.ka0;
+                btn22key.BackgroundImage = Resources.kb1;
+                btnSwitch.BackgroundImage = Resources.a1;
+                btn8key.Enabled = false;
+                btn22key.Enabled = true;
+            }
+        }
 
-        
+
         private void HotKeyManagerPressed(object sender, KeyPressedEventArgs e)
         {
             switch (e.HotKey.Key)
@@ -127,12 +142,11 @@ namespace Daigassou
             // Dispose the hotkey manager.
             hotKeyManager.Dispose();
             KeyboardUtilities.Disconnect();
-
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            keyForm.Show();
+            keyForm8.ShowDialog();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -149,10 +163,9 @@ namespace Daigassou
         }
 
 
-
         private void btnKeyboardConnect_Click(object sender, EventArgs e)
         {
-            if (cbMidiKeyboard.Enabled==true)
+            if (cbMidiKeyboard.Enabled)
             {
                 if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedIndex) == 0)
                 {
@@ -167,8 +180,6 @@ namespace Daigassou
                 cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
                 btnKeyboardConnect.Text = "连接";
             }
-            
-            
         }
 
         private void cbMidiKeyboard_SelectedIndexChanged(object sender, EventArgs e)
@@ -178,11 +189,18 @@ namespace Daigassou
 
         private void btnSwitch_Click(object sender, EventArgs e)
         {
-            if (true)
-            {
-                
-                
-            }
+            if (Settings.Default.IsEightKeyLayout)
+                Settings.Default.IsEightKeyLayout = false;
+            else
+                Settings.Default.IsEightKeyLayout = true;
+
+            Settings.Default.Save();
+            formUpdate();
+        }
+
+        private void btn22key_Click(object sender, EventArgs e)
+        {
+            keyForm22.ShowDialog();
         }
     }
 }

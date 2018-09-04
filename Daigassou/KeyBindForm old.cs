@@ -23,7 +23,7 @@ namespace Daigassou
 
         private void InitForm()
         {
-            string[] namePrefix = new[] { "低音", "普通", "高音" };
+          
             for (int i = 0; i < NUMBER_OF_KEY; i++)
             {
                 Label tmpLabel = new Label
@@ -45,18 +45,6 @@ namespace Daigassou
             }
 
 
-            for (int i = 0; i < 12; i++)
-            {
-                for (int j =0; j <3; j++)
-                {
-                    noteLabels[i+j*12].Text = namePrefix[j] + (i+1).ToString("D2");
-                    this.flowLayoutPanel1.Controls.Add(noteLabels[i+j*12]);//0 3 6 9..
-                    this.flowLayoutPanel1.Controls.Add(keyBoxs[i +  j*12]);
-                }
-            }
-            noteLabels[NUMBER_OF_KEY-1].Text ="最高01";
-            flowLayoutPanel1.Controls.Add(noteLabels[NUMBER_OF_KEY-1]);
-            flowLayoutPanel1.Controls.Add(keyBoxs[NUMBER_OF_KEY - 1]);
         }
 
 
@@ -83,6 +71,13 @@ namespace Daigassou
         {
             e.Cancel = true;
             Hide();
+        }
+
+
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

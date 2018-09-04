@@ -83,7 +83,7 @@ namespace Daigassou
                 
                 var trunkEvents = midi.GetTrackChunks().ElementAt(index).Events;
                 Queue<KeyPlayList> retKeyPlayLists = new Queue<KeyPlayList>();
-                var tickbase = (int) ((60000 / (float) Bpm) /
+                var tickbase = ((60000 / (float) Bpm) /
                                    Convert.ToDouble(midi.TimeDivision.ToString()
                                        .TrimEnd(" ticks/qnote".ToCharArray())) );
                 foreach (var ev in trunkEvents)
@@ -103,7 +103,7 @@ namespace Daigassou
                             {
                                 continue;
                             }
-                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn, (int) (@event.NoteNumber+ Offset), tickbase*@event.DeltaTime));
+                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn, (int) (@event.NoteNumber+ Offset), (int)(tickbase*@event.DeltaTime)));
 
 
 
@@ -121,7 +121,7 @@ namespace Daigassou
                             {
                                 continue;
                             }
-                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff, (int) (@event.NoteNumber+ Offset), tickbase * @event.DeltaTime));
+                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff, (int) (@event.NoteNumber+ Offset), (int)(tickbase * @event.DeltaTime)));
                             }
                             break;
                     }

@@ -166,6 +166,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\key22%282%29.png" />
+    <None Include="Resources\key22.png" />
     <None Include="Resources\s2.png" />
     <None Include="Resources\s1.png" />
     <None Include="Resources\kb1.png" />

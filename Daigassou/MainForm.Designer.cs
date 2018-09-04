@@ -55,12 +55,12 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.cbMidiKeyboard = new System.Windows.Forms.ComboBox();
             this.gBKeySetting = new System.Windows.Forms.GroupBox();
+            this.btnSwitch = new System.Windows.Forms.Button();
             this.btn22key = new System.Windows.Forms.Button();
             this.btn8key = new System.Windows.Forms.Button();
             this.gBKeyboardSetting = new System.Windows.Forms.GroupBox();
             this.btnKeyboardConnect = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.btnSwitch = new System.Windows.Forms.Button();
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.gBMidiFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -390,6 +390,21 @@
             this.gBKeySetting.TabStop = false;
             this.gBKeySetting.Text = "游戏键位设置";
             // 
+            // btnSwitch
+            // 
+            this.btnSwitch.BackColor = System.Drawing.Color.Transparent;
+            this.btnSwitch.BackgroundImage = global::Daigassou.Properties.Resources.a0;
+            this.btnSwitch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSwitch.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.btnSwitch.ForeColor = System.Drawing.Color.White;
+            this.btnSwitch.Location = new System.Drawing.Point(126, 28);
+            this.btnSwitch.Name = "btnSwitch";
+            this.btnSwitch.Size = new System.Drawing.Size(95, 36);
+            this.btnSwitch.TabIndex = 6;
+            this.btnSwitch.UseVisualStyleBackColor = false;
+            this.btnSwitch.Click += new System.EventHandler(this.btnSwitch_Click);
+            // 
             // btn22key
             // 
             this.btn22key.BackColor = System.Drawing.Color.Transparent;
@@ -403,6 +418,7 @@
             this.btn22key.Size = new System.Drawing.Size(95, 36);
             this.btn22key.TabIndex = 5;
             this.btn22key.UseVisualStyleBackColor = false;
+            this.btn22key.Click += new System.EventHandler(this.btn22key_Click);
             // 
             // btn8key
             // 
@@ -459,21 +475,6 @@
             this.label9.Size = new System.Drawing.Size(65, 20);
             this.label9.TabIndex = 0;
             this.label9.Text = "键盘选择";
-            // 
-            // btnSwitch
-            // 
-            this.btnSwitch.BackColor = System.Drawing.Color.Transparent;
-            this.btnSwitch.BackgroundImage = global::Daigassou.Properties.Resources.a0;
-            this.btnSwitch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSwitch.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.btnSwitch.ForeColor = System.Drawing.Color.White;
-            this.btnSwitch.Location = new System.Drawing.Point(126, 28);
-            this.btnSwitch.Name = "btnSwitch";
-            this.btnSwitch.Size = new System.Drawing.Size(95, 36);
-            this.btnSwitch.TabIndex = 6;
-            this.btnSwitch.UseVisualStyleBackColor = false;
-            this.btnSwitch.Click += new System.EventHandler(this.btnSwitch_Click);
             // 
             // MainForm
             // 

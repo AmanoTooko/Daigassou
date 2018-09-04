@@ -91,7 +91,7 @@ namespace Daigassou
 
         public static void SetKeyToNote_8(int note, Keys key)
         {
-            var offset = note % 48;
+            var offset = note % 12;
             if (note == 72)
             {
                 _keymap[84] = key;
