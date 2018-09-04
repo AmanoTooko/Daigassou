@@ -12,7 +12,7 @@ using Melanchall.DryWetMidi.Smf.Interaction;
 
 namespace Daigassou
 {
-    internal enum EnumPitchOffset
+    internal enum EnumPitchOffset:int
     {
         OctaveLower = -12,
         None = 0,
@@ -27,7 +27,7 @@ namespace Daigassou
         public EnumPitchOffset Offset { get; set; }
         public int Bpm { get; set; }
         public int Index = 0;
-
+        
         public MidiToKey()
         {
             tracks = new List<NotesManager>();
@@ -83,7 +83,6 @@ namespace Daigassou
                 
                 var trunkEvents = midi.GetTrackChunks().ElementAt(index).Events;
                 Queue<KeyPlayList> retKeyPlayLists = new Queue<KeyPlayList>();
-                long lastTime = 0;
                 var tickbase = (int) ((60000 / (float) Bpm) /
                                    Convert.ToDouble(midi.TimeDivision.ToString()
                                        .TrimEnd(" ticks/qnote".ToCharArray())) );
@@ -104,7 +103,7 @@ namespace Daigassou
                             {
                                 continue;
                             }
-                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn, @event.NoteNumber, tickbase*@event.DeltaTime));
+                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn, (int) (@event.NoteNumber+ Offset), tickbase*@event.DeltaTime));
 
 
 
@@ -122,7 +121,7 @@ namespace Daigassou
                             {
                                 continue;
                             }
-                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff, @event.NoteNumber, tickbase * @event.DeltaTime));
+                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff, (int) (@event.NoteNumber+ Offset), tickbase * @event.DeltaTime));
                             }
                             break;
                     }

@@ -29,6 +29,7 @@ namespace Daigassou
         public MainForm()
         {
             InitializeComponent();
+            loadConfig();
             KeyBinding.LoadConfig();
 
 
@@ -37,7 +38,7 @@ namespace Daigassou
         }
 
 
-
+        
         private void HotKeyManagerPressed(object sender, KeyPressedEventArgs e)
         {
             switch (e.HotKey.Key)
@@ -147,15 +148,7 @@ namespace Daigassou
             new AboutForm().ShowDialog();
         }
 
-        private void RBEightKey_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.IsEightKeyLayout = true;
-        }
 
-        private void RB22Key_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.IsEightKeyLayout = false;
-        }
 
         private void btnKeyboardConnect_Click(object sender, EventArgs e)
         {
@@ -181,6 +174,15 @@ namespace Daigassou
         private void cbMidiKeyboard_SelectedIndexChanged(object sender, EventArgs e)
         {
             //cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
+        }
+
+        private void btnSwitch_Click(object sender, EventArgs e)
+        {
+            if (true)
+            {
+                
+                
+            }
         }
     }
 }

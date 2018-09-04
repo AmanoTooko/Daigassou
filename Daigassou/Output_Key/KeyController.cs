@@ -41,6 +41,7 @@ namespace Daigassou
             keybd_event(_lastCtrlKey, (byte)MapVirtualKey((uint)_lastCtrlKey, 0), 2, 0);
             Thread.Sleep(1);
             keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 0, 0);
+            Thread.Sleep(10);
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
             _lastCtrlKey = ctrKeys;
             Thread.Sleep(10);

@@ -166,9 +166,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\s2.png" />
+    <None Include="Resources\s1.png" />
+    <None Include="Resources\kb1.png" />
+    <None Include="Resources\kb0.png" />
+    <None Include="Resources\ka1.png" />
+    <None Include="Resources\ka0.png" />
     <None Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\a0.png" />
+    <None Include="Resources\a1.png" />
+    <None Include="Resources\btn1.png" />
+    <None Include="Resources\btn2.png" />
+    <None Include="Resources\btn3.png" />
     <Content Include="Resources\ico_128.ico" />
     <None Include="Resources\TIM图片20180319212757.png" />
     <None Include="Resources\keybindingBGimg.png" />
