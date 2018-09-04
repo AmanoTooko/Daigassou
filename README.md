@@ -23,11 +23,11 @@ A simple software to simulate keyboard for FFXIV.
 
 - [x] Bug修正
 - [x] 4.3更新的长按系统对应
-- [ ] 4.3更新的两种按键绑定模式的对应
+- [ ] 4.3更新的两种按键绑定模式的对应（半分）
 - [x] Midi键盘连接的逻辑优化
 - [ ] 开始/停止快捷键绑定
 - [ ] About界面更新
-- [ ] 主界面更新
+- [x] 主界面更新
 
 ##### To Do List V3.0 音游计划
 
@@ -43,4 +43,6 @@ A simple software to simulate keyboard for FFXIV.
 - 300BPM以上时，小概率8键模式实际演奏音符的控制键没有被按下
 - 因为自动更新midi列表的逻辑，每次断开后会重新选择到列表第一个设备
 - 由于API问题，新增的Midiport在删除后无法即时得到反馈
+- 4.3的长按音色中，控制键与实际键存在按键间隔（>10ms）
+- BUG:note判断逻辑错误
 
