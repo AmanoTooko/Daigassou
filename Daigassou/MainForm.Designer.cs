@@ -494,7 +494,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "大合奏！[喵？]";
+            this.Text = "大合奏!";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gBMidiFile.ResumeLayout(false);

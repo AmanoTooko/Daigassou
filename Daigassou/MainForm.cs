@@ -13,8 +13,8 @@ namespace Daigassou
     public partial class MainForm : Form
     {
         private readonly HotKeyManager hotKeyManager = new HotKeyManager();
-        private readonly KeyBindForm keyForm8 = new KeyBindForm();
         private readonly KeyBindFormOld keyForm22 = new KeyBindFormOld();
+        private readonly KeyBindForm keyForm8 = new KeyBindForm();
         private readonly MidiToKey mtk = new MidiToKey();
         private HotKey _hotKeyF10;
         private HotKey _hotKeyF12;

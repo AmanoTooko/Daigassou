@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Input;
-using Melanchall.DryWetMidi.Smf.Interaction;
+using Daigassou.Properties;
 
 namespace Daigassou
 {
     public static class KeyBinding
     {
-        private static Dictionary<int, Keys> _keymap = new Dictionary<int, Keys>
+        private static readonly Dictionary<int, Keys> _keymap = new Dictionary<int, Keys>
         {
             {48, Keys.Q},
             {49, Keys.D2},
@@ -56,7 +48,7 @@ namespace Daigassou
             {84, Keys.I}
         };
 
-        private static Dictionary<string, Keys> _ctrKeyMap = new Dictionary<string, Keys>
+        private static readonly Dictionary<string, Keys> _ctrKeyMap = new Dictionary<string, Keys>
         {
             {"OctaveLower", Keys.ShiftKey},
             {"OctaveHigher", Keys.ControlKey}
@@ -70,19 +62,12 @@ namespace Daigassou
         public static Keys GetNoteToCtrlKey(int note)
         {
             if (note < 60)
-            {
                 return _ctrKeyMap["OctaveLower"];
-            }
-             else if(note>71)
-            {
+            if (note > 71)
                 return _ctrKeyMap["OctaveHigher"];
-            }
-            else
-            {
-                return Keys.None;
-            }
-
+            return Keys.None;
         }
+
         public static void SetKeyToNote_22(int note, Keys key)
         {
             _keymap[note] = key;
@@ -109,66 +94,49 @@ namespace Daigassou
         public static void SetCtrlKeyToNote(int note, Keys key)
         {
             if (note < 60)
-            {
-                 _ctrKeyMap["OctaveLower"]=key;
-            }
-            else if (note > 71)
-            {
-                _ctrKeyMap["OctaveHigher"]=key;
-            }
+                _ctrKeyMap["OctaveLower"] = key;
+            else if (note > 71) _ctrKeyMap["OctaveHigher"] = key;
             //SaveConfig();
         }
 
         public static void SaveConfig()
         {
             var keyArrayList = new ArrayList();
-            foreach (var key in _keymap)
-            {
-                keyArrayList.Add(key.Value);
-            }
+            foreach (var key in _keymap) keyArrayList.Add(key.Value);
 
-            var ctrlKeyArrayList=new  ArrayList();
-            foreach (var key in _ctrKeyMap)
-            {
-                ctrlKeyArrayList.Add(key.Value);
-            }
+            var ctrlKeyArrayList = new ArrayList();
+            foreach (var key in _ctrKeyMap) ctrlKeyArrayList.Add(key.Value);
 
-            if (Properties.Settings.Default.IsEightKeyLayout == true)
+            if (Settings.Default.IsEightKeyLayout)
             {
-                Properties.Settings.Default.KeyBinding8 = keyArrayList;
-                Properties.Settings.Default.CtrlKeyBinding = ctrlKeyArrayList;
+                Settings.Default.KeyBinding8 = keyArrayList;
+                Settings.Default.CtrlKeyBinding = ctrlKeyArrayList;
             }
             else
             {
-                Properties.Settings.Default.KeyBinding22 = keyArrayList;
+                Settings.Default.KeyBinding22 = keyArrayList;
             }
-            Properties.Settings.Default.Save();
+
+            Settings.Default.Save();
         }
 
         public static void LoadConfig()
         {
-            var settingArrayList = Properties.Settings.Default.KeyBinding22;
+            var settingArrayList = Settings.Default.KeyBinding22;
 
-            if (Properties.Settings.Default.IsEightKeyLayout == true)
-            {
-                settingArrayList = Properties.Settings.Default.KeyBinding8;
-            }
-            
+            if (Settings.Default.IsEightKeyLayout) settingArrayList = Settings.Default.KeyBinding8;
+
             //ArrayList clear = new ArrayList();
             //Properties.Settings.Default.KeyBinding8 = clear;
             //Properties.Settings.Default.Save();
-            var settingKeyArrayList = Properties.Settings.Default.CtrlKeyBinding;
+            var settingKeyArrayList = Settings.Default.CtrlKeyBinding;
             if (settingArrayList != null)
-            {
                 for (var i = 0; i < settingArrayList.Count; i++)
-                {
                     _keymap[i + 48] = (Keys) settingArrayList[i];
-                }
-            }
 
             if (settingKeyArrayList == null) return;
-            _ctrKeyMap["OctaveLower"]= (Keys)settingKeyArrayList[0];
-            _ctrKeyMap["OctaveHigher"] = (Keys)settingKeyArrayList[1];
+            _ctrKeyMap["OctaveLower"] = (Keys) settingKeyArrayList[0];
+            _ctrKeyMap["OctaveHigher"] = (Keys) settingKeyArrayList[1];
         }
     }
 }
