@@ -149,6 +149,7 @@
             this.textBox37.ReadOnly = true;
             this.textBox37.Size = new System.Drawing.Size(31, 26);
             this.textBox37.TabIndex = 36;
+            this.textBox37.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox36
             // 
@@ -157,6 +158,7 @@
             this.textBox36.ReadOnly = true;
             this.textBox36.Size = new System.Drawing.Size(31, 26);
             this.textBox36.TabIndex = 35;
+            this.textBox36.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox35
             // 
@@ -165,6 +167,7 @@
             this.textBox35.ReadOnly = true;
             this.textBox35.Size = new System.Drawing.Size(31, 26);
             this.textBox35.TabIndex = 34;
+            this.textBox35.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox34
             // 
@@ -173,6 +176,7 @@
             this.textBox34.ReadOnly = true;
             this.textBox34.Size = new System.Drawing.Size(31, 26);
             this.textBox34.TabIndex = 33;
+            this.textBox34.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox33
             // 
@@ -181,6 +185,7 @@
             this.textBox33.ReadOnly = true;
             this.textBox33.Size = new System.Drawing.Size(31, 26);
             this.textBox33.TabIndex = 32;
+            this.textBox33.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox32
             // 
@@ -189,6 +194,7 @@
             this.textBox32.ReadOnly = true;
             this.textBox32.Size = new System.Drawing.Size(31, 26);
             this.textBox32.TabIndex = 31;
+            this.textBox32.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox31
             // 
@@ -197,6 +203,7 @@
             this.textBox31.ReadOnly = true;
             this.textBox31.Size = new System.Drawing.Size(31, 26);
             this.textBox31.TabIndex = 30;
+            this.textBox31.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox30
             // 
@@ -205,6 +212,7 @@
             this.textBox30.ReadOnly = true;
             this.textBox30.Size = new System.Drawing.Size(31, 26);
             this.textBox30.TabIndex = 29;
+            this.textBox30.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox29
             // 
@@ -213,6 +221,7 @@
             this.textBox29.ReadOnly = true;
             this.textBox29.Size = new System.Drawing.Size(31, 26);
             this.textBox29.TabIndex = 28;
+            this.textBox29.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox28
             // 
@@ -221,6 +230,7 @@
             this.textBox28.ReadOnly = true;
             this.textBox28.Size = new System.Drawing.Size(31, 26);
             this.textBox28.TabIndex = 27;
+            this.textBox28.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox27
             // 
@@ -229,6 +239,7 @@
             this.textBox27.ReadOnly = true;
             this.textBox27.Size = new System.Drawing.Size(31, 26);
             this.textBox27.TabIndex = 26;
+            this.textBox27.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox26
             // 
@@ -237,6 +248,7 @@
             this.textBox26.ReadOnly = true;
             this.textBox26.Size = new System.Drawing.Size(31, 26);
             this.textBox26.TabIndex = 25;
+            this.textBox26.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox25
             // 
@@ -245,6 +257,7 @@
             this.textBox25.ReadOnly = true;
             this.textBox25.Size = new System.Drawing.Size(31, 26);
             this.textBox25.TabIndex = 24;
+            this.textBox25.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox24
             // 
@@ -253,6 +266,7 @@
             this.textBox24.ReadOnly = true;
             this.textBox24.Size = new System.Drawing.Size(31, 26);
             this.textBox24.TabIndex = 23;
+            this.textBox24.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox23
             // 
@@ -261,6 +275,7 @@
             this.textBox23.ReadOnly = true;
             this.textBox23.Size = new System.Drawing.Size(31, 26);
             this.textBox23.TabIndex = 22;
+            this.textBox23.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox22
             // 
@@ -269,6 +284,7 @@
             this.textBox22.ReadOnly = true;
             this.textBox22.Size = new System.Drawing.Size(31, 26);
             this.textBox22.TabIndex = 21;
+            this.textBox22.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox21
             // 
@@ -277,6 +293,7 @@
             this.textBox21.ReadOnly = true;
             this.textBox21.Size = new System.Drawing.Size(31, 26);
             this.textBox21.TabIndex = 20;
+            this.textBox21.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox20
             // 
@@ -285,6 +302,7 @@
             this.textBox20.ReadOnly = true;
             this.textBox20.Size = new System.Drawing.Size(31, 26);
             this.textBox20.TabIndex = 19;
+            this.textBox20.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox19
             // 
@@ -293,6 +311,7 @@
             this.textBox19.ReadOnly = true;
             this.textBox19.Size = new System.Drawing.Size(31, 26);
             this.textBox19.TabIndex = 18;
+            this.textBox19.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox18
             // 
@@ -301,6 +320,7 @@
             this.textBox18.ReadOnly = true;
             this.textBox18.Size = new System.Drawing.Size(31, 26);
             this.textBox18.TabIndex = 17;
+            this.textBox18.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox17
             // 
@@ -309,6 +329,7 @@
             this.textBox17.ReadOnly = true;
             this.textBox17.Size = new System.Drawing.Size(31, 26);
             this.textBox17.TabIndex = 16;
+            this.textBox17.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox16
             // 
@@ -317,6 +338,7 @@
             this.textBox16.ReadOnly = true;
             this.textBox16.Size = new System.Drawing.Size(31, 26);
             this.textBox16.TabIndex = 15;
+            this.textBox16.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox15
             // 
@@ -325,6 +347,7 @@
             this.textBox15.ReadOnly = true;
             this.textBox15.Size = new System.Drawing.Size(31, 26);
             this.textBox15.TabIndex = 14;
+            this.textBox15.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox14
             // 
@@ -333,6 +356,7 @@
             this.textBox14.ReadOnly = true;
             this.textBox14.Size = new System.Drawing.Size(31, 26);
             this.textBox14.TabIndex = 13;
+            this.textBox14.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox13
             // 
@@ -341,6 +365,7 @@
             this.textBox13.ReadOnly = true;
             this.textBox13.Size = new System.Drawing.Size(31, 26);
             this.textBox13.TabIndex = 12;
+            this.textBox13.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox12
             // 
@@ -349,6 +374,7 @@
             this.textBox12.ReadOnly = true;
             this.textBox12.Size = new System.Drawing.Size(31, 26);
             this.textBox12.TabIndex = 11;
+            this.textBox12.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox11
             // 
@@ -357,6 +383,7 @@
             this.textBox11.ReadOnly = true;
             this.textBox11.Size = new System.Drawing.Size(31, 26);
             this.textBox11.TabIndex = 10;
+            this.textBox11.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox10
             // 
@@ -365,6 +392,7 @@
             this.textBox10.ReadOnly = true;
             this.textBox10.Size = new System.Drawing.Size(31, 26);
             this.textBox10.TabIndex = 9;
+            this.textBox10.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox9
             // 
@@ -373,6 +401,7 @@
             this.textBox9.ReadOnly = true;
             this.textBox9.Size = new System.Drawing.Size(31, 26);
             this.textBox9.TabIndex = 8;
+            this.textBox9.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox8
             // 
@@ -381,6 +410,7 @@
             this.textBox8.ReadOnly = true;
             this.textBox8.Size = new System.Drawing.Size(31, 26);
             this.textBox8.TabIndex = 7;
+            this.textBox8.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox7
             // 
@@ -389,6 +419,7 @@
             this.textBox7.ReadOnly = true;
             this.textBox7.Size = new System.Drawing.Size(31, 26);
             this.textBox7.TabIndex = 6;
+            this.textBox7.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox6
             // 
@@ -397,6 +428,7 @@
             this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(31, 26);
             this.textBox6.TabIndex = 5;
+            this.textBox6.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox5
             // 
@@ -405,6 +437,7 @@
             this.textBox5.ReadOnly = true;
             this.textBox5.Size = new System.Drawing.Size(31, 26);
             this.textBox5.TabIndex = 4;
+            this.textBox5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox4
             // 
@@ -413,6 +446,7 @@
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(31, 26);
             this.textBox4.TabIndex = 3;
+            this.textBox4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox3
             // 
@@ -421,6 +455,7 @@
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(31, 26);
             this.textBox3.TabIndex = 2;
+            this.textBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox2
             // 
@@ -429,6 +464,7 @@
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(31, 26);
             this.textBox2.TabIndex = 1;
+            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // textBox1
             // 

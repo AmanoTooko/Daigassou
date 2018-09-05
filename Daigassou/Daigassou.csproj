@@ -182,6 +182,7 @@
     <None Include="Resources\btn1.png" />
     <None Include="Resources\btn2.png" />
     <None Include="Resources\btn3.png" />
+    <None Include="Resources\about.jpg" />
     <Content Include="Resources\ico_128.ico" />
     <None Include="Resources\TIM图片20180319212757.png" />
     <None Include="Resources\keybindingBGimg.png" />

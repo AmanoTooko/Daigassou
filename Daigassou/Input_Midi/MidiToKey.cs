@@ -78,20 +78,25 @@ namespace Daigassou
                     {
                         case NoteOnEvent _:
                         {
+                            
                             var @event = ev as NoteOnEvent;
+                            
                             if (@event != null && @event.DeltaTime == 0) continue;
-                            if (@event.NoteNumber >= 84 || @event.NoteNumber <= 48) continue;
+                            var notenumber = (int)(@event.NoteNumber + Offset);
+                                if (notenumber >= 84 || notenumber <= 48) continue;
                             retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                (int) (@event.NoteNumber + Offset), (int) (tickbase * @event.DeltaTime)));
+                                notenumber, (int) (tickbase * @event.DeltaTime)));
                         }
                             break;
                         case NoteOffEvent _:
                         {
                             var @event = ev as NoteOffEvent;
+                           
                             if (@event != null && @event.DeltaTime == 0) continue;
-                            if (@event.NoteNumber >= 84 || @event.NoteNumber <= 48) continue;
+                            var notenumber = (int)(@event.NoteNumber + Offset);
+                                if (notenumber >= 84 || notenumber <= 48) continue;
                             retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                (int) (@event.NoteNumber + Offset), (int) (tickbase * @event.DeltaTime)));
+                                (int) (notenumber), (int) (tickbase * @event.DeltaTime)));
                         }
                             break;
                     }

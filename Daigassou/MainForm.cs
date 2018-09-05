@@ -170,7 +170,7 @@ namespace Daigassou
                 if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedIndex) == 0)
                 {
                     cbMidiKeyboard.Enabled = false;
-                    btnKeyboardConnect.Text = "断开";
+                    btnKeyboardConnect.BackgroundImage = Daigassou.Properties.Resources.btn2;
                 }
             }
             else
@@ -178,7 +178,7 @@ namespace Daigassou
                 KeyboardUtilities.Disconnect();
                 cbMidiKeyboard.Enabled = true;
                 cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
-                btnKeyboardConnect.Text = "连接";
+                btnKeyboardConnect.BackgroundImage = Daigassou.Properties.Resources.btn1;
             }
         }
 
@@ -201,6 +201,11 @@ namespace Daigassou
         private void btn22key_Click(object sender, EventArgs e)
         {
             keyForm22.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new AboutForm().ShowDialog();
         }
     }
 }

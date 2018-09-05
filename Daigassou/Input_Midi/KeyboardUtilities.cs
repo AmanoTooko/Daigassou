@@ -73,8 +73,7 @@ namespace Daigassou.Input_Midi
             lock (NoteOnlock)
             {
                 if (Convert.ToInt32(msg.Pitch) <= 84 && Convert.ToInt32(msg.Pitch) >= 48)
-                    KeyController.KeyboardPress(KeyBinding.GetNoteToCtrlKey(Convert.ToInt32(msg.Pitch)),
-                        KeyBinding.GetNoteToKey(Convert.ToInt32(msg.Pitch)));
+                    KeyController.KeyboardPress(Convert.ToInt32(msg.Pitch));
             }
         }
 
@@ -83,8 +82,7 @@ namespace Daigassou.Input_Midi
             lock (NoteOfflock)
             {
                 if (Convert.ToInt32(msg.Pitch) <= 84 && Convert.ToInt32(msg.Pitch) >= 48)
-                    KeyController.KeyboardRelease(KeyBinding.GetNoteToCtrlKey(Convert.ToInt32(msg.Pitch)),
-                        KeyBinding.GetNoteToKey(Convert.ToInt32(msg.Pitch)));
+                    KeyController.KeyboardRelease(Convert.ToInt32(msg.Pitch));
             }
         }
 
