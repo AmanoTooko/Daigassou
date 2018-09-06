@@ -73,7 +73,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackgroundImage = global::Daigassou.Properties.Resources.key22_2_;
+            this.panel1.BackgroundImage = global::Daigassou.Properties.Resources.key22;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel1.Controls.Add(this.btnReset);
             this.panel1.Controls.Add(this.btnApply);

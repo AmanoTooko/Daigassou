@@ -43,17 +43,21 @@ namespace Daigassou.Input_Midi
         public static void Disconnect()
         {
             if (midiKeyboard == null) return;
-            try
+            if (midiKeyboard.IsOpen == true)
             {
-                midiKeyboard.StopReceiving();
-                midiKeyboard.Close();
-                midiKeyboard.RemoveAllEventHandlers();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"断开错误 \r\n {e.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    midiKeyboard.StopReceiving();
+                    midiKeyboard.Close();
+                    midiKeyboard.RemoveAllEventHandlers();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"断开错误 \r\n {e.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                }
             }
+           
 
         }
         public static List<string> GetKeyboardList()
