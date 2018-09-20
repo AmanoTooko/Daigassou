@@ -319,12 +319,12 @@
             this.numericUpDown1.ForeColor = System.Drawing.Color.Gray;
             this.numericUpDown1.Location = new System.Drawing.Point(182, 33);
             this.numericUpDown1.Maximum = new decimal(new int[] {
-            180,
+            200,
             0,
             0,
             0});
             this.numericUpDown1.Minimum = new decimal(new int[] {
-            60,
+            40,
             0,
             0,
             0});

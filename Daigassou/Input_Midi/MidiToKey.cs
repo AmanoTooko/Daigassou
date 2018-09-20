@@ -20,12 +20,14 @@ namespace Daigassou
         private MidiFile midi;
         private TempoMap Tmap;
         private readonly List<NotesManager> tracks;
+        private readonly int MAX_DELAY_TICK;
 
         public MidiToKey()
         {
             tracks = new List<NotesManager>();
             Bpm = 80;
             Offset = EnumPitchOffset.None;
+            MAX_DELAY_TICK = 30;
         }
 
         public EnumPitchOffset Offset { get; set; }
@@ -73,6 +75,7 @@ namespace Daigassou
                 var tickbase = 60000 / (float) Bpm /
                                Convert.ToDouble(midi.TimeDivision.ToString()
                                    .TrimEnd(" ticks/qnote".ToCharArray()));
+                var isLastOffEvent = true;
                 foreach (var ev in trunkEvents)
                     switch (ev)
                     {
@@ -81,11 +84,24 @@ namespace Daigassou
                             
                             var @event = ev as NoteOnEvent;
                             
-                            if (@event != null && @event.DeltaTime == 0) continue;
+                            //if (@event == null ) continue;
                             var notenumber = (int)(@event.NoteNumber + Offset);
                                 if (notenumber >= 84 || notenumber <= 48) continue;
-                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                notenumber, (int) (tickbase * @event.DeltaTime)));
+                            if (isLastOffEvent == true&& (tickbase * @event.DeltaTime)<MAX_DELAY_TICK)
+                            {
+                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
+                                    notenumber, MAX_DELAY_TICK));
+                                
+                            }
+                            else
+                            {
+                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
+                                    notenumber, (int)(tickbase * @event.DeltaTime)));
+
+                            }
+
+                            isLastOffEvent = false;
+
                         }
                             break;
                         case NoteOffEvent _:
@@ -97,7 +113,11 @@ namespace Daigassou
                                 if (notenumber >= 84 || notenumber <= 48) continue;
                             retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                 (int) (notenumber), (int) (tickbase * @event.DeltaTime)));
+                            isLastOffEvent = true;
                         }
+                            break;
+                        default:
+                            isLastOffEvent = false;
                             break;
                     }
 

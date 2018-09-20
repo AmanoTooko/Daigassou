@@ -18,6 +18,7 @@ namespace Daigassou
         [DllImport("user32.dll")]
         private static extern uint MapVirtualKey(uint uCode, uint uMapType);
 
+        private static object keyLock = new object();
         public static void KeyboardPress(int pitch)
         {
             if (Settings.Default.IsEightKeyLayout)
@@ -42,17 +43,31 @@ namespace Daigassou
 
         private static void KeyboardPress(Keys viKeys)
         {
-            keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
-            Thread.Sleep(10);
+#if DEBUG
+            Console.WriteLine($@"{viKeys.ToString()} has been pressed at {Environment.TickCount}");
+#endif
+            lock (keyLock)
+            {
+                keybd_event(viKeys, (byte)MapVirtualKey((uint)viKeys, 0), 0, 0);
+                Thread.Sleep(1);
+            }
+
         }
 
 
         public static void KeyboardRelease(int pitch)
         {
-            if (Settings.Default.IsEightKeyLayout)
-                KeyboardRelease(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
-            else
-                KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
+            lock (keyLock)
+            {
+#if DEBUG
+                Console.WriteLine($@"{pitch} has been released at {Environment.TickCount}");
+#endif
+                if (Settings.Default.IsEightKeyLayout)
+                    KeyboardRelease(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
+                else
+                    KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
+            }
+
         }
 
         public static void KeyboardRelease(Keys ctrKeys, Keys viKeys)

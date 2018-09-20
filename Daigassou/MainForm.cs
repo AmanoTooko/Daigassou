@@ -166,21 +166,25 @@ namespace Daigassou
 
         private void btnKeyboardConnect_Click(object sender, EventArgs e)
         {
-            if (cbMidiKeyboard.Enabled)
+            if (cbMidiKeyboard.SelectedItem!=null)
             {
-                if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedIndex) == 0)
+                if (cbMidiKeyboard.Enabled)
                 {
-                    cbMidiKeyboard.Enabled = false;
-                    btnKeyboardConnect.BackgroundImage = Daigassou.Properties.Resources.btn2;
+                    if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedIndex) == 0)
+                    {
+                        cbMidiKeyboard.Enabled = false;
+                        btnKeyboardConnect.BackgroundImage = Daigassou.Properties.Resources.btn2;
+                    }
+                }
+                else
+                {
+                    KeyboardUtilities.Disconnect();
+                    cbMidiKeyboard.Enabled = true;
+                    cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
+                    btnKeyboardConnect.BackgroundImage = Daigassou.Properties.Resources.btn1;
                 }
             }
-            else
-            {
-                KeyboardUtilities.Disconnect();
-                cbMidiKeyboard.Enabled = true;
-                cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
-                btnKeyboardConnect.BackgroundImage = Daigassou.Properties.Resources.btn1;
-            }
+           
         }
 
         private void cbMidiKeyboard_SelectedIndexChanged(object sender, EventArgs e)
