@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -77,6 +78,7 @@ namespace Daigassou
             {
                 var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
                 KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
+                _runningFlag = false;
             }, token);
         }
 
@@ -87,22 +89,41 @@ namespace Daigassou
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            _hotKeyF10 = hotKeyManager.Register(Key.F10, System.Windows.Input.ModifierKeys.Control);
-            _hotKeyF12 = hotKeyManager.Register(Key.F11, System.Windows.Input.ModifierKeys.Control);
+            try
+            {
+                _hotKeyF10 = hotKeyManager.Register(Key.F10, System.Windows.Input.ModifierKeys.Control);
+                _hotKeyF12 = hotKeyManager.Register(Key.F11, System.Windows.Input.ModifierKeys.Control);
+            }
+            catch (Win32Exception )
+            {
+                MessageBox.Show("无法注册快捷键，请检查是否被其他程序占用。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+
             hotKeyManager.KeyPressed += HotKeyManagerPressed;
         }
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
-            if (midFileDiag.ShowDialog() == DialogResult.OK) mtk.OpenFile(midFileDiag.FileName);
-
+            if (midFileDiag.ShowDialog() == DialogResult.OK)
+                mtk.OpenFile(midFileDiag.FileName);
+            else
+                return;
+            
             pathTextBox.Text = midFileDiag.FileName;
             _tmpScore = mtk.GetTrackManagers(); //note tracks
+            var bpm = mtk.GetBpm();
             var tmp = new List<string>();
-            for (var i = 0; i < _tmpScore.Count; i++) tmp.Add("track_" + i);
+
+            if (_tmpScore != null)
+            {
+                for (var i = 0; i < _tmpScore.Count; i++) tmp.Add("track_" + i);
+            }
+            
 
             trackComboBox.DataSource = tmp;
             trackComboBox.SelectedIndex = 0;
+            nudBpm.Value = bpm;
         }
 
 
@@ -123,7 +144,7 @@ namespace Daigassou
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            mtk.Bpm = (int) numericUpDown1.Value;
+            mtk.Bpm = (int) nudBpm.Value;
         }
 
         private void SyncButton_Click(object sender, EventArgs e)

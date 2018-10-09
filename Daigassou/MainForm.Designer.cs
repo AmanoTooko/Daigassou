@@ -50,7 +50,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.gBParameterSetting = new System.Windows.Forms.GroupBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.nudBpm = new System.Windows.Forms.NumericUpDown();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
@@ -74,7 +74,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.gBParameterSetting.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBpm)).BeginInit();
             this.gBKeySetting.SuspendLayout();
             this.gBKeyboardSetting.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -291,7 +291,7 @@
             // 
             this.gBParameterSetting.Controls.Add(this.panel5);
             this.gBParameterSetting.Controls.Add(radioButton3);
-            this.gBParameterSetting.Controls.Add(this.numericUpDown1);
+            this.gBParameterSetting.Controls.Add(this.nudBpm);
             this.gBParameterSetting.Controls.Add(this.radioButton2);
             this.gBParameterSetting.Controls.Add(this.radioButton1);
             this.gBParameterSetting.Controls.Add(this.label5);
@@ -313,30 +313,30 @@
             this.panel5.Size = new System.Drawing.Size(1346, 13);
             this.panel5.TabIndex = 18;
             // 
-            // numericUpDown1
+            // nudBpm
             // 
-            this.numericUpDown1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.numericUpDown1.ForeColor = System.Drawing.Color.Gray;
-            this.numericUpDown1.Location = new System.Drawing.Point(182, 33);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            200,
+            this.nudBpm.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.nudBpm.ForeColor = System.Drawing.Color.Gray;
+            this.nudBpm.Location = new System.Drawing.Point(182, 33);
+            this.nudBpm.Maximum = new decimal(new int[] {
+            240,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.nudBpm.Minimum = new decimal(new int[] {
             40,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(154, 29);
-            this.numericUpDown1.TabIndex = 9;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.nudBpm.Name = "nudBpm";
+            this.nudBpm.Size = new System.Drawing.Size(154, 29);
+            this.nudBpm.TabIndex = 9;
+            this.nudBpm.Value = new decimal(new int[] {
             80,
             0,
             0,
             0});
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this.nudBpm.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // radioButton2
             // 
@@ -384,7 +384,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(161, 20);
             this.label7.TabIndex = 2;
-            this.label7.Text = "设置BPM，范围60~180";
+            this.label7.Text = "设置BPM，范围40~240";
             // 
             // cbMidiKeyboard
             // 
@@ -592,7 +592,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.gBParameterSetting.ResumeLayout(false);
             this.gBParameterSetting.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBpm)).EndInit();
             this.gBKeySetting.ResumeLayout(false);
             this.gBKeyboardSetting.ResumeLayout(false);
             this.gBKeyboardSetting.PerformLayout();
@@ -618,7 +618,7 @@
         private System.Windows.Forms.GroupBox gBParameterSetting;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown nudBpm;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button btn8key;
