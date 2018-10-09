@@ -77,7 +77,17 @@ namespace Daigassou.Input_Midi
             lock (NoteOnlock)
             {
                 if (Convert.ToInt32(msg.Pitch) <= 84 && Convert.ToInt32(msg.Pitch) >= 48)
-                    KeyController.KeyboardPress(Convert.ToInt32(msg.Pitch));
+                {
+                    if (msg.Velocity==0)//note off
+                    {
+                        KeyController.KeyboardRelease(Convert.ToInt32(msg.Pitch));
+                    }
+                    else
+                    {
+                        KeyController.KeyboardPress(Convert.ToInt32(msg.Pitch));
+                    }
+                }
+                    
             }
         }
 
