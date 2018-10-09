@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using Melanchall.DryWetMidi.Smf;
 using Melanchall.DryWetMidi.Smf.Interaction;
 
@@ -19,15 +20,16 @@ namespace Daigassou
         public int Index = 0;
         private MidiFile midi;
         private TempoMap Tmap;
+        private List<TrackChunk> trunks;
         private readonly List<NotesManager> tracks;
-        private readonly int MAX_DELAY_TICK;
+        private readonly int MIN_DELAY_TICK;
 
         public MidiToKey()
         {
             tracks = new List<NotesManager>();
             Bpm = 80;
             Offset = EnumPitchOffset.None;
-            MAX_DELAY_TICK = 30;
+            MIN_DELAY_TICK = 50;
         }
 
         public EnumPitchOffset Offset { get; set; }
@@ -35,7 +37,12 @@ namespace Daigassou
 
         public void OpenFile(string path)
         {
-            midi = MidiFile.Read(path);
+
+            midi = MidiFile.Read(path, new ReadingSettings
+            {
+                NoHeaderChunkPolicy = NoHeaderChunkPolicy.Ignore,
+                NotEnoughBytesPolicy = NotEnoughBytesPolicy.Ignore
+            });
             Tmap = midi.GetTempoMap();
         }
 
@@ -45,20 +52,40 @@ namespace Daigassou
         /// <returns></returns>
         public List<string> GetTrackManagers()
         {
-            tracks.Clear();
-            var score = new List<string>();
-            foreach (var track in midi.GetTrackChunks()) tracks.Add(track.ManageNotes());
-
-
-            foreach (var noteManager in tracks)
+            try
             {
-                var track = new StringBuilder("");
-                foreach (var note in noteManager.Notes) track.Append(note + " ");
+                tracks.Clear();
+                var score = new List<string>();
+                trunks = new List<TrackChunk>();
+                foreach (var track in midi.GetTrackChunks())
+                    if (track.ManageNotes().Notes.Count()!=0)
+                    {
+                        tracks.Add(track.ManageNotes());
+                        trunks.Add(track);
+                    }
 
-                score.Add(track.ToString());
+
+
+                foreach (var noteManager in tracks)
+                {
+                    var track = new StringBuilder("");
+                    foreach (var note in noteManager.Notes) track.Append(note + " ");
+                    if (track.ToString() != String.Empty)
+                    {
+                        score.Add(track.ToString());
+                    }
+
+                }
+
+                return score;
             }
-
-            return score;
+            catch (Exception e)
+            {
+                MessageBox.Show($"这个Midi文件读取出错！请使用其他软件重新保存。\r\n异常信息：{e.Message}\r\n 异常类型{e.GetType().ToString()}",
+                    "读取错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            
         }
 
         public int GetTimerTick()
@@ -70,12 +97,13 @@ namespace Daigassou
         {
             try
             {
-                var trunkEvents = midi.GetTrackChunks().ElementAt(index).Events;
+                var trunkEvents = trunks.ElementAt(index).Events;
                 var retKeyPlayLists = new Queue<KeyPlayList>();
                 var tickbase = 60000 / (float) Bpm /
                                Convert.ToDouble(midi.TimeDivision.ToString()
                                    .TrimEnd(" ticks/qnote".ToCharArray()));
                 var isLastOffEvent = true;
+                var NowPitch = 0;
                 foreach (var ev in trunkEvents)
                     switch (ev)
                     {
@@ -84,40 +112,65 @@ namespace Daigassou
                             
                             var @event = ev as NoteOnEvent;
                             
-                            //if (@event == null ) continue;
+                            
                             var notenumber = (int)(@event.NoteNumber + Offset);
                                 if (notenumber >= 84 || notenumber <= 48) continue;
-                            if (isLastOffEvent == true&& (tickbase * @event.DeltaTime)<MAX_DELAY_TICK)
+                            if (isLastOffEvent == true && (tickbase * @event.DeltaTime) < MIN_DELAY_TICK)
                             {
-                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                    notenumber, MAX_DELAY_TICK));
+                                
+                                
+                                
+                                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
+                                        notenumber, MIN_DELAY_TICK));
+                                    
+                                
                                 
                             }
-                            else
+                            else 
                             {
-                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
+                                if (NowPitch == @event.NoteNumber)
+                                {
+                                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+                                        (int)(notenumber), (int)(MIN_DELAY_TICK)));
+                                    }
+                                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
                                     notenumber, (int)(tickbase * @event.DeltaTime)));
 
                             }
 
                             isLastOffEvent = false;
-
-                        }
+                            NowPitch = @event.NoteNumber;
+                            }
                             break;
                         case NoteOffEvent _:
                         {
                             var @event = ev as NoteOffEvent;
                            
-                            if (@event != null && @event.DeltaTime == 0) continue;
+                            
                             var notenumber = (int)(@event.NoteNumber + Offset);
                                 if (notenumber >= 84 || notenumber <= 48) continue;
-                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                (int) (notenumber), (int) (tickbase * @event.DeltaTime)));
+                            if (tickbase*@event.DeltaTime<MIN_DELAY_TICK)
+                            {
+                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+                                    (int)(notenumber), (int)(MIN_DELAY_TICK)));
+                                }
+                            else
+                            {
+                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+                                    (int)(notenumber), (int)(tickbase * @event.DeltaTime)));
+                                }
                             isLastOffEvent = true;
+                            if (NowPitch== @event.NoteNumber)
+                            {
+                                NowPitch = 0;
+                            }
+
+                            
                         }
                             break;
                         default:
                             isLastOffEvent = false;
+                            NowPitch = 0;
                             break;
                     }
 
@@ -128,6 +181,13 @@ namespace Daigassou
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public int GetBpm()
+        {
+            int bpm = 80;
+            bpm = (int)Tmap.Tempo.AtTime(0).BeatsPerMinute;
+            return bpm;
         }
     }
 }
