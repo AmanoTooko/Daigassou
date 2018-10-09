@@ -19,14 +19,21 @@ A simple software to simulate keyboard for FFXIV.
 - 可选择演奏延迟，以方便进行多玩家合奏
 - 可连接Midi键盘
 
+##### V2.0.1 更新笔记
+- 修正了导入的Midi出错时的逻辑
+- 修正了连接Midi键盘时检测不到NoteOffEvent的Bug
+- 修正了播放时的按键逻辑
+- 自动去除了Format1格式Midi的控制轨道
+- 可以自动读入第一个BPM了
+
 ##### To Do List V2.0 感情鸽手
 
 - [x] Bug修正
 - [x] 4.3更新的长按系统对应
-- [ ] 4.3更新的两种按键绑定模式的对应（半分）
+- [x] 4.3更新的两种按键绑定模式的对应（半分）
 - [x] Midi键盘连接的逻辑优化
 - [ ] 开始/停止快捷键绑定
-- [ ] About界面更新
+- [x] About界面更新
 - [x] 主界面更新
 
 ##### To Do List V3.0 音游计划
