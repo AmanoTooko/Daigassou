@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -94,7 +93,7 @@ namespace Daigassou
                 _hotKeyF10 = hotKeyManager.Register(Key.F10, System.Windows.Input.ModifierKeys.Control);
                 _hotKeyF12 = hotKeyManager.Register(Key.F11, System.Windows.Input.ModifierKeys.Control);
             }
-            catch (Win32Exception )
+            catch (Win32Exception)
             {
                 MessageBox.Show("无法注册快捷键，请检查是否被其他程序占用。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
@@ -105,21 +104,21 @@ namespace Daigassou
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
+            CommonUtilities.GetLatestVersion();
             if (midFileDiag.ShowDialog() == DialogResult.OK)
                 mtk.OpenFile(midFileDiag.FileName);
             else
                 return;
-            
+
             pathTextBox.Text = midFileDiag.FileName;
             _tmpScore = mtk.GetTrackManagers(); //note tracks
             var bpm = mtk.GetBpm();
             var tmp = new List<string>();
 
             if (_tmpScore != null)
-            {
-                for (var i = 0; i < _tmpScore.Count; i++) tmp.Add("track_" + i);
-            }
-            
+                for (var i = 0; i < _tmpScore.Count; i++)
+                    tmp.Add("track_" + i);
+
 
             trackComboBox.DataSource = tmp;
             trackComboBox.SelectedIndex = 0;
@@ -187,14 +186,13 @@ namespace Daigassou
 
         private void btnKeyboardConnect_Click(object sender, EventArgs e)
         {
-            if (cbMidiKeyboard.SelectedItem!=null)
-            {
+            if (cbMidiKeyboard.SelectedItem != null)
                 if (cbMidiKeyboard.Enabled)
                 {
                     if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedIndex) == 0)
                     {
                         cbMidiKeyboard.Enabled = false;
-                        btnKeyboardConnect.BackgroundImage = Daigassou.Properties.Resources.btn2;
+                        btnKeyboardConnect.BackgroundImage = Resources.btn2;
                     }
                 }
                 else
@@ -202,10 +200,8 @@ namespace Daigassou
                     KeyboardUtilities.Disconnect();
                     cbMidiKeyboard.Enabled = true;
                     cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
-                    btnKeyboardConnect.BackgroundImage = Daigassou.Properties.Resources.btn1;
+                    btnKeyboardConnect.BackgroundImage = Resources.btn1;
                 }
-            }
-           
         }
 
         private void cbMidiKeyboard_SelectedIndexChanged(object sender, EventArgs e)
@@ -233,7 +229,5 @@ namespace Daigassou
         {
             new AboutForm().ShowDialog();
         }
-
-
     }
 }
