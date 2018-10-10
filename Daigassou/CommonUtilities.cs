@@ -1,34 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
 
 namespace Daigassou
 {
-    class CommonUtilities
+    internal class CommonUtilities
     {
-        private const string LatestApiAddress = "https://raw.githubusercontent.com/AmanoTooko/Daigassou/master/Version.ORZ";
+        private const string LatestApiAddress =
+            "https://raw.githubusercontent.com/AmanoTooko/Daigassou/master/Daigassou/Version.ORZ";
 
-        static public async void GetLatestVersion()
+        public static async void GetLatestVersion()
         {
-            WebClient wc = new WebClient();
-
-            string nowVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            string newVersion = await wc.DownloadStringTaskAsync(LatestApiAddress);
-            if (nowVersion != newVersion)
+            var wc = new WebClient();
+            try
             {
-                MessageBox.Show($"检测到新版本{newVersion}已经发布，请下载最新版！", "版本更新", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                var nowVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                var newVersion = await wc.DownloadStringTaskAsync(LatestApiAddress);
+                if (nowVersion != newVersion)
+                    MessageBox.Show($"检测到新版本{newVersion}已经发布，请下载最新版！", "更新啦！", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
             }
-
-            
-
+            catch (Exception e)
+            {
+            }
         }
     }
 }

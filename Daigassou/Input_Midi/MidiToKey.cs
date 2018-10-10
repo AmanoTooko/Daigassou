@@ -17,12 +17,12 @@ namespace Daigassou
 
     internal class MidiToKey
     {
+        private readonly int MIN_DELAY_TICK;
+        private readonly List<NotesManager> tracks;
         public int Index = 0;
         private MidiFile midi;
         private TempoMap Tmap;
         private List<TrackChunk> trunks;
-        private readonly List<NotesManager> tracks;
-        private readonly int MIN_DELAY_TICK;
 
         public MidiToKey()
         {
@@ -37,7 +37,6 @@ namespace Daigassou
 
         public void OpenFile(string path)
         {
-
             midi = MidiFile.Read(path, new ReadingSettings
             {
                 NoHeaderChunkPolicy = NoHeaderChunkPolicy.Ignore,
@@ -58,34 +57,28 @@ namespace Daigassou
                 var score = new List<string>();
                 trunks = new List<TrackChunk>();
                 foreach (var track in midi.GetTrackChunks())
-                    if (track.ManageNotes().Notes.Count()!=0)
+                    if (track.ManageNotes().Notes.Count() != 0)
                     {
                         tracks.Add(track.ManageNotes());
                         trunks.Add(track);
                     }
 
 
-
                 foreach (var noteManager in tracks)
                 {
                     var track = new StringBuilder("");
                     foreach (var note in noteManager.Notes) track.Append(note + " ");
-                    if (track.ToString() != String.Empty)
-                    {
-                        score.Add(track.ToString());
-                    }
-
+                    if (track.ToString() != string.Empty) score.Add(track.ToString());
                 }
 
                 return score;
             }
             catch (Exception e)
             {
-                MessageBox.Show($"这个Midi文件读取出错！请使用其他软件重新保存。\r\n异常信息：{e.Message}\r\n 异常类型{e.GetType().ToString()}",
+                MessageBox.Show($"这个Midi文件读取出错！请使用其他软件重新保存。\r\n异常信息：{e.Message}\r\n 异常类型{e.GetType()}",
                     "读取错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
-            
         }
 
         public int GetTimerTick()
@@ -109,63 +102,44 @@ namespace Daigassou
                     {
                         case NoteOnEvent _:
                         {
-                            
                             var @event = ev as NoteOnEvent;
-                            
-                            
-                            var notenumber = (int)(@event.NoteNumber + Offset);
-                                if (notenumber >= 84 || notenumber <= 48) continue;
-                            if (isLastOffEvent == true && (tickbase * @event.DeltaTime) < MIN_DELAY_TICK)
+
+
+                            var notenumber = (int) (@event.NoteNumber + Offset);
+                            if (notenumber >= 84 || notenumber <= 48) continue;
+                            if (tickbase * @event.DeltaTime < MIN_DELAY_TICK)
                             {
-                                
-                                
-                                
-                                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                        notenumber, MIN_DELAY_TICK));
-                                    
-                                
-                                
+                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
+                                    notenumber, MIN_DELAY_TICK));
                             }
-                            else 
+                            else
                             {
                                 if (NowPitch == @event.NoteNumber)
-                                {
                                     retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                        (int)(notenumber), (int)(MIN_DELAY_TICK)));
-                                    }
-                                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                    notenumber, (int)(tickbase * @event.DeltaTime)));
-
+                                        notenumber, MIN_DELAY_TICK));
+                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
+                                    notenumber, (int) (tickbase * @event.DeltaTime)));
                             }
 
                             isLastOffEvent = false;
                             NowPitch = @event.NoteNumber;
-                            }
+                        }
                             break;
                         case NoteOffEvent _:
                         {
                             var @event = ev as NoteOffEvent;
-                           
-                            
-                            var notenumber = (int)(@event.NoteNumber + Offset);
-                                if (notenumber >= 84 || notenumber <= 48) continue;
-                            if (tickbase*@event.DeltaTime<MIN_DELAY_TICK)
-                            {
-                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                    (int)(notenumber), (int)(MIN_DELAY_TICK)));
-                                }
-                            else
-                            {
-                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                    (int)(notenumber), (int)(tickbase * @event.DeltaTime)));
-                                }
-                            isLastOffEvent = true;
-                            if (NowPitch== @event.NoteNumber)
-                            {
-                                NowPitch = 0;
-                            }
 
-                            
+
+                            var notenumber = (int) (@event.NoteNumber + Offset);
+                            if (notenumber >= 84 || notenumber <= 48) continue;
+                            if (tickbase * @event.DeltaTime < MIN_DELAY_TICK)
+                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+                                    notenumber, MIN_DELAY_TICK));
+                            else
+                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+                                    notenumber, (int) (tickbase * @event.DeltaTime)));
+                            isLastOffEvent = true;
+                            if (NowPitch == @event.NoteNumber) NowPitch = 0;
                         }
                             break;
                         default:
@@ -185,8 +159,8 @@ namespace Daigassou
 
         public int GetBpm()
         {
-            int bpm = 80;
-            bpm = (int)Tmap.Tempo.AtTime(0).BeatsPerMinute;
+            var bpm = 80;
+            bpm = (int) Tmap.Tempo.AtTime(0).BeatsPerMinute;
             return bpm;
         }
     }

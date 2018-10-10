@@ -29,7 +29,7 @@ namespace Daigassou
             InitializeComponent();
             formUpdate();
             KeyBinding.LoadConfig();
-
+            CommonUtilities.GetLatestVersion();
 
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
         }
@@ -104,7 +104,7 @@ namespace Daigassou
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
-            CommonUtilities.GetLatestVersion();
+            
             if (midFileDiag.ShowDialog() == DialogResult.OK)
                 mtk.OpenFile(midFileDiag.FileName);
             else
