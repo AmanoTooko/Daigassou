@@ -319,7 +319,7 @@
             this.nudBpm.ForeColor = System.Drawing.Color.Gray;
             this.nudBpm.Location = new System.Drawing.Point(182, 33);
             this.nudBpm.Maximum = new decimal(new int[] {
-            240,
+            250,
             0,
             0,
             0});
@@ -384,7 +384,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(161, 20);
             this.label7.TabIndex = 2;
-            this.label7.Text = "设置BPM，范围40~240";
+            this.label7.Text = "设置BPM，范围40~250";
             // 
             // cbMidiKeyboard
             // 

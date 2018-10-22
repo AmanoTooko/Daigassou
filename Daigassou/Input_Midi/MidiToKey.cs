@@ -40,7 +40,15 @@ namespace Daigassou
             midi = MidiFile.Read(path, new ReadingSettings
             {
                 NoHeaderChunkPolicy = NoHeaderChunkPolicy.Ignore,
-                NotEnoughBytesPolicy = NotEnoughBytesPolicy.Ignore
+                NotEnoughBytesPolicy = NotEnoughBytesPolicy.Ignore,
+                InvalidChannelEventParameterValuePolicy = InvalidChannelEventParameterValuePolicy.ReadValid,
+                InvalidChunkSizePolicy = InvalidChunkSizePolicy.Ignore,
+                InvalidMetaEventParameterValuePolicy = InvalidMetaEventParameterValuePolicy.SnapToLimits,
+                MissedEndOfTrackPolicy = MissedEndOfTrackPolicy.Ignore,
+                UnexpectedTrackChunksCountPolicy = UnexpectedTrackChunksCountPolicy.Ignore,
+                ExtraTrackChunkPolicy = ExtraTrackChunkPolicy.Read,
+                UnknownChunkIdPolicy = UnknownChunkIdPolicy.ReadAsUnknownChunk,
+                SilentNoteOnPolicy = SilentNoteOnPolicy.NoteOff
             });
             Tmap = midi.GetTempoMap();
         }

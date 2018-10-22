@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,6 +37,7 @@ namespace Daigassou
 
         private void formUpdate()
         {
+            Text += $" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
             if (Settings.Default.IsEightKeyLayout)
             {
                 btn8key.BackgroundImage = Resources.ka1;
@@ -96,15 +98,15 @@ namespace Daigassou
             catch (Win32Exception)
             {
                 MessageBox.Show("无法注册快捷键，请检查是否被其他程序占用。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
+                Environment.Exit(0);
             }
+
 
             hotKeyManager.KeyPressed += HotKeyManagerPressed;
         }
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
-            
             if (midFileDiag.ShowDialog() == DialogResult.OK)
                 mtk.OpenFile(midFileDiag.FileName);
             else
@@ -122,7 +124,12 @@ namespace Daigassou
 
             trackComboBox.DataSource = tmp;
             trackComboBox.SelectedIndex = 0;
-            nudBpm.Value = bpm;
+            if (bpm >= nudBpm.Maximum)
+                nudBpm.Value = nudBpm.Maximum;
+            else if (bpm <= nudBpm.Minimum)
+                nudBpm.Value = nudBpm.Minimum;
+            else
+                nudBpm.Value = bpm;
         }
 
 
