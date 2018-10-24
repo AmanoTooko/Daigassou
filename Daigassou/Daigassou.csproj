@@ -120,6 +120,7 @@
     <Compile Include="KeyBindForm.Designer.cs">
       <DependentUpon>KeyBindForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NtpClient.cs" />
     <Compile Include="Output_Key\KeyBinding.cs" />
     <Compile Include="Output_Key\KeyController.cs" />
     <Compile Include="Input_Midi\MidiToKey.cs" />
@@ -145,7 +146,9 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\app.manifest" />
+    <None Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

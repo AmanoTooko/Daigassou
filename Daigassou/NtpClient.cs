@@ -29,16 +29,17 @@ namespace Daigassou
         /// <inheritdoc />
         public TimeSpan GetOffset(out double errorMilliseconds)
         {
-            var ntpData = new byte[48];
-            ntpData[0] = 0x1B;
+
             TimeSpan offset=new TimeSpan(0);
             var addresses = Dns.GetHostEntry(_server).AddressList;
             var ipEndPoint = new IPEndPoint(addresses[0], 123);
             var socket =
                 new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp) {ReceiveTimeout = 3000};
-
+            errorMilliseconds = 0;
             try
             {
+                var ntpData = new byte[48];
+                ntpData[0] = 0x1B;
                 socket.Connect(ipEndPoint);
                 var localTransmitTime = DateTime.UtcNow; //T1
                 socket.Send(ntpData);
@@ -51,11 +52,17 @@ namespace Daigassou
                 Array.Copy(ntpData, 40, timeData, 0, 8);
                 var transmitTime = byteToTime(timeData); //T3
 
-                var fractPart = ((ulong) ntpData[12] << 24) | ((ulong) ntpData[13] << 16) | ((ulong) ntpData[14] << 8) |
-                                ntpData[15];
+                var fractPart = ((ulong) ntpData[10] << 8) |
+                                ntpData[11];
 
-                errorMilliseconds = fractPart * 1000 / 0x100000000L;
+                errorMilliseconds = fractPart * 1000 / 0x10000L;
                 offset = localReceiveTime - transmitTime - (receiveTime - localTransmitTime); //((T4-T3)-(T2-T1))/2
+                CommonUtilities.WriteLog($"localTransmitTime={localTransmitTime.ToString("O")}\r\n " +
+                                         $"localReceiveTime = {localReceiveTime.ToString("O")}\r\n " +
+                                         $"serverReceiveTime={receiveTime.ToString("O")}\r\n" +
+                                         $"serverTransmitTime={transmitTime.ToString("O")}\r\n" +
+                                         $"offset={offset.TotalMilliseconds}ms\r\n" +
+                                         $"error={errorMilliseconds}ms");
             }
             catch (Exception e)
             {
@@ -63,11 +70,7 @@ namespace Daigassou
                 MessageBox.Show("同步失败\r\n" + e.Message);
                 
             }
-            finally
-            {
-                errorMilliseconds = 0;
-                
-            }
+
             return offset;
 
 
