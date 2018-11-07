@@ -236,5 +236,25 @@ namespace Daigassou
         {
             new AboutForm().ShowDialog();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnTimeSync_Click(object sender, EventArgs e)
+        {
+            double error=0;
+            var offset=new NtpClient("ntp3.aliyun.com").GetOffset(out error);
+            if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(DateTime.Now.AddMilliseconds(offset.TotalMilliseconds*-0.5)))
+            {
+                timeLabel.Text = $"已同步 误差{error}ms";
+            }
+            else
+            {
+                timeLabel.Text = $"设置时间出错";
+            }
+
+        }
     }
 }

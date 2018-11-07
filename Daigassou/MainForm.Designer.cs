@@ -35,14 +35,14 @@
             this.trackComboBox = new System.Windows.Forms.ComboBox();
             this.gBMidiFile = new System.Windows.Forms.GroupBox();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.selectFileButton = new System.Windows.Forms.Button();
+            this.btnFileSelect = new System.Windows.Forms.Button();
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
-            this.SyncButton = new System.Windows.Forms.Button();
+            this.btnSyncReady = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
@@ -69,6 +69,9 @@
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnTimeSync = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.timeLabel = new System.Windows.Forms.Label();
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.gBMidiFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -97,7 +100,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(357, 13);
+            this.panel1.Size = new System.Drawing.Size(364, 13);
             this.panel1.TabIndex = 14;
             // 
             // trackComboBox
@@ -115,7 +118,7 @@
             // gBMidiFile
             // 
             this.gBMidiFile.Controls.Add(this.panel6);
-            this.gBMidiFile.Controls.Add(this.selectFileButton);
+            this.gBMidiFile.Controls.Add(this.btnFileSelect);
             this.gBMidiFile.Controls.Add(this.pathTextBox);
             this.gBMidiFile.Controls.Add(this.label1);
             this.gBMidiFile.Controls.Add(this.label2);
@@ -125,7 +128,7 @@
             this.gBMidiFile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
             this.gBMidiFile.Location = new System.Drawing.Point(0, 13);
             this.gBMidiFile.Name = "gBMidiFile";
-            this.gBMidiFile.Size = new System.Drawing.Size(357, 111);
+            this.gBMidiFile.Size = new System.Drawing.Size(364, 111);
             this.gBMidiFile.TabIndex = 3;
             this.gBMidiFile.TabStop = false;
             this.gBMidiFile.Text = "Midi乐谱选择";
@@ -137,20 +140,20 @@
             this.panel6.Size = new System.Drawing.Size(1346, 13);
             this.panel6.TabIndex = 19;
             // 
-            // selectFileButton
+            // btnFileSelect
             // 
-            this.selectFileButton.BackColor = System.Drawing.Color.White;
-            this.selectFileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.selectFileButton.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.selectFileButton.ForeColor = System.Drawing.Color.Black;
-            this.selectFileButton.Location = new System.Drawing.Point(291, 31);
-            this.selectFileButton.Name = "selectFileButton";
-            this.selectFileButton.Size = new System.Drawing.Size(45, 26);
-            this.selectFileButton.TabIndex = 7;
-            this.selectFileButton.Text = "···";
-            this.selectFileButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.selectFileButton.UseVisualStyleBackColor = false;
-            this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_Click);
+            this.btnFileSelect.BackColor = System.Drawing.Color.White;
+            this.btnFileSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFileSelect.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnFileSelect.ForeColor = System.Drawing.Color.Black;
+            this.btnFileSelect.Location = new System.Drawing.Point(291, 31);
+            this.btnFileSelect.Name = "btnFileSelect";
+            this.btnFileSelect.Size = new System.Drawing.Size(45, 26);
+            this.btnFileSelect.TabIndex = 7;
+            this.btnFileSelect.Text = "···";
+            this.btnFileSelect.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnFileSelect.UseVisualStyleBackColor = false;
+            this.btnFileSelect.Click += new System.EventHandler(this.selectFileButton_Click);
             // 
             // pathTextBox
             // 
@@ -186,26 +189,29 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.timeLabel);
+            this.groupBox1.Controls.Add(this.panel3);
+            this.groupBox1.Controls.Add(this.btnTimeSync);
             this.groupBox1.Controls.Add(this.numericUpDown2);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.SyncButton);
+            this.groupBox1.Controls.Add(this.btnSyncReady);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 15.25F);
-            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.groupBox1.Location = new System.Drawing.Point(534, 71);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold);
+            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
+            this.groupBox1.Location = new System.Drawing.Point(0, 323);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(354, 134);
+            this.groupBox1.Size = new System.Drawing.Size(364, 135);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "同步演奏";
-            this.groupBox1.Visible = false;
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.numericUpDown2.Location = new System.Drawing.Point(102, 104);
+            this.numericUpDown2.Font = new System.Drawing.Font("微软雅黑", 10.5F);
+            this.numericUpDown2.Location = new System.Drawing.Point(87, 90);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -217,54 +223,55 @@
             0,
             -2147483648});
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 29);
+            this.numericUpDown2.Size = new System.Drawing.Size(89, 26);
             this.numericUpDown2.TabIndex = 5;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label8.Location = new System.Drawing.Point(14, 106);
+            this.label8.Font = new System.Drawing.Font("微软雅黑", 10.5F);
+            this.label8.ForeColor = System.Drawing.Color.Gray;
+            this.label8.Location = new System.Drawing.Point(16, 91);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 21);
+            this.label8.Size = new System.Drawing.Size(65, 20);
             this.label8.TabIndex = 4;
             this.label8.Text = "网络延迟";
             // 
-            // SyncButton
+            // btnSyncReady
             // 
-            this.SyncButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.SyncButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SyncButton.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.SyncButton.ForeColor = System.Drawing.Color.White;
-            this.SyncButton.Location = new System.Drawing.Point(261, 103);
-            this.SyncButton.Name = "SyncButton";
-            this.SyncButton.Size = new System.Drawing.Size(81, 29);
-            this.SyncButton.TabIndex = 3;
-            this.SyncButton.Text = "准备好了";
-            this.SyncButton.UseVisualStyleBackColor = false;
-            this.SyncButton.Click += new System.EventHandler(this.SyncButton_Click);
+            this.btnSyncReady.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnSyncReady.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSyncReady.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.btnSyncReady.ForeColor = System.Drawing.Color.White;
+            this.btnSyncReady.Location = new System.Drawing.Point(271, 88);
+            this.btnSyncReady.Name = "btnSyncReady";
+            this.btnSyncReady.Size = new System.Drawing.Size(81, 29);
+            this.btnSyncReady.TabIndex = 3;
+            this.btnSyncReady.Text = "准备好了";
+            this.btnSyncReady.UseVisualStyleBackColor = false;
+            this.btnSyncReady.Click += new System.EventHandler(this.SyncButton_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label4.Location = new System.Drawing.Point(14, 71);
+            this.label4.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.ForeColor = System.Drawing.Color.Gray;
+            this.label4.Location = new System.Drawing.Point(16, 60);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 21);
+            this.label4.Size = new System.Drawing.Size(65, 20);
             this.label4.TabIndex = 2;
             this.label4.Text = "演奏时间";
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.CalendarFont = new System.Drawing.Font("微软雅黑", 10.5F);
             this.dateTimePicker1.CustomFormat = "HH-mm-ss";
-            this.dateTimePicker1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.dateTimePicker1.Font = new System.Drawing.Font("微软雅黑", 10.5F);
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker1.Location = new System.Drawing.Point(102, 68);
+            this.dateTimePicker1.Location = new System.Drawing.Point(87, 56);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.ShowUpDown = true;
-            this.dateTimePicker1.Size = new System.Drawing.Size(119, 29);
+            this.dateTimePicker1.Size = new System.Drawing.Size(90, 26);
             this.dateTimePicker1.TabIndex = 1;
             // 
             // label3
@@ -272,7 +279,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.ForeColor = System.Drawing.Color.Gray;
-            this.label3.Location = new System.Drawing.Point(14, 45);
+            this.label3.Location = new System.Drawing.Point(14, 30);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(163, 20);
             this.label3.TabIndex = 0;
@@ -301,7 +308,7 @@
             this.gBParameterSetting.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
             this.gBParameterSetting.Location = new System.Drawing.Point(0, 124);
             this.gBParameterSetting.Name = "gBParameterSetting";
-            this.gBParameterSetting.Size = new System.Drawing.Size(357, 109);
+            this.gBParameterSetting.Size = new System.Drawing.Size(364, 109);
             this.gBParameterSetting.TabIndex = 5;
             this.gBParameterSetting.TabStop = false;
             this.gBParameterSetting.Text = "播放属性设置";
@@ -391,7 +398,7 @@
             this.cbMidiKeyboard.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbMidiKeyboard.ForeColor = System.Drawing.Color.Gray;
             this.cbMidiKeyboard.FormattingEnabled = true;
-            this.cbMidiKeyboard.Location = new System.Drawing.Point(87, 49);
+            this.cbMidiKeyboard.Location = new System.Drawing.Point(87, 34);
             this.cbMidiKeyboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbMidiKeyboard.Name = "cbMidiKeyboard";
             this.cbMidiKeyboard.Size = new System.Drawing.Size(177, 28);
@@ -409,7 +416,7 @@
             this.gBKeySetting.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
             this.gBKeySetting.Location = new System.Drawing.Point(0, 233);
             this.gBKeySetting.Name = "gBKeySetting";
-            this.gBKeySetting.Size = new System.Drawing.Size(357, 90);
+            this.gBKeySetting.Size = new System.Drawing.Size(364, 90);
             this.gBKeySetting.TabIndex = 10;
             this.gBKeySetting.TabStop = false;
             this.gBKeySetting.Text = "游戏键位设置";
@@ -468,24 +475,23 @@
             // 
             // gBKeyboardSetting
             // 
-            this.gBKeyboardSetting.Controls.Add(this.panel3);
+            this.gBKeyboardSetting.Controls.Add(this.panel2);
             this.gBKeyboardSetting.Controls.Add(this.btnKeyboardConnect);
             this.gBKeyboardSetting.Controls.Add(this.label9);
             this.gBKeyboardSetting.Controls.Add(this.cbMidiKeyboard);
-            this.gBKeyboardSetting.Controls.Add(this.groupBox1);
             this.gBKeyboardSetting.Dock = System.Windows.Forms.DockStyle.Top;
             this.gBKeyboardSetting.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold);
             this.gBKeyboardSetting.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
-            this.gBKeyboardSetting.Location = new System.Drawing.Point(0, 323);
+            this.gBKeyboardSetting.Location = new System.Drawing.Point(0, 458);
             this.gBKeyboardSetting.Name = "gBKeyboardSetting";
-            this.gBKeyboardSetting.Size = new System.Drawing.Size(357, 111);
+            this.gBKeyboardSetting.Size = new System.Drawing.Size(364, 79);
             this.gBKeyboardSetting.TabIndex = 11;
             this.gBKeyboardSetting.TabStop = false;
             this.gBKeyboardSetting.Text = "Midi键盘选择";
             // 
             // panel3
             // 
-            this.panel3.Location = new System.Drawing.Point(0, 101);
+            this.panel3.Location = new System.Drawing.Point(0, 123);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1346, 13);
             this.panel3.TabIndex = 16;
@@ -498,9 +504,9 @@
             this.btnKeyboardConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKeyboardConnect.Font = new System.Drawing.Font("微软雅黑", 10F);
             this.btnKeyboardConnect.ForeColor = System.Drawing.Color.White;
-            this.btnKeyboardConnect.Location = new System.Drawing.Point(273, 48);
+            this.btnKeyboardConnect.Location = new System.Drawing.Point(268, 30);
             this.btnKeyboardConnect.Name = "btnKeyboardConnect";
-            this.btnKeyboardConnect.Size = new System.Drawing.Size(72, 29);
+            this.btnKeyboardConnect.Size = new System.Drawing.Size(84, 34);
             this.btnKeyboardConnect.TabIndex = 7;
             this.btnKeyboardConnect.UseVisualStyleBackColor = false;
             this.btnKeyboardConnect.Click += new System.EventHandler(this.btnKeyboardConnect_Click);
@@ -510,7 +516,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label9.ForeColor = System.Drawing.Color.Gray;
-            this.label9.Location = new System.Drawing.Point(16, 50);
+            this.label9.Location = new System.Drawing.Point(16, 38);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 20);
             this.label9.TabIndex = 0;
@@ -521,7 +527,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("微软雅黑", 10.5F);
             this.label6.ForeColor = System.Drawing.Color.Gray;
-            this.label6.Location = new System.Drawing.Point(16, 38);
+            this.label6.Location = new System.Drawing.Point(16, 25);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(303, 40);
             this.label6.TabIndex = 12;
@@ -533,7 +539,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
-            this.button1.Location = new System.Drawing.Point(20, 558);
+            this.button1.Location = new System.Drawing.Point(18, 707);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(319, 27);
             this.button1.TabIndex = 13;
@@ -544,34 +550,67 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.panel2);
+            this.groupBox2.Controls.Add(this.panel7);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold);
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
-            this.groupBox2.Location = new System.Drawing.Point(0, 434);
+            this.groupBox2.Location = new System.Drawing.Point(0, 537);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(357, 100);
+            this.groupBox2.Size = new System.Drawing.Size(364, 83);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "演奏方式";
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(3, 90);
+            this.panel2.Location = new System.Drawing.Point(0, 72);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1346, 13);
             this.panel2.TabIndex = 15;
+            // 
+            // btnTimeSync
+            // 
+            this.btnTimeSync.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnTimeSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTimeSync.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.btnTimeSync.ForeColor = System.Drawing.Color.White;
+            this.btnTimeSync.Location = new System.Drawing.Point(271, 53);
+            this.btnTimeSync.Name = "btnTimeSync";
+            this.btnTimeSync.Size = new System.Drawing.Size(81, 29);
+            this.btnTimeSync.TabIndex = 6;
+            this.btnTimeSync.Text = "时钟同步";
+            this.btnTimeSync.UseVisualStyleBackColor = false;
+            this.btnTimeSync.Click += new System.EventHandler(this.btnTimeSync_Click);
+            // 
+            // panel7
+            // 
+            this.panel7.Location = new System.Drawing.Point(0, 71);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(1346, 13);
+            this.panel7.TabIndex = 16;
+            // 
+            // timeLabel
+            // 
+            this.timeLabel.AutoSize = true;
+            this.timeLabel.Font = new System.Drawing.Font("微软雅黑", 10.5F);
+            this.timeLabel.ForeColor = System.Drawing.Color.Gray;
+            this.timeLabel.Location = new System.Drawing.Point(184, 60);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(51, 20);
+            this.timeLabel.TabIndex = 17;
+            this.timeLabel.Text = "未同步";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(357, 606);
+            this.ClientSize = new System.Drawing.Size(364, 794);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.gBKeyboardSetting);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gBKeySetting);
             this.Controls.Add(this.gBParameterSetting);
             this.Controls.Add(this.gBMidiFile);
@@ -607,13 +646,13 @@
         private System.Windows.Forms.GroupBox gBMidiFile;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button selectFileButton;
+        private System.Windows.Forms.Button btnFileSelect;
         private System.Windows.Forms.TextBox pathTextBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.OpenFileDialog midFileDiag;
-        private System.Windows.Forms.Button SyncButton;
+        private System.Windows.Forms.Button btnSyncReady;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox gBParameterSetting;
         private System.Windows.Forms.Label label7;
@@ -641,6 +680,9 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label timeLabel;
+        private System.Windows.Forms.Button btnTimeSync;
+        private System.Windows.Forms.Panel panel7;
     }
 }
 
