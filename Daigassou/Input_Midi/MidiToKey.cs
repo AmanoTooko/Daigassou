@@ -114,7 +114,7 @@ namespace Daigassou
 
 
                             var notenumber = (int) (@event.NoteNumber + Offset);
-                            if (notenumber >= 84 || notenumber <= 48) continue;
+                            
                             if (tickbase * @event.DeltaTime < MIN_DELAY_TICK)
                             {
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
@@ -139,7 +139,7 @@ namespace Daigassou
 
 
                             var notenumber = (int) (@event.NoteNumber + Offset);
-                            if (notenumber >= 84 || notenumber <= 48) continue;
+                            
                             if (tickbase * @event.DeltaTime < MIN_DELAY_TICK)
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                     notenumber, MIN_DELAY_TICK));

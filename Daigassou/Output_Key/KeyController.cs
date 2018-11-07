@@ -21,10 +21,14 @@ namespace Daigassou
         private static object keyLock = new object();
         public static void KeyboardPress(int pitch)
         {
-            if (Settings.Default.IsEightKeyLayout)
-                KeyboardPress(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
-            else
-                KeyboardPress(KeyBinding.GetNoteToKey(pitch));
+            if (pitch<=84 && pitch >=48){
+
+                if (Settings.Default.IsEightKeyLayout)
+                    KeyboardPress(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
+                else
+                    KeyboardPress(KeyBinding.GetNoteToKey(pitch));
+            }
+
         }
 
         public static void KeyboardPress(Keys ctrKeys, Keys viKeys)
@@ -62,10 +66,13 @@ namespace Daigassou
 #if DEBUG
                 Console.WriteLine($@"{pitch} has been released at {Environment.TickCount}");
 #endif
-                if (Settings.Default.IsEightKeyLayout)
-                    KeyboardRelease(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
-                else
-                    KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
+                if (pitch <= 84 && pitch >= 48)
+                {
+                    if (Settings.Default.IsEightKeyLayout)
+                        KeyboardRelease(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
+                    else
+                        KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
+                }
             }
 
         }
