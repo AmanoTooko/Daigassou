@@ -40,6 +40,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnTimeSync = new System.Windows.Forms.Button();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.btnSyncReady = new System.Windows.Forms.Button();
@@ -62,16 +64,15 @@
             this.btn22key = new System.Windows.Forms.Button();
             this.btn8key = new System.Windows.Forms.Button();
             this.gBKeyboardSetting = new System.Windows.Forms.GroupBox();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.btnKeyboardConnect = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnTimeSync = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.timeLabel = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.timeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.gBMidiFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -81,6 +82,7 @@
             this.gBKeySetting.SuspendLayout();
             this.gBKeyboardSetting.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // radioButton3
@@ -189,7 +191,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.timeLabel);
             this.groupBox1.Controls.Add(this.panel3);
             this.groupBox1.Controls.Add(this.btnTimeSync);
             this.groupBox1.Controls.Add(this.numericUpDown2);
@@ -207,6 +208,27 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "同步演奏";
+            // 
+            // panel3
+            // 
+            this.panel3.Location = new System.Drawing.Point(0, 123);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1346, 13);
+            this.panel3.TabIndex = 16;
+            // 
+            // btnTimeSync
+            // 
+            this.btnTimeSync.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnTimeSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTimeSync.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.btnTimeSync.ForeColor = System.Drawing.Color.White;
+            this.btnTimeSync.Location = new System.Drawing.Point(271, 53);
+            this.btnTimeSync.Name = "btnTimeSync";
+            this.btnTimeSync.Size = new System.Drawing.Size(81, 29);
+            this.btnTimeSync.TabIndex = 6;
+            this.btnTimeSync.Text = "时钟同步";
+            this.btnTimeSync.UseVisualStyleBackColor = false;
+            this.btnTimeSync.Click += new System.EventHandler(this.btnTimeSync_Click);
             // 
             // numericUpDown2
             // 
@@ -489,12 +511,12 @@
             this.gBKeyboardSetting.TabStop = false;
             this.gBKeyboardSetting.Text = "Midi键盘选择";
             // 
-            // panel3
+            // panel2
             // 
-            this.panel3.Location = new System.Drawing.Point(0, 123);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1346, 13);
-            this.panel3.TabIndex = 16;
+            this.panel2.Location = new System.Drawing.Point(0, 72);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1346, 13);
+            this.panel2.TabIndex = 15;
             // 
             // btnKeyboardConnect
             // 
@@ -539,7 +561,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
-            this.button1.Location = new System.Drawing.Point(18, 707);
+            this.button1.Location = new System.Drawing.Point(18, 627);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(319, 27);
             this.button1.TabIndex = 13;
@@ -562,27 +584,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "演奏方式";
             // 
-            // panel2
-            // 
-            this.panel2.Location = new System.Drawing.Point(0, 72);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1346, 13);
-            this.panel2.TabIndex = 15;
-            // 
-            // btnTimeSync
-            // 
-            this.btnTimeSync.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnTimeSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTimeSync.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.btnTimeSync.ForeColor = System.Drawing.Color.White;
-            this.btnTimeSync.Location = new System.Drawing.Point(271, 53);
-            this.btnTimeSync.Name = "btnTimeSync";
-            this.btnTimeSync.Size = new System.Drawing.Size(81, 29);
-            this.btnTimeSync.TabIndex = 6;
-            this.btnTimeSync.Text = "时钟同步";
-            this.btnTimeSync.UseVisualStyleBackColor = false;
-            this.btnTimeSync.Click += new System.EventHandler(this.btnTimeSync_Click);
-            // 
             // panel7
             // 
             this.panel7.Location = new System.Drawing.Point(0, 71);
@@ -590,23 +591,32 @@
             this.panel7.Size = new System.Drawing.Size(1346, 13);
             this.panel7.TabIndex = 16;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.timeLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 674);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(364, 22);
+            this.statusStrip1.TabIndex = 18;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
             // timeLabel
             // 
-            this.timeLabel.AutoSize = true;
-            this.timeLabel.Font = new System.Drawing.Font("微软雅黑", 10.5F);
+            this.timeLabel.BackColor = System.Drawing.Color.Transparent;
+            this.timeLabel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.timeLabel.ForeColor = System.Drawing.Color.Gray;
-            this.timeLabel.Location = new System.Drawing.Point(184, 60);
             this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(51, 20);
-            this.timeLabel.TabIndex = 17;
-            this.timeLabel.Text = "未同步";
+            this.timeLabel.Size = new System.Drawing.Size(68, 17);
+            this.timeLabel.Text = "时钟未同步";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(364, 794);
+            this.ClientSize = new System.Drawing.Size(364, 696);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.gBKeyboardSetting);
@@ -637,7 +647,10 @@
             this.gBKeyboardSetting.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -680,9 +693,10 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label timeLabel;
         private System.Windows.Forms.Button btnTimeSync;
         private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel timeLabel;
     }
 }
 
