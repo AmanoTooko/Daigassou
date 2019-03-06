@@ -89,7 +89,7 @@ namespace Daigassou
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("这个按钮是美工加上去的，实际上我并不想加这个功能。");
+            MessageBox.Show("这个按钮是美工画的的，实际上并没有这个功能。");
         }
     }
 }

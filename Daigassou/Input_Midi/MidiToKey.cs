@@ -29,7 +29,7 @@ namespace Daigassou
             tracks = new List<NotesManager>();
             Bpm = 80;
             Offset = EnumPitchOffset.None;
-            MIN_DELAY_TICK = 50;
+            MIN_DELAY_TICK = 20;
         }
 
         public EnumPitchOffset Offset { get; set; }
@@ -103,8 +103,8 @@ namespace Daigassou
                 var tickbase = 60000 / (float) Bpm /
                                Convert.ToDouble(midi.TimeDivision.ToString()
                                    .TrimEnd(" ticks/qnote".ToCharArray()));
-                var isLastOffEvent = true;
-                var NowPitch = 0;
+                var isLastOnEvent = false;
+                var nowPitch = 0;
                 foreach (var ev in trunkEvents)
                     switch (ev)
                     {
@@ -122,15 +122,15 @@ namespace Daigassou
                             }
                             else
                             {
-                                if (NowPitch == @event.NoteNumber)
+                                if (nowPitch == @event.NoteNumber)
                                     retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                         notenumber, MIN_DELAY_TICK));
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
                                     notenumber, (int) (tickbase * @event.DeltaTime)));
                             }
 
-                            isLastOffEvent = false;
-                            NowPitch = @event.NoteNumber;
+                            isLastOnEvent = true;
+                            nowPitch = @event.NoteNumber;
                         }
                             break;
                         case NoteOffEvent _:
@@ -140,19 +140,19 @@ namespace Daigassou
 
                             var notenumber = (int) (@event.NoteNumber + Offset);
                             
-                            if (tickbase * @event.DeltaTime < MIN_DELAY_TICK)
+                            if (tickbase * @event.DeltaTime < MIN_DELAY_TICK&&isLastOnEvent==true)
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                     notenumber, MIN_DELAY_TICK));
                             else
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                     notenumber, (int) (tickbase * @event.DeltaTime)));
-                            isLastOffEvent = true;
-                            if (NowPitch == @event.NoteNumber) NowPitch = 0;
+                            isLastOnEvent = false;
+                            if (nowPitch == @event.NoteNumber) nowPitch = 0;
                         }
                             break;
                         default:
-                            isLastOffEvent = false;
-                            NowPitch = 0;
+                            isLastOnEvent = false;
+                            nowPitch = 0;
                             break;
                     }
 
