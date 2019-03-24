@@ -115,7 +115,7 @@ namespace Daigassou
 
                             var notenumber = (int) (@event.NoteNumber + Offset);
                             
-                            if (tickbase * @event.DeltaTime < MIN_DELAY_TICK)
+                            if (tickbase * @event.DeltaTime < MIN_DELAY_TICK && isLastOnEvent==true)
                             {
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
                                     notenumber, MIN_DELAY_TICK));

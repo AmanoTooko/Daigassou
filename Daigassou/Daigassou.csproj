@@ -101,7 +101,6 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CommonUtilities.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Input_Midi\KeyboardUtilities.cs" />
     <Compile Include="KeyBindForm old.cs">
       <SubType>Form</SubType>
