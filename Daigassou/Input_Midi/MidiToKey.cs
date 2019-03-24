@@ -29,7 +29,7 @@ namespace Daigassou
             tracks = new List<NotesManager>();
             Bpm = 80;
             Offset = EnumPitchOffset.None;
-            MIN_DELAY_TICK = 20;
+            MIN_DELAY_TICK = 75;
         }
 
         public EnumPitchOffset Offset { get; set; }
@@ -140,7 +140,7 @@ namespace Daigassou
 
                             var notenumber = (int) (@event.NoteNumber + Offset);
                             
-                            if (tickbase * @event.DeltaTime < MIN_DELAY_TICK&&isLastOnEvent==true)
+                            if (tickbase * @event.DeltaTime < MIN_DELAY_TICK&&isLastOnEvent==true&& nowPitch == @event.NoteNumber)
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                     notenumber, MIN_DELAY_TICK));
                             else
