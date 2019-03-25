@@ -7,7 +7,8 @@ namespace Daigassou
     public partial class KeyBindForm : Form
     {
         private TextBox[] keyBoxs = new TextBox[13];
-
+        private const int OCTAVE_KEY_LOW = 59;
+        private const int OCTAVE_KEY_HIGH = 72;
         public KeyBindForm()
         {
             InitializeComponent();
@@ -40,6 +41,30 @@ namespace Daigassou
             KeyBinding.LoadConfig();
             for (var i = 0; i < 12; i++) keyBoxs[i].Text = KeyBinding.GetNoteToKey(i + 60).ToString();
             keyBoxs[12].Text = KeyBinding.GetNoteToKey(84).ToString();
+            var settingLower = KeyBinding.GetNoteToCtrlKey(OCTAVE_KEY_LOW);
+            var settingHigher = KeyBinding.GetNoteToCtrlKey(OCTAVE_KEY_HIGH);
+            switch (settingLower)
+            {
+                case Keys.ControlKey: cbOctaveLower.Text = "Ctrl";
+                    break;
+                case Keys.Alt: cbOctaveLower.Text = "Alt";
+                    break;
+                case Keys.ShiftKey: cbOctaveLower.Text = "Shift";
+                    break;
+            }
+
+            switch (settingHigher)
+            {
+                case Keys.ControlKey:
+                    cbOctaveHigher.Text = "Ctrl";
+                    break;
+                case Keys.Alt:
+                    cbOctaveHigher.Text = "Alt";
+                    break;
+                case Keys.ShiftKey:
+                    cbOctaveHigher.Text = "Shift";
+                    break;
+            }
         }
 
         private void KeyBindForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -53,21 +78,21 @@ namespace Daigassou
             Close();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbOctaveHigh_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var tmpSelection = comboBoxLow.SelectedItem.ToString();
+            var tmpSelection = cbOctaveLower.Text;
+            
 
-
-            switch (comboBox1.SelectedItem.ToString())
+            switch (cbOctaveHigher.Text)
             {
                 case "Ctrl":
-                    KeyBinding.SetCtrlKeyToNote(72, Keys.ControlKey);
+                    KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_HIGH, Keys.ControlKey);
                     break;
                 case "Alt":
-                    KeyBinding.SetCtrlKeyToNote(72, Keys.Alt);
+                    KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_HIGH, Keys.Alt);
                     break;
                 case "Shift":
-                    KeyBinding.SetCtrlKeyToNote(72, Keys.ShiftKey);
+                    KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_HIGH, Keys.ShiftKey);
                     break;
                 default:
                     break;
@@ -75,26 +100,26 @@ namespace Daigassou
 
             var tmpDataSource = new List<string> {"Ctrl", "Alt", "Shift"};
 
-            tmpDataSource.Remove(comboBox1.SelectedItem.ToString());
-            comboBoxLow.SelectedIndexChanged -= comboBoxLow_SelectedIndexChanged;
-            comboBoxLow.DataSource = tmpDataSource;
-            comboBoxLow.SelectedItem = tmpSelection;
-            comboBoxLow.SelectedIndexChanged += comboBoxLow_SelectedIndexChanged;
+            tmpDataSource.Remove(cbOctaveHigher.Text);
+            cbOctaveLower.SelectedIndexChanged -= cbOctaveLow_SelectedIndexChanged;
+            cbOctaveLower.DataSource = tmpDataSource;
+            cbOctaveLower.SelectedItem = tmpSelection;
+            cbOctaveLower.SelectedIndexChanged += cbOctaveLow_SelectedIndexChanged;
         }
 
-        private void comboBoxLow_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbOctaveLow_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var tmpSelection = comboBox1.SelectedItem.ToString();
-            switch (comboBoxLow.SelectedItem.ToString())
+            var tmpSelection = cbOctaveHigher.Text;
+            switch (cbOctaveLower.Text)
             {
                 case "Ctrl":
-                    KeyBinding.SetCtrlKeyToNote(59, Keys.ControlKey);
+                    KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_LOW, Keys.ControlKey);
                     break;
                 case "Alt":
-                    KeyBinding.SetCtrlKeyToNote(59, Keys.Alt);
+                    KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_LOW, Keys.Alt);
                     break;
                 case "Shift":
-                    KeyBinding.SetCtrlKeyToNote(59, Keys.ShiftKey);
+                    KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_LOW, Keys.ShiftKey);
                     break;
                 default:
                     break;
@@ -102,11 +127,11 @@ namespace Daigassou
 
             var tmpDataSource = new List<string> {"Ctrl", "Alt", "Shift"};
 
-            tmpDataSource.Remove(comboBoxLow.SelectedItem.ToString());
-            comboBox1.SelectedIndexChanged -= comboBox1_SelectedIndexChanged;
-            comboBox1.DataSource = tmpDataSource;
-            comboBox1.SelectedItem = tmpSelection;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            tmpDataSource.Remove(cbOctaveLower.Text);
+            cbOctaveHigher.SelectedIndexChanged -= cbOctaveHigh_SelectedIndexChanged;
+            cbOctaveHigher.DataSource = tmpDataSource;
+            cbOctaveHigher.SelectedItem = tmpSelection;
+            cbOctaveHigher.SelectedIndexChanged += cbOctaveHigh_SelectedIndexChanged;
         }
 
         private void button2_Click(object sender, EventArgs e)

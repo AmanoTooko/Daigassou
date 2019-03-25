@@ -96,7 +96,7 @@ namespace Daigassou
             if (note < 60)
                 _ctrKeyMap["OctaveLower"] = key;
             else if (note > 71) _ctrKeyMap["OctaveHigher"] = key;
-            //SaveConfig();
+            SaveConfig();
         }
 
         public static void SaveConfig()

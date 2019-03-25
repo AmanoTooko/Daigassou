@@ -41,8 +41,8 @@
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxLow = new System.Windows.Forms.ComboBox();
+            this.cbOctaveHigher = new System.Windows.Forms.ComboBox();
+            this.cbOctaveLower = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -216,31 +216,33 @@
             this.textBox13.Text = "请设置";
             this.textBox13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // comboBox1
+            // cbOctaveHigher
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cbOctaveHigher.FormattingEnabled = true;
+            this.cbOctaveHigher.Items.AddRange(new object[] {
+            "Shift",
+            "Alt",
+            "Ctrl"});
+            this.cbOctaveHigher.Location = new System.Drawing.Point(330, 384);
+            this.cbOctaveHigher.Name = "cbOctaveHigher";
+            this.cbOctaveHigher.Size = new System.Drawing.Size(111, 28);
+            this.cbOctaveHigher.TabIndex = 13;
+            this.cbOctaveHigher.Text = "Ctrl";
+            this.cbOctaveHigher.SelectedIndexChanged += new System.EventHandler(this.cbOctaveHigh_SelectedIndexChanged);
+            // 
+            // cbOctaveLower
+            // 
+            this.cbOctaveLower.FormattingEnabled = true;
+            this.cbOctaveLower.Items.AddRange(new object[] {
+            "Alt",
             "Ctrl",
             "Shift"});
-            this.comboBox1.Location = new System.Drawing.Point(330, 384);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(111, 28);
-            this.comboBox1.TabIndex = 13;
-            this.comboBox1.Text = "Ctrl";
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // comboBoxLow
-            // 
-            this.comboBoxLow.FormattingEnabled = true;
-            this.comboBoxLow.Items.AddRange(new object[] {
-            "Alt",
-            "Shift"});
-            this.comboBoxLow.Location = new System.Drawing.Point(330, 424);
-            this.comboBoxLow.Name = "comboBoxLow";
-            this.comboBoxLow.Size = new System.Drawing.Size(111, 28);
-            this.comboBoxLow.TabIndex = 14;
-            this.comboBoxLow.Text = "Shift";
-            this.comboBoxLow.SelectedIndexChanged += new System.EventHandler(this.comboBoxLow_SelectedIndexChanged);
+            this.cbOctaveLower.Location = new System.Drawing.Point(330, 424);
+            this.cbOctaveLower.Name = "cbOctaveLower";
+            this.cbOctaveLower.Size = new System.Drawing.Size(111, 28);
+            this.cbOctaveLower.TabIndex = 14;
+            this.cbOctaveLower.Text = "Shift";
+            this.cbOctaveLower.SelectedIndexChanged += new System.EventHandler(this.cbOctaveLow_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -276,8 +278,8 @@
             this.ClientSize = new System.Drawing.Size(484, 561);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBoxLow);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbOctaveLower);
+            this.Controls.Add(this.cbOctaveHigher);
             this.Controls.Add(this.textBox13);
             this.Controls.Add(this.textBox12);
             this.Controls.Add(this.textBox11);
@@ -318,8 +320,8 @@
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox13;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBoxLow;
+        private System.Windows.Forms.ComboBox cbOctaveHigher;
+        private System.Windows.Forms.ComboBox cbOctaveLower;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
     }
