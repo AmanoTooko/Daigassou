@@ -39,10 +39,10 @@ namespace Daigassou
             keybd_event(_lastCtrlKey, (byte) MapVirtualKey((uint) _lastCtrlKey, 0), 2, 0);
             Thread.Sleep(1);
             keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 0, 0);
-            Thread.Sleep(10);
+            Thread.Sleep(15);
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
             _lastCtrlKey = ctrKeys;
-            Thread.Sleep(10);
+            Thread.Sleep(15);
         }
 
         private static void KeyboardPress(Keys viKeys)
@@ -80,6 +80,7 @@ namespace Daigassou
         public static void KeyboardRelease(Keys ctrKeys, Keys viKeys)
         {
             keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 2, 0);
+            Thread.Sleep(1);
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 2, 0);
         }
 

@@ -47,7 +47,7 @@ namespace Daigassou
             {
                 case Keys.ControlKey: cbOctaveLower.Text = "Ctrl";
                     break;
-                case Keys.Alt: cbOctaveLower.Text = "Alt";
+                case Keys.Menu: cbOctaveLower.Text = "Alt";
                     break;
                 case Keys.ShiftKey: cbOctaveLower.Text = "Shift";
                     break;
@@ -58,7 +58,7 @@ namespace Daigassou
                 case Keys.ControlKey:
                     cbOctaveHigher.Text = "Ctrl";
                     break;
-                case Keys.Alt:
+                case Keys.Menu:
                     cbOctaveHigher.Text = "Alt";
                     break;
                 case Keys.ShiftKey:
@@ -89,7 +89,7 @@ namespace Daigassou
                     KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_HIGH, Keys.ControlKey);
                     break;
                 case "Alt":
-                    KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_HIGH, Keys.Alt);
+                    KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_HIGH, Keys.Menu);
                     break;
                 case "Shift":
                     KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_HIGH, Keys.ShiftKey);
@@ -116,7 +116,7 @@ namespace Daigassou
                     KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_LOW, Keys.ControlKey);
                     break;
                 case "Alt":
-                    KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_LOW, Keys.Alt);
+                    KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_LOW, Keys.Menu);
                     break;
                 case "Shift":
                     KeyBinding.SetCtrlKeyToNote(OCTAVE_KEY_LOW, Keys.ShiftKey);
