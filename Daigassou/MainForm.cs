@@ -83,10 +83,11 @@ namespace Daigassou
         {
             return Task.Run(() =>
             {
-                mtk.ArrangeKeyPlaysNew(mtk.Index);
+
                 //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
-                //KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
-                //_runningFlag = false;
+                var keyPlayLists = mtk.ArrangeKeyPlaysNew(mtk.Index);
+                KeyController.KeyPlayBack(keyPlayLists,  cts.Token);
+                _runningFlag = false;
             }, token);
         }
 

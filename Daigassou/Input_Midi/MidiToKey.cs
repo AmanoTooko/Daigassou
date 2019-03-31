@@ -232,10 +232,11 @@ namespace Daigassou
                         tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
                                    ticksPerQuarterNote;
                         var minTick = (long)(MIN_DELAY_TIME_MS / tickBase);
-                        foreach (var note in chord.Notes)
+                        foreach (var note in chord.Notes.OrderBy(x=>x.NoteNumber))
                         {
                             note.Time += (long)(count * minTick);
                             note.Length = note.Length - (count * minTick) > minTick ? note.Length - (count * minTick) : minTick;
+                            count++;
                         }
                     }
 
@@ -265,7 +266,7 @@ namespace Daigassou
                     switch (@event.Event)
                     {
                         case NoteOnEvent noteOnEvent:
-                            if (eventOffTimeArray[noteOnEvent.NoteNumber] != null && eventOffTimeArray[noteOnEvent.NoteNumber].Time > @event.Time + minTick)
+                            if (eventOffTimeArray[noteOnEvent.NoteNumber] != null && eventOffTimeArray[noteOnEvent.NoteNumber].Time + minTick > @event.Time )
                             {
                                 eventOffTimeArray[noteOnEvent.NoteNumber].Time -= minTick;//未加小于0的判断
                             }
@@ -301,15 +302,18 @@ namespace Daigassou
                         {
                             
                             var noteNumber = (int)(@event.NoteNumber + Offset);
-                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                noteNumber, (int)(tickBase * @event.DeltaTime)));
+                            nowTimeMs += (int)(tickBase * @event.DeltaTime);
+                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
+                                noteNumber, nowTimeMs));
+                            
                         }
                             break;
                         case NoteOffEvent @event:
                         {
                             var noteNumber = (int)(@event.NoteNumber + Offset);
-                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                noteNumber, (int)(tickBase * @event.DeltaTime)));
+                            nowTimeMs += (int)(tickBase * @event.DeltaTime);
+                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+                                noteNumber, nowTimeMs));
                         }
                             break;
                         default:
@@ -322,7 +326,11 @@ namespace Daigassou
 
         public void PlaybackPause()
         {
-            playback.Stop();
+            if (playback!=null)
+            {
+                playback.Stop();
+            }
+            
         }
 
         public void PlaybackStart()
@@ -336,9 +344,12 @@ namespace Daigassou
 
         public void PlaybackRestart()
         {
-            playback.Stop();
-            playback.Dispose();
-            playback= new Playback(trunks.ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
+            if (playback!=null)
+            {
+                playback.Stop();
+                playback.Dispose();
+                playback = new Playback(trunks.ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
+            }
         }
         public int GetBpm()
         {

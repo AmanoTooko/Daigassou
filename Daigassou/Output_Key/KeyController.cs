@@ -11,7 +11,7 @@ namespace Daigassou
     public class KeyController
     {
         private static Keys _lastCtrlKey;
-
+        private static  volatile int  playingOffset = 0;
         [DllImport("User32.dll")]
         public static extern void keybd_event(Keys bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
@@ -90,19 +90,20 @@ namespace Daigassou
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 2, 0);
         }
 
-        public static void KeyPlayBack(Queue<KeyPlayList> keyQueue, int tick, CancellationToken token)
+        public static void KeyPlayBack(Queue<KeyPlayList> keyQueue,  CancellationToken token)
         {
             var startTime = Environment.TickCount;
             while (keyQueue.Any() && !token.IsCancellationRequested)
             {
                 var nextKey = keyQueue.Dequeue();
-                var duration = tick * nextKey.TimeMs;
-                var targetTime = startTime + duration;
+               // var duration = tick * nextKey.TimeMs;
+                //var targetTime = startTime + duration;
+                var targetTime = startTime + nextKey.TimeMs+playingOffset;
                 while (true)
                     if (targetTime <= Environment.TickCount)
                         break;
 
-                startTime = Environment.TickCount;
+                //startTime = Environment.TickCount;
 
                 if (nextKey.Ev == KeyPlayList.NoteEvent.NoteOn)
                     KeyboardPress(nextKey.Pitch);
@@ -113,6 +114,11 @@ namespace Daigassou
                 Console.WriteLine($@" i called function at {startTime} with target time is {targetTime}");
 #endif
             }
+        }
+
+        public static void SetPlayingOffset(int targetTime)
+        {
+            playingOffset = targetTime;
         }
     }
 
