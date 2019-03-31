@@ -86,7 +86,7 @@ namespace Daigassou
 
                 //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
                 var keyPlayLists = mtk.ArrangeKeyPlaysNew(mtk.Index);
-                KeyController.KeyPlayBack(keyPlayLists,  cts.Token);
+                KeyController.KeyPlayBack(keyPlayLists,(double)(mtk.GetBpm()/ nudBpm.Value ),  cts.Token);
                 _runningFlag = false;
             }, token);
         }

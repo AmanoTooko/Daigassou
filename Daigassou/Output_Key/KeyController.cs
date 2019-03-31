@@ -90,7 +90,7 @@ namespace Daigassou
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 2, 0);
         }
 
-        public static void KeyPlayBack(Queue<KeyPlayList> keyQueue,  CancellationToken token)
+        public static void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed , CancellationToken token)
         {
             var startTime = Environment.TickCount;
             while (keyQueue.Any() && !token.IsCancellationRequested)
@@ -98,7 +98,7 @@ namespace Daigassou
                 var nextKey = keyQueue.Dequeue();
                // var duration = tick * nextKey.TimeMs;
                 //var targetTime = startTime + duration;
-                var targetTime = startTime + nextKey.TimeMs+playingOffset;
+                var targetTime = startTime + nextKey.TimeMs* speed + playingOffset;
                 while (true)
                     if (targetTime <= Environment.TickCount)
                         break;
