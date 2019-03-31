@@ -64,7 +64,7 @@ namespace Daigassou
     }
     internal class MidiToKey
     {
-        private readonly int MIN_DELAY_TICK;
+        private readonly int MIN_DELAY_TIME_MS;
         private readonly List<NotesManager> tracks;
         public int Index = 0;
         private MidiFile midi;
@@ -79,7 +79,7 @@ namespace Daigassou
             tracks = new List<NotesManager>();
             Bpm = 80;
             Offset = EnumPitchOffset.None;
-            MIN_DELAY_TICK = 75;
+            MIN_DELAY_TIME_MS = 75;
         }
 
         public EnumPitchOffset Offset { get; set; }
@@ -160,19 +160,19 @@ namespace Daigassou
 
                             var noteNumber = (int) (@event.NoteNumber + Offset);
                             
-                            if (tickBase * @event.DeltaTime < MIN_DELAY_TICK && isLastOnEvent==true)
+                            if (tickBase * @event.DeltaTime < MIN_DELAY_TIME_MS && isLastOnEvent==true)
                             {
                                 if (nowPitch == @event.NoteNumber)
                                     retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                        noteNumber, MIN_DELAY_TICK));
+                                        noteNumber, MIN_DELAY_TIME_MS));
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                    noteNumber, MIN_DELAY_TICK));
+                                    noteNumber, MIN_DELAY_TIME_MS));
                             }
                             else
                             {
                                 if (nowPitch == @event.NoteNumber)
                                     retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                        noteNumber, MIN_DELAY_TICK));
+                                        noteNumber, MIN_DELAY_TIME_MS));
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
                                     noteNumber, (int) (tickBase * @event.DeltaTime)));
                             }
@@ -188,9 +188,9 @@ namespace Daigassou
 
                             var noteNumber = (int) (@event.NoteNumber + Offset);
                             
-                            if (tickBase * @event.DeltaTime < MIN_DELAY_TICK&&isLastOnEvent==true&& nowPitch == @event.NoteNumber)
+                            if (tickBase * @event.DeltaTime < MIN_DELAY_TIME_MS&&isLastOnEvent==true&& nowPitch == @event.NoteNumber)
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                    noteNumber, MIN_DELAY_TICK));
+                                    noteNumber, MIN_DELAY_TIME_MS));
                             else
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                     noteNumber, (int) (tickBase * @event.DeltaTime)));
@@ -213,106 +213,111 @@ namespace Daigassou
             }
         }
 
-        public void PreProcessMidi(int index)
+        /// <summary>
+        /// 和弦处理，主要逻辑：遇到和弦时，从第一个和弦起，每个音符向后移位minTick数，同时Length也减少
+        /// </summary>
+        public void PreProcessChord()
         {
-            var trunk = trunks.ElementAt(index);
-            var trunkEvents = trunks.ElementAt(index).Events;
-            var retKeyPlayLists = new Queue<KeyPlayList>();
-            var tickBase = 60000 / (float)Bpm /
-                           Convert.ToDouble(midi.TimeDivision.ToString()
-                               .TrimEnd(" ticks/qnote".ToCharArray()));
-            var manager = new TimedEventsManager(trunkEvents);
-            var notesManager = new NotesManager(trunkEvents);
+            var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
+                .TrimEnd(" ticks/qnote".ToCharArray()));
+            var tickBase = 60000 / (float)Bpm / ticksPerQuarterNote;//duplicate code need to be delete
 
-            var tempo =midi.GetTempoMap().Tempo.AtTime(0);//get tempo?
-            
-            var isLastOnEvent = false;
-            var nowPitch = 0;
-
-            using (var outputDevice = OutputDevice.GetAll().ElementAt(0))
-            using (var playback = new Playback(trunkEvents, TempoMap.Default, outputDevice))
+            using (var chordManager = trunks.ElementAt(Index).Events.ManageChords())
             {
-                playback.Start();
+                foreach (var chord in chordManager.Chords)
+                {
+                    if (chord.Notes.Count() > 1)
+                    {
+                        var count = 0;
+                        tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
+                                   ticksPerQuarterNote;
+                        var minTick = (long)(MIN_DELAY_TIME_MS / tickBase);
+                        foreach (var note in chord.Notes)
+                        {
+                            note.Time += (long)(count * minTick);
+                            note.Length = note.Length - (count * minTick) > minTick ? note.Length - (count * minTick) : minTick;
+                        }
+                    }
+
+                }
             }
-            //foreach (var ev in trunkEvents)
-            //    switch (ev)
-            //    {
-            //        case NoteOnEvent onEvent:
-            //            {
-            //                var @event = onEvent;
+                
 
 
-            //                var noteNumber = (int)(@event.NoteNumber + Offset);
-
-            //                if (tickBase * @event.DeltaTime < MIN_DELAY_TICK && isLastOnEvent == true)
-            //                {
-            //                    if (nowPitch == @event.NoteNumber)
-            //                        retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-            //                            noteNumber, MIN_DELAY_TICK));
-            //                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-            //                        noteNumber, MIN_DELAY_TICK));
-            //                }
-            //                else
-            //                {
-            //                    if (nowPitch == @event.NoteNumber)
-            //                        retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-            //                            noteNumber, MIN_DELAY_TICK));
-            //                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-            //                        noteNumber, (int)(tickBase * @event.DeltaTime)));
-            //                }
-
-            //                isLastOnEvent = true;
-            //                nowPitch = @event.NoteNumber;
-            //            }
-            //            break;
-            //        case NoteOffEvent offEvent:
-            //            {
-            //                var @event = offEvent;
-
-
-            //                var noteNumber = (int)(@event.NoteNumber + Offset);
-
-            //                if (tickBase * @event.DeltaTime < MIN_DELAY_TICK && isLastOnEvent == true && nowPitch == @event.NoteNumber)
-            //                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-            //                        noteNumber, MIN_DELAY_TICK));
-            //                else
-            //                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-            //                        noteNumber, (int)(tickBase * @event.DeltaTime)));
-            //                isLastOnEvent = false;
-            //                if (nowPitch == @event.NoteNumber) nowPitch = 0;
-            //            }
-            //            break;
-            //        default:
-            //            isLastOnEvent = false;
-            //            nowPitch = 0;
-            //            break;
-            //    }
-
-            
         }
-        public void ArrangeKeyPlaysNew(int index)
+
+        /// <summary>
+        /// Event处理，主要逻辑：遇到同音符连续按下时，提前offevent
+        /// </summary>
+        public void PreProcessEvents()
         {
-            
-
-            var trunk = trunks.ElementAt(index);
+            var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
+                .TrimEnd(" ticks/qnote".ToCharArray()));
+            var tickBase = 60000 / (float)Bpm / ticksPerQuarterNote;
+            TimedEvent[] eventOffTimeArray = new TimedEvent[108];
+            using (var eventsManager = trunks.ElementAt(Index).Events.ManageTimedEvents())
+            {
+                foreach (var @event in eventsManager.Events)
+                {
+                    tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(@event.Time).BeatsPerMinute /
+                               ticksPerQuarterNote;
+                    var minTick = (long)(MIN_DELAY_TIME_MS / tickBase);
+                    switch (@event.Event)
+                    {
+                        case NoteOnEvent noteOnEvent:
+                            if (eventOffTimeArray[noteOnEvent.NoteNumber] != null && eventOffTimeArray[noteOnEvent.NoteNumber].Time > @event.Time + minTick)
+                            {
+                                eventOffTimeArray[noteOnEvent.NoteNumber].Time -= minTick;//未加小于0的判断
+                            }
+                            break;
+                        case NoteOffEvent noteOffEvent:
+                            eventOffTimeArray[noteOffEvent.NoteNumber] = @event;
+                            break;
+                    }
+                }
+            }
+                
+        }
+        public Queue<KeyPlayList> ArrangeKeyPlaysNew(int index)
+        {
             var trunkEvents = trunks.ElementAt(index).Events;
-            var tickBase = 60000 / (float)Bpm /
-                           Convert.ToDouble(midi.TimeDivision.ToString()
-                               .TrimEnd(" ticks/qnote".ToCharArray()));
-            var eventsManager = new TimedEventsManager(trunkEvents);
-            var notesManager = new NotesManager(trunkEvents);
 
-
-            var tempo = midi.GetTempoMap().Tempo.AtTime(0);//get tempo?
-
-            var isLastOnEvent = false;
-            var nowPitch = 0;
-
-            playback = new Playback(trunkEvents, midi.GetTempoMap(), outputDevice);
-            //var task = System.Threading.Tasks.Task.Run(() => { playback.Start(); });
-
-            playback.Start();
-            var retKeyPlayLists = ArrangeKeyPlays(index);
+            var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
+                .TrimEnd(" ticks/qnote".ToCharArray()));
+            var tickBase = 60000 / (float)Bpm / ticksPerQuarterNote;//duplicate code need to be delete
+            var nowTimeMs = 0;
+            var retKeyPlayLists = new Queue<KeyPlayList>();
+            PreProcessChord();
+            PreProcessEvents();
+            using (var timedEvent = trunkEvents.ManageTimedEvents())
+            {
+                foreach (var ev in timedEvent.Events)
+                {
+                    tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(ev.Time).BeatsPerMinute /
+                               ticksPerQuarterNote;
+                    switch (ev.Event)
+                    {
+                        case NoteOnEvent @event:
+                        {
+                            
+                            var noteNumber = (int)(@event.NoteNumber + Offset);
+                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
+                                noteNumber, (int)(tickBase * @event.DeltaTime)));
+                        }
+                            break;
+                        case NoteOffEvent @event:
+                        {
+                            var noteNumber = (int)(@event.NoteNumber + Offset);
+                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+                                noteNumber, (int)(tickBase * @event.DeltaTime)));
+                        }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            return retKeyPlayLists;
         }
 
         public void PlaybackPause()

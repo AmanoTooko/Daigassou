@@ -96,7 +96,7 @@ namespace Daigassou
             while (keyQueue.Any() && !token.IsCancellationRequested)
             {
                 var nextKey = keyQueue.Dequeue();
-                var duration = tick * nextKey.Tick;
+                var duration = tick * nextKey.TimeMs;
                 var targetTime = startTime + duration;
                 while (true)
                     if (targetTime <= Environment.TickCount)
@@ -126,11 +126,10 @@ namespace Daigassou
 
         public NoteEvent Ev;
         public int Pitch;
-        public long Tick;
-
-        public KeyPlayList(NoteEvent ev, int pitch, long tick)
+        public long TimeMs;
+        public KeyPlayList(NoteEvent ev, int pitch, long timeMs)
         {
-            Tick = tick;
+            TimeMs = timeMs;
             Ev = ev;
             Pitch = pitch;
         }
