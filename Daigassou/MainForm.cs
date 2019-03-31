@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +11,9 @@ using System.Windows.Input;
 using Daigassou.Input_Midi;
 using Daigassou.Properties;
 using GlobalHotKey;
+using Melanchall.DryWetMidi.Devices;
+using Melanchall.DryWetMidi.Smf;
+using Melanchall.DryWetMidi.Smf.Interaction;
 
 namespace Daigassou
 {
@@ -63,6 +68,7 @@ namespace Daigassou
             {
                 case Key.F10 when _runningFlag == false:
                     _runningFlag = true;
+                    
                     cts = new CancellationTokenSource();
                     NewCancellableTask(cts.Token);
                     break;
@@ -77,9 +83,10 @@ namespace Daigassou
         {
             return Task.Run(() =>
             {
-                var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
-                KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
-                _runningFlag = false;
+                mtk.ArrangeKeyPlaysNew(mtk.Index);
+                //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
+                //KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
+                //_runningFlag = false;
             }, token);
         }
 
@@ -248,13 +255,31 @@ namespace Daigassou
             var offset=new NtpClient("ntp3.aliyun.com").GetOffset(out error);
             if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(DateTime.Now.AddMilliseconds(offset.TotalMilliseconds*-0.5)))
             {
-                timeLabel.Text = $"已同步 误差{error}ms";
+                tlblTime.Text = $"已同步 误差{error}ms";
             }
             else
             {
-                timeLabel.Text = $"设置时间出错";
+                tlblTime.Text = $"设置时间出错";
             }
 
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            mtk.PlaybackStart();
+            tlblPlay.Text = $"正在试听: {Path.GetFileNameWithoutExtension(midFileDiag.FileName)}";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            mtk.PlaybackPause();
+            tlblPlay.Text = $"暂停试听: {Path.GetFileNameWithoutExtension(midFileDiag.FileName)}";
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            mtk.PlaybackRestart();
+            tlblPlay.Text = $"试听已停止";
         }
     }
 }

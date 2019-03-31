@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using System.Windows.Forms;
+using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Smf;
 using Melanchall.DryWetMidi.Smf.Interaction;
 
@@ -15,6 +17,51 @@ namespace Daigassou
         OctaveHigher = +12
     }
 
+    internal class MidiPlaybackController
+    {
+        public int Index = 0;
+        private MidiFile midi;
+        private TempoMap Tmap;
+        private List<TrackChunk> trunks;
+
+        public MidiPlaybackController()
+        {
+
+        }
+
+        public List<string> GetOutputDevicesNames()
+        {
+            var ret = new List<string>();
+            foreach (var device in OutputDevice.GetAll())
+            {
+                ret.Add(device.Name);
+            }
+            return ret;
+        }
+        public void TrackPlayback(string outputDevice,int Index)
+        {
+            if (outputDevice!=null)
+            {
+                
+            }
+        }
+
+        public void TrackPlaybackPause()
+        {
+            //cts = new CancellationTokenSource();
+            //NewCancellableTask(cts.Token);
+            //private Task NewCancellableTask(CancellationToken token)
+            //{
+            //    return Task.Run(() =>
+            //    {
+            //        mtk.ArrangeKeyPlaysNew(mtk.Index);
+            //        //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
+            //        //KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
+            //        //_runningFlag = false;
+            //    }, token);
+            //}
+        }
+    }
     internal class MidiToKey
     {
         private readonly int MIN_DELAY_TICK;
@@ -23,6 +70,9 @@ namespace Daigassou
         private MidiFile midi;
         private TempoMap Tmap;
         private List<TrackChunk> trunks;
+
+        private OutputDevice outputDevice = OutputDevice.GetAll().ElementAt(0);
+        private Playback playback ;
 
         public MidiToKey()
         {
@@ -89,18 +139,13 @@ namespace Daigassou
             }
         }
 
-        public int GetTimerTick()
-        {
-            return 0;
-        }
-
         public Queue<KeyPlayList> ArrangeKeyPlays(int index)
         {
             try
             {
                 var trunkEvents = trunks.ElementAt(index).Events;
                 var retKeyPlayLists = new Queue<KeyPlayList>();
-                var tickbase = 60000 / (float) Bpm /
+                var tickBase = 60000 / (float) Bpm /
                                Convert.ToDouble(midi.TimeDivision.ToString()
                                    .TrimEnd(" ticks/qnote".ToCharArray()));
                 var isLastOnEvent = false;
@@ -108,44 +153,47 @@ namespace Daigassou
                 foreach (var ev in trunkEvents)
                     switch (ev)
                     {
-                        case NoteOnEvent _:
+                        case NoteOnEvent onEvent:
                         {
-                            var @event = ev as NoteOnEvent;
+                            var @event = onEvent;
 
 
-                            var notenumber = (int) (@event.NoteNumber + Offset);
+                            var noteNumber = (int) (@event.NoteNumber + Offset);
                             
-                            if (tickbase * @event.DeltaTime < MIN_DELAY_TICK && isLastOnEvent==true)
+                            if (tickBase * @event.DeltaTime < MIN_DELAY_TICK && isLastOnEvent==true)
                             {
+                                if (nowPitch == @event.NoteNumber)
+                                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+                                        noteNumber, MIN_DELAY_TICK));
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                    notenumber, MIN_DELAY_TICK));
+                                    noteNumber, MIN_DELAY_TICK));
                             }
                             else
                             {
                                 if (nowPitch == @event.NoteNumber)
                                     retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                        notenumber, MIN_DELAY_TICK));
+                                        noteNumber, MIN_DELAY_TICK));
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                    notenumber, (int) (tickbase * @event.DeltaTime)));
+                                    noteNumber, (int) (tickBase * @event.DeltaTime)));
                             }
 
                             isLastOnEvent = true;
                             nowPitch = @event.NoteNumber;
                         }
                             break;
-                        case NoteOffEvent _:
+                        case NoteOffEvent offEvent:
                         {
-                            var @event = ev as NoteOffEvent;
+                            var @event = offEvent;
 
 
-                            var notenumber = (int) (@event.NoteNumber + Offset);
+                            var noteNumber = (int) (@event.NoteNumber + Offset);
                             
-                            if (tickbase * @event.DeltaTime < MIN_DELAY_TICK&&isLastOnEvent==true&& nowPitch == @event.NoteNumber)
+                            if (tickBase * @event.DeltaTime < MIN_DELAY_TICK&&isLastOnEvent==true&& nowPitch == @event.NoteNumber)
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                    notenumber, MIN_DELAY_TICK));
+                                    noteNumber, MIN_DELAY_TICK));
                             else
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                    notenumber, (int) (tickbase * @event.DeltaTime)));
+                                    noteNumber, (int) (tickBase * @event.DeltaTime)));
                             isLastOnEvent = false;
                             if (nowPitch == @event.NoteNumber) nowPitch = 0;
                         }
@@ -165,6 +213,128 @@ namespace Daigassou
             }
         }
 
+        public void PreProcessMidi(int index)
+        {
+            var trunk = trunks.ElementAt(index);
+            var trunkEvents = trunks.ElementAt(index).Events;
+            var retKeyPlayLists = new Queue<KeyPlayList>();
+            var tickBase = 60000 / (float)Bpm /
+                           Convert.ToDouble(midi.TimeDivision.ToString()
+                               .TrimEnd(" ticks/qnote".ToCharArray()));
+            var manager = new TimedEventsManager(trunkEvents);
+            var notesManager = new NotesManager(trunkEvents);
+
+            var tempo =midi.GetTempoMap().Tempo.AtTime(0);//get tempo?
+            
+            var isLastOnEvent = false;
+            var nowPitch = 0;
+
+            using (var outputDevice = OutputDevice.GetAll().ElementAt(0))
+            using (var playback = new Playback(trunkEvents, TempoMap.Default, outputDevice))
+            {
+                playback.Start();
+            }
+            //foreach (var ev in trunkEvents)
+            //    switch (ev)
+            //    {
+            //        case NoteOnEvent onEvent:
+            //            {
+            //                var @event = onEvent;
+
+
+            //                var noteNumber = (int)(@event.NoteNumber + Offset);
+
+            //                if (tickBase * @event.DeltaTime < MIN_DELAY_TICK && isLastOnEvent == true)
+            //                {
+            //                    if (nowPitch == @event.NoteNumber)
+            //                        retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+            //                            noteNumber, MIN_DELAY_TICK));
+            //                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
+            //                        noteNumber, MIN_DELAY_TICK));
+            //                }
+            //                else
+            //                {
+            //                    if (nowPitch == @event.NoteNumber)
+            //                        retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+            //                            noteNumber, MIN_DELAY_TICK));
+            //                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
+            //                        noteNumber, (int)(tickBase * @event.DeltaTime)));
+            //                }
+
+            //                isLastOnEvent = true;
+            //                nowPitch = @event.NoteNumber;
+            //            }
+            //            break;
+            //        case NoteOffEvent offEvent:
+            //            {
+            //                var @event = offEvent;
+
+
+            //                var noteNumber = (int)(@event.NoteNumber + Offset);
+
+            //                if (tickBase * @event.DeltaTime < MIN_DELAY_TICK && isLastOnEvent == true && nowPitch == @event.NoteNumber)
+            //                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+            //                        noteNumber, MIN_DELAY_TICK));
+            //                else
+            //                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+            //                        noteNumber, (int)(tickBase * @event.DeltaTime)));
+            //                isLastOnEvent = false;
+            //                if (nowPitch == @event.NoteNumber) nowPitch = 0;
+            //            }
+            //            break;
+            //        default:
+            //            isLastOnEvent = false;
+            //            nowPitch = 0;
+            //            break;
+            //    }
+
+            
+        }
+        public void ArrangeKeyPlaysNew(int index)
+        {
+            
+
+            var trunk = trunks.ElementAt(index);
+            var trunkEvents = trunks.ElementAt(index).Events;
+            var tickBase = 60000 / (float)Bpm /
+                           Convert.ToDouble(midi.TimeDivision.ToString()
+                               .TrimEnd(" ticks/qnote".ToCharArray()));
+            var eventsManager = new TimedEventsManager(trunkEvents);
+            var notesManager = new NotesManager(trunkEvents);
+
+
+            var tempo = midi.GetTempoMap().Tempo.AtTime(0);//get tempo?
+
+            var isLastOnEvent = false;
+            var nowPitch = 0;
+
+            playback = new Playback(trunkEvents, midi.GetTempoMap(), outputDevice);
+            //var task = System.Threading.Tasks.Task.Run(() => { playback.Start(); });
+
+            playback.Start();
+            var retKeyPlayLists = ArrangeKeyPlays(index);
+        }
+
+        public void PlaybackPause()
+        {
+            playback.Stop();
+        }
+
+        public void PlaybackStart()
+        {
+            if (playback==null)
+            {
+                playback = new Playback(trunks.ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
+            }
+            playback.Start();
+        }
+
+        public void PlaybackRestart()
+        {
+            playback.Stop();
+            playback.Dispose();
+            playback= new Playback(trunks.ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
+        }
         public int GetBpm()
         {
             var bpm = 80;

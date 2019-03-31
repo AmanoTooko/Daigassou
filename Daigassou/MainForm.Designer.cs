@@ -72,7 +72,11 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.timeLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tlblTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.tlblPlay = new System.Windows.Forms.ToolStripStatusLabel();
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.gBMidiFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -102,7 +106,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(364, 13);
+            this.panel1.Size = new System.Drawing.Size(363, 13);
             this.panel1.TabIndex = 14;
             // 
             // trackComboBox
@@ -130,7 +134,7 @@
             this.gBMidiFile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
             this.gBMidiFile.Location = new System.Drawing.Point(0, 13);
             this.gBMidiFile.Name = "gBMidiFile";
-            this.gBMidiFile.Size = new System.Drawing.Size(364, 111);
+            this.gBMidiFile.Size = new System.Drawing.Size(363, 111);
             this.gBMidiFile.TabIndex = 3;
             this.gBMidiFile.TabStop = false;
             this.gBMidiFile.Text = "Midi乐谱选择";
@@ -204,7 +208,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
             this.groupBox1.Location = new System.Drawing.Point(0, 323);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(364, 135);
+            this.groupBox1.Size = new System.Drawing.Size(363, 135);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "同步演奏";
@@ -330,7 +334,7 @@
             this.gBParameterSetting.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
             this.gBParameterSetting.Location = new System.Drawing.Point(0, 124);
             this.gBParameterSetting.Name = "gBParameterSetting";
-            this.gBParameterSetting.Size = new System.Drawing.Size(364, 109);
+            this.gBParameterSetting.Size = new System.Drawing.Size(363, 109);
             this.gBParameterSetting.TabIndex = 5;
             this.gBParameterSetting.TabStop = false;
             this.gBParameterSetting.Text = "播放属性设置";
@@ -438,7 +442,7 @@
             this.gBKeySetting.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
             this.gBKeySetting.Location = new System.Drawing.Point(0, 233);
             this.gBKeySetting.Name = "gBKeySetting";
-            this.gBKeySetting.Size = new System.Drawing.Size(364, 90);
+            this.gBKeySetting.Size = new System.Drawing.Size(363, 90);
             this.gBKeySetting.TabIndex = 10;
             this.gBKeySetting.TabStop = false;
             this.gBKeySetting.Text = "游戏键位设置";
@@ -506,7 +510,7 @@
             this.gBKeyboardSetting.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
             this.gBKeyboardSetting.Location = new System.Drawing.Point(0, 458);
             this.gBKeyboardSetting.Name = "gBKeyboardSetting";
-            this.gBKeyboardSetting.Size = new System.Drawing.Size(364, 79);
+            this.gBKeyboardSetting.Size = new System.Drawing.Size(363, 79);
             this.gBKeyboardSetting.TabIndex = 11;
             this.gBKeyboardSetting.TabStop = false;
             this.gBKeyboardSetting.Text = "Midi键盘选择";
@@ -579,7 +583,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
             this.groupBox2.Location = new System.Drawing.Point(0, 537);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(364, 83);
+            this.groupBox2.Size = new System.Drawing.Size(363, 83);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "演奏方式";
@@ -594,28 +598,70 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.timeLabel});
+            this.tlblTime,
+            this.tlblPlay});
             this.statusStrip1.Location = new System.Drawing.Point(0, 674);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(364, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(363, 22);
             this.statusStrip1.TabIndex = 18;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // timeLabel
+            // tlblTime
             // 
-            this.timeLabel.BackColor = System.Drawing.Color.Transparent;
-            this.timeLabel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.timeLabel.ForeColor = System.Drawing.Color.Gray;
-            this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(68, 17);
-            this.timeLabel.Text = "时钟未同步";
+            this.tlblTime.BackColor = System.Drawing.Color.Transparent;
+            this.tlblTime.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tlblTime.ForeColor = System.Drawing.Color.Gray;
+            this.tlblTime.Name = "tlblTime";
+            this.tlblTime.Size = new System.Drawing.Size(68, 17);
+            this.tlblTime.Text = "时钟未同步";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(20, 648);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 19;
+            this.button2.Text = "Play";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(128, 648);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 20;
+            this.button3.Text = "Pause";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(244, 648);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 21;
+            this.button4.Text = "Stop";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            // 
+            // tlblPlay
+            // 
+            this.tlblPlay.Name = "tlblPlay";
+            this.tlblPlay.Size = new System.Drawing.Size(280, 17);
+            this.tlblPlay.Spring = true;
+            this.tlblPlay.Text = "试听已停止";
+            this.tlblPlay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(364, 696);
+            this.ClientSize = new System.Drawing.Size(363, 696);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button1);
@@ -696,7 +742,11 @@
         private System.Windows.Forms.Button btnTimeSync;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel timeLabel;
+        private System.Windows.Forms.ToolStripStatusLabel tlblTime;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.ToolStripStatusLabel tlblPlay;
     }
 }
 
