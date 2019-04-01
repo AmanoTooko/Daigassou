@@ -64,14 +64,15 @@ namespace Daigassou
     }
     internal class MidiToKey
     {
-        private readonly int MIN_DELAY_TIME_MS;
+        private readonly int MIN_DELAY_TIME_MS_EVENT;
+        private readonly int MIN_DELAY_TIME_MS_CHORD;
         private readonly List<NotesManager> tracks;
         public int Index = 0;
         private MidiFile midi;
         private TempoMap Tmap;
         private List<TrackChunk> trunks;
 
-        private OutputDevice outputDevice = OutputDevice.GetAll().ElementAt(0);
+        private OutputDevice outputDevice;
         private Playback playback ;
 
         public MidiToKey()
@@ -79,7 +80,8 @@ namespace Daigassou
             tracks = new List<NotesManager>();
             Bpm = 80;
             Offset = EnumPitchOffset.None;
-            MIN_DELAY_TIME_MS = 75;
+            MIN_DELAY_TIME_MS_EVENT = 35;
+            MIN_DELAY_TIME_MS_CHORD = 120;
         }
 
         public EnumPitchOffset Offset { get; set; }
@@ -160,19 +162,19 @@ namespace Daigassou
 
                             var noteNumber = (int) (@event.NoteNumber + Offset);
                             
-                            if (tickBase * @event.DeltaTime < MIN_DELAY_TIME_MS && isLastOnEvent==true)
+                            if (tickBase * @event.DeltaTime < MIN_DELAY_TIME_MS_EVENT && isLastOnEvent==true)
                             {
                                 if (nowPitch == @event.NoteNumber)
                                     retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                        noteNumber, MIN_DELAY_TIME_MS));
+                                        noteNumber, MIN_DELAY_TIME_MS_EVENT));
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                    noteNumber, MIN_DELAY_TIME_MS));
+                                    noteNumber, MIN_DELAY_TIME_MS_EVENT));
                             }
                             else
                             {
                                 if (nowPitch == @event.NoteNumber)
                                     retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                        noteNumber, MIN_DELAY_TIME_MS));
+                                        noteNumber, MIN_DELAY_TIME_MS_EVENT));
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
                                     noteNumber, (int) (tickBase * @event.DeltaTime)));
                             }
@@ -188,9 +190,9 @@ namespace Daigassou
 
                             var noteNumber = (int) (@event.NoteNumber + Offset);
                             
-                            if (tickBase * @event.DeltaTime < MIN_DELAY_TIME_MS&&isLastOnEvent==true&& nowPitch == @event.NoteNumber)
+                            if (tickBase * @event.DeltaTime < MIN_DELAY_TIME_MS_EVENT && isLastOnEvent==true&& nowPitch == @event.NoteNumber)
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                    noteNumber, MIN_DELAY_TIME_MS));
+                                    noteNumber, MIN_DELAY_TIME_MS_EVENT));
                             else
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                     noteNumber, (int) (tickBase * @event.DeltaTime)));
@@ -231,7 +233,7 @@ namespace Daigassou
                         var count = 0;
                         tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
                                    ticksPerQuarterNote;
-                        var minTick = (long)(MIN_DELAY_TIME_MS / tickBase);
+                        var minTick = (long)(MIN_DELAY_TIME_MS_CHORD / tickBase);
                         foreach (var note in chord.Notes.OrderBy(x=>x.NoteNumber))
                         {
                             note.Time += (long)(count * minTick);
@@ -262,7 +264,7 @@ namespace Daigassou
                 {
                     tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(@event.Time).BeatsPerMinute /
                                ticksPerQuarterNote;
-                    var minTick = (long)(MIN_DELAY_TIME_MS / tickBase);
+                    var minTick = (long)(MIN_DELAY_TIME_MS_EVENT / tickBase);
                     switch (@event.Event)
                     {
                         case NoteOnEvent noteOnEvent:
@@ -279,15 +281,16 @@ namespace Daigassou
             }
                 
         }
-        public Queue<KeyPlayList> ArrangeKeyPlaysNew(int index)
+        public Queue<KeyPlayList> ArrangeKeyPlaysNew(double speed)
         {
-            var trunkEvents = trunks.ElementAt(index).Events;
+            var trunkEvents = trunks.ElementAt(Index).Events;
 
             var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
                 .TrimEnd(" ticks/qnote".ToCharArray()));
             var tickBase = 60000 / (float)Bpm / ticksPerQuarterNote;//duplicate code need to be delete
             var nowTimeMs = 0;
             var retKeyPlayLists = new Queue<KeyPlayList>();
+            PreProcessSpeed(speed);
             PreProcessChord();
             PreProcessEvents();
             using (var timedEvent = trunkEvents.ManageTimedEvents())
@@ -324,32 +327,74 @@ namespace Daigassou
             return retKeyPlayLists;
         }
 
-        public void PlaybackPause()
+        public void PreProcessSpeed(double speed)
         {
-            if (playback!=null)
+            using (var eventsManager = trunks.ElementAt(Index).Events.ManageTimedEvents())
             {
-                playback.Stop();
+                foreach (var @event in eventsManager.Events)
+                {
+                    @event.Time = (long)(@event.Time*speed);
+                }
             }
-            
         }
 
-        public void PlaybackStart()
+        public int PlaybackPause()
         {
             if (playback==null)
             {
-                playback = new Playback(trunks.ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
+                return -1;
             }
-            playback.Start();
+
+            if (!playback.IsRunning)
+            {
+                return -2;
+            }
+            playback.Stop();
+            return 0;
         }
 
-        public void PlaybackRestart()
+        public int PlaybackStart(int BPM)
         {
-            if (playback!=null)
+            if (midi==null)
             {
-                playback.Stop();
-                playback.Dispose();
-                playback = new Playback(trunks.ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
+                return -1;
             }
+
+            if (OutputDevice.GetDevicesCount()==0)
+            {
+                return -2;
+            }
+            if (outputDevice==null&&(outputDevice = OutputDevice.GetByName("Microsoft GS Wavetable Synth"))==null)
+            {
+                outputDevice = OutputDevice.GetAll().ElementAt(0);
+            }
+            if (playback==null)
+            {
+                playback = new Playback(midi.GetTrackChunks().ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
+            }
+            playback.Speed = (double)BPM / GetBpm();
+            playback.Start();
+            
+            
+            return 0;
+        }
+        
+        public int PlaybackRestart()
+        {
+            if (midi == null)
+            {
+                return -1;
+            }
+            if (playback==null)
+            {
+                return -2;
+            }
+            playback.Stop();
+            playback.Dispose();
+            playback = null;
+            return 0;
+
+
         }
         public int GetBpm()
         {

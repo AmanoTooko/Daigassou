@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,9 +10,6 @@ using System.Windows.Input;
 using Daigassou.Input_Midi;
 using Daigassou.Properties;
 using GlobalHotKey;
-using Melanchall.DryWetMidi.Devices;
-using Melanchall.DryWetMidi.Smf;
-using Melanchall.DryWetMidi.Smf.Interaction;
 
 namespace Daigassou
 {
@@ -68,7 +64,7 @@ namespace Daigassou
             {
                 case Key.F10 when _runningFlag == false:
                     _runningFlag = true;
-                    
+
                     cts = new CancellationTokenSource();
                     NewCancellableTask(cts.Token);
                     break;
@@ -83,10 +79,9 @@ namespace Daigassou
         {
             return Task.Run(() =>
             {
-
                 //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
-                var keyPlayLists = mtk.ArrangeKeyPlaysNew(mtk.Index);
-                KeyController.KeyPlayBack(keyPlayLists,(double)(mtk.GetBpm()/ nudBpm.Value ),  cts.Token);
+                var keyPlayLists = mtk.ArrangeKeyPlaysNew((double) (mtk.GetBpm() / nudBpm.Value));
+                KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
                 _runningFlag = false;
             }, token);
         }
@@ -247,40 +242,57 @@ namespace Daigassou
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
         }
 
         private void btnTimeSync_Click(object sender, EventArgs e)
         {
-            double error=0;
-            var offset=new NtpClient("ntp3.aliyun.com").GetOffset(out error);
-            if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(DateTime.Now.AddMilliseconds(offset.TotalMilliseconds*-0.5)))
-            {
-                tlblTime.Text = $"已同步 误差{error}ms";
-            }
+            double error = 0;
+            var offset = new NtpClient("ntp3.aliyun.com").GetOffset(out error);
+            if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(
+                DateTime.Now.AddMilliseconds(offset.TotalMilliseconds * -0.5)))
+                tlblTime.Text = $"已同步 误差{offset.TotalMilliseconds}ms";
             else
+                tlblTime.Text = "设置时间出错";
+        }
+
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            if (mtk.PlaybackStart((int) nudBpm.Value) == 0)
             {
-                tlblTime.Text = $"设置时间出错";
+                btnPlay.BackgroundImage = Resources.c_play_1;
+                btnPause.BackgroundImage = Resources.c_pause;
+                btnStop.BackgroundImage = Resources.c_stop;
+                
+                lblPlay.Text = "正在试听";
+                lblMidiName.Text = Path.GetFileNameWithoutExtension(midFileDiag.FileName);
             }
 
+            
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void btnStop_Click(object sender, EventArgs e)
         {
-            mtk.PlaybackStart();
-            tlblPlay.Text = $"正在试听: {Path.GetFileNameWithoutExtension(midFileDiag.FileName)}";
+            if (mtk.PlaybackRestart() == 0)
+            {
+                btnPlay.BackgroundImage = Resources.c_play;
+                btnPause.BackgroundImage = Resources.c_pause;
+                btnStop.BackgroundImage = Resources.c_stop_1;
+                lblPlay.Text = "试听已停止";
+            }
+            
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnPause_Click(object sender, EventArgs e)
         {
-            mtk.PlaybackPause();
-            tlblPlay.Text = $"暂停试听: {Path.GetFileNameWithoutExtension(midFileDiag.FileName)}";
-        }
-
-        private void button4_Click_1(object sender, EventArgs e)
-        {
-            mtk.PlaybackRestart();
-            tlblPlay.Text = $"试听已停止";
+            if (mtk.PlaybackPause() == 0)
+            {
+                btnPlay.BackgroundImage = Resources.c_play;
+                btnPause.BackgroundImage = Resources.c_pause_1;
+                btnStop.BackgroundImage = Resources.c_stop;
+                lblPlay.Text = "试听暂停";
+            }
+            
         }
     }
 }

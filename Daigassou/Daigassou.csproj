@@ -191,6 +191,12 @@
     <None Include="Resources\btn2.png" />
     <None Include="Resources\btn3.png" />
     <None Include="Resources\about.jpg" />
+    <None Include="Resources\c_pause.png" />
+    <None Include="Resources\c_pause_1.png" />
+    <None Include="Resources\c_play.png" />
+    <None Include="Resources\c_play_1.png" />
+    <None Include="Resources\c_stop.png" />
+    <None Include="Resources\c_stop_1.png" />
     <Content Include="Resources\ico_128.ico" />
     <None Include="Resources\TIM图片20180319212757.png" />
     <None Include="Resources\keybindingBGimg.png" />
