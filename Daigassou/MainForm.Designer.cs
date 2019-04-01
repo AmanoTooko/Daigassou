@@ -76,7 +76,6 @@
             this.btnPlay = new System.Windows.Forms.Button();
             this.lblMidiName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnTrick = new System.Windows.Forms.Button();
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.gBMidiFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -583,7 +582,6 @@
             this.groupBox2.Controls.Add(this.btnStop);
             this.groupBox2.Controls.Add(this.btnPause);
             this.groupBox2.Controls.Add(this.btnPlay);
-            this.groupBox2.Controls.Add(this.btnTrick);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold);
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
@@ -663,16 +661,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(357, 13);
             this.panel1.TabIndex = 14;
-            // 
-            // btnTrick
-            // 
-            this.btnTrick.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTrick.ForeColor = System.Drawing.Color.Transparent;
-            this.btnTrick.Location = new System.Drawing.Point(270, 32);
-            this.btnTrick.Name = "btnTrick";
-            this.btnTrick.Size = new System.Drawing.Size(75, 23);
-            this.btnTrick.TabIndex = 27;
-            this.btnTrick.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -764,7 +752,6 @@
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Label lblMidiName;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnTrick;
     }
 }
 
