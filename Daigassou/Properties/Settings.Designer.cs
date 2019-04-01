@@ -36,6 +36,7 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int StartKey {
             get {
                 return ((int)(this["StartKey"]));
@@ -58,6 +59,7 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool IsEightKeyLayout {
             get {
                 return ((bool)(this["IsEightKeyLayout"]));
@@ -80,6 +82,7 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("35")]
         public uint MinEventMs {
             get {
                 return ((uint)(this["MinEventMs"]));
@@ -91,6 +94,7 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("125")]
         public uint MinChordMs {
             get {
                 return ((uint)(this["MinChordMs"]));
