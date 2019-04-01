@@ -66,6 +66,7 @@ namespace Daigassou
     {
         private readonly uint MIN_DELAY_TIME_MS_EVENT;
         private readonly uint MIN_DELAY_TIME_MS_CHORD;
+        private readonly bool autoChord;
         private readonly List<NotesManager> tracks;
         public int Index = 0;
         private MidiFile midi;
@@ -82,6 +83,7 @@ namespace Daigassou
             Offset = EnumPitchOffset.None;
             MIN_DELAY_TIME_MS_EVENT = Properties.Settings.Default.MinEventMs;
             MIN_DELAY_TIME_MS_CHORD = Properties.Settings.Default.MinChordMs;
+            autoChord = Properties.Settings.Default.AutoChord;
         }
 
         public EnumPitchOffset Offset { get; set; }
@@ -231,15 +233,30 @@ namespace Daigassou
                     if (chord.Notes.Count() > 1)
                     {
                         var count = 0;
-                        tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
-                                   ticksPerQuarterNote;
-                        var minTick = (long)(MIN_DELAY_TIME_MS_CHORD / tickBase);
-                        foreach (var note in chord.Notes.OrderBy(x=>x.NoteNumber))
+                        if (autoChord)
                         {
-                            note.Time += (long)(count * minTick);
-                            note.Length = note.Length - (count * minTick) > minTick ? note.Length - (count * minTick) : minTick;
-                            count++;
+                            var autoTick = chord.Notes.First().Length / (chord.Notes.Count()+1);
+                            foreach (var note in chord.Notes.OrderBy(x => x.NoteNumber))
+                            {
+                                note.Time += (long)(count * autoTick);
+                                note.Length = note.Length - (count * autoTick);
+                                count++;
+                            }
                         }
+                        else
+                        {
+                            tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
+                                       ticksPerQuarterNote;
+                            var minTick = (long)(MIN_DELAY_TIME_MS_CHORD / tickBase);
+                            foreach (var note in chord.Notes.OrderBy(x => x.NoteNumber))
+                            {
+                                note.Time += (long)(count * minTick);
+                                note.Length = note.Length - (count * minTick) > minTick ? note.Length - (count * minTick) : minTick;
+                                count++;
+                            }
+
+                        }
+                        
                     }
 
                 }

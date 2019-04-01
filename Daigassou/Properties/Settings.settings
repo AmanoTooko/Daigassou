@@ -26,5 +26,8 @@
     <Setting Name="NtpServer" Type="System.String" Scope="User">
       <Value Profile="(Default)">ntp3.aliyun.com</Value>
     </Setting>
+    <Setting Name="AutoChord" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

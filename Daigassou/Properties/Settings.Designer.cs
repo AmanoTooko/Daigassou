@@ -115,5 +115,17 @@ namespace Daigassou.Properties {
                 this["NtpServer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoChord {
+            get {
+                return ((bool)(this["AutoChord"]));
+            }
+            set {
+                this["AutoChord"] = value;
+            }
+        }
     }
 }
