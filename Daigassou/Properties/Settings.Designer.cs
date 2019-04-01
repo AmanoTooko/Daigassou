@@ -12,7 +12,7 @@ namespace Daigassou.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -36,7 +36,6 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int StartKey {
             get {
                 return ((int)(this["StartKey"]));
@@ -59,7 +58,6 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool IsEightKeyLayout {
             get {
                 return ((bool)(this["IsEightKeyLayout"]));
@@ -77,6 +75,40 @@ namespace Daigassou.Properties {
             }
             set {
                 this["KeyBinding22"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public uint MinEventMs {
+            get {
+                return ((uint)(this["MinEventMs"]));
+            }
+            set {
+                this["MinEventMs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public uint MinChordMs {
+            get {
+                return ((uint)(this["MinChordMs"]));
+            }
+            set {
+                this["MinChordMs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ntp3.aliyun.com")]
+        public string NtpServer {
+            get {
+                return ((string)(this["NtpServer"]));
+            }
+            set {
+                this["NtpServer"] = value;
             }
         }
     }

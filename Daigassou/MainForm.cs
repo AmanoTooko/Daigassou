@@ -247,7 +247,7 @@ namespace Daigassou
         private void btnTimeSync_Click(object sender, EventArgs e)
         {
             double error = 0;
-            var offset = new NtpClient("ntp3.aliyun.com").GetOffset(out error);
+            var offset = new NtpClient(Properties.Settings.Default.NtpServer).GetOffset(out error);
             if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(
                 DateTime.Now.AddMilliseconds(offset.TotalMilliseconds * -0.5)))
                 tlblTime.Text = $"已同步 误差{offset.TotalMilliseconds}ms";

@@ -64,8 +64,8 @@ namespace Daigassou
     }
     internal class MidiToKey
     {
-        private readonly int MIN_DELAY_TIME_MS_EVENT;
-        private readonly int MIN_DELAY_TIME_MS_CHORD;
+        private readonly uint MIN_DELAY_TIME_MS_EVENT;
+        private readonly uint MIN_DELAY_TIME_MS_CHORD;
         private readonly List<NotesManager> tracks;
         public int Index = 0;
         private MidiFile midi;
@@ -80,8 +80,8 @@ namespace Daigassou
             tracks = new List<NotesManager>();
             Bpm = 80;
             Offset = EnumPitchOffset.None;
-            MIN_DELAY_TIME_MS_EVENT = 35;
-            MIN_DELAY_TIME_MS_CHORD = 120;
+            MIN_DELAY_TIME_MS_EVENT = Properties.Settings.Default.MinEventMs;
+            MIN_DELAY_TIME_MS_CHORD = Properties.Settings.Default.MinChordMs;
         }
 
         public EnumPitchOffset Offset { get; set; }

@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("大合奏！-Daigassou-")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("fairylab.org")]
+[assembly: AssemblyCompany("ffxiv.cat")]
 [assembly: AssemblyProduct("Daigassou")]
-[assembly: AssemblyCopyright("Copyright ©  Y.Morino@Fairylab 2018")]
+[assembly: AssemblyCopyright("Copyright ©  shiro@ffxiv.cat 2018-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
