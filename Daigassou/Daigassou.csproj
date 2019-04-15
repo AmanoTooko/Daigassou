@@ -124,6 +124,7 @@
       <DependentUpon>KeyBindForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NtpClient.cs" />
+    <Compile Include="Output_Key\BackgroundKey.cs" />
     <Compile Include="Output_Key\KeyBinding.cs" />
     <Compile Include="Output_Key\KeyController.cs" />
     <Compile Include="Input_Midi\MidiToKey.cs" />

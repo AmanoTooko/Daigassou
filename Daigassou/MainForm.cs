@@ -237,7 +237,8 @@ namespace Daigassou
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new AboutForm().ShowDialog();
+            BackgroundKey.Keytest();
+            //new AboutForm().ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -279,7 +279,7 @@ namespace Daigassou
             {
                 foreach (var @event in eventsManager.Events)
                 {
-                    tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(@event.Time).BeatsPerMinute /
+                    tickBase = 60000 / (float)Tmap.Tempo.AtTime(@event.Time).BeatsPerMinute /
                                ticksPerQuarterNote;
                     var minTick = (long)(MIN_DELAY_TIME_MS_EVENT / tickBase);
                     switch (@event.Event)
@@ -314,14 +314,14 @@ namespace Daigassou
             {
                 foreach (var ev in timedEvent.Events)
                 {
-                    tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(ev.Time).BeatsPerMinute /
-                               ticksPerQuarterNote;
+                    
                     switch (ev.Event)
                     {
                         case NoteOnEvent @event:
                         {
-                            
-                            var noteNumber = (int)(@event.NoteNumber + Offset);
+                            tickBase = 60000 / (float)Tmap.Tempo.AtTime(ev.Time).BeatsPerMinute /
+                                       ticksPerQuarterNote;
+                                var noteNumber = (int)(@event.NoteNumber + Offset);
                             nowTimeMs += (int)(tickBase * @event.DeltaTime);
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
                                 noteNumber, nowTimeMs));
@@ -330,7 +330,9 @@ namespace Daigassou
                             break;
                         case NoteOffEvent @event:
                         {
-                            var noteNumber = (int)(@event.NoteNumber + Offset);
+                            tickBase = 60000 / (float)Tmap.Tempo.AtTime(ev.Time).BeatsPerMinute /
+                                       ticksPerQuarterNote;
+                                var noteNumber = (int)(@event.NoteNumber + Offset);
                             nowTimeMs += (int)(tickBase * @event.DeltaTime);
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                 noteNumber, nowTimeMs));
