@@ -248,9 +248,11 @@ namespace Daigassou
                             tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
                                        ticksPerQuarterNote;
                             var minTick = (long)(MIN_DELAY_TIME_MS_CHORD / tickBase);
+                            //original time is on the center of chord
+                            double startOffset = (double)(chord.Notes.Count() - 1) / 2;
                             foreach (var note in chord.Notes.OrderBy(x => x.NoteNumber))
                             {
-                                note.Time += (long)(count * minTick);
+                                note.Time += (long)((count-startOffset) * minTick);
                                 note.Length = note.Length - (count * minTick) > minTick ? note.Length - (count * minTick) : minTick;
                                 count++;
                             }
