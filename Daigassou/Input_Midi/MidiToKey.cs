@@ -321,8 +321,7 @@ namespace Daigassou
                     {
                         case NoteOnEvent @event:
                         {
-                            tickBase = 60000 / (float)Tmap.Tempo.AtTime((long)(ev.Time/speed)).BeatsPerMinute /
-                                       ticksPerQuarterNote;
+
                                 var noteNumber = (int)(@event.NoteNumber + Offset);
                             nowTimeMs += (int)(tickBase * @event.DeltaTime);
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
@@ -332,8 +331,6 @@ namespace Daigassou
                             break;
                         case NoteOffEvent @event:
                         {
-                            tickBase = 60000 / (float)Tmap.Tempo.AtTime((long)(ev.Time / speed)).BeatsPerMinute /
-                                       ticksPerQuarterNote;
                                 var noteNumber = (int)(@event.NoteNumber + Offset);
                             nowTimeMs += (int)(tickBase * @event.DeltaTime);
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
@@ -345,7 +342,7 @@ namespace Daigassou
                             
 
                                 nowTimeMs += (int)(tickBase * @event.DeltaTime);
-                                tickBase = (float)@event.MicrosecondsPerQuarterNote/ticksPerQuarterNote;
+                                tickBase = (float)@event.MicrosecondsPerQuarterNote/1000/ticksPerQuarterNote;
 
                             }
                             break;
