@@ -342,7 +342,7 @@ namespace Daigassou
                             break;
                         case SetTempoEvent @event:
                         {
-                            tickBase = 60000 / (float)Tmap.Tempo.AtTime(ev.Time-1).BeatsPerMinute /
+                            tickBase = 60000 / (float)Tmap.Tempo.AtTime(ev.Time-1>=0? ev.Time - 1:0).BeatsPerMinute /
                                        ticksPerQuarterNote;
                             
                             nowTimeMs += (int)(tickBase * @event.DeltaTime);

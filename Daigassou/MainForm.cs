@@ -65,6 +65,7 @@ namespace Daigassou
                 case Key.F10 when _runningFlag == false:
                     _runningFlag = true;
                     mtk.OpenFile(midFileDiag.FileName);
+                    mtk.GetTrackManagers();
                     keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
 
                     cts = new CancellationTokenSource();
