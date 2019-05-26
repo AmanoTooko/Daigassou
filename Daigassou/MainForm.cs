@@ -23,7 +23,7 @@ namespace Daigassou
         private HotKey _hotKeyF12;
         private bool _runningFlag;
         private List<string> _tmpScore;
-
+        private Queue<KeyPlayList> keyPlayLists;
         private CancellationTokenSource cts = new CancellationTokenSource();
 
         public MainForm()
@@ -64,6 +64,8 @@ namespace Daigassou
             {
                 case Key.F10 when _runningFlag == false:
                     _runningFlag = true;
+                    mtk.OpenFile(midFileDiag.FileName);
+                    keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
 
                     cts = new CancellationTokenSource();
                     NewCancellableTask(cts.Token);
@@ -80,7 +82,6 @@ namespace Daigassou
             return Task.Run(() =>
             {
                 //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
-                var keyPlayLists = mtk.ArrangeKeyPlaysNew((double) (mtk.GetBpm() / nudBpm.Value));
                 KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
                 _runningFlag = false;
             }, token);
@@ -159,7 +160,11 @@ namespace Daigassou
         private void SyncButton_Click(object sender, EventArgs e)
         {
             timer1.Enabled = true;
+            mtk.OpenFile(midFileDiag.FileName);
+            keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
+
             var interval = dateTimePicker1.Value - DateTime.Now;
+
             timer1.Interval = (int) interval.TotalMilliseconds + (int) numericUpDown2.Value <= 0
                 ? 1000
                 : (int) interval.TotalMilliseconds + (int) numericUpDown2.Value;
@@ -237,8 +242,8 @@ namespace Daigassou
 
         private void button1_Click(object sender, EventArgs e)
         {
-            BackgroundKey.Keytest();
-            //new AboutForm().ShowDialog();
+            //BackgroundKey.Keytest();
+            new AboutForm().ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)

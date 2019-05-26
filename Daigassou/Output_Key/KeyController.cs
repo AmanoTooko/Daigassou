@@ -27,15 +27,14 @@ namespace Daigassou
                     KeyboardPress(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
                 else
                     KeyboardPress(KeyBinding.GetNoteToKey(pitch));
+                Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note On");
             }
 
         }
 
         public static void KeyboardPress(Keys ctrKeys, Keys viKeys)
         {
-#if DEBUG
-            Console.WriteLine($@"{ctrKeys + viKeys.ToString()} has been pressed at {Environment.TickCount}");
-#endif
+
             keybd_event(_lastCtrlKey, (byte) MapVirtualKey((uint) _lastCtrlKey, 0), 2, 0);
             Thread.Sleep(1);
             keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 0, 0);
@@ -47,9 +46,7 @@ namespace Daigassou
 
         private static void KeyboardPress(Keys viKeys)
         {
-#if DEBUG
-            Console.WriteLine($@"{viKeys.ToString()} has been pressed at {Environment.TickCount}");
-#endif
+
             lock (keyLock)
             {
                 keybd_event(viKeys, (byte)MapVirtualKey((uint)viKeys, 0), 0, 0);
@@ -63,15 +60,14 @@ namespace Daigassou
         {
             lock (keyLock)
             {
-#if DEBUG
-                Console.WriteLine($@"{pitch} has been released at {Environment.TickCount}");
-#endif
+
                 if (pitch <= 84 && pitch >= 48)
                 {
                     if (Settings.Default.IsEightKeyLayout)
                         KeyboardRelease(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
                     else
                         KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
+                    Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note Off");
                 }
             }
 

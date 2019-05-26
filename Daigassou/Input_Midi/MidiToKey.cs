@@ -243,7 +243,7 @@ namespace Daigassou
                                 count++;
                             }
                         }
-                        else
+                        else//修改为等比例前后
                         {
                             tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
                                        ticksPerQuarterNote;
@@ -252,7 +252,7 @@ namespace Daigassou
                             double startOffset = (double)(chord.Notes.Count() - 1) / 2;
                             foreach (var note in chord.Notes.OrderBy(x => x.NoteNumber))
                             {
-                                note.Time += (long)((count-startOffset) * minTick);
+                                note.Time += (long)((count-startOffset) * minTick>0? (count - startOffset) * minTick : 0);
                                 note.Length = note.Length - (count * minTick) > minTick ? note.Length - (count * minTick) : minTick;
                                 count++;
                             }
@@ -338,6 +338,15 @@ namespace Daigassou
                             nowTimeMs += (int)(tickBase * @event.DeltaTime);
                                 retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                 noteNumber, nowTimeMs));
+                        }
+                            break;
+                        case SetTempoEvent @event:
+                        {
+                            tickBase = 60000 / (float)Tmap.Tempo.AtTime(ev.Time-1).BeatsPerMinute /
+                                       ticksPerQuarterNote;
+                            
+                            nowTimeMs += (int)(tickBase * @event.DeltaTime);
+                            
                         }
                             break;
                         default:
