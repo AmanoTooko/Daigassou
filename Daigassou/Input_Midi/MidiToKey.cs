@@ -321,7 +321,7 @@ namespace Daigassou
                     {
                         case NoteOnEvent @event:
                         {
-                            tickBase = 60000 / (float)Tmap.Tempo.AtTime(ev.Time).BeatsPerMinute /
+                            tickBase = 60000 / (float)Tmap.Tempo.AtTime((long)(ev.Time/speed)).BeatsPerMinute /
                                        ticksPerQuarterNote;
                                 var noteNumber = (int)(@event.NoteNumber + Offset);
                             nowTimeMs += (int)(tickBase * @event.DeltaTime);
@@ -332,7 +332,7 @@ namespace Daigassou
                             break;
                         case NoteOffEvent @event:
                         {
-                            tickBase = 60000 / (float)Tmap.Tempo.AtTime(ev.Time).BeatsPerMinute /
+                            tickBase = 60000 / (float)Tmap.Tempo.AtTime((long)(ev.Time / speed)).BeatsPerMinute /
                                        ticksPerQuarterNote;
                                 var noteNumber = (int)(@event.NoteNumber + Offset);
                             nowTimeMs += (int)(tickBase * @event.DeltaTime);
@@ -342,12 +342,12 @@ namespace Daigassou
                             break;
                         case SetTempoEvent @event:
                         {
-                            tickBase = 60000 / (float)Tmap.Tempo.AtTime(ev.Time-1>=0? ev.Time - 1:0).BeatsPerMinute /
-                                       ticksPerQuarterNote;
                             
-                            nowTimeMs += (int)(tickBase * @event.DeltaTime);
-                            
-                        }
+
+                                nowTimeMs += (int)(tickBase * @event.DeltaTime);
+                                tickBase = (float)@event.MicrosecondsPerQuarterNote/ticksPerQuarterNote;
+
+                            }
                             break;
                         default:
                             break;
@@ -365,9 +365,10 @@ namespace Daigassou
                 {
                     @event.Time = (long)(@event.Time*speed);
                 }
+
             }
         }
-
+        
         public int PlaybackPause()
         {
             if (playback==null)
