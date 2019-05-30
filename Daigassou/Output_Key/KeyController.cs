@@ -11,7 +11,7 @@ namespace Daigassou
     public class KeyController
     {
         private static Keys _lastCtrlKey;
-        private static  volatile int  playingOffset = 0;
+        public static  volatile int  playingOffset = 0;
         [DllImport("User32.dll")]
         public static extern void keybd_event(Keys bVk, byte bScan, int dwFlags, int dwExtraInfo);
 

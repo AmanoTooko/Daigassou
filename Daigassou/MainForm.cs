@@ -21,6 +21,8 @@ namespace Daigassou
         private readonly MidiToKey mtk = new MidiToKey();
         private HotKey _hotKeyF10;
         private HotKey _hotKeyF12;
+        private HotKey _hotKeyF9;
+        private HotKey _hotKeyF8;
         private bool _runningFlag;
         private List<string> _tmpScore;
         private Queue<KeyPlayList> keyPlayLists;
@@ -63,6 +65,7 @@ namespace Daigassou
             switch (e.HotKey.Key)
             {
                 case Key.F10 when _runningFlag == false:
+                    KeyController.playingOffset = 0;
                     _runningFlag = true;
                     mtk.OpenFile(midFileDiag.FileName);
                     mtk.GetTrackManagers();
@@ -74,6 +77,14 @@ namespace Daigassou
                 case Key.F11 when _runningFlag:
                     _runningFlag = false;
                     cts.Cancel();
+                    break;
+                case Key.F8 when _runningFlag:
+                    KeyController.playingOffset -= 20;
+                    
+                    break;
+                case Key.F9 when _runningFlag:
+                    KeyController.playingOffset += 20;
+                    
                     break;
             }
         }
@@ -99,6 +110,9 @@ namespace Daigassou
             {
                 _hotKeyF10 = hotKeyManager.Register(Key.F10, System.Windows.Input.ModifierKeys.Control);
                 _hotKeyF12 = hotKeyManager.Register(Key.F11, System.Windows.Input.ModifierKeys.Control);
+                _hotKeyF8 = hotKeyManager.Register(Key.F8, System.Windows.Input.ModifierKeys.Control);
+                _hotKeyF9 = hotKeyManager.Register(Key.F9, System.Windows.Input.ModifierKeys.Control);
+
             }
             catch (Win32Exception)
             {
