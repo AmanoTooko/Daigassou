@@ -276,7 +276,7 @@ namespace Daigassou
             var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
                 .TrimEnd(" ticks/qnote".ToCharArray()));
             var tickBase = 60000 / (float)Bpm / ticksPerQuarterNote;
-            TimedEvent[] eventOffTimeArray = new TimedEvent[108];
+            TimedEvent[] eventOffTimeArray = new TimedEvent[127];
             using (var eventsManager = trunks.ElementAt(Index).Events.ManageTimedEvents())
             {
                 foreach (var @event in eventsManager.Events)
