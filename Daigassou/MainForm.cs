@@ -267,8 +267,9 @@ namespace Daigassou
 
         private void btnTimeSync_Click(object sender, EventArgs e)
         {
-            double error = 0;
+            double error;
             var offset = new NtpClient(Properties.Settings.Default.NtpServer).GetOffset(out error);
+            //TODO:error handler
             if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(
                 DateTime.Now.AddMilliseconds(offset.TotalMilliseconds * -0.5)))
                 tlblTime.Text = $"已同步 误差{offset.TotalMilliseconds}ms";

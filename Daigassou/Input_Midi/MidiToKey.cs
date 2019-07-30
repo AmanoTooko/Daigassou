@@ -17,51 +17,6 @@ namespace Daigassou
         OctaveHigher = +12
     }
 
-    internal class MidiPlaybackController
-    {
-        public int Index = 0;
-        private MidiFile midi;
-        private TempoMap Tmap;
-        private List<TrackChunk> trunks;
-
-        public MidiPlaybackController()
-        {
-
-        }
-
-        public List<string> GetOutputDevicesNames()
-        {
-            var ret = new List<string>();
-            foreach (var device in OutputDevice.GetAll())
-            {
-                ret.Add(device.Name);
-            }
-            return ret;
-        }
-        public void TrackPlayback(string outputDevice,int Index)
-        {
-            if (outputDevice!=null)
-            {
-                
-            }
-        }
-
-        public void TrackPlaybackPause()
-        {
-            //cts = new CancellationTokenSource();
-            //NewCancellableTask(cts.Token);
-            //private Task NewCancellableTask(CancellationToken token)
-            //{
-            //    return Task.Run(() =>
-            //    {
-            //        mtk.ArrangeKeyPlaysNew(mtk.Index);
-            //        //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
-            //        //KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
-            //        //_runningFlag = false;
-            //    }, token);
-            //}
-        }
-    }
     internal class MidiToKey
     {
         private readonly uint MIN_DELAY_TIME_MS_EVENT;
