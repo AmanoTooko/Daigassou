@@ -34,13 +34,13 @@ namespace Daigassou
             formUpdate();
             KeyBinding.LoadConfig();
             CommonUtilities.GetLatestVersion();
-
+            Text += $" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
         }
 
         private void formUpdate()
         {
-            Text += $" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
+            
             if (Settings.Default.IsEightKeyLayout)
             {
                 btn8key.BackgroundImage = Resources.ka1;
@@ -67,12 +67,12 @@ namespace Daigassou
                 case Key.F10 when _runningFlag == false:
                     KeyController.playingOffset = 0;
                     _runningFlag = true;
+                    timer1.Interval = 1000;
+                    timer1.Start();
                     mtk.OpenFile(midFileDiag.FileName);
                     mtk.GetTrackManagers();
                     keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
-
-                    cts = new CancellationTokenSource();
-                    NewCancellableTask(cts.Token);
+                    
                     break;
                 case Key.F11 when _runningFlag:
                     _runningFlag = false;
