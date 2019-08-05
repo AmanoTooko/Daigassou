@@ -9,12 +9,13 @@ namespace Daigassou.Utils
 {
     public static class FFProcess
     {
-        public  static void FindFFXIVProcess()
+        public  static List<Process>  FindFFXIVProcess()
         {
 
             var processes = new List<Process>();
             processes.AddRange(Process.GetProcessesByName("ffxiv"));
             processes.AddRange(Process.GetProcessesByName("ffxiv_dx11"));
+            return processes;
 
         }
 

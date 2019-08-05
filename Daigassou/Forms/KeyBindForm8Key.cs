@@ -4,12 +4,12 @@ using System.Windows.Forms;
 
 namespace Daigassou
 {
-    public partial class KeyBindForm : Form
+    public partial class KeyBindForm8Key : Form
     {
         private TextBox[] keyBoxs = new TextBox[13];
         private const int OCTAVE_KEY_LOW = 59;
         private const int OCTAVE_KEY_HIGH = 72;
-        public KeyBindForm()
+        public KeyBindForm8Key()
         {
             InitializeComponent();
             InitForm();

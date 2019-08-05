@@ -39,5 +39,27 @@ namespace Daigassou.Utils
                 
             }));
         }
+
+        public static void I(string text)
+        {
+            Debug(text);
+        }
+        public static void E(string text)
+        {
+            Debug(text);
+        }
+        public static void Ex(Exception e,string text)
+        {
+            Debug(text);
+        }
+        public static void S(string text)
+        {
+            Debug(text);
+        }
+
+        public static void B(byte[] text)
+        {
+            Debug(text.ToString());
+        }
     }
 }

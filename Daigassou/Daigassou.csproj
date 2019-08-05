@@ -74,6 +74,10 @@
     <Reference Include="GlobalHotKey, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GlobalHotKey.1.1.0\lib\GlobalHotKey.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.NetFwTypeLib">
+      <HintPath>Reference\Interop.NetFwTypeLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Melanchall.DryWetMidi, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Melanchall.DryWetMidi.4.1.0\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
     </Reference>
@@ -85,6 +89,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -94,35 +99,39 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tungsten.Firewall, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tungsten.Firewall.2.0.2\lib\net45\Tungsten.Firewall.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutForm.cs">
+    <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutForm.Designer.cs">
+    <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CommonUtilities.cs" />
     <Compile Include="Input_Midi\KeyboardUtilities.cs" />
-    <Compile Include="KeyBindForm old.cs">
+    <Compile Include="Forms\KeyBindForm37Key.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KeyBindForm old.Designer.cs">
-      <DependentUpon>KeyBindForm old.cs</DependentUpon>
+    <Compile Include="Forms\KeyBindForm37Key.Designer.cs">
+      <DependentUpon>KeyBindForm37Key.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="KeyBindForm.cs">
+    <Compile Include="Forms\KeyBindForm8Key.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KeyBindForm.Designer.cs">
-      <DependentUpon>KeyBindForm.cs</DependentUpon>
+    <Compile Include="Forms\KeyBindForm8Key.Designer.cs">
+      <DependentUpon>KeyBindForm8Key.cs</DependentUpon>
     </Compile>
+    <Compile Include="Network\Network.cs" />
     <Compile Include="NtpClient.cs" />
     <Compile Include="Output_Key\BackgroundKey.cs" />
     <Compile Include="Output_Key\KeyBinding.cs" />
@@ -138,17 +147,17 @@
     <Compile Include="Utils\LogForm.Designer.cs">
       <DependentUpon>LogForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutForm.resx">
+    <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KeyBindForm old.resx">
-      <DependentUpon>KeyBindForm old.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\KeyBindForm37Key.resx">
+      <DependentUpon>KeyBindForm37Key.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KeyBindForm.resx">
-      <DependentUpon>KeyBindForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\KeyBindForm8Key.resx">
+      <DependentUpon>KeyBindForm8Key.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

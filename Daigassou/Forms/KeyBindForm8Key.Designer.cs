@@ -1,6 +1,6 @@
 ﻿namespace Daigassou
 {
-    partial class KeyBindForm
+    partial class KeyBindForm8Key
     {
         /// <summary>
         /// Required designer variable.

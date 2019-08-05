@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Daigassou
     {
         private readonly HotKeyManager hotKeyManager = new HotKeyManager();
         private readonly KeyBindFormOld keyForm22 = new KeyBindFormOld();
-        private readonly KeyBindForm keyForm8 = new KeyBindForm();
+        private readonly KeyBindForm8Key keyForm8 = new KeyBindForm8Key();
         private readonly MidiToKey mtk = new MidiToKey();
         private HotKey _hotKeyF10;
         private HotKey _hotKeyF12;
@@ -258,7 +259,9 @@ namespace Daigassou
         private void button1_Click(object sender, EventArgs e)
         {
             //BackgroundKey.Keytest();
-            new AboutForm().ShowDialog();
+            //new AboutForm().ShowDialog();
+            var net = new Network.Network(this);
+            net.StartCapture(Daigassou.Utils.FFProcess.FindFFXIVProcess().First());
         }
 
         private void button2_Click(object sender, EventArgs e)
