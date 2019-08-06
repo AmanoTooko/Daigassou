@@ -298,15 +298,12 @@ namespace Daigassou.Network
 
                     if (!tcpPacket.IsValid)
                     {
-                        // 올바르지 못한 TCP 패킷
+                        // invalid TCP packet
                         return;
                     }
 
                     if (!tcpPacket.Flags.HasFlag(TCPFlags.ACK | TCPFlags.PSH))
                     {
-                        // 파판 서버에서 클라이언트로 보내주는 모든 TCP 패킷에는
-                        // ACK와 PSH 플래그가 설정되어 있음을 이용해 필터링 부하를 낮춤
-                        /* // 연결 종료 감지를 위해 RST와 FIN도 하단으로 넘겨줌 */
                         return;
                     }
 
@@ -317,34 +314,18 @@ namespace Daigassou.Network
 
                     if (!(connections.Contains(connection) || connections.Contains(reverseConnection)))
                     {
-                        // 파판 서버와 주고받는 패킷이 아님
+                        // Not a packet from server
                         return;
                     }
-
-                    /*
-                    if (tcpPacket.Flags.HasFlag(TCPFlags.RST) || tcpPacket.Flags.HasFlag(TCPFlags.FIN))
-                    {
-                        // 연결 종료 발생. 현재 연결 목록에서 삭제함
-                        if (connections.Remove(connection) || connections.Remove(reverseConnection))
-                        {
-                            mainForm.overlayForm.SetStatus(false);
-                            Log.E("N: 게임서버와의 연결 종료됨");
-                            return;
-                        }
-                    }
-                    */
-
-                    // 성능 문제로 연결 종료 즉시 중단 체크를 건너 뜀
-                    // (어차피 30초마다 MainForm.cs::MainForm_Load에서 실행된 Task에서 체크하므로)
 
                     if (connections.Contains(reverseConnection))
                     {
-                        // 받는 패킷이 아님
+                        // not an incoming packet
                         return;
                     }
 
 
-                    // 파판 서버에서 오는 패킷이니 분석함
+                    // Analyze the packet from server
                     lock (lockAnalyse)
                     {
                         AnalyseFFXIVPacket(tcpPacket.Payload);
@@ -529,63 +510,15 @@ namespace Daigassou.Network
                                 var l = payload[72];
                                 byte[] msg = new byte[l];
                                 Array.Copy(payload, 73, msg, 0, l);
-                                Log.B(msg);
+                                Log.B(msg);//TODO: Time analyze 
                                 return;
-                                if (payload[33] == 0x00)
-                                {
-                                    stream.CopyTo(messages);
-                                }
-                                else
-                                {
-                                    stream.Seek(2, SeekOrigin.Current); // .Net DeflateStream 버그 (앞 2바이트 강제 무시)
-
-                                    using (var z = new DeflateStream(stream, CompressionMode.Decompress))
-                                    {
-                                        z.CopyTo(messages);
-                                    }
-                                }
+                                
                             }
-                            messages.Seek(0, SeekOrigin.Begin);
-
-                            var messageCount = BitConverter.ToUInt16(payload, 30);
-                            for (var i = 0; i < messageCount; i++)
-                            {
-                                try
-                                {
-                                    var buffer = new byte[4];
-                                    var read = messages.Read(buffer, 0, 4);
-                                    if (read < 4)
-                                    {
-                                      
-                                        break;
-                                    }
-                                    var messageLength = BitConverter.ToInt32(buffer, 0);
-
-                                    var message = new byte[messageLength];
-                                    messages.Seek(-4, SeekOrigin.Current);
-                                    messages.Read(message, 0, messageLength);
-
-                                   
-                                }
-                                catch (Exception ex)
-                                {
-                                    Log.Ex(ex, "l-analyze-error-general");
-                                }
-                            }
-                        }
-
-                        if (length < payload.Length)
-                        {
-                            // 더 처리해야 할 패킷이 남아 있음
-                            payload = payload.Skip(length).ToArray();
-                            continue;
                         }
                     }
                     else
                     {
-                        // 앞쪽이 잘려서 오는 패킷 workaround
-                        // 잘린 패킷 1개는 버리고 바로 다음 패킷부터 찾기...
-                        // TODO: 버리는 패킷 없게 제대로 수정하기
+                        // sticky tcp package process
 
                         for (var offset = 0; offset < payload.Length - 2; offset++)
                         {
