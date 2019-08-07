@@ -17,7 +17,8 @@ using System.Management;
 
 namespace Daigassou.Network
 {
-    /*Thanks to the author of DFAssist https://github.com/devunt/DFAssist for code to capture packet*/
+    /*Thanks to the author of DFAssist https://github.com/devunt/DFAssist
+     for code to capture and analyze packet*/
     internal partial class Network
     {
         private struct IPPacket
@@ -471,8 +472,6 @@ namespace Daigassou.Network
 
             return connections;
         }
-        private State state = State.IDLE;
-        private int lastMember = 0;
 
         private void AnalyseFFXIVPacket(byte[] payload)
         {
@@ -489,14 +488,14 @@ namespace Daigassou.Network
 
                     if (type == 0x0000 || type == 0x5252)
                     {
-                        if (payload.Length != 104)
+                        if (payload.Length < 104)
                         {
                             break;
                         }
 
                         var length = BitConverter.ToInt32(payload, 24);
-
-                        if (length <= 0 || payload.Length < length)
+                        var tp = payload[58];
+                        if (length <= 0 || payload.Length < length||tp!=0x88)
                         {
                             break;
                         }
@@ -510,7 +509,7 @@ namespace Daigassou.Network
                                 var l = payload[72];
                                 byte[] msg = new byte[l];
                                 Array.Copy(payload, 73, msg, 0, l);
-                                Log.B(msg);//TODO: Time analyze 
+                                Log.B(payload);//TODO: Time analyze 
                                 return;
                                 
                             }
