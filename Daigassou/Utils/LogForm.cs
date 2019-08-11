@@ -60,27 +60,36 @@ namespace Daigassou.Utils
         public static void B(byte[] text)
         {
             var sb = new StringBuilder();
-            sb.Append($"{text.Length} Bytes");
+            var delaytime = 0;
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i] == 0xFF)
+                {
+                    delaytime += Convert.ToInt32(text[i + 1]);
+                }
+            }
+            
+            sb.Append($"{DateTime.Now.ToString("O")}   {text.Length} Bytes {delaytime} ms");
             sb.AppendLine();
 
             for (var i = 0; i < text.Length; i++)
             {
-                if (i != 0)
-                {
-                    if (i % 16 == 0)
-                    {
-                        sb.AppendLine();
-                    }
-                    else if (i % 8 == 0)
-                    {
-                        sb.Append(' ', 2);
-                    }
-                    else
-                    {
-                        sb.Append(' ');
-                    }
-                }
-
+                //if (i != 0)
+                //{
+                //    if (i % 16 == 0)
+                //    {
+                //        sb.AppendLine();
+                //    }
+                //    else if (i % 8 == 0)
+                //    {
+                //        sb.Append(' ', 2);
+                //    }
+                //    else
+                //    {
+                //        sb.Append(' ');
+                //    }
+                //}
+                sb.Append(' ');
                 sb.Append(text[i].ToString("X2"));
             }
 

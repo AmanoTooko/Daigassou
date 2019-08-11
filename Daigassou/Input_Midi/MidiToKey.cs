@@ -242,9 +242,9 @@ namespace Daigassou
                     switch (@event.Event)
                     {
                         case NoteOnEvent noteOnEvent:
-                            if (eventOffTimeArray[noteOnEvent.NoteNumber] != null && eventOffTimeArray[noteOnEvent.NoteNumber].Time + minTick > @event.Time)
+                            if (eventOffTimeArray[noteOnEvent.NoteNumber]?.Time + minTick > @event.Time)
                             {
-                                eventOffTimeArray[noteOnEvent.NoteNumber].Time -= minTick;//未加小于0的判断
+                                eventOffTimeArray[noteOnEvent.NoteNumber].Time = @event.Time- minTick;//未加小于0的判断
                             }
                             break;
                         case NoteOffEvent noteOffEvent:

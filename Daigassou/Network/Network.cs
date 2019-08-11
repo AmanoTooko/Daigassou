@@ -21,6 +21,7 @@ namespace Daigassou.Network
      for code to capture and analyze packet*/
     internal partial class Network
     {
+        Stopwatch sw = new Stopwatch();
         private struct IPPacket
         {
             public ProtocolFamily Version;
@@ -172,6 +173,7 @@ namespace Daigassou.Network
             {
                 try
                 {
+                    sw.Start();
                     Log.I("l-network-starting");
 
                     if (IsRunning)
@@ -203,6 +205,9 @@ namespace Daigassou.Network
                     IsRunning = true;
 
                     Log.S("l-network-started");
+                    sw.Stop();
+                    Console.WriteLine($"Initialize time = {sw.ElapsedMilliseconds} ms");
+                    sw.Reset();
                 }
                 catch (Exception ex)
                 {
@@ -269,11 +274,17 @@ namespace Daigassou.Network
         {
             try
             {
-                var length = socket.EndReceive(ar);
-                var buffer = recvBuffer.Take(length).ToArray();
-                socket.BeginReceive(recvBuffer, 0, recvBuffer.Length, 0, new AsyncCallback(OnReceive), null);
+                lock (ar)
+                {
+                    
+                    var length = socket.EndReceive(ar);
+                    var buffer = recvBuffer.Take(length).ToArray();
+                    socket.BeginReceive(recvBuffer, 0, recvBuffer.Length, 0, new AsyncCallback(OnReceive), null);
 
-                FilterAndProcessPacket(buffer);
+                    FilterAndProcessPacket(buffer);
+                    
+                }
+                
             }
             catch (Exception ex) when (ex is ObjectDisposedException || ex is NullReferenceException)
             {
@@ -477,6 +488,8 @@ namespace Daigassou.Network
         {
             try
             {
+                
+
                 while (true)
                 {
                     if (payload.Length < 4)
@@ -509,9 +522,10 @@ namespace Daigassou.Network
                                 var l = payload[72];
                                 byte[] msg = new byte[l];
                                 Array.Copy(payload, 73, msg, 0, l);
-                                Log.B(payload);//TODO: Time analyze 
-                                return;
+                                AnalyzeNotes(msg);
+                                Log.B(msg);//TODO: Time analyze 
                                 
+
                             }
                         }
                     }
@@ -530,14 +544,53 @@ namespace Daigassou.Network
                             }
                         }
                     }
-
+                    
                     break;
+                    
                 }
             }
             catch (Exception ex)
             {
                 Log.Ex(ex, "l-analyze-error");
             }
+        }
+
+        
+        private void AnalyzeNotes(byte[] msg)
+        {
+            var nowTime = DateTime.Now;
+            var packetTime = 0;
+            var ret=new Queue<TimedNote>();
+            for (int i = 0; i < msg.Length; i++)
+            {
+                if (msg[i] == 0xFF)
+                {
+                    packetTime += Convert.ToInt32(msg[i + 1]);
+                    if (i<msg.Length-2&& msg[i+2]!=0xFF && msg[i + 2] != 0xFE)
+                    {
+                      ret.Enqueue(new TimedNote(){Note = msg[i+2],StartTime = nowTime+new TimeSpan(0,0,0,0, packetTime) });  
+                    }
+                }
+            }
+
+            foreach (var timedNote in ret)
+            {
+                timedNote.StartTime-=new TimeSpan(0,0,0,0,packetTime);
+                Console.WriteLine(timedNote.ToString());
+            }
+
+            //Console.WriteLine($"this packet contains past {delaytime} ms");
+            /*
+             *音符包解析理论
+             * 主要类型：间隔符0xFF 延迟符D Note符N
+             * 规则：
+             * 1 两个间隔符中间必定会有一个延迟符D,D最大为0XFA
+             * 2 可能会存在Note符N，N一定在D后面
+             * 3 数据包的第1byte大多数情况为间隔符，偶尔会有其他符号出现，此时应当直接忽略
+             * 4 Note符分为普通Note和Note OFF,Note OFF为0xFE
+             * 5 目前最小间隔为64=100ms 实测在105ms以上时如果系统两帧采集到key up 和Key down，才会有noteoff信号，否则只有note信号本身
+             * 9 由于发送时可能会发生丢包现象，因此系统会在200ms左右再次发送同样的数据包
+             */
         }
 
 

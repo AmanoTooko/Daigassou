@@ -82,7 +82,7 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("35")]
+        [global::System.Configuration.DefaultSettingValueAttribute("45")]
         public uint MinEventMs {
             get {
                 return ((uint)(this["MinEventMs"]));
