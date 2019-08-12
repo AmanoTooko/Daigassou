@@ -32,7 +32,7 @@ namespace Daigassou
 
         public static void WriteLog(string msg)
         {
-            Console.WriteLine($"{DateTime.Now.ToString("O")}\t\t\t" + $"{msg}");
+            System.Diagnostics.Debug.WriteLine($"{DateTime.Now.ToString("O")}\t\t\t" + $"{msg}");
         }
 
         [StructLayout(LayoutKind.Sequential)]

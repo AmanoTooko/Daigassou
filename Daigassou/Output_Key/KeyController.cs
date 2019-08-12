@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using Daigassou.Properties;
+using Daigassou.Utils;
 
 namespace Daigassou
 {
@@ -27,7 +28,8 @@ namespace Daigassou
                     KeyboardPress(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
                 else
                     KeyboardPress(KeyBinding.GetNoteToKey(pitch));
-                Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note On");
+                System.Diagnostics.Debug.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note On");
+                ParameterController.GetInstance().CheckSyncStatus(); 
             }
 
         }
@@ -67,7 +69,7 @@ namespace Daigassou
                         KeyboardRelease(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
                     else
                         KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
-                    Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note Off");
+                    System.Diagnostics.Debug.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note Off");
                 }
             }
 
@@ -107,7 +109,7 @@ namespace Daigassou
                     KeyboardRelease(nextKey.Pitch);
 
 #if _log
-                Console.WriteLine($@" i called function at {startTime} with target time is {targetTime}");
+                System.Diagnostics.Debug.WriteLine($@" i called function at {startTime} with target time is {targetTime}");
 #endif
             }
         }

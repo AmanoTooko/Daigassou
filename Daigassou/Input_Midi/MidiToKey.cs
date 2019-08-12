@@ -167,7 +167,7 @@ namespace Daigassou
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                System.Diagnostics.Debug.WriteLine(e);
                 throw;
             }
         }
@@ -205,10 +205,13 @@ namespace Daigassou
                             var minTick = (long)(MIN_DELAY_TIME_MS_CHORD / tickBase);
                             //original time is on the center of chord
                             double startOffset = (double)(chord.Notes.Count() - 1) / 2;
+                            long timeoffset = 0;
                             foreach (var note in chord.Notes.OrderBy(x => x.NoteNumber))
                             {
-                                note.Time += (long)((count - startOffset) * minTick > 0 ? (count - startOffset) * minTick : 0);
-                                note.Length = note.Length - (count * minTick) > minTick ? note.Length - (count * minTick) : minTick;
+
+                                timeoffset = (long)((count - startOffset) * minTick);
+                                note.Length = (note.Length - (count * minTick)) > minTick ? (note.Length - (count * minTick)) : minTick;
+                                note.Time = note.Time+timeoffset < 0 ? 0 : note.Time + timeoffset;
                                 count++;
                             }
 

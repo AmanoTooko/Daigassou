@@ -25,7 +25,7 @@ namespace Daigassou.Utils
 
         public static void Debug(string text)
         {
-            Console.WriteLine(text);
+            System.Diagnostics.Debug.WriteLine(text);
             //output(Color.Blue, text);
         }
 
