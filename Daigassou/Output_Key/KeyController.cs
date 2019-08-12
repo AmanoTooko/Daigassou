@@ -96,7 +96,7 @@ namespace Daigassou
                 var nextKey = keyQueue.Dequeue();
                // var duration = tick * nextKey.TimeMs;
                 //var targetTime = startTime + duration;
-                var targetTime = startTime + nextKey.TimeMs* speed + playingOffset;
+                var targetTime = startTime + nextKey.TimeMs* speed + ParameterController.GetInstance().Offset;
                 while (true)
                     if (targetTime <= Environment.TickCount)
                         break;
@@ -114,10 +114,6 @@ namespace Daigassou
             }
         }
 
-        public static void SetPlayingOffset(int targetTime)
-        {
-            playingOffset = targetTime;
-        }
     }
 
     public class KeyPlayList

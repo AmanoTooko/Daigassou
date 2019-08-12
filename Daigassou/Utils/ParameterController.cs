@@ -22,7 +22,7 @@ namespace Daigassou.Utils
         private static readonly object locker = new object();
         public Queue<TimedNote> NetSyncQueue { get; }
         public Queue<TimedNote> LocalPlayQueue { get; }
-        public int Offset { get; set; }
+        public volatile int Offset;
         public int Pitch { get; }
         public int Speed { get; }
         public bool NeedSync { get; set; }=true;

@@ -11,7 +11,7 @@ using System.Windows.Input;
 using Daigassou.Input_Midi;
 using Daigassou.Properties;
 using GlobalHotKey;
-
+using Daigassou.Utils;
 namespace Daigassou
 {
     public partial class MainForm : Form
@@ -66,7 +66,7 @@ namespace Daigassou
             switch (e.HotKey.Key)
             {
                 case Key.F10 when _runningFlag == false:
-                    KeyController.playingOffset = 0;
+                    ParameterController.GetInstance().Offset = 0;
                     _runningFlag = true;
                     timer1.Interval = 1000;
                     timer1.Start();
@@ -80,11 +80,11 @@ namespace Daigassou
                     cts.Cancel();
                     break;
                 case Key.F8 when _runningFlag:
-                    KeyController.playingOffset -= 20;
+                    ParameterController.GetInstance().Offset -= 20;
                     
                     break;
                 case Key.F9 when _runningFlag:
-                    KeyController.playingOffset += 20;
+                    ParameterController.GetInstance().Offset += 20;
                     
                     break;
             }
