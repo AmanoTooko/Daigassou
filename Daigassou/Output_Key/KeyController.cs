@@ -96,9 +96,9 @@ namespace Daigassou
                 var nextKey = keyQueue.Dequeue();
                // var duration = tick * nextKey.TimeMs;
                 //var targetTime = startTime + duration;
-                var targetTime = startTime + nextKey.TimeMs* speed + ParameterController.GetInstance().Offset;
+                var targetTime = startTime + nextKey.TimeMs* speed  ;
                 while (true)
-                    if (targetTime <= Environment.TickCount)
+                    if (targetTime+ ParameterController.GetInstance().Offset <= Environment.TickCount)
                         break;
 
                 //startTime = Environment.TickCount;

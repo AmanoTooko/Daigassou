@@ -121,7 +121,7 @@ namespace Daigassou.Input_Midi
                     {
                         case NoteOnMessage keyon:
                             NoteOn(keyon);
-                            Thread.Sleep(80);
+                            Thread.Sleep(minimumInterval);
                             break;
                         case NoteOffMessage keyoff:
                             NoteOff(keyoff);

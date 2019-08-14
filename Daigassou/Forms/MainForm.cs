@@ -31,6 +31,7 @@ namespace Daigassou
 
         public MainForm()
         {
+
             InitializeComponent();
             formUpdate();
             KeyBinding.LoadConfig();
@@ -66,7 +67,7 @@ namespace Daigassou
             switch (e.HotKey.Key)
             {
                 case Key.F10 when _runningFlag == false:
-                    ParameterController.GetInstance().Offset = 0;
+                    
                     _runningFlag = true;
                     timer1.Interval = 1000;
                     timer1.Start();
@@ -95,6 +96,7 @@ namespace Daigassou
             return Task.Run(() =>
             {
                 //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
+                ParameterController.GetInstance().Offset = 0;
                 KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
                 _runningFlag = false;
             }, token);

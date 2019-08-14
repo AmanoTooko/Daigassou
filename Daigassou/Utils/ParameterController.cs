@@ -17,7 +17,7 @@ namespace Daigassou.Utils
     }
     internal class ParameterController
     {
-       
+
         private static ParameterController Parameter;
         private static readonly object locker = new object();
         public Queue<TimedNote> NetSyncQueue { get; }
@@ -25,20 +25,20 @@ namespace Daigassou.Utils
         public volatile int Offset;
         public int Pitch { get; }
         public int Speed { get; }
-        public bool NeedSync { get; set; }=true;
+        public bool NeedSync { get; set; } = true;
         private DateTime lastSentTime;
 
         private ParameterController()
         {
-            NetSyncQueue=new Queue<TimedNote>();
-            LocalPlayQueue=new Queue<TimedNote>();
+            NetSyncQueue = new Queue<TimedNote>();
+            LocalPlayQueue = new Queue<TimedNote>();
         }
 
         public static ParameterController GetInstance()
         {
             lock (locker)
             {
-                
+
                 if (Parameter == null)
                 {
                     Parameter = new ParameterController();
@@ -52,14 +52,14 @@ namespace Daigassou.Utils
         {
             lock (locker)
             {
-                if ((DateTime.Now-lastSentTime).TotalMilliseconds>1000)
+                if ((DateTime.Now - lastSentTime).TotalMilliseconds > 1000)
                 {
                     NeedSync = true;
                 }
             }
         }
         internal void AnalyzeNotes(byte[] msg)
-        {            
+        {
             /*
              *音符包解析理论
              * 主要类型：间隔符0xFF 延迟符D Note符N
@@ -73,9 +73,10 @@ namespace Daigassou.Utils
              */
             lock (locker)
             {
-
+                CheckSyncStatus();
                 var nowTime = DateTime.Now;
                 lastSentTime = nowTime;
+
                 var packetTime = 0;
                 var ret = new Queue<TimedNote>();
                 for (int i = 0; i < msg.Length; i++)
@@ -104,12 +105,13 @@ namespace Daigassou.Utils
         private void OffsetSync(int packetTime)
         {
 
-                if (NeedSync)
-                {
-                    Offset -= (packetTime - 500);
-                    NeedSync = false;
-                }   
-            
+            if (NeedSync)
+            {
+                Offset = (packetTime - 500);
+                System.Diagnostics.Debug.WriteLine($"Offset is sync to {Offset}");
+                NeedSync = false;
+            }
+
         }
     }
 }
