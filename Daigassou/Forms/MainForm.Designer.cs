@@ -221,9 +221,9 @@
             this.btnTimeSync.Name = "btnTimeSync";
             this.btnTimeSync.Size = new System.Drawing.Size(81, 29);
             this.btnTimeSync.TabIndex = 6;
-            this.btnTimeSync.Text = "时钟同步";
+            this.btnTimeSync.Text = "开启抓包";
             this.btnTimeSync.UseVisualStyleBackColor = false;
-            this.btnTimeSync.Click += new System.EventHandler(this.btnTimeSync_Click);
+            this.btnTimeSync.Click += new System.EventHandler(this.BtnTimeSync_Click);
             // 
             // numericUpDown2
             // 
@@ -242,6 +242,7 @@
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(100, 31);
             this.numericUpDown2.TabIndex = 5;
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.NumericUpDown2_ValueChanged);
             // 
             // label8
             // 
@@ -568,7 +569,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
             this.groupBox2.Location = new System.Drawing.Point(0, 537);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(357, 138);
+            this.groupBox2.Size = new System.Drawing.Size(357, 134);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Midi轨道试听";

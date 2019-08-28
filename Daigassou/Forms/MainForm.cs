@@ -31,7 +31,10 @@ namespace Daigassou
 
         public MainForm()
         {
-
+            if (DateTime.Now>new DateTime(2019,08,30))
+            {
+                Environment.Exit(0);
+            }
             InitializeComponent();
             formUpdate();
             KeyBinding.LoadConfig();
@@ -81,11 +84,11 @@ namespace Daigassou
                     cts.Cancel();
                     break;
                 case Key.F8 when _runningFlag:
-                    ParameterController.GetInstance().Offset -= 20;
+                    ParameterController.GetInstance().InternalOffset -= 20;
                     
                     break;
                 case Key.F9 when _runningFlag:
-                    ParameterController.GetInstance().Offset += 20;
+                    ParameterController.GetInstance().InternalOffset += 20;
                     
                     break;
             }
@@ -96,6 +99,7 @@ namespace Daigassou
             return Task.Run(() =>
             {
                 //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
+                ParameterController.GetInstance().InternalOffset = (int)numericUpDown2.Value;
                 ParameterController.GetInstance().Offset = 0;
                 KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
                 _runningFlag = false;
@@ -261,16 +265,15 @@ namespace Daigassou
         private void button1_Click(object sender, EventArgs e)
         {
             //BackgroundKey.Keytest();
-            //new AboutForm().ShowDialog();
-            var net = new Network.Network(this);
-            net.StartCapture(Daigassou.Utils.FFProcess.FindFFXIVProcess().First());
+            new AboutForm().ShowDialog();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
         }
 
-        private void btnTimeSync_Click(object sender, EventArgs e)
+        private void TimeSync()
         {
             double error;
             var offset = new NtpClient(Properties.Settings.Default.NtpServer).GetOffset(out error);
@@ -320,6 +323,31 @@ namespace Daigassou
                 lblPlay.Text = "试听暂停";
             }
             
+        }
+
+        private bool isCaptureFlag = false;
+        private Network.Network net;
+        private void BtnTimeSync_Click(object sender, EventArgs e)
+        {
+            TimeSync();
+            if (isCaptureFlag)
+            {
+                net.StopCapture();
+                isCaptureFlag = false;
+                (sender as Button).Text = "开始抓包";
+            }
+            else
+            {
+                if (net==null)net = new Network.Network(this);
+                net.StartCapture(Daigassou.Utils.FFProcess.FindFFXIVProcess().First());
+                isCaptureFlag = true;
+                (sender as Button).Text = "停止抓包";
+            }
+        }
+
+        private void NumericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

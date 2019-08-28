@@ -22,6 +22,7 @@ namespace Daigassou.Utils
         private static readonly object locker = new object();
         public Queue<TimedNote> NetSyncQueue { get; }
         public Queue<TimedNote> LocalPlayQueue { get; }
+        public volatile int InternalOffset;
         public volatile int Offset;
         public int Pitch { get; }
         public int Speed { get; }
@@ -107,8 +108,8 @@ namespace Daigassou.Utils
 
             if (NeedSync)
             {
-                Offset = (packetTime - 500);
-                System.Diagnostics.Debug.WriteLine($"Offset is sync to {Offset}");
+                Offset = InternalOffset+(500-packetTime);
+                System.Diagnostics.Debug.WriteLine($"InternalOffset is sync to {InternalOffset}");
                 NeedSync = false;
             }
 
