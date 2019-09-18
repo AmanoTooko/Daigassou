@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Daigassou.Input_Midi;
 
 namespace Daigassou
 {
@@ -18,9 +19,19 @@ namespace Daigassou
             InitializeComponent();
         }
 
+        private int ClickCount = 0;
         private void AboutForm_Load(object sender, EventArgs e)
         {
             lblVersion.Text = "Ver " + Assembly.GetExecutingAssembly().GetName().Version;
+        }
+
+        private void LblVersion_Click(object sender, EventArgs e)
+        {
+            if (ClickCount++>5)
+            {
+                KeyController.isBackGroundKey = true;
+                MessageBox.Show("启用后台播放");
+            }
         }
     }
 }

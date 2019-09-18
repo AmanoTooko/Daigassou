@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using Daigassou.Input_Midi;
 using Daigassou.Properties;
 using Daigassou.Utils;
 
@@ -12,7 +13,7 @@ namespace Daigassou
     public class KeyController
     {
         private static Keys _lastCtrlKey;
-        public static  volatile int  playingOffset = 0;
+        public static  volatile bool  isBackGroundKey = false;
         [DllImport("User32.dll")]
         public static extern void keybd_event(Keys bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
@@ -26,6 +27,8 @@ namespace Daigassou
 
                 if (Settings.Default.IsEightKeyLayout)
                     KeyboardPress(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
+                else if(isBackGroundKey)
+                    BackgroundKey.BackgroundKeyPress(KeyBinding.GetNoteToKey(pitch));
                 else
                     KeyboardPress(KeyBinding.GetNoteToKey(pitch));
                 System.Diagnostics.Debug.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note On");
@@ -67,6 +70,8 @@ namespace Daigassou
                 {
                     if (Settings.Default.IsEightKeyLayout)
                         KeyboardRelease(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
+                    else if (isBackGroundKey)
+                        BackgroundKey.BackgroundKeyRelease(KeyBinding.GetNoteToKey(pitch));
                     else
                         KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
                     System.Diagnostics.Debug.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note Off");
