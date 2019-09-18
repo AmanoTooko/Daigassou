@@ -31,14 +31,15 @@ namespace Daigassou
 
         public MainForm()
         {
-            if (DateTime.Now>new DateTime(2019,08,30))
+            if (DateTime.Now>new DateTime(2019,09,30))
             {
                 Environment.Exit(0);
             }
             InitializeComponent();
             formUpdate();
             KeyBinding.LoadConfig();
-            CommonUtilities.GetLatestVersion();
+            Task.Run(() => { CommonUtilities.GetLatestVersion(); });
+            
             Text += $" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
         }
@@ -197,6 +198,8 @@ namespace Daigassou
         {
             hotKeyManager.Unregister(_hotKeyF10);
             hotKeyManager.Unregister(_hotKeyF12);
+            hotKeyManager.Unregister(_hotKeyF8);
+            hotKeyManager.Unregister(_hotKeyF9);
             // Dispose the hotkey manager.
             hotKeyManager.Dispose();
             KeyboardUtilities.Disconnect();

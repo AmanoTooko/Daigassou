@@ -4,6 +4,8 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using UpdateHelper;
 
 namespace Daigassou
 {
@@ -18,18 +20,36 @@ namespace Daigassou
             try
             {
                 var nowVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                var newVersion = await wc.DownloadStringTaskAsync(LatestApiAddress);
-                if (nowVersion != newVersion)
-                    if (MessageBox.Show($"检测到新版本{newVersion}已经发布，点击确定下载最新版哦！\r\n 当然就算你点了取消，这个提示每次打开还会出现的哦！", "哇——更新啦！",
-                            MessageBoxButtons.OKCancel,
-                            MessageBoxIcon.Information) == DialogResult.OK)
-                        Process.Start("https://github.com/AmanoTooko/Daigassou/releases");
+
+                var newVersionJson = await UpdateHelper.UpdateHelper.CheckUpdate();
+                try
+                {
+                    var versionObj = JsonConvert.DeserializeObject<versionObject>(newVersionJson);
+                    
+                    if (nowVersion != versionObj.Version)
+                        if (MessageBox.Show($"检测到新版本{versionObj.Version}已经发布，点击确定下载最新版哦！\r\n " +
+                                            $"当然就算你点了取消，这个提示每次打开还会出现的哦！" +
+                                            $"新版本更新内容：{versionObj.Description}", "哇——更新啦！",
+                                MessageBoxButtons.OKCancel,
+                                MessageBoxIcon.Information) == DialogResult.OK)
+                            Process.Start("http://file.ffxiv.cat/latest.zip");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                
             }
             catch (Exception e)
             {
             }
         }
-
+        public class versionObject
+        {
+            public string Version { get; set; }
+            public string Description { get; set; }
+        }
         public static void WriteLog(string msg)
         {
             System.Diagnostics.Debug.WriteLine($"{DateTime.Now.ToString("O")}\t\t\t" + $"{msg}");
