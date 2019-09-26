@@ -103,6 +103,7 @@ namespace Daigassou
                 //var targetTime = startTime + duration;
                 var targetTime = startTime + nextKey.TimeMs* speed  ;
                 while (true)
+                    //TODO:process will cause offset
                     if (targetTime+ ParameterController.GetInstance().Offset <= Environment.TickCount)
                         break;
 

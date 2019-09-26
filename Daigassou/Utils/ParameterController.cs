@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Daigassou.Utils
 {
@@ -28,11 +30,29 @@ namespace Daigassou.Utils
         public int Speed { get; }
         public bool NeedSync { get; set; } = true;
         private DateTime lastSentTime;
+        private Timer offsetTimer;
 
         private ParameterController()
         {
             NetSyncQueue = new Queue<TimedNote>();
             LocalPlayQueue = new Queue<TimedNote>();
+            offsetTimer=new Timer(1050);
+            offsetTimer.AutoReset = false;
+            
+            offsetTimer.Elapsed += OffsetTimer_Elapsed;
+        }
+
+        private void OffsetTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Offset = InternalOffset;
+            Debug.WriteLine($"Clear offset.now is {Offset}");
+            lock (locker)
+            {
+                if ((DateTime.Now - lastSentTime).TotalMilliseconds > 1000)
+                {
+                    NeedSync = true;
+                }
+            }
         }
 
         public static ParameterController GetInstance()
@@ -74,7 +94,7 @@ namespace Daigassou.Utils
              */
             lock (locker)
             {
-                CheckSyncStatus();
+                offsetTimer.Enabled = false;
                 var nowTime = DateTime.Now;
                 lastSentTime = nowTime;
 
@@ -93,6 +113,8 @@ namespace Daigassou.Utils
                 }
 
                 OffsetSync(packetTime);
+
+                offsetTimer.Enabled = true;
 #if DEBUG
                 foreach (var timedNote in ret)
                 {

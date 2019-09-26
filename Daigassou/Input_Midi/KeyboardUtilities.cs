@@ -33,6 +33,7 @@ namespace Daigassou.Input_Midi
                 {
                     midiKeyboard.Open();
                     midiKeyboard.StartReceiving(null);
+                    
                     midiKeyboard.NoteOn +=(msg)=>
                     {
                         lock (noteLock)
