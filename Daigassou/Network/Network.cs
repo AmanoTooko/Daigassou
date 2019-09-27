@@ -206,7 +206,7 @@ namespace Daigassou.Network
 
                     Log.S("l-network-started");
                     sw.Stop();
-                    System.Diagnostics.Debug.WriteLine($"Initialize time = {sw.ElapsedMilliseconds} ms");
+                    Console.WriteLine($"Initialize time = {sw.ElapsedMilliseconds} ms");
                     sw.Reset();
                 }
                 catch (Exception ex)
@@ -280,7 +280,7 @@ namespace Daigassou.Network
                     var length = socket.EndReceive(ar);
                     var buffer = recvBuffer.Take(length).ToArray();
                     socket.BeginReceive(recvBuffer, 0, recvBuffer.Length, 0, new AsyncCallback(OnReceive), null);
-
+                    //TODO:multi thread cause packet recv time is not accuralte
                     FilterAndProcessPacket(buffer);
                     
                 }
@@ -522,9 +522,10 @@ namespace Daigassou.Network
                                 var l = payload[72];
                                 byte[] msg = new byte[l];
                                 Array.Copy(payload, 73, msg, 0, l);
+                                Log.B(msg);//TODO: Time analyze 
                                 ParameterController.GetInstance().AnalyzeNotes(msg);
 
-                                Log.B(msg);//TODO: Time analyze 
+                                
                                 
 
                             }

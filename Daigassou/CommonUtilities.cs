@@ -52,7 +52,7 @@ namespace Daigassou
         }
         public static void WriteLog(string msg)
         {
-            System.Diagnostics.Debug.WriteLine($"{DateTime.Now.ToString("O")}\t\t\t" + $"{msg}");
+            Console.WriteLine($"{DateTime.Now.ToString("O")}\t\t\t" + $"{msg}");
         }
 
         [StructLayout(LayoutKind.Sequential)]

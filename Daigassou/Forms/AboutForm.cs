@@ -30,6 +30,7 @@ namespace Daigassou
             if (ClickCount++>5)
             {
                 KeyController.isBackGroundKey = true;
+                BackgroundKey.Init();
                 MessageBox.Show("启用后台播放");
             }
         }

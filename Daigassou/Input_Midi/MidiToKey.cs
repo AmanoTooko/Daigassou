@@ -167,7 +167,7 @@ namespace Daigassou
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e);
+                Console.WriteLine(e);
                 throw;
             }
         }

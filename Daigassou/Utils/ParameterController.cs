@@ -36,7 +36,7 @@ namespace Daigassou.Utils
         {
             NetSyncQueue = new Queue<TimedNote>();
             LocalPlayQueue = new Queue<TimedNote>();
-            offsetTimer=new Timer(1050);
+            offsetTimer=new Timer(700);
             offsetTimer.AutoReset = false;
             
             offsetTimer.Elapsed += OffsetTimer_Elapsed;
@@ -45,10 +45,10 @@ namespace Daigassou.Utils
         private void OffsetTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Offset = InternalOffset;
-            Debug.WriteLine($"Clear offset.now is {Offset}");
+            Console.WriteLine($"Clear offset.now is {Offset}");
             lock (locker)
             {
-                if ((DateTime.Now - lastSentTime).TotalMilliseconds > 1000)
+                if ((DateTime.Now - lastSentTime).TotalMilliseconds > 650)
                 {
                     NeedSync = true;
                 }
@@ -73,7 +73,7 @@ namespace Daigassou.Utils
         {
             lock (locker)
             {
-                if ((DateTime.Now - lastSentTime).TotalMilliseconds > 1000)
+                if ((DateTime.Now - lastSentTime).TotalMilliseconds > 650)
                 {
                     NeedSync = true;
                 }
@@ -115,11 +115,11 @@ namespace Daigassou.Utils
                 OffsetSync(packetTime);
 
                 offsetTimer.Enabled = true;
-#if DEBUG
+#if true
                 foreach (var timedNote in ret)
                 {
                     timedNote.StartTime -= new TimeSpan(0, 0, 0, 0, packetTime);
-                    System.Diagnostics.Debug.WriteLine(timedNote.ToString());
+                    Console.WriteLine(timedNote.ToString());
                 }
 #endif
             }
@@ -131,7 +131,7 @@ namespace Daigassou.Utils
             if (NeedSync)
             {
                 Offset = InternalOffset+(500-packetTime);
-                System.Diagnostics.Debug.WriteLine($"InternalOffset is sync to {InternalOffset}");
+                Console.WriteLine($"InternalOffset is sync to {Offset}");
                 NeedSync = false;
             }
 

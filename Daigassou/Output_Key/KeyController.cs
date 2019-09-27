@@ -31,7 +31,7 @@ namespace Daigassou
                     BackgroundKey.BackgroundKeyPress(KeyBinding.GetNoteToKey(pitch));
                 else
                     KeyboardPress(KeyBinding.GetNoteToKey(pitch));
-                System.Diagnostics.Debug.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note On");
+                Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note On");
                 ParameterController.GetInstance().CheckSyncStatus(); 
             }
 
@@ -74,7 +74,7 @@ namespace Daigassou
                         BackgroundKey.BackgroundKeyRelease(KeyBinding.GetNoteToKey(pitch));
                     else
                         KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
-                    System.Diagnostics.Debug.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note Off");
+                   Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch-24).ToString("X2")} Note Off");
                 }
             }
 
@@ -115,7 +115,7 @@ namespace Daigassou
                     KeyboardRelease(nextKey.Pitch);
 
 #if _log
-                System.Diagnostics.Debug.WriteLine($@" i called function at {startTime} with target time is {targetTime}");
+                System.Diagnostics.Console.WriteLine($@" i called function at {startTime} with target time is {targetTime}");
 #endif
             }
         }
