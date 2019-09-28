@@ -281,8 +281,8 @@ namespace Daigassou.Network
                     var buffer = recvBuffer.Take(length).ToArray();
                     socket.BeginReceive(recvBuffer, 0, recvBuffer.Length, 0, new AsyncCallback(OnReceive), null);
                     //TODO:multi thread cause packet recv time is not accuralte
-                    FilterAndProcessPacket(buffer);
-                    
+                    Task.Run(()=>{ FilterAndProcessPacket(buffer); });
+
                 }
                 
             }

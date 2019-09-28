@@ -28,7 +28,8 @@ namespace Daigassou
         private List<string> _tmpScore;
         private Queue<KeyPlayList> keyPlayLists;
         private CancellationTokenSource cts = new CancellationTokenSource();
-
+        const int DBT_DEVICEARRIVAL = 0x8000;
+        const int DBT_DEVICEREMOVECOMPLETE = 0x8004;
         public MainForm()
         {
             if (DateTime.Now>new DateTime(2019,09,30))
@@ -38,6 +39,7 @@ namespace Daigassou
             InitializeComponent();
             formUpdate();
             KeyBinding.LoadConfig();
+            ThreadPool.SetMaxThreads(15, 30);
             Task.Run(() => { CommonUtilities.GetLatestVersion(); });
             
             Text += $" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
@@ -218,11 +220,6 @@ namespace Daigassou
             NewCancellableTask(cts.Token);
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            new AboutForm().ShowDialog();
-        }
-
 
         private void btnKeyboardConnect_Click(object sender, EventArgs e)
         {
@@ -243,7 +240,30 @@ namespace Daigassou
                     btnKeyboardConnect.BackgroundImage = Resources.btn1;
                 }
         }
+        
 
+        protected override void WndProc(ref Message m)
+        {
+            try
+            {
+                const int WM_DEVICECHANGE = 0x0219;
+                switch (m.Msg)
+                {
+                    case WM_DEVICECHANGE:
+                        cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            catch (Exception ex)
+            {
+               
+            }
+
+            base.WndProc(ref m);
+        }
         private void cbMidiKeyboard_SelectedIndexChanged(object sender, EventArgs e)
         {
             //cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
