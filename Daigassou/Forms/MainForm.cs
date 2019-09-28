@@ -226,7 +226,7 @@ namespace Daigassou
             if (cbMidiKeyboard.SelectedItem != null)
                 if (cbMidiKeyboard.Enabled)
                 {
-                    if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedIndex) == 0)
+                    if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedItem.ToString()) == 0)
                     {
                         cbMidiKeyboard.Enabled = false;
                         btnKeyboardConnect.BackgroundImage = Resources.btn2;

@@ -6,56 +6,41 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Daigassou.Utils;
+using Melanchall.DryWetMidi.Devices;
+using Melanchall.DryWetMidi.Smf;
 using Melanchall.DryWetMidi.Smf.Interaction;
 using Midi.Devices;
 using Midi.Messages;
+using InputDevice = Midi.Devices.InputDevice;
 
 namespace Daigassou.Input_Midi
 {
     public static class KeyboardUtilities
     {
-        private static IInputDevice midiKeyboard;
+        private static Melanchall.DryWetMidi.Devices.InputDevice wetMidiKeyboard;
         private static readonly object NoteOnlock=new object();
         private static readonly object NoteOfflock = new object();
         private static readonly object noteLock=new object();
-        private static Queue<NoteMessage> noteQueue = new Queue<NoteMessage>();
+        private static Queue<NoteEvent> noteQueue = new Queue<NoteEvent>();
         private static readonly CancellationTokenSource cts=new CancellationTokenSource();
-        public static int Connect(int index)
-        {
-            midiKeyboard = DeviceManager.InputDevices[index];
-            if (midiKeyboard.IsOpen==true)
-            {
-                return -1;
-            }
-            else
+
+        public static int Connect(string name){
+
+            wetMidiKeyboard = Melanchall.DryWetMidi.Devices.InputDevice.GetByName(name);
             {
                 try
                 {
-                    midiKeyboard.Open();
-                    midiKeyboard.StartReceiving(null);
-                    
-                    midiKeyboard.NoteOn +=(msg)=>
-                    {
-                        lock (noteLock)
-                        {
-                            noteQueue.Enqueue(msg);
-                        }
-                        
-                    }; 
-                    midiKeyboard.NoteOff += (msg) =>
-                    {
-                        lock (noteLock)
-                        {
-                            noteQueue.Enqueue(msg);
-                        }
+                    wetMidiKeyboard.EventReceived += MidiKeyboard_EventReceived;
 
-                    };
+                    wetMidiKeyboard.StartEventsListening();
+
+                    
 
                     Task.Run(() =>
                     {
                         //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
                         NoteProcess(cts.Token);
-                        
+
                     }, cts.Token);
                 }
                 catch (Exception e)
@@ -66,18 +51,34 @@ namespace Daigassou.Input_Midi
             }
 
             return 0;
+            
+        }
+
+        private static void MidiKeyboard_EventReceived(object sender, MidiEventReceivedEventArgs e)
+        {
+            switch (e.Event)
+            {
+                case NoteOnEvent @event:
+                    noteQueue.Enqueue(@event);
+                    break;
+                case NoteOffEvent @event:
+                    noteQueue.Enqueue(@event);
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         public static void Disconnect()
         {
-            if (midiKeyboard == null) return;
-            if (midiKeyboard.IsOpen == true)
+            if (wetMidiKeyboard == null) return;
+            if (wetMidiKeyboard.IsListeningForEvents == true)
             {
                 try
                 {
-                    midiKeyboard.StopReceiving();
-                    midiKeyboard.Close();
-                    midiKeyboard.RemoveAllEventHandlers();
+                    wetMidiKeyboard.StopEventsListening();
+                    wetMidiKeyboard.Reset();
                     cts.Cancel();
                 }
                 catch (Exception e)
@@ -86,21 +87,21 @@ namespace Daigassou.Input_Midi
 
                 }
             }
-           
+
 
         }
+
         public static List<string> GetKeyboardList()
         {
-            List<string> ret=new List<string>();
-            DeviceManager.UpdateInputDevices();
-            foreach (var device in DeviceManager.InputDevices)
+            List<string> ret = new List<string>();
+            
+            foreach (var device in Melanchall.DryWetMidi.Devices.InputDevice.GetAll())
             {
-                ret.Add(device.Name); 
+                ret.Add(device.Name);
             }
 
             return ret;
         }
-
 
 
         public static void NoteProcess(CancellationToken token)
@@ -120,16 +121,16 @@ namespace Daigassou.Input_Midi
                     var nextKey = noteQueue.Dequeue();
                     switch (nextKey)
                     {
-                        case NoteOnMessage keyon:
+                        case NoteOnEvent keyon:
                             NoteOn(keyon);
                             Thread.Sleep(minimumInterval);
                             break;
-                        case NoteOffMessage keyoff:
+                        case NoteOffEvent keyoff:
                             NoteOff(keyoff);
                             break;
 
                     }
-                    Thread.Sleep(10);
+                    Thread.Sleep(5);
                 }
                 
             }
@@ -137,33 +138,33 @@ namespace Daigassou.Input_Midi
 
 
         }
-        public static void NoteOn(NoteOnMessage msg)
+        public static void NoteOn(NoteOnEvent msg)
         {
             lock (NoteOnlock)
             {
-                Log.Debug($"msg  {msg.Pitch} on at time {DateTime.Now:O}");
-                if (Convert.ToInt32(msg.Pitch) <= 84 && Convert.ToInt32(msg.Pitch) >= 48)
+                Log.Debug($"msg  {msg.NoteNumber} on at time {DateTime.Now:O}");
+                if (Convert.ToInt32(msg.NoteNumber) <= 84 && Convert.ToInt32(msg.NoteNumber) >= 48)
                 {
                     if (msg.Velocity==0)//note off
                     {
-                        KeyController.KeyboardRelease(Convert.ToInt32(msg.Pitch));
+                        KeyController.KeyboardRelease(Convert.ToInt32(msg.NoteNumber));
                     }
                     else
                     {
-                        KeyController.KeyboardPress(Convert.ToInt32(msg.Pitch));
+                        KeyController.KeyboardPress(Convert.ToInt32(msg.NoteNumber));
                     }
                 }
                     
             }
         }
 
-        public static void NoteOff(NoteOffMessage msg)
+        public static void NoteOff(NoteOffEvent msg)
         {
             lock (NoteOfflock)
             {
-                Log.Debug($"msg  {msg.Pitch} off at time {DateTime.Now:O}");
-                if (Convert.ToInt32(msg.Pitch) <= 84 && Convert.ToInt32(msg.Pitch) >= 48)
-                    KeyController.KeyboardRelease(Convert.ToInt32(msg.Pitch));
+                Log.Debug($"msg  {msg.NoteNumber} off at time {DateTime.Now:O}");
+                if (Convert.ToInt32(msg.NoteNumber) <= 84 && Convert.ToInt32(msg.NoteNumber) >= 48)
+                    KeyController.KeyboardRelease(Convert.ToInt32(msg.NoteNumber));
             }
         }
 
