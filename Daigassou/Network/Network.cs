@@ -200,14 +200,21 @@ namespace Daigassou.Network
                     socket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AcceptConnection, true);
                     socket.IOControl(IOControlCode.ReceiveAll, RCVALL_IPLEVEL, null);
                     socket.ReceiveBufferSize = recvBuffer.Length * 4;
-
-                    socket.BeginReceive(recvBuffer, 0, recvBuffer.Length, 0, new AsyncCallback(OnReceive), null);
+                    
+                    //socket.BeginReceive(recvBuffer, 0, recvBuffer.Length, 0, new AsyncCallback(OnReceive), null);
                     IsRunning = true;
-
+                    
                     Log.S("l-network-started");
                     sw.Stop();
                     Console.WriteLine($"Initialize time = {sw.ElapsedMilliseconds} ms");
                     sw.Reset();
+                    int recvcount;
+                    while (IsRunning)
+                    {
+                        recvcount=socket.Receive(recvBuffer);
+                        var buffer = recvBuffer.Take(recvcount).ToArray();
+                        Task.Run(() => { FilterAndProcessPacket(buffer); });
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -215,6 +222,7 @@ namespace Daigassou.Network
                 }
             });
         }
+
 
         internal void StopCapture()
         {
@@ -281,6 +289,7 @@ namespace Daigassou.Network
                     var buffer = recvBuffer.Take(length).ToArray();
                     socket.BeginReceive(recvBuffer, 0, recvBuffer.Length, 0, new AsyncCallback(OnReceive), null);
                     //TODO:multi thread cause packet recv time is not accuralte
+                    Log.B(buffer,false);
                     Task.Run(()=>{ FilterAndProcessPacket(buffer); });
 
                 }
@@ -302,6 +311,10 @@ namespace Daigassou.Network
         {
             try
             {
+
+                Console.WriteLine($"analyze start at {DateTime.Now.ToString("hh:mm:ss.fff")} ");
+
+
                 var ipPacket = new IPPacket(buffer);
 
                 if (ipPacket.IsValid && ipPacket.Protocol == ProtocolType.Tcp)
@@ -338,10 +351,11 @@ namespace Daigassou.Network
 
 
                     // Analyze the packet from server
-                    lock (lockAnalyse)
-                    {
+                    
                         AnalyseFFXIVPacket(tcpPacket.Payload);
-                    }
+                    
+                
+                    Console.WriteLine($"analyze end at {DateTime.Now.ToString("hh:mm:ss.fff")} ");
                 }
             }
             catch (Exception ex)
@@ -488,7 +502,7 @@ namespace Daigassou.Network
         {
             try
             {
-                
+
 
                 while (true)
                 {
@@ -522,7 +536,7 @@ namespace Daigassou.Network
                                 var l = payload[72];
                                 byte[] msg = new byte[l];
                                 Array.Copy(payload, 73, msg, 0, l);
-                                Log.B(msg);//TODO: Time analyze 
+                                Log.B(msg,true);//TODO: Time analyze 
                                 ParameterController.GetInstance().AnalyzeNotes(msg);
 
                                 
@@ -546,7 +560,7 @@ namespace Daigassou.Network
                             }
                         }
                     }
-                    
+
                     break;
                     
                 }

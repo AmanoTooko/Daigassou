@@ -36,7 +36,7 @@ namespace Daigassou.Utils
         {
             NetSyncQueue = new Queue<TimedNote>();
             LocalPlayQueue = new Queue<TimedNote>();
-            offsetTimer=new Timer(700);
+            offsetTimer=new Timer(1300);
             offsetTimer.AutoReset = false;
             
             offsetTimer.Elapsed += OffsetTimer_Elapsed;
@@ -48,7 +48,7 @@ namespace Daigassou.Utils
             Console.WriteLine($"Clear offset.now is {Offset}");
             lock (locker)
             {
-                if ((DateTime.Now - lastSentTime).TotalMilliseconds > 650)
+                if ((DateTime.Now - lastSentTime).TotalMilliseconds > 1200)
                 {
                     NeedSync = true;
                 }
@@ -73,7 +73,7 @@ namespace Daigassou.Utils
         {
             lock (locker)
             {
-                if ((DateTime.Now - lastSentTime).TotalMilliseconds > 650)
+                if ((DateTime.Now - lastSentTime).TotalMilliseconds > 1200)
                 {
                     NeedSync = true;
                 }
@@ -94,6 +94,7 @@ namespace Daigassou.Utils
              */
             lock (locker)
             {
+
                 offsetTimer.Enabled = false;
                 var nowTime = DateTime.Now;
                 lastSentTime = nowTime;
@@ -122,6 +123,7 @@ namespace Daigassou.Utils
                     Console.WriteLine(timedNote.ToString());
                 }
 #endif
+                
             }
 
         }

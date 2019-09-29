@@ -22,7 +22,7 @@ namespace Daigassou.Utils
     public static class Log
     {
         private static LogForm logform { get; set; }
-
+        private static DateTime lastTime;
         public static void Debug(string text)
         {
             Console.WriteLine(text);
@@ -57,7 +57,7 @@ namespace Daigassou.Utils
             Debug(text);
         }
 
-        public static void B(byte[] text)
+        public static void B(byte[] text,bool isoffset)
         {
             var sb = new StringBuilder();
             var delaytime = 0;
@@ -68,9 +68,22 @@ namespace Daigassou.Utils
                     delaytime += Convert.ToInt32(text[i + 1]);
                 }
             }
-            
-            sb.Append($"{DateTime.Now.ToString("O")}   {text.Length} Bytes {delaytime} ms");
-            sb.AppendLine();
+
+            if (isoffset)
+            {
+                if ((DateTime.Now - lastTime).Milliseconds - delaytime > 150)
+                {
+                    Console.WriteLine("???");
+                }
+                sb.Append($"{DateTime.Now.ToString("O")}   {text.Length} Bytes {delaytime} ms Interval {(DateTime.Now - lastTime).Milliseconds} ms");
+                sb.AppendLine();lastTime = DateTime.Now;
+            }
+            else
+            {
+
+                sb.Append($"{DateTime.Now.ToString("O")}   {text.Length} Bytes");
+
+            }
 
             for (var i = 0; i < text.Length; i++)
             {

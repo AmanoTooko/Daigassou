@@ -14,7 +14,7 @@ namespace Daigassou
         [STAThread]
 
 
-        static void Main()
+        static void Main() 
         {
 
             try

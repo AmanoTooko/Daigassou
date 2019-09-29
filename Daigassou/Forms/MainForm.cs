@@ -39,7 +39,7 @@ namespace Daigassou
             InitializeComponent();
             formUpdate();
             KeyBinding.LoadConfig();
-            ThreadPool.SetMaxThreads(15, 30);
+            ThreadPool.SetMaxThreads(25, 50);
             Task.Run(() => { CommonUtilities.GetLatestVersion(); });
             
             Text += $" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
