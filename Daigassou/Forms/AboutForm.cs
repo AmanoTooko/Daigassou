@@ -27,11 +27,15 @@ namespace Daigassou
 
         private void LblVersion_Click(object sender, EventArgs e)
         {
-            if (ClickCount++>5)
+
+        }
+
+        private void Label1_Click(object sender, EventArgs e)
+        {
+            if (ClickCount++ > 5)
             {
-                KeyController.isBackGroundKey = true;
-                BackgroundKey.Init();
-                MessageBox.Show("启用后台播放");
+                new ConfigForm().ShowDialog();
+                
             }
         }
     }
