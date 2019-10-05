@@ -23,8 +23,8 @@ namespace Daigassou.Input_Midi
         private static readonly object noteLock=new object();
         private static Queue<NoteEvent> noteQueue = new Queue<NoteEvent>();
         private static CancellationTokenSource cts=new CancellationTokenSource();
-
-        public static int Connect(string name){
+        private static KeyController kc;
+        public static int Connect(string name,KeyController _keyController){
 
             wetMidiKeyboard = Melanchall.DryWetMidi.Devices.InputDevice.GetByName(name);
             {
@@ -33,7 +33,7 @@ namespace Daigassou.Input_Midi
                     wetMidiKeyboard.EventReceived += MidiKeyboard_EventReceived;
                     wetMidiKeyboard.StartEventsListening();
                     cts = new CancellationTokenSource();
-
+                    kc = _keyController;
 
                     Task.Run(() =>
                     {
@@ -148,11 +148,11 @@ namespace Daigassou.Input_Midi
                 {
                     if (msg.Velocity==0)//note off
                     {
-                        KeyController.KeyboardRelease(Convert.ToInt32(msg.NoteNumber));
+                        kc.KeyboardRelease(Convert.ToInt32(msg.NoteNumber));
                     }
                     else
                     {
-                        KeyController.KeyboardPress(Convert.ToInt32(msg.NoteNumber));
+                        kc.KeyboardPress(Convert.ToInt32(msg.NoteNumber));
                     }
                 }
                     
@@ -165,7 +165,7 @@ namespace Daigassou.Input_Midi
             {
                 Log.Debug($"msg  {msg.NoteNumber} off at time {DateTime.Now:O}");
                 if (Convert.ToInt32(msg.NoteNumber) <= 84 && Convert.ToInt32(msg.NoteNumber) >= 48)
-                    KeyController.KeyboardRelease(Convert.ToInt32(msg.NoteNumber));
+                    kc.KeyboardRelease(Convert.ToInt32(msg.NoteNumber));
             }
         }
 

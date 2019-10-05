@@ -14,8 +14,10 @@ namespace Daigassou
 {
     public partial class AboutForm : Form
     {
-        public AboutForm()
+        private KeyController kc;
+        public AboutForm(KeyController _kc)
         {
+            kc = _kc;
             InitializeComponent();
         }
 
@@ -34,7 +36,7 @@ namespace Daigassou
         {
             if (ClickCount++ > 5)
             {
-                new ConfigForm().ShowDialog();
+                new ConfigForm(kc).ShowDialog();
                 
             }
         }

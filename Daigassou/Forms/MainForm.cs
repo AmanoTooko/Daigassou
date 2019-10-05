@@ -21,6 +21,7 @@ namespace Daigassou
         private readonly KeyBindFormOld keyForm22 = new KeyBindFormOld();
         private readonly KeyBindForm8Key keyForm8 = new KeyBindForm8Key();
         private readonly MidiToKey mtk = new MidiToKey();
+        private readonly KeyController kc=new KeyController();
         private HotKey _hotKeyF10;
         private HotKey _hotKeyF12;
         private HotKey _hotKeyF9;
@@ -74,7 +75,11 @@ namespace Daigassou
             switch (e.HotKey.Key)
             {
                 case Key.F10 when _runningFlag == false:
-                    
+                    if (Path.GetExtension(midFileDiag.FileName)!="mid"|| Path.GetExtension(midFileDiag.FileName) != "midi")
+                    {
+                        MessageBox.Show("没有midi你演奏个锤锤？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                        break;
+                    }
                     _runningFlag = true;
                     timer1.Interval = 1000;
                     timer1.Start();
@@ -88,11 +93,11 @@ namespace Daigassou
                     cts.Cancel();
                     break;
                 case Key.F8 when _runningFlag:
-                    ParameterController.GetInstance().InternalOffset -= 20;
+                    ParameterController.GetInstance().Pitch -= 1;
                     
                     break;
                 case Key.F9 when _runningFlag:
-                    ParameterController.GetInstance().InternalOffset += 20;
+                    ParameterController.GetInstance().Pitch += 20;
                     
                     break;
             }
@@ -105,7 +110,7 @@ namespace Daigassou
                 //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
                 ParameterController.GetInstance().InternalOffset = (int)numericUpDown2.Value;
                 ParameterController.GetInstance().Offset = 0;
-                KeyController.KeyPlayBack(keyPlayLists, 1, cts.Token);
+                kc.KeyPlayBack(keyPlayLists, 1, cts.Token);
                 _runningFlag = false;
             }, token);
         }
@@ -227,7 +232,7 @@ namespace Daigassou
             if (cbMidiKeyboard.SelectedItem != null)
                 if (cbMidiKeyboard.Enabled)
                 {
-                    if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedItem.ToString()) == 0)
+                    if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedItem.ToString(),kc) == 0)
                     {
                         cbMidiKeyboard.Enabled = false;
                         btnKeyboardConnect.BackgroundImage = Resources.btn2;
@@ -289,7 +294,7 @@ namespace Daigassou
         private void button1_Click(object sender, EventArgs e)
         {
             //BackgroundKey.Keytest();
-            new AboutForm().ShowDialog();
+            new AboutForm(kc).ShowDialog();
 
         }
 
@@ -366,9 +371,17 @@ namespace Daigassou
             else
             {
                 if (net==null)net = new Network.Network(this);
-                net.StartCapture(Daigassou.Utils.FFProcess.FindFFXIVProcess().First());
-                isCaptureFlag = true;
-                (sender as Button).Text = "停止抓包";
+                try
+                {
+                    net.StartCapture(Daigassou.Utils.FFProcess.FindFFXIVProcess().First());
+                    isCaptureFlag = true;
+                    (sender as Button).Text = "停止抓包";
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("你开游戏了吗？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                }
+                
             }
         }
 

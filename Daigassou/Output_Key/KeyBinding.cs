@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Daigassou.Properties;
 using Newtonsoft.Json;
@@ -10,6 +11,16 @@ namespace Daigassou
 {
     public static class KeyBinding
     {
+        [DllImport("user32.dll")]
+        static extern uint MapVirtualKey(uint uCode, uint uMapType);
+
+        public static char GetKeyChar(Keys k)
+        {
+            uint nonVirtualKey = MapVirtualKey((uint)k, 2);
+            char mappedChar = Convert.ToChar(nonVirtualKey);
+            return mappedChar;
+        }
+
         private static Dictionary<int, int> _keymap = new Dictionary<int, int>
         {
             {48, 73},

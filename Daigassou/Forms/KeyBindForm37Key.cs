@@ -81,7 +81,7 @@ namespace Daigassou
         private void updateDisplay()
         {
             for (var i = 0; i < NUMBER_OF_KEY; i++)
-                keyBoxs[i].Text = BackgroundKey.GetKeyChar(KeyBinding.GetNoteToKey(i + 48)).ToString();
+                keyBoxs[i].Text = KeyBinding.GetKeyChar(KeyBinding.GetNoteToKey(i + 48)).ToString();
         }
 
         private void KeyBindForm_FormClosing(object sender, FormClosingEventArgs e)

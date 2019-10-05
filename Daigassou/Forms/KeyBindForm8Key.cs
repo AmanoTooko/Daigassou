@@ -40,8 +40,8 @@ namespace Daigassou
         private void KeyBindForm_Load(object sender, EventArgs e)
         {
             KeyBinding.LoadConfig();
-            for (var i = 0; i < 12; i++) keyBoxs[i].Text = BackgroundKey.GetKeyChar(KeyBinding.GetNoteToKey(i + 60)).ToString();
-            keyBoxs[12].Text = BackgroundKey.GetKeyChar(KeyBinding.GetNoteToKey(84)).ToString();
+            for (var i = 0; i < 12; i++) keyBoxs[i].Text = KeyBinding.GetKeyChar(KeyBinding.GetNoteToKey(i + 60)).ToString();
+            keyBoxs[12].Text = KeyBinding.GetKeyChar(KeyBinding.GetNoteToKey(84)).ToString();
             var settingLower = KeyBinding.GetNoteToCtrlKey(OCTAVE_KEY_LOW);
             var settingHigher = KeyBinding.GetNoteToCtrlKey(OCTAVE_KEY_HIGH);
             switch (settingLower)

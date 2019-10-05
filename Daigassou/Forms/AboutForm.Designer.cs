@@ -67,9 +67,9 @@
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
             this.label3.Location = new System.Drawing.Point(239, 227);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(204, 95);
+            this.label3.Size = new System.Drawing.Size(204, 114);
             this.label3.TabIndex = 3;
-            this.label3.Text = "程序：黑尾白猫@神意之地\r\n助手：酒酿和歌子@神意之地\r\n\r\nBug反馈裙：720145203\r\n\r\n";
+            this.label3.Text = "程序：黑尾白猫@神意之地\r\n助手：酒酿和歌子@神意之地\r\n\r\n发布：blog.ffxiv.cat\r\nBug反馈裙：720145203\r\n\r\n";
             // 
             // label1
             // 

@@ -26,8 +26,8 @@ namespace Daigassou.Utils
         public Queue<TimedNote> LocalPlayQueue { get; }
         public volatile int InternalOffset;
         public volatile int Offset;
-        public int Pitch { get; }
-        public int Speed { get; }
+        public int Pitch { get; set; }
+        public int Speed { get; set; }
         public bool NeedSync { get; set; } = true;
         private DateTime lastSentTime;
         private Timer offsetTimer;

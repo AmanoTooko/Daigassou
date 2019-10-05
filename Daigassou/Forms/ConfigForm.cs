@@ -14,8 +14,10 @@ namespace Daigassou
 {
     public partial class ConfigForm : Form
     {
-        public ConfigForm()
+        private KeyController kc;
+        public ConfigForm(KeyController _kc)
         {
+            kc = _kc;
             InitializeComponent();
             InitValue();
         }
@@ -49,8 +51,8 @@ namespace Daigassou
 
         private void CbBackgroundKey_CheckedChangeEvent(object sender, EventArgs e)
         {
-            KeyController.isBackGroundKey = true;
-            BackgroundKey.Init();
+            kc.isBackGroundKey = true;
+            
         }
 
         private void TbNtpServer_TextChanged(object sender, EventArgs e)
