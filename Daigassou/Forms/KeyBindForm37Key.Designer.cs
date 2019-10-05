@@ -68,6 +68,10 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.ofdKey = new System.Windows.Forms.OpenFileDialog();
+            this.sfdKey = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,6 +79,8 @@
             // 
             this.panel1.BackgroundImage = global::Daigassou.Properties.Resources.key22;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel1.Controls.Add(this.btnExport);
+            this.panel1.Controls.Add(this.btnImport);
             this.panel1.Controls.Add(this.btnReset);
             this.panel1.Controls.Add(this.btnApply);
             this.panel1.Controls.Add(this.textBox37);
@@ -512,6 +518,41 @@
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
             // 
+            // btnImport
+            // 
+            this.btnImport.BackColor = System.Drawing.Color.Transparent;
+            this.btnImport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnImport.Font = new System.Drawing.Font("微软雅黑", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnImport.Location = new System.Drawing.Point(33, 284);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(63, 29);
+            this.btnImport.TabIndex = 39;
+            this.btnImport.Text = "导入";
+            this.btnImport.UseVisualStyleBackColor = false;
+            this.btnImport.Click += new System.EventHandler(this.BtnImport_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.BackColor = System.Drawing.Color.Transparent;
+            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnExport.Font = new System.Drawing.Font("微软雅黑", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnExport.Location = new System.Drawing.Point(106, 284);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(63, 29);
+            this.btnExport.TabIndex = 40;
+            this.btnExport.Text = "导出";
+            this.btnExport.UseVisualStyleBackColor = false;
+            this.btnExport.Click += new System.EventHandler(this.BtnExport_Click);
+            // 
+            // ofdKey
+            // 
+            this.ofdKey.Filter = "keyconfig|*.cfg";
+            // 
+            // sfdKey
+            // 
+            this.sfdKey.FileName = "key";
+            this.sfdKey.Filter = "keyconfig|*.cfg";
+            // 
             // KeyBindFormOld
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -574,5 +615,9 @@
         private System.Windows.Forms.TextBox textBox27;
         private System.Windows.Forms.TextBox textBox26;
         private System.Windows.Forms.TextBox textBox25;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.OpenFileDialog ofdKey;
+        private System.Windows.Forms.SaveFileDialog sfdKey;
     }
 }

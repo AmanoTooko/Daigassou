@@ -74,8 +74,14 @@ namespace Daigassou
         private void KeyBindForm_Load(object sender, EventArgs e)
         {
             KeyBinding.LoadConfig();
-            
-            for (var i = 0; i < NUMBER_OF_KEY; i++) keyBoxs[i].Text =BackgroundKey.GetKeyChar(KeyBinding.GetNoteToKey(i + 48)).ToString();
+
+            updateDisplay();
+        }
+
+        private void updateDisplay()
+        {
+            for (var i = 0; i < NUMBER_OF_KEY; i++)
+                keyBoxs[i].Text = BackgroundKey.GetKeyChar(KeyBinding.GetNoteToKey(i + 48)).ToString();
         }
 
         private void KeyBindForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -101,6 +107,24 @@ namespace Daigassou
             var tmpBox = (TextBox)sender;
             if (tmpBox == null) throw new ArgumentNullException(nameof(tmpBox));
             tmpBox.Text = e.KeyChar.ToString();
+        }
+
+        private void BtnExport_Click(object sender, EventArgs e)
+        {
+            if (sfdKey.ShowDialog()==DialogResult.OK)
+            {
+                System.IO.File.WriteAllText(sfdKey.FileName,KeyBinding.SaveConfigToFile());
+            }
+        }
+
+        private void BtnImport_Click(object sender, EventArgs e)
+        {
+            if (ofdKey.ShowDialog()==DialogResult.OK)
+            {
+                var configText=System.IO.File.ReadAllText(ofdKey.FileName);
+                KeyBinding.LoadConfigFromFile(configText);
+                updateDisplay();
+            }
         }
     }
 }

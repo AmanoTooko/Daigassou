@@ -1,13 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 using Daigassou.Properties;
+using Newtonsoft.Json;
 
 namespace Daigassou
 {
     public static class KeyBinding
     {
-        private static readonly Dictionary<int, int> _keymap = new Dictionary<int, int>
+        private static Dictionary<int, int> _keymap = new Dictionary<int, int>
         {
             {48, 73},
             {49, 56},
@@ -137,6 +140,31 @@ namespace Daigassou
             if (settingKeyArrayList == null) return;
             _ctrKeyMap["OctaveLower"] = (Keys) settingKeyArrayList[0];
             _ctrKeyMap["OctaveHigher"] = (Keys) settingKeyArrayList[1];
+        }
+
+        public static string SaveConfigToFile()
+        {
+            string json = JsonConvert.SerializeObject(_keymap);
+            Debug.WriteLine(json);
+            return json;
+        }
+
+        public static void LoadConfigFromFile(string config)
+        {
+            try
+            {
+                Dictionary<int, int> _tmp = JsonConvert.DeserializeObject<Dictionary<int, int>>(config);
+                _keymap = _tmp;
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                SaveConfig();
+            }
+            
         }
     }
 }
