@@ -22,7 +22,7 @@ namespace Daigassou.Input_Midi
         private static readonly object NoteOfflock = new object();
         private static readonly object noteLock=new object();
         private static Queue<NoteEvent> noteQueue = new Queue<NoteEvent>();
-        private static readonly CancellationTokenSource cts=new CancellationTokenSource();
+        private static CancellationTokenSource cts=new CancellationTokenSource();
 
         public static int Connect(string name){
 
@@ -31,10 +31,9 @@ namespace Daigassou.Input_Midi
                 try
                 {
                     wetMidiKeyboard.EventReceived += MidiKeyboard_EventReceived;
-
                     wetMidiKeyboard.StartEventsListening();
+                    cts = new CancellationTokenSource();
 
-                    
 
                     Task.Run(() =>
                     {
@@ -79,6 +78,8 @@ namespace Daigassou.Input_Midi
                 {
                     wetMidiKeyboard.StopEventsListening();
                     wetMidiKeyboard.Reset();
+                    wetMidiKeyboard.EventReceived-= MidiKeyboard_EventReceived;
+                    wetMidiKeyboard.Dispose();
                     cts.Cancel();
                 }
                 catch (Exception e)
