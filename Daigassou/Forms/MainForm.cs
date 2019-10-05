@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -148,7 +149,7 @@ namespace Daigassou
 
             if (_tmpScore != null)
                 for (var i = 0; i < _tmpScore.Count; i++)
-                    tmp.Add("track_" + i);
+                    tmp.Add($"track_{i}:{_tmpScore[i]}");
 
 
             trackComboBox.DataSource = tmp;
@@ -319,6 +320,7 @@ namespace Daigassou
                 
                 lblPlay.Text = "正在试听";
                 lblMidiName.Text = Path.GetFileNameWithoutExtension(midFileDiag.FileName);
+                playTimer.Start();
             }
 
             
@@ -332,6 +334,8 @@ namespace Daigassou
                 btnPause.BackgroundImage = Resources.c_pause;
                 btnStop.BackgroundImage = Resources.c_stop_1;
                 lblPlay.Text = "试听已停止";
+                timeLabel.Text = "";
+                playTimer.Stop();
             }
             
         }
@@ -371,6 +375,11 @@ namespace Daigassou
         private void NumericUpDown2_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void PlayTimer_Tick(object sender, EventArgs e)
+        {
+            timeLabel.Text = mtk.PlaybackInfo();
         }
     }
 }

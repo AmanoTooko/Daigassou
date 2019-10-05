@@ -68,6 +68,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.timeLabel = new System.Windows.Forms.Label();
             this.lblMidiName = new System.Windows.Forms.Label();
             this.lblPlay = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
@@ -76,6 +77,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tlblTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.playTimer = new System.Windows.Forms.Timer(this.components);
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.gBMidiFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -548,7 +550,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(75)))), ((int)(((byte)(107)))));
-            this.button1.Location = new System.Drawing.Point(0, 658);
+            this.button1.Location = new System.Drawing.Point(0, 657);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(357, 36);
             this.button1.TabIndex = 13;
@@ -559,6 +561,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.timeLabel);
             this.groupBox2.Controls.Add(this.lblMidiName);
             this.groupBox2.Controls.Add(this.lblPlay);
             this.groupBox2.Controls.Add(this.btnStop);
@@ -573,6 +576,17 @@
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Midi轨道试听";
+            // 
+            // timeLabel
+            // 
+            this.timeLabel.AutoSize = true;
+            this.timeLabel.Font = new System.Drawing.Font("微软雅黑", 9.5F);
+            this.timeLabel.ForeColor = System.Drawing.Color.Gray;
+            this.timeLabel.Location = new System.Drawing.Point(277, 96);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(35, 21);
+            this.timeLabel.TabIndex = 27;
+            this.timeLabel.Text = "     ";
             // 
             // lblMidiName
             // 
@@ -658,11 +672,16 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tlblTime});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 694);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 693);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(357, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(357, 26);
             this.statusStrip1.TabIndex = 18;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // playTimer
+            // 
+            this.playTimer.Interval = 500;
+            this.playTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
             // 
             // MainForm
             // 
@@ -754,6 +773,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripStatusLabel tlblTime;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.Timer playTimer;
+        private System.Windows.Forms.Label timeLabel;
     }
 }
 

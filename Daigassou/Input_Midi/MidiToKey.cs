@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Smf;
 using Melanchall.DryWetMidi.Smf.Interaction;
@@ -57,7 +58,8 @@ namespace Daigassou
                 UnexpectedTrackChunksCountPolicy = UnexpectedTrackChunksCountPolicy.Ignore,
                 ExtraTrackChunkPolicy = ExtraTrackChunkPolicy.Read,
                 UnknownChunkIdPolicy = UnknownChunkIdPolicy.ReadAsUnknownChunk,
-                SilentNoteOnPolicy = SilentNoteOnPolicy.NoteOff
+                SilentNoteOnPolicy = SilentNoteOnPolicy.NoteOff,
+                TextEncoding = Encoding.Default
             });
             Tmap = midi.GetTempoMap();
         }
@@ -80,13 +82,20 @@ namespace Daigassou
                         trunks.Add(track);
                     }
 
-
-                foreach (var noteManager in tracks)
+                for (int i = 0; i < trunks.Count; i++)
                 {
-                    var track = new StringBuilder("");
-                    foreach (var note in noteManager.Notes) track.Append(note + " ");
-                    if (track.ToString() != string.Empty) score.Add(track.ToString());
+                    foreach (var trunkEvent in trunks[i].Events)
+                    {
+                        if (trunkEvent is SequenceTrackNameEvent)
+                        {
+                            var e = trunkEvent as SequenceTrackNameEvent;
+                            score.Add(e.Text);
+                            break;
+                        }
+
+                    }
                 }
+                
 
                 return score;
             }
@@ -362,15 +371,29 @@ namespace Daigassou
             }
             if (playback == null)
             {
-                playback = new Playback(midi.GetTrackChunks().ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
+                playback = new Playback(trunks.ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
             }
             playback.Speed = (double)BPM / GetBpm();
             playback.Start();
+            
 
 
             return 0;
         }
 
+        public string PlaybackInfo()
+        {
+            string ret="";
+            var expression = @"\d*:(?<time>.+):\d+";
+            if (playback.IsRunning)
+            {
+                var cur = playback.GetCurrentTime(TimeSpanType.Metric);
+                var dur = playback.GetDuration(TimeSpanType.Metric);
+                
+                ret = Regex.Match(cur.ToString(),expression).Groups["time"].Value + "/" + Regex.Match(dur.ToString(), expression).Groups["time"].Value;
+            }
+            return ret;
+        }
         public int PlaybackRestart()
         {
             if (midi == null)
