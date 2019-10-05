@@ -7,45 +7,45 @@ namespace Daigassou
 {
     public static class KeyBinding
     {
-        private static readonly Dictionary<int, Keys> _keymap = new Dictionary<int, Keys>
+        private static readonly Dictionary<int, int> _keymap = new Dictionary<int, int>
         {
-            {48, Keys.Q},
-            {49, Keys.D2},
-            {50, Keys.W},
-            {51, Keys.D3},
-            {52, Keys.E},
-            {53, Keys.R},
-            {54, Keys.D5},
-            {55, Keys.T},
-            {56, Keys.D6},
-            {57, Keys.Y},
-            {58, Keys.D7},
-            {59, Keys.U},
-            {60, Keys.Q},
-            {61, Keys.D2},
-            {62, Keys.W},
-            {63, Keys.D3},
-            {64, Keys.E},
-            {65, Keys.R},
-            {66, Keys.D5},
-            {67, Keys.T},
-            {68, Keys.D6},
-            {69, Keys.Y},
-            {70, Keys.D7},
-            {71, Keys.U},
-            {72, Keys.Q},
-            {73, Keys.D2},
-            {74, Keys.W},
-            {75, Keys.D3},
-            {76, Keys.E},
-            {77, Keys.R},
-            {78, Keys.D5},
-            {79, Keys.T},
-            {80, Keys.D6},
-            {81, Keys.Y},
-            {82, Keys.D7},
-            {83, Keys.U},
-            {84, Keys.I}
+            {48, 73},
+            {49, 56},
+            {50, 79},
+            {51, 57},
+            {52, 80},
+            {53, 219},
+            {54, 48},
+            {55, 221},
+            {56, 189},
+            {57, 220},
+            {58, 187},
+            {59, 222},
+            {60, 81},
+            {61, 50},
+            {62, 87},
+            {63, 51},
+            {64, 69},
+            {65, 82},
+            {66, 53},
+            {67, 84},
+            {68, 54},
+            {69, 89},
+            {70, 55},
+            {71, 85},
+            {72, 90},
+            {73, 83},
+            {74, 88},
+            {75, 68},
+            {76, 67},
+            {77, 86},
+            {78, 71},
+            {79, 66},
+            {80, 72},
+            {81, 78},
+            {82, 74},
+            {83, 77},
+            {84, 191}
         };
 
         private static readonly Dictionary<string, Keys> _ctrKeyMap = new Dictionary<string, Keys>
@@ -56,7 +56,7 @@ namespace Daigassou
 
         public static Keys GetNoteToKey(int note)
         {
-            return _keymap[note];
+            return (Keys)_keymap[note];
         }
 
         public static Keys GetNoteToCtrlKey(int note)
@@ -68,13 +68,13 @@ namespace Daigassou
             return Keys.None;
         }
 
-        public static void SetKeyToNote_22(int note, Keys key)
+        public static void SetKeyToNote_22(int note, int keyValue)
         {
-            _keymap[note] = key;
+            _keymap[note] = keyValue;
             SaveConfig();
         }
 
-        public static void SetKeyToNote_8(int note, Keys key)
+        public static void SetKeyToNote_8(int note, int key)
         {
             var offset = note % 12;
             if (note == 72)
@@ -132,7 +132,7 @@ namespace Daigassou
             var settingKeyArrayList = Settings.Default.CtrlKeyBinding;
             if (settingArrayList != null)
                 for (var i = 0; i < settingArrayList.Count; i++)
-                    _keymap[i + 48] = (Keys) settingArrayList[i];
+                    _keymap[i + 48] = (int) settingArrayList[i];
 
             if (settingKeyArrayList == null) return;
             _ctrKeyMap["OctaveLower"] = (Keys) settingKeyArrayList[0];

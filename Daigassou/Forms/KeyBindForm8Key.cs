@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Daigassou.Input_Midi;
 
 namespace Daigassou
 {
@@ -33,14 +34,14 @@ namespace Daigassou
             var tmpBox = (TextBox) sender;
             if (tmpBox == null) throw new ArgumentNullException(nameof(tmpBox));
             tmpBox.Text = e.KeyCode.ToString();
-            KeyBinding.SetKeyToNote_8(Array.IndexOf(keyBoxs, tmpBox) + 60, e.KeyCode);
+            KeyBinding.SetKeyToNote_8(Array.IndexOf(keyBoxs, tmpBox) + 60, e.KeyValue);
         }
 
         private void KeyBindForm_Load(object sender, EventArgs e)
         {
             KeyBinding.LoadConfig();
-            for (var i = 0; i < 12; i++) keyBoxs[i].Text = KeyBinding.GetNoteToKey(i + 60).ToString();
-            keyBoxs[12].Text = KeyBinding.GetNoteToKey(84).ToString();
+            for (var i = 0; i < 12; i++) keyBoxs[i].Text = BackgroundKey.GetKeyChar(KeyBinding.GetNoteToKey(i + 60)).ToString();
+            keyBoxs[12].Text = BackgroundKey.GetKeyChar(KeyBinding.GetNoteToKey(84)).ToString();
             var settingLower = KeyBinding.GetNoteToCtrlKey(OCTAVE_KEY_LOW);
             var settingHigher = KeyBinding.GetNoteToCtrlKey(OCTAVE_KEY_HIGH);
             switch (settingLower)

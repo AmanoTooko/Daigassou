@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Windows.Input;
+using Daigassou.Input_Midi;
 
 namespace Daigassou
 {
@@ -65,13 +67,15 @@ namespace Daigassou
             var tmpBox = (TextBox) sender;
             if (tmpBox == null) throw new ArgumentNullException(nameof(tmpBox));
             tmpBox.Text = e.KeyCode.ToString();
-            KeyBinding.SetKeyToNote_22(Array.IndexOf(keyBoxs, tmpBox) + 48, e.KeyCode);
+
+            KeyBinding.SetKeyToNote_22(Array.IndexOf(keyBoxs, tmpBox) + 48, e.KeyValue);
         }
 
         private void KeyBindForm_Load(object sender, EventArgs e)
         {
             KeyBinding.LoadConfig();
-            for (var i = 0; i < NUMBER_OF_KEY; i++) keyBoxs[i].Text = KeyBinding.GetNoteToKey(i + 48).ToString();
+            
+            for (var i = 0; i < NUMBER_OF_KEY; i++) keyBoxs[i].Text =BackgroundKey.GetKeyChar(KeyBinding.GetNoteToKey(i + 48)).ToString();
         }
 
         private void KeyBindForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -90,6 +94,13 @@ namespace Daigassou
         private void btnReset_Click(object sender, EventArgs e)
         {
             MessageBox.Show("这个按钮是美工画的的，实际上并没有这个功能。");
+        }
+
+        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var tmpBox = (TextBox)sender;
+            if (tmpBox == null) throw new ArgumentNullException(nameof(tmpBox));
+            tmpBox.Text = e.KeyChar.ToString();
         }
     }
 }
