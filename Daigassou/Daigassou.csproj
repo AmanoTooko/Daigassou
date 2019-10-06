@@ -225,6 +225,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Version.ORZ" />
+    <None Include="[大合奏]使用教程.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -32,7 +32,7 @@ namespace Daigassou
                                             $"新版本更新内容：{versionObj.Description}", "哇——更新啦！",
                                 MessageBoxButtons.OKCancel,
                                 MessageBoxIcon.Information) == DialogResult.OK)
-                            Process.Start("http://file.ffxiv.cat/latest.zip");
+                            Process.Start("http://file.ffxiv.cat/Release/latest.zip");
                 }
                 catch (Exception e)
                 {
