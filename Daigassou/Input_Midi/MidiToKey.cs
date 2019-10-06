@@ -84,16 +84,18 @@ namespace Daigassou
 
                 for (int i = 0; i < trunks.Count; i++)
                 {
+                    var name= "Untitled";
                     foreach (var trunkEvent in trunks[i].Events)
                     {
                         if (trunkEvent is SequenceTrackNameEvent)
                         {
                             var e = trunkEvent as SequenceTrackNameEvent;
-                            score.Add(e.Text);
+                            name = e.Text;
                             break;
                         }
-
+                        
                     }
+                    score.Add(name);
                 }
                 
 

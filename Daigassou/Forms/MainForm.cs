@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -75,7 +76,7 @@ namespace Daigassou
             switch (e.HotKey.Key)
             {
                 case Key.F10 when _runningFlag == false:
-                    if (Path.GetExtension(midFileDiag.FileName)!="mid"|| Path.GetExtension(midFileDiag.FileName) != "midi")
+                    if ((Path.GetExtension(midFileDiag.FileName)!=".mid")&& (Path.GetExtension(midFileDiag.FileName) != ".midi"))
                     {
                         MessageBox.Show("没有midi你演奏个锤锤？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
                         break;
@@ -97,7 +98,7 @@ namespace Daigassou
                     
                     break;
                 case Key.F9 when _runningFlag:
-                    ParameterController.GetInstance().Pitch += 20;
+                    ParameterController.GetInstance().Pitch += 1;
                     
                     break;
             }
