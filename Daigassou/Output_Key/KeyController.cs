@@ -92,6 +92,10 @@ namespace Daigassou
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 2, 0);
         }
 
+        public void InitBackGroundKey()
+        {
+            bkKeyController.Init(BackgroundKey.GetPids().FirstOrDefault());
+        }
         public void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed, CancellationToken token)
         {
             var startTime = Environment.TickCount;

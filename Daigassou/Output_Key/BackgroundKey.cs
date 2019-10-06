@@ -34,7 +34,7 @@ namespace Daigassou.Input_Midi
         private static IntPtr _gameIntPtr;
         public void Init(IntPtr gameIntPtr)
         {
-            _gameIntPtr = _gameIntPtr;
+            _gameIntPtr = gameIntPtr;
         }
 
         public void BackgroundKeyPress(Keys viKeys)

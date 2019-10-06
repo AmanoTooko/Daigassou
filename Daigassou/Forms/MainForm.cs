@@ -35,10 +35,6 @@ namespace Daigassou
         const int DBT_DEVICEREMOVECOMPLETE = 0x8004;
         public MainForm()
         {
-            if (DateTime.Now>new DateTime(2019,10,15))
-            {
-                Environment.Exit(0);
-            }
             InitializeComponent();
             formUpdate();
             KeyBinding.LoadConfig();
