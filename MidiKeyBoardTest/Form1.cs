@@ -24,7 +24,7 @@ namespace MidiKeyBoardTest
             {
                 if (cbMidiKeyboard.Enabled)
                 {
-                    if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedIndex) == 0)
+                    if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedItem.ToString()) == 0)
                     {
                         cbMidiKeyboard.Enabled = false;
                         btnKeyboardConnect.Text="已连接";

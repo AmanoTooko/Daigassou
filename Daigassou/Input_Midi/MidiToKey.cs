@@ -211,8 +211,8 @@ namespace Daigassou
                         }
                         else//修改为等比例前后
                         {
-                            tickBase = 60000 / (float)midi.GetTempoMap().Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
-                                       ticksPerQuarterNote;
+                            tickBase = 60000 / (float)Tmap.Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
+                                ticksPerQuarterNote;
                             var minTick = (long)(MIN_DELAY_TIME_MS_CHORD / tickBase);
                             //original time is on the center of chord
                             double startOffset = (double)(chord.Notes.Count() - 1) / 2;
