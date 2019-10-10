@@ -391,5 +391,10 @@ namespace Daigassou
         {
             timeLabel.Text = mtk.PlaybackInfo();
         }
+
+        private void ToolStripDropDownButton1_Click(object sender, EventArgs e)
+        {
+            mtk.SaveToFile();
+        }
     }
 }

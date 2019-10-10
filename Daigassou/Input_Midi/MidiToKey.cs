@@ -272,6 +272,23 @@ namespace Daigassou
             }
 
         }
+
+        public void SaveToFile()
+        {
+            for (int i = 0; i < trunks.Count; i++)
+            {
+                
+                PreProcessChord();
+                PreProcessEvents();
+            }
+            var stfd=new SaveFileDialog();
+            stfd.Filter = "Midi文件|*.mid";
+            if (stfd.ShowDialog()==DialogResult.OK)
+            {
+                midi.Write(stfd.FileName,false,MidiFileFormat.MultiTrack,new WritingSettings(){TextEncoding = Encoding.Default});
+            }
+            
+        }
         public Queue<KeyPlayList> ArrangeKeyPlaysNew(double speed)
         {
             var trunkEvents = trunks.ElementAt(Index).Events;

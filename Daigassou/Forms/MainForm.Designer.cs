@@ -78,6 +78,7 @@
             this.tlblTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.playTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.gBMidiFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -671,7 +672,8 @@
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tlblTime});
+            this.tlblTime,
+            this.toolStripDropDownButton1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 693);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(357, 26);
@@ -682,6 +684,17 @@
             // 
             this.playTimer.Interval = 500;
             this.playTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.AutoToolTip = false;
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.Image = global::Daigassou.Properties.Resources.s2;
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(34, 24);
+            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Click += new System.EventHandler(this.ToolStripDropDownButton1_Click);
             // 
             // MainForm
             // 
@@ -775,6 +788,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Timer playTimer;
         private System.Windows.Forms.Label timeLabel;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
     }
 }
 
