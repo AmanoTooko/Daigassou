@@ -10,14 +10,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using BondTech.HotkeyManagement.Win;
 using Daigassou.Input_Midi;
 using Daigassou.Properties;
 using GlobalHotKey;
 using Daigassou.Utils;
+using GlobalHotKey = BondTech.HotkeyManagement.Win.GlobalHotKey;
+using HotKeyManager = GlobalHotKey.HotKeyManager;
+
 namespace Daigassou
 {
     public partial class MainForm : Form
     {
+        internal BondTech.HotkeyManagement.Win.HotKeyManager hkm;
+        internal BondTech.HotkeyManagement.Win.GlobalHotKey gbk;
         private readonly HotKeyManager hotKeyManager = new HotKeyManager();
         private readonly KeyBindFormOld keyForm22 = new KeyBindFormOld();
         private readonly KeyBindForm8Key keyForm8 = new KeyBindForm8Key();
@@ -39,10 +45,15 @@ namespace Daigassou
             formUpdate();
             KeyBinding.LoadConfig();
             ThreadPool.SetMaxThreads(25, 50);
-            Task.Run(() => { CommonUtilities.GetLatestVersion(); });
-            
+//            Task.Run(() => { CommonUtilities.GetLatestVersion(); });
+           
             Text += $" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
+        }
+
+        private void Gbk_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
+        {
+            Console.WriteLine("test");
         }
 
         private void formUpdate()
@@ -125,7 +136,11 @@ namespace Daigassou
                 _hotKeyF12 = hotKeyManager.Register(Key.F11, System.Windows.Input.ModifierKeys.Control);
                 _hotKeyF8 = hotKeyManager.Register(Key.F8, System.Windows.Input.ModifierKeys.Control);
                 _hotKeyF9 = hotKeyManager.Register(Key.F9, System.Windows.Input.ModifierKeys.Control);
+                hkm = new BondTech.HotkeyManagement.Win.HotKeyManager(this);
+                gbk = new BondTech.HotkeyManagement.Win.GlobalHotKey("test", Modifiers.Alt, Keys.F8);
+                gbk.HotKeyPressed += Gbk_HotKeyPressed;
 
+                hkm.AddGlobalHotKey(gbk);
             }
             catch (Win32Exception)
             {

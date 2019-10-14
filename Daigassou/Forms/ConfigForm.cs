@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BondTech.HotkeyManagement.Win;
 using Daigassou.Properties;
 
 namespace Daigassou
@@ -15,11 +16,19 @@ namespace Daigassou
     public partial class ConfigForm : Form
     {
         private KeyController kc;
+        private BondTech.HotkeyManagement.Win.GlobalHotKey a;
+        private HotKeyManager hkm;
         public ConfigForm(KeyController _kc)
         {
             kc = _kc;
             InitializeComponent();
             InitValue();
+
+            hkm = new HotKeyManager(this);
+            a = new BondTech.HotkeyManagement.Win.GlobalHotKey("test", Modifiers.Alt | Modifiers.Control, Keys.F5);
+            //a.HotKeyPressed += A_HotKeyPressed;
+            a.Enabled = true;
+            hkm.AddGlobalHotKey(a);
         }
 
         private void InitValue()
@@ -60,5 +69,22 @@ namespace Daigassou
             Settings.Default.NtpServer = tbNtpServer.Text;
             Settings.Default.Save();
         }
-    }
+
+        private void HotKeyControl1_HotKeyIsSet(object sender, BondTech.HotkeyManagement.Win.HotKeyIsSetEventArgs e)
+        {
+            
+           
+        }
+
+        private void A_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
+        {
+            test();
+        }
+
+        private void test()
+        {
+            Console.WriteLine("mc");
+        }
+    }      
+        
 }

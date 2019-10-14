@@ -95,12 +95,15 @@
     <Reference Include="GlobalHotKey, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GlobalHotKey.1.1.0\lib\GlobalHotKey.dll</HintPath>
     </Reference>
+    <Reference Include="HotkeyManagement, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotkeyManagement.WinForms.1.7.0\lib\HotkeyManagement.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.NetFwTypeLib">
       <HintPath>Reference\Interop.NetFwTypeLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Melanchall.DryWetMidi, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Melanchall.DryWetMidi.4.1.0\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
+    <Reference Include="Melanchall.DryWetMidi, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Melanchall.DryWetMidi.4.1.1\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
     </Reference>
     <Reference Include="Midi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\midi-dot-net2.2.0.1\lib\net461\Midi.dll</HintPath>

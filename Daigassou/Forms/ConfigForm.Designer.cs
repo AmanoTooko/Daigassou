@@ -38,6 +38,7 @@
             this.cbAutoChord = new System.Windows.Forms.CheckBox();
             this.cbBackgroundKey = new System.Windows.Forms.CheckBox();
             this.tbNtpServer = new System.Windows.Forms.TextBox();
+            this.hotKeyControl1 = new BondTech.HotkeyManagement.Win.HotKeyControl();
             ((System.ComponentModel.ISupportInitialize)(this.minEventNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chordEventNum)).BeginInit();
             this.SuspendLayout();
@@ -138,12 +139,24 @@
             this.tbNtpServer.TabIndex = 16;
             this.tbNtpServer.TextChanged += new System.EventHandler(this.TbNtpServer_TextChanged);
             // 
+            // hotKeyControl1
+            // 
+            this.hotKeyControl1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hotKeyControl1.Location = new System.Drawing.Point(23, 13);
+            this.hotKeyControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.hotKeyControl1.Name = "hotKeyControl1";
+            this.hotKeyControl1.Size = new System.Drawing.Size(255, 27);
+            this.hotKeyControl1.TabIndex = 17;
+            this.hotKeyControl1.ToolTip = null;
+            this.hotKeyControl1.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(331, 363);
+            this.Controls.Add(this.hotKeyControl1);
             this.Controls.Add(this.tbNtpServer);
             this.Controls.Add(this.cbBackgroundKey);
             this.Controls.Add(this.cbAutoChord);
@@ -178,5 +191,6 @@
         private System.Windows.Forms.CheckBox cbAutoChord;
         private System.Windows.Forms.CheckBox cbBackgroundKey;
         private System.Windows.Forms.TextBox tbNtpServer;
+        private BondTech.HotkeyManagement.Win.HotKeyControl hotKeyControl1;
     }
 }
