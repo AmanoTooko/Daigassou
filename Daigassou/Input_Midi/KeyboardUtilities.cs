@@ -111,7 +111,7 @@ namespace Daigassou.Input_Midi
 
             while (!token.IsCancellationRequested)
             {
-                
+                NoteEvent nextKey;
                 lock (noteLock)
                 {
                     if (noteQueue.Count <= 0)
@@ -119,8 +119,9 @@ namespace Daigassou.Input_Midi
                         
                         continue;
                     }
-                    var nextKey = noteQueue.Dequeue();
-                    switch (nextKey)
+                    nextKey = noteQueue.Dequeue();
+                }
+                switch (nextKey)
                     {
                         case NoteOnEvent keyon:
                             NoteOn(keyon);
@@ -128,11 +129,12 @@ namespace Daigassou.Input_Midi
                             break;
                         case NoteOffEvent keyoff:
                             NoteOff(keyoff);
-                            break;
+                            Thread.Sleep(5);
+                        break;
 
                     }
-                    Thread.Sleep(5);
-                }
+                    
+                
                 
             }
 

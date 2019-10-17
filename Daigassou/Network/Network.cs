@@ -312,7 +312,7 @@ namespace Daigassou.Network
             try
             {
 
-                Console.WriteLine($"analyze start at {DateTime.Now.ToString("hh:mm:ss.fff")} ");
+                //Console.WriteLine($"analyze start at {DateTime.Now.ToString("hh:mm:ss.fff")} ");
 
 
                 var ipPacket = new IPPacket(buffer);
@@ -355,7 +355,7 @@ namespace Daigassou.Network
                         AnalyseFFXIVPacket(tcpPacket.Payload);
                     
                 
-                    Console.WriteLine($"analyze end at {DateTime.Now.ToString("hh:mm:ss.fff")} ");
+                    //Console.WriteLine($"analyze end at {DateTime.Now.ToString("hh:mm:ss.fff")} ");
                 }
             }
             catch (Exception ex)
@@ -515,14 +515,14 @@ namespace Daigassou.Network
 
                     if (type == 0x0000 || type == 0x5252)
                     {
-                        if (payload.Length < 104)
+                        if (payload.Length < 100)
                         {
                             break;
                         }
 
                         var length = BitConverter.ToInt32(payload, 24);
                         var tp = payload[58];
-                        if (length <= 0 || payload.Length < length||tp!=0x88)
+                        if (length <= 0 || payload.Length < length||tp!=0x8B)
                         {
                             break;
                         }

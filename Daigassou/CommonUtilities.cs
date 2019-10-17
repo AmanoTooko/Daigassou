@@ -25,14 +25,26 @@ namespace Daigassou
                 try
                 {
                     var versionObj = JsonConvert.DeserializeObject<versionObject>(newVersionJson);
-                    
+                    if (versionObj.isRefuseToUse)
+                    {
+                        Environment.Exit(-1);
+                    }
                     if (nowVersion != versionObj.Version)
                         if (MessageBox.Show($"检测到新版本{versionObj.Version}已经发布，点击确定下载最新版哦！\r\n " +
                                             $"当然就算你点了取消，这个提示每次打开还会出现的哦！" +
+                                            $"下载错误可以去NGA发布帖哦！bbs.nga.cn/read.php?tid=18790669 \r\n" +
                                             $"新版本更新内容：{versionObj.Description}", "哇——更新啦！",
                                 MessageBoxButtons.OKCancel,
                                 MessageBoxIcon.Information) == DialogResult.OK)
+                        {
                             Process.Start("http://file.ffxiv.cat/Release/latest.zip");
+
+                        }
+                    if (versionObj.isForceUpdate)
+                    {
+                        Environment.Exit(-2);
+                    }
+
                 }
                 catch (Exception e)
                 {
@@ -47,6 +59,8 @@ namespace Daigassou
         }
         public class versionObject
         {
+            public bool isForceUpdate { get; set; }
+            public bool isRefuseToUse { get; set; }
             public string Version { get; set; }
             public string Description { get; set; }
         }

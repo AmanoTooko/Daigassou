@@ -15,7 +15,7 @@ using Daigassou.Input_Midi;
 using Daigassou.Properties;
 using GlobalHotKey;
 using Daigassou.Utils;
-using GlobalHotKey = BondTech.HotkeyManagement.Win.GlobalHotKey;
+using HotKey = GlobalHotKey.HotKey;
 using HotKeyManager = GlobalHotKey.HotKeyManager;
 
 namespace Daigassou
@@ -37,15 +37,13 @@ namespace Daigassou
         private List<string> _tmpScore;
         private Queue<KeyPlayList> keyPlayLists;
         private CancellationTokenSource cts = new CancellationTokenSource();
-        const int DBT_DEVICEARRIVAL = 0x8000;
-        const int DBT_DEVICEREMOVECOMPLETE = 0x8004;
         public MainForm()
         {
             InitializeComponent();
             formUpdate();
             KeyBinding.LoadConfig();
             ThreadPool.SetMaxThreads(25, 50);
-//            Task.Run(() => { CommonUtilities.GetLatestVersion(); });
+            Task.Run(() => { CommonUtilities.GetLatestVersion(); });
            
             Text += $" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
@@ -136,11 +134,11 @@ namespace Daigassou
                 _hotKeyF12 = hotKeyManager.Register(Key.F11, System.Windows.Input.ModifierKeys.Control);
                 _hotKeyF8 = hotKeyManager.Register(Key.F8, System.Windows.Input.ModifierKeys.Control);
                 _hotKeyF9 = hotKeyManager.Register(Key.F9, System.Windows.Input.ModifierKeys.Control);
-                hkm = new BondTech.HotkeyManagement.Win.HotKeyManager(this);
-                gbk = new BondTech.HotkeyManagement.Win.GlobalHotKey("test", Modifiers.Alt, Keys.F8);
-                gbk.HotKeyPressed += Gbk_HotKeyPressed;
+                //hkm = new BondTech.HotkeyManagement.Win.HotKeyManager(this);
+                //gbk = new BondTech.HotkeyManagement.Win.GlobalHotKey("test", Modifiers.Alt, Keys.F8);
+                //gbk.HotKeyPressed += Gbk_HotKeyPressed;
 
-                hkm.AddGlobalHotKey(gbk);
+                //hkm.AddGlobalHotKey(gbk);
             }
             catch (Win32Exception)
             {
