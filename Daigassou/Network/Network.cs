@@ -233,10 +233,11 @@ namespace Daigassou.Network
                     Log.E("l-network-error-already-stopped");
                     return;
                 }
-
+                IsRunning = false;
                 socket.Close();
                 connections.Clear();
-
+                socket.Dispose();
+                
                 //mainForm.overlayForm.SetStatus(false);
 
                 Log.I("l-network-stopping");

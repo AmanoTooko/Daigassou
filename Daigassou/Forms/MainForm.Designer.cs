@@ -78,7 +78,6 @@
             this.tlblTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.timeStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.playTimer = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             radioButton3 = new System.Windows.Forms.RadioButton();
@@ -118,6 +117,7 @@
             this.trackComboBox.TabIndex = 1;
             this.toolTip1.SetToolTip(this.trackComboBox, "点这里选择音轨");
             this.trackComboBox.SelectedIndexChanged += new System.EventHandler(this.trackComboBox_SelectedIndexChanged);
+            this.trackComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TrackComboBox_KeyDown);
             // 
             // gBMidiFile
             // 
@@ -302,6 +302,7 @@
             this.dateTimePicker1.ShowUpDown = true;
             this.dateTimePicker1.Size = new System.Drawing.Size(100, 31);
             this.dateTimePicker1.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.dateTimePicker1, "合奏用\r\n与队友们设定同样的时间后\r\n点击[准备好了]，就可以自动合奏\r\n*时间支持复制粘贴*");
             this.dateTimePicker1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DateTimePicker1_KeyDown);
             // 
             // label3
@@ -437,6 +438,7 @@
             this.cbMidiKeyboard.Name = "cbMidiKeyboard";
             this.cbMidiKeyboard.Size = new System.Drawing.Size(161, 31);
             this.cbMidiKeyboard.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.cbMidiKeyboard, "如果你有Midi键盘可以在这里连接\r\n没有的就不要凑热闹了！\r\n樱桃键盘不行！Filco也不行！\r\nHHKB也不行！王总不是钱的问题！\r\n");
             this.cbMidiKeyboard.SelectedIndexChanged += new System.EventHandler(this.cbMidiKeyboard_SelectedIndexChanged);
             // 
             // gBKeySetting
@@ -505,6 +507,7 @@
             this.btn8key.Name = "btn8key";
             this.btn8key.Size = new System.Drawing.Size(95, 36);
             this.btn8key.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.btn8key, "点这里就可以设置键位了\r\n嗨呀气死我了你们不看教程的吗！\r\n");
             this.btn8key.UseVisualStyleBackColor = false;
             this.btn8key.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -543,7 +546,7 @@
             this.btnKeyboardConnect.Name = "btnKeyboardConnect";
             this.btnKeyboardConnect.Size = new System.Drawing.Size(82, 34);
             this.btnKeyboardConnect.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.btnKeyboardConnect, "如果你有Midi键盘可以在这里连接\r\n没有的就不要凑热闹了！\r\n樱桃键盘不行！Filco也不行！\r\nHHKB也不行！不是钱的问题！");
+            this.toolTip1.SetToolTip(this.btnKeyboardConnect, "如果你有Midi键盘可以在这里连接\r\n没有的就不要凑热闹了！\r\n樱桃键盘不行！Filco也不行！\r\nHHKB也不行！王总不是钱的问题！");
             this.btnKeyboardConnect.UseVisualStyleBackColor = false;
             this.btnKeyboardConnect.Click += new System.EventHandler(this.btnKeyboardConnect_Click);
             // 
@@ -688,8 +691,7 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tlblTime,
-            this.timeStripStatus,
-            this.toolStripDropDownButton1});
+            this.timeStripStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 693);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(357, 26);
@@ -703,17 +705,6 @@
             this.timeStripStatus.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.timeStripStatus.Size = new System.Drawing.Size(71, 20);
             this.timeStripStatus.Text = "20:00:00";
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.AutoToolTip = false;
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.Image = global::Daigassou.Properties.Resources.s2;
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(34, 24);
-            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Click += new System.EventHandler(this.ToolStripDropDownButton1_Click);
             // 
             // playTimer
             // 
@@ -744,6 +735,7 @@
             this.Text = "大合奏!";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.gBMidiFile.ResumeLayout(false);
             this.gBMidiFile.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -812,7 +804,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Timer playTimer;
         private System.Windows.Forms.Label timeLabel;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripStatusLabel timeStripStatus;
         private System.Windows.Forms.ToolTip toolTip1;
     }
