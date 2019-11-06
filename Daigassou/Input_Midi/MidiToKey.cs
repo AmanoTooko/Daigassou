@@ -108,81 +108,7 @@ namespace Daigassou
                 return null;
             }
         }
-
-        public Queue<KeyPlayList> ArrangeKeyPlays(int index)
-        {
-            try
-            {
-                var trunkEvents = trunks.ElementAt(index).Events;
-                var retKeyPlayLists = new Queue<KeyPlayList>();
-                var tickBase = 60000 / (float)Bpm /
-                               Convert.ToDouble(midi.TimeDivision.ToString()
-                                   .TrimEnd(" ticks/qnote".ToCharArray()));
-                var isLastOnEvent = false;
-                var nowPitch = 0;
-                foreach (var ev in trunkEvents)
-                    switch (ev)
-                    {
-                        case NoteOnEvent onEvent:
-                            {
-                                var @event = onEvent;
-
-
-                                var noteNumber = (int)(@event.NoteNumber + Offset);
-
-                                if (tickBase * @event.DeltaTime < MIN_DELAY_TIME_MS_EVENT && isLastOnEvent == true)
-                                {
-                                    if (nowPitch == @event.NoteNumber)
-                                        retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                            noteNumber, MIN_DELAY_TIME_MS_EVENT));
-                                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                        noteNumber, MIN_DELAY_TIME_MS_EVENT));
-                                }
-                                else
-                                {
-                                    if (nowPitch == @event.NoteNumber)
-                                        retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                            noteNumber, MIN_DELAY_TIME_MS_EVENT));
-                                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                        noteNumber, (int)(tickBase * @event.DeltaTime)));
-                                }
-
-                                isLastOnEvent = true;
-                                nowPitch = @event.NoteNumber;
-                            }
-                            break;
-                        case NoteOffEvent offEvent:
-                            {
-                                var @event = offEvent;
-
-
-                                var noteNumber = (int)(@event.NoteNumber + Offset);
-
-                                if (tickBase * @event.DeltaTime < MIN_DELAY_TIME_MS_EVENT && isLastOnEvent == true && nowPitch == @event.NoteNumber)
-                                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                        noteNumber, MIN_DELAY_TIME_MS_EVENT));
-                                else
-                                    retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                        noteNumber, (int)(tickBase * @event.DeltaTime)));
-                                isLastOnEvent = false;
-                                if (nowPitch == @event.NoteNumber) nowPitch = 0;
-                            }
-                            break;
-                        default:
-                            isLastOnEvent = false;
-                            nowPitch = 0;
-                            break;
-                    }
-
-                return retKeyPlayLists;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
+        
         /// <summary>
         /// 和弦处理，主要逻辑：遇到和弦时，从第一个和弦起，每个音符向后移位minTick数，同时Length也减少
         /// </summary>
@@ -275,6 +201,7 @@ namespace Daigassou
 
         public void SaveToFile()
         {
+            PreProcessTempoMap();
             for (int i = 0; i < trunks.Count; i++)
             {
                 
@@ -298,6 +225,7 @@ namespace Daigassou
             var tickBase = 60000 / (float)Bpm / ticksPerQuarterNote;//duplicate code need to be delete
             var nowTimeMs = 0;
             var retKeyPlayLists = new Queue<KeyPlayList>();
+            PreProcessTempoMap();
             PreProcessSpeed(speed);
             PreProcessChord();
             PreProcessEvents();
@@ -346,6 +274,23 @@ namespace Daigassou
             return retKeyPlayLists;
         }
 
+        public void PreProcessTempoMap()
+        {
+            foreach (var trackChunk in trunks)
+            {
+                using (var eventsManager = trackChunk.Events.ManageTimedEvents())
+                {
+                    foreach (var tmpChange in Tmap.Tempo)
+                    {
+
+                        SetTempoEvent ev = new SetTempoEvent(tmpChange.Value.MicrosecondsPerQuarterNote);
+                        eventsManager.Events.AddEvent(ev, tmpChange.Time);
+                    }
+
+                }
+            }
+            
+        }
         public void PreProcessSpeed(double speed)
         {
             using (var eventsManager = trunks.ElementAt(Index).Events.ManageTimedEvents())
@@ -353,6 +298,7 @@ namespace Daigassou
                 foreach (var @event in eventsManager.Events)
                 {
                     @event.Time = (long)(@event.Time * speed);
+                    
                 }
 
             }

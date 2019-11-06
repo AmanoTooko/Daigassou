@@ -34,6 +34,7 @@ namespace Daigassou
         private HotKey _hotKeyF9;
         private HotKey _hotKeyF8;
         private bool _runningFlag;
+        private bool _playingFlag = false;
         private List<string> _tmpScore;
         private Queue<KeyPlayList> keyPlayLists;
         private CancellationTokenSource cts = new CancellationTokenSource();
@@ -81,17 +82,7 @@ namespace Daigassou
             switch (e.HotKey.Key)
             {
                 case Key.F10 when _runningFlag == false:
-                    if ((Path.GetExtension(midFileDiag.FileName)!=".mid")&& (Path.GetExtension(midFileDiag.FileName) != ".midi"))
-                    {
-                        MessageBox.Show("没有midi你演奏个锤锤？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                        break;
-                    }
-                    _runningFlag = true;
-                    timer1.Interval = 1000;
-                    timer1.Start();
-                    mtk.OpenFile(midFileDiag.FileName);
-                    mtk.GetTrackManagers();
-                    keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
+                    StartKeyPlayback(1000);
                     
                     break;
                 case Key.F11 when _runningFlag:
@@ -107,6 +98,21 @@ namespace Daigassou
                     
                     break;
             }
+        }
+
+        private void StartKeyPlayback(int interval)
+        {
+            if ((Path.GetExtension(midFileDiag.FileName) != ".mid") && (Path.GetExtension(midFileDiag.FileName) != ".midi"))
+            {
+                MessageBox.Show("没有midi你演奏个锤锤？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                return;
+            }
+            _runningFlag = true;
+            timer1.Interval = interval < 1000?1000: interval;
+            timer1.Start();
+            mtk.OpenFile(midFileDiag.FileName);
+            mtk.GetTrackManagers();
+            keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
         }
 
         private Task NewCancellableTask(CancellationToken token)
@@ -200,16 +206,13 @@ namespace Daigassou
 
         private void SyncButton_Click(object sender, EventArgs e)
         {
-            timer1.Enabled = true;
-            mtk.OpenFile(midFileDiag.FileName);
-            keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
-
             var interval = dateTimePicker1.Value - DateTime.Now;
+            StartKeyPlayback((int) interval.TotalMilliseconds + (int) numericUpDown2.Value);
 
-            timer1.Interval = (int) interval.TotalMilliseconds + (int) numericUpDown2.Value <= 0
-                ? 1000
-                : (int) interval.TotalMilliseconds + (int) numericUpDown2.Value;
-            timer1.Start();
+
+            
+
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -319,7 +322,7 @@ namespace Daigassou
             //TODO:error handler
             if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(
                 DateTime.Now.AddMilliseconds(offset.TotalMilliseconds * -0.5)))
-                tlblTime.Text = $"已同步 误差{offset.TotalMilliseconds}ms";
+                tlblTime.Text = $"本地时钟已同步";
             else
                 tlblTime.Text = "设置时间出错";
         }
@@ -335,7 +338,7 @@ namespace Daigassou
                 
                 lblPlay.Text = "正在试听";
                 lblMidiName.Text = Path.GetFileNameWithoutExtension(midFileDiag.FileName);
-                playTimer.Start();
+                _playingFlag = true;
             }
 
             
@@ -350,7 +353,7 @@ namespace Daigassou
                 btnStop.BackgroundImage = Resources.c_stop_1;
                 lblPlay.Text = "试听已停止";
                 timeLabel.Text = "";
-                playTimer.Stop();
+                _playingFlag = false;
             }
             
         }
@@ -363,6 +366,7 @@ namespace Daigassou
                 btnPause.BackgroundImage = Resources.c_pause_1;
                 btnStop.BackgroundImage = Resources.c_stop;
                 lblPlay.Text = "试听暂停";
+                _playingFlag = false;
             }
             
         }
@@ -383,14 +387,22 @@ namespace Daigassou
                 if (net==null)net = new Network.Network(this);
                 try
                 {
-                    net.StartCapture(Daigassou.Utils.FFProcess.FindFFXIVProcess().First());
-                    isCaptureFlag = true;
-                    (sender as Button).Text = "停止抓包";
+                    if (Daigassou.Utils.FFProcess.FindFFXIVProcess().Count>0)
+                    {
+                        net.StartCapture(Daigassou.Utils.FFProcess.FindFFXIVProcess().First());
+                        isCaptureFlag = true;
+                        (sender as Button).Text = "停止抓包";
+                    }
+                    else
+                    {
+
+                        MessageBox.Show("你开游戏了吗？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
+
+                    }
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("你开游戏了吗？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                }
+                    }
                 
             }
         }
@@ -399,15 +411,44 @@ namespace Daigassou
         {
 
         }
-
+        
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
-            timeLabel.Text = mtk.PlaybackInfo();
+            if (_playingFlag)
+            {
+                timeLabel.Text = mtk.PlaybackInfo();
+            }
+
+            timeStripStatus.Text = DateTime.Now.ToString("T");
         }
 
         private void ToolStripDropDownButton1_Click(object sender, EventArgs e)
         {
             mtk.SaveToFile();
+        }
+
+        private void DateTimePicker1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!e.Alt&&!e.Shift&&e.Control&&e.KeyCode==Keys.V)
+            {
+                string targetTime = Convert.ToString(Clipboard.GetDataObject().GetData(DataFormats.Text));
+                try
+                {
+                    DateTime dt = DateTime.ParseExact(targetTime, "HH:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
+                    dateTimePicker1.Value = dt;
+                }
+                catch (Exception)
+                {
+                    
+                }
+               
+            }
+            else if (!e.Alt && !e.Shift && e.Control && e.KeyCode == Keys.C)
+            {
+                string targetTime = dateTimePicker1.Value.ToString("HH:mm:ss");
+                Clipboard.SetDataObject(targetTime);
+                
+            }
         }
     }
 }

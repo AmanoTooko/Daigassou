@@ -77,8 +77,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tlblTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.playTimer = new System.Windows.Forms.Timer(this.components);
+            this.timeStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.playTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.gBMidiFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -100,6 +102,7 @@
             radioButton3.Size = new System.Drawing.Size(85, 31);
             radioButton3.TabIndex = 7;
             radioButton3.Text = "高8度";
+            this.toolTip1.SetToolTip(radioButton3, "点这里是设置音高的");
             radioButton3.UseVisualStyleBackColor = true;
             radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
             // 
@@ -113,6 +116,7 @@
             this.trackComboBox.Name = "trackComboBox";
             this.trackComboBox.Size = new System.Drawing.Size(243, 31);
             this.trackComboBox.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.trackComboBox, "点这里选择音轨");
             this.trackComboBox.SelectedIndexChanged += new System.EventHandler(this.trackComboBox_SelectedIndexChanged);
             // 
             // gBMidiFile
@@ -152,6 +156,7 @@
             this.btnFileSelect.TabIndex = 7;
             this.btnFileSelect.Text = "···";
             this.btnFileSelect.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.toolTip1.SetToolTip(this.btnFileSelect, "点这里选择Midi文件");
             this.btnFileSelect.UseVisualStyleBackColor = false;
             this.btnFileSelect.Click += new System.EventHandler(this.selectFileButton_Click);
             // 
@@ -225,6 +230,7 @@
             this.btnTimeSync.Size = new System.Drawing.Size(81, 29);
             this.btnTimeSync.TabIndex = 6;
             this.btnTimeSync.Text = "开启抓包";
+            this.toolTip1.SetToolTip(this.btnTimeSync, "开启或停止抓包模式\r\n点击后会自动与服务器同步本地时钟\r\n并且抓取第一个游戏进程的演奏数据包\r\n点一次就行了！");
             this.btnTimeSync.UseVisualStyleBackColor = false;
             this.btnTimeSync.Click += new System.EventHandler(this.BtnTimeSync_Click);
             // 
@@ -245,6 +251,7 @@
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(100, 31);
             this.numericUpDown2.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.numericUpDown2, "海外党适用\r\n当队员们与服务器延迟过大的时候\r\n用于补正Ping值\r\n设置方法为全员平均Ping值-每个人的Ping值");
             this.numericUpDown2.ValueChanged += new System.EventHandler(this.NumericUpDown2_ValueChanged);
             // 
             // label8
@@ -269,6 +276,7 @@
             this.btnSyncReady.Size = new System.Drawing.Size(81, 29);
             this.btnSyncReady.TabIndex = 3;
             this.btnSyncReady.Text = "准备好了";
+            this.toolTip1.SetToolTip(this.btnSyncReady, "点击后进游戏等待就可以了\r\n点一次就行了嗷！");
             this.btnSyncReady.UseVisualStyleBackColor = false;
             this.btnSyncReady.Click += new System.EventHandler(this.SyncButton_Click);
             // 
@@ -294,6 +302,7 @@
             this.dateTimePicker1.ShowUpDown = true;
             this.dateTimePicker1.Size = new System.Drawing.Size(100, 31);
             this.dateTimePicker1.TabIndex = 1;
+            this.dateTimePicker1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DateTimePicker1_KeyDown);
             // 
             // label3
             // 
@@ -359,6 +368,7 @@
             this.nudBpm.Name = "nudBpm";
             this.nudBpm.Size = new System.Drawing.Size(154, 34);
             this.nudBpm.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.nudBpm, "点这里可以设置速度");
             this.nudBpm.Value = new decimal(new int[] {
             80,
             0,
@@ -377,6 +387,7 @@
             this.radioButton2.TabIndex = 6;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "原始";
+            this.toolTip1.SetToolTip(this.radioButton2, "点这里是设置音高的");
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
@@ -389,6 +400,7 @@
             this.radioButton1.Size = new System.Drawing.Size(85, 31);
             this.radioButton1.TabIndex = 5;
             this.radioButton1.Text = "低8度";
+            this.toolTip1.SetToolTip(this.radioButton1, "点这里是设置音高的");
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
@@ -402,6 +414,7 @@
             this.label5.Size = new System.Drawing.Size(82, 24);
             this.label5.TabIndex = 1;
             this.label5.Text = "音高调整";
+            this.toolTip1.SetToolTip(this.label5, "点这里是设置音高的");
             // 
             // label7
             // 
@@ -476,6 +489,7 @@
             this.btn22key.Name = "btn22key";
             this.btn22key.Size = new System.Drawing.Size(95, 36);
             this.btn22key.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.btn22key, "点这里就可以设置键位了\r\n嗨呀气死我了你们不看教程的吗！");
             this.btn22key.UseVisualStyleBackColor = false;
             this.btn22key.Click += new System.EventHandler(this.btn22key_Click);
             // 
@@ -529,6 +543,7 @@
             this.btnKeyboardConnect.Name = "btnKeyboardConnect";
             this.btnKeyboardConnect.Size = new System.Drawing.Size(82, 34);
             this.btnKeyboardConnect.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.btnKeyboardConnect, "如果你有Midi键盘可以在这里连接\r\n没有的就不要凑热闹了！\r\n樱桃键盘不行！Filco也不行！\r\nHHKB也不行！不是钱的问题！");
             this.btnKeyboardConnect.UseVisualStyleBackColor = false;
             this.btnKeyboardConnect.Click += new System.EventHandler(this.btnKeyboardConnect_Click);
             // 
@@ -673,6 +688,7 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tlblTime,
+            this.timeStripStatus,
             this.toolStripDropDownButton1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 693);
             this.statusStrip1.Name = "statusStrip1";
@@ -680,10 +696,13 @@
             this.statusStrip1.TabIndex = 18;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // playTimer
+            // timeStripStatus
             // 
-            this.playTimer.Interval = 500;
-            this.playTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
+            this.timeStripStatus.BackColor = System.Drawing.Color.Transparent;
+            this.timeStripStatus.Name = "timeStripStatus";
+            this.timeStripStatus.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.timeStripStatus.Size = new System.Drawing.Size(71, 20);
+            this.timeStripStatus.Text = "20:00:00";
             // 
             // toolStripDropDownButton1
             // 
@@ -695,6 +714,11 @@
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(34, 24);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             this.toolStripDropDownButton1.Click += new System.EventHandler(this.ToolStripDropDownButton1_Click);
+            // 
+            // playTimer
+            // 
+            this.playTimer.Enabled = true;
+            this.playTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
             // 
             // MainForm
             // 
@@ -789,6 +813,8 @@
         private System.Windows.Forms.Timer playTimer;
         private System.Windows.Forms.Label timeLabel;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripStatusLabel timeStripStatus;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
