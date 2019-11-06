@@ -24,11 +24,11 @@ namespace Daigassou
             InitializeComponent();
             InitValue();
 
-            hkm = new HotKeyManager(this);
-            a = new BondTech.HotkeyManagement.Win.GlobalHotKey("test", Modifiers.Alt | Modifiers.Control, Keys.F5);
+            //hkm = new HotKeyManager(this);
+            //a = new BondTech.HotkeyManagement.Win.GlobalHotKey("test", Modifiers.Alt | Modifiers.Control, Keys.F5);
             //a.HotKeyPressed += A_HotKeyPressed;
-            a.Enabled = true;
-            hkm.AddGlobalHotKey(a);
+            //a.Enabled = true;
+            //hkm.AddGlobalHotKey(a);
         }
 
         private void InitValue()
