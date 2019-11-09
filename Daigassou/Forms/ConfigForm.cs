@@ -1,34 +1,26 @@
-﻿using Daigassou.Input_Midi;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
+using System.Collections;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BondTech.HotkeyManagement.Win;
+using Daigassou.Input_Midi;
 using Daigassou.Properties;
 
 namespace Daigassou
 {
     public partial class ConfigForm : Form
     {
-        private KeyController kc;
-        private BondTech.HotkeyManagement.Win.GlobalHotKey a;
         private HotKeyManager hkm;
-        public ConfigForm(KeyController _kc)
+        private KeyController kc;
+        private HotKeyControl[] keyBindings;
+        private ArrayList keyList;
+        private int ClickCount = 0;
+        public ConfigForm(ArrayList _keyList)
         {
-            kc = _kc;
+            keyList = _keyList;
             InitializeComponent();
+            keyBindings = new[] {hotKeyControl1, hotKeyControl2, hotKeyControl3, hotKeyControl4};
             InitValue();
-
-            //hkm = new HotKeyManager(this);
-            //a = new BondTech.HotkeyManagement.Win.GlobalHotKey("test", Modifiers.Alt | Modifiers.Control, Keys.F5);
-            //a.HotKeyPressed += A_HotKeyPressed;
-            //a.Enabled = true;
-            //hkm.AddGlobalHotKey(a);
         }
 
         private void InitValue()
@@ -37,18 +29,22 @@ namespace Daigassou
             chordEventNum.Value = Settings.Default.MinChordMs;
             cbAutoChord.Checked = Settings.Default.AutoChord;
             tbNtpServer.Text = Settings.Default.NtpServer;
-           
+            for (int i = 0; i < keyBindings.Length; i++)
+            {
+                keyBindings[i].Text = ((GlobalHotKey) keyList[i]).ToString().Split(';')[1].Trim();
+                
+            }
         }
 
         private void MinEventNum_NumChanged(object sender, EventArgs e)
         {
-            Settings.Default.MinEventMs = (uint)minEventNum.Value;
+            Settings.Default.MinEventMs = (uint) minEventNum.Value;
             Settings.Default.Save();
         }
 
         private void ChordEventNum_NumChanged(object sender, EventArgs e)
         {
-            Settings.Default.MinChordMs = (uint)chordEventNum.Value;
+            Settings.Default.MinChordMs = (uint) chordEventNum.Value;
             Settings.Default.Save();
         }
 
@@ -58,11 +54,6 @@ namespace Daigassou
             Settings.Default.Save();
         }
 
-        private void CbBackgroundKey_CheckedChangeEvent(object sender, EventArgs e)
-        {
-            kc.isBackGroundKey = true;
-            kc.InitBackGroundKey(BackgroundKey.GetPids().FirstOrDefault());
-        }
 
         private void TbNtpServer_TextChanged(object sender, EventArgs e)
         {
@@ -70,21 +61,35 @@ namespace Daigassou
             Settings.Default.Save();
         }
 
-        private void HotKeyControl1_HotKeyIsSet(object sender, BondTech.HotkeyManagement.Win.HotKeyIsSetEventArgs e)
+        private void HotKeyControl1_HotKeyIsSet(object sender, HotKeyIsSetEventArgs e)
         {
-            
-           
+            var s = sender as HotKeyControl;
+            var index = Array.IndexOf(keyBindings,s);
+            ((GlobalHotKey) keyList[index]).Key = s.UserKey;
+            ((GlobalHotKey)keyList[index]).Modifier = s.UserModifier;
+            KeyBinding.SaveConfig();
         }
 
-        private void A_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
+        private void ConfigForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            test();
+            foreach (GlobalHotKey key in keyList)
+            {
+                key.Enabled = true;
+            }
+            KeyBinding.SaveConfig();
+
         }
 
-        private void test()
+
+
+        private void Panel2_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("mc");
+            if (ClickCount++ > 5)
+            {
+                kc.isBackGroundKey = true;
+                kc.InitBackGroundKey(BackgroundKey.GetPids().FirstOrDefault());
+                MessageBox.Show("后台演奏已开启");
+            }
         }
-    }      
-        
+    }
 }

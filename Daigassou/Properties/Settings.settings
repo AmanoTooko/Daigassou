@@ -29,7 +29,7 @@
     <Setting Name="AutoChord" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="HotKeyBinding" Type="System.Collections.ArrayList" Scope="User">
+    <Setting Name="HotKeyBinding" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

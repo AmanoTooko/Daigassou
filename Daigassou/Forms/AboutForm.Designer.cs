@@ -45,7 +45,7 @@
             this.lblVersion.Size = new System.Drawing.Size(94, 38);
             this.lblVersion.TabIndex = 1;
             this.lblVersion.Text = "Ver 1.1.0.54\r\n\r\n";
-            this.lblVersion.Click += new System.EventHandler(this.LblVersion_Click);
+            
             // 
             // label2
             // 
@@ -79,7 +79,7 @@
             this.label1.Size = new System.Drawing.Size(54, 51);
             this.label1.TabIndex = 4;
             this.label1.Text = "              ";
-            this.label1.Click += new System.EventHandler(this.Label1_Click);
+           
             // 
             // AboutForm
             // 

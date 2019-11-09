@@ -130,9 +130,10 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.ArrayList HotKeyBinding {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HotKeyBinding {
             get {
-                return ((global::System.Collections.ArrayList)(this["HotKeyBinding"]));
+                return ((string)(this["HotKeyBinding"]));
             }
             set {
                 this["HotKeyBinding"] = value;

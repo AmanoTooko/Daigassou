@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -9,39 +8,31 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Input;
 using BondTech.HotkeyManagement.Win;
 using Daigassou.Input_Midi;
 using Daigassou.Properties;
 using Daigassou.Utils;
-using GlobalHotKey;
-using HotKey = GlobalHotKey.HotKey;
-using HotKeyManager = GlobalHotKey.HotKeyManager;
 
 namespace Daigassou
 {
     public partial class MainForm : Form
     {
-        private readonly HotKeyManager hotKeyManager = new HotKeyManager();
         private readonly KeyController kc = new KeyController();
         private readonly KeyBindFormOld keyForm22 = new KeyBindFormOld();
         private readonly KeyBindForm8Key keyForm8 = new KeyBindForm8Key();
         private readonly MidiToKey mtk = new MidiToKey();
-        private HotKey _hotKeyF10;
-        private HotKey _hotKeyF12;
-        private HotKey _hotKeyF8;
-        private HotKey _hotKeyF9;
         private bool _playingFlag;
         private bool _runningFlag;
+        private Task _runningTask;
         private List<string> _tmpScore;
         private CancellationTokenSource cts = new CancellationTokenSource();
+        internal HotKeyManager hkm;
         private ArrayList hotkeysArrayList;
-        internal BondTech.HotkeyManagement.Win.HotKeyManager hkm;
 
         private bool isCaptureFlag;
         private Queue<KeyPlayList> keyPlayLists;
         private Network.Network net;
-        private Task _runningTask;
+
         public MainForm()
         {
             InitializeComponent();
@@ -59,42 +50,37 @@ namespace Daigassou
         {
             try
             {
-
-                hkm = new BondTech.HotkeyManagement.Win.HotKeyManager(this);
-                if (Settings.Default.HotKeyBinding==null || Settings.Default.HotKeyBinding.Count < 4)
+                hkm = new HotKeyManager(this);
+                if (KeyBinding.hotkeyArrayList == null || KeyBinding.hotkeyArrayList.Count < 4)
                 {
-                    hotkeysArrayList=new ArrayList();
+                    hotkeysArrayList = new ArrayList();
                     hotkeysArrayList.Clear();
                     hotkeysArrayList.Add(
-                        new BondTech.HotkeyManagement.Win.GlobalHotKey(
+                        new GlobalHotKey(
                             "Start", Modifiers.Control, Keys.F10, true));
                     hotkeysArrayList.Add(
-                        new BondTech.HotkeyManagement.Win.GlobalHotKey(
+                        new GlobalHotKey(
                             "Stop", Modifiers.Control, Keys.F11, true));
                     hotkeysArrayList.Add(
-                        new BondTech.HotkeyManagement.Win.GlobalHotKey(
+                        new GlobalHotKey(
                             "PitchUp", Modifiers.Control, Keys.F8, true));
                     hotkeysArrayList.Add(
-                        new BondTech.HotkeyManagement.Win.GlobalHotKey(
+                        new GlobalHotKey(
                             "PitchDown", Modifiers.Control, Keys.F9, true));
-                    Settings.Default.HotKeyBinding = hotkeysArrayList;
-                    Settings.Default.Save();
+                    KeyBinding.hotkeyArrayList = hotkeysArrayList;
                 }
                 else
                 {
-                    hotkeysArrayList = Settings.Default.HotKeyBinding;
+                    hotkeysArrayList = KeyBinding.hotkeyArrayList;
                 }
-                {
-                    ((BondTech.HotkeyManagement.Win.GlobalHotKey)hotkeysArrayList[0]).HotKeyPressed += Start_HotKeyPressed;
-                    ((BondTech.HotkeyManagement.Win.GlobalHotKey)hotkeysArrayList[1]).HotKeyPressed += Stop_HotKeyPressed;
-                    ((BondTech.HotkeyManagement.Win.GlobalHotKey)hotkeysArrayList[2]).HotKeyPressed += PitchUp_HotKeyPressed;
-                    ((BondTech.HotkeyManagement.Win.GlobalHotKey)hotkeysArrayList[3]).HotKeyPressed += PitchDown_HotKeyPressed;
 
-                }
-                foreach (BondTech.HotkeyManagement.Win.GlobalHotKey k in hotkeysArrayList)
                 {
-                    hkm.AddGlobalHotKey(k);
+                    ((GlobalHotKey) hotkeysArrayList[0]).HotKeyPressed += Start_HotKeyPressed;
+                    ((GlobalHotKey) hotkeysArrayList[1]).HotKeyPressed += Stop_HotKeyPressed;
+                    ((GlobalHotKey) hotkeysArrayList[2]).HotKeyPressed += PitchUp_HotKeyPressed;
+                    ((GlobalHotKey) hotkeysArrayList[3]).HotKeyPressed += PitchDown_HotKeyPressed;
                 }
+                foreach (GlobalHotKey k in hotkeysArrayList) hkm.AddGlobalHotKey(k);
             }
             catch (Exception e)
             {
@@ -151,7 +137,7 @@ namespace Daigassou
             if (_runningFlag)
                 ParameterController.GetInstance().Pitch -= 1;
         }
-        
+
 
         private void StartKeyPlayback(int interval)
         {
@@ -244,7 +230,6 @@ namespace Daigassou
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
             KeyboardUtilities.Disconnect();
         }
 
@@ -258,7 +243,7 @@ namespace Daigassou
             timer1.Enabled = false;
             _runningFlag = true;
             cts = new CancellationTokenSource();
-            _runningTask=NewCancellableTask(cts.Token);
+            _runningTask = NewCancellableTask(cts.Token);
         }
 
 
@@ -330,9 +315,6 @@ namespace Daigassou
             new AboutForm(kc).ShowDialog();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-        }
 
         private void TimeSync()
         {
@@ -417,9 +399,6 @@ namespace Daigassou
             }
         }
 
-        private void NumericUpDown2_ValueChanged(object sender, EventArgs e)
-        {
-        }
 
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
@@ -428,9 +407,6 @@ namespace Daigassou
             timeStripStatus.Text = DateTime.Now.ToString("T");
         }
 
-        private void ToolStripDropDownButton1_Click(object sender, EventArgs e)
-        {
-        }
 
         private void DateTimePicker1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -453,13 +429,16 @@ namespace Daigassou
             }
         }
 
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
-        {
-        }
 
         private void TrackComboBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Alt && e.Control && e.Shift && e.KeyCode == Keys.S) mtk.SaveToFile();
+        }
+
+        private void ToolStripSplitButton1_ButtonClick(object sender, EventArgs e)
+        {
+            hkm.Enabled = false;
+            new ConfigForm(hotkeysArrayList).ShowDialog();
         }
     }
 }

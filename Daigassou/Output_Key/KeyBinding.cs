@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using BondTech.HotkeyManagement.Win;
 using Daigassou.Properties;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Daigassou
 {
@@ -21,6 +23,7 @@ namespace Daigassou
             return mappedChar;
         }
 
+        public static ArrayList hotkeyArrayList;
         private static Dictionary<int, int> _keymap = new Dictionary<int, int>
         {
             {48, 73},
@@ -146,7 +149,7 @@ namespace Daigassou
             {
                 Settings.Default.KeyBinding22 = keyArrayList;
             }
-
+            Settings.Default.HotKeyBinding= JsonConvert.SerializeObject(hotkeyArrayList);
             Settings.Default.Save();
         }
 
@@ -167,6 +170,14 @@ namespace Daigassou
             if (settingKeyArrayList == null) return;
             _ctrKeyMap["OctaveLower"] = (Keys) settingKeyArrayList[0];
             _ctrKeyMap["OctaveHigher"] = (Keys) settingKeyArrayList[1];
+
+            var tmpArraylist = JsonConvert.DeserializeObject<ArrayList>(Settings.Default.HotKeyBinding);
+            hotkeyArrayList=new ArrayList();
+            foreach (JObject j in tmpArraylist)
+            {
+                hotkeyArrayList.Add(new GlobalHotKey(j["Name"].ToString(), (Modifiers)j["Modifiers"].Value<int>(),
+                    (Keys)j["Key"].Value<int>(), true));
+            }
         }
 
         public static string SaveConfigToFile()

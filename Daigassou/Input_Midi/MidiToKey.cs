@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Melanchall.DryWetMidi.Common;
+using Daigassou.Properties;
 using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Smf;
 using Melanchall.DryWetMidi.Smf.Interaction;
@@ -20,26 +20,26 @@ namespace Daigassou
 
     internal class MidiToKey
     {
-        private readonly uint MIN_DELAY_TIME_MS_EVENT;
-        private readonly uint MIN_DELAY_TIME_MS_CHORD;
         private readonly bool autoChord;
+        private readonly uint MIN_DELAY_TIME_MS_CHORD;
+        private readonly uint MIN_DELAY_TIME_MS_EVENT;
         private readonly List<NotesManager> tracks;
         public int Index = 0;
         private MidiFile midi;
-        private TempoMap Tmap;
-        private List<TrackChunk> trunks;
 
         private OutputDevice outputDevice;
         private Playback playback;
+        private TempoMap Tmap;
+        private List<TrackChunk> trunks;
 
         public MidiToKey()
         {
             tracks = new List<NotesManager>();
             Bpm = 80;
             Offset = EnumPitchOffset.None;
-            MIN_DELAY_TIME_MS_EVENT = Properties.Settings.Default.MinEventMs;
-            MIN_DELAY_TIME_MS_CHORD = Properties.Settings.Default.MinChordMs;
-            autoChord = Properties.Settings.Default.AutoChord;
+            MIN_DELAY_TIME_MS_EVENT = Settings.Default.MinEventMs;
+            MIN_DELAY_TIME_MS_CHORD = Settings.Default.MinChordMs;
+            autoChord = Settings.Default.AutoChord;
         }
 
         public EnumPitchOffset Offset { get; set; }
@@ -82,22 +82,20 @@ namespace Daigassou
                         trunks.Add(track);
                     }
 
-                for (int i = 0; i < trunks.Count; i++)
+                for (var i = 0; i < trunks.Count; i++)
                 {
-                    var name= "Untitled";
+                    var name = "Untitled";
                     foreach (var trunkEvent in trunks[i].Events)
-                    {
                         if (trunkEvent is SequenceTrackNameEvent)
                         {
                             var e = trunkEvent as SequenceTrackNameEvent;
                             name = e.Text;
                             break;
                         }
-                        
-                    }
+
                     score.Add(name);
                 }
-                
+
 
                 return score;
             }
@@ -108,20 +106,19 @@ namespace Daigassou
                 return null;
             }
         }
-        
+
         /// <summary>
-        /// 和弦处理，主要逻辑：遇到和弦时，从第一个和弦起，每个音符向后移位minTick数，同时Length也减少
+        ///     和弦处理，主要逻辑：遇到和弦时，从第一个和弦起，每个音符向后移位minTick数，同时Length也减少
         /// </summary>
         public void PreProcessChord()
         {
             var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
                 .TrimEnd(" ticks/qnote".ToCharArray()));
-            var tickBase = 60000 / (float)Bpm / ticksPerQuarterNote;//duplicate code need to be delete
+            var tickBase = 60000 / (float) Bpm / ticksPerQuarterNote; //duplicate code need to be delete
 
             using (var chordManager = trunks.ElementAt(Index).Events.ManageChords())
             {
                 foreach (var chord in chordManager.Chords)
-                {
                     if (chord.Notes.Count() > 1)
                     {
                         var count = 0;
@@ -130,99 +127,87 @@ namespace Daigassou
                             var autoTick = chord.Notes.First().Length / (chord.Notes.Count() + 1);
                             foreach (var note in chord.Notes.OrderBy(x => x.NoteNumber))
                             {
-                                note.Time += (long)(count * autoTick);
-                                note.Length = note.Length - (count * autoTick);
+                                note.Time += count * autoTick;
+                                note.Length = note.Length - count * autoTick;
                                 count++;
                             }
                         }
-                        else//修改为等比例前后
+                        else //修改为等比例前后
                         {
-                            tickBase = 60000 / (float)Tmap.Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
-                                ticksPerQuarterNote;
-                            var minTick = (long)(MIN_DELAY_TIME_MS_CHORD / tickBase);
+                            tickBase = 60000 / (float) Tmap.Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
+                                       ticksPerQuarterNote;
+                            var minTick = (long) (MIN_DELAY_TIME_MS_CHORD / tickBase);
                             //original time is on the center of chord
-                            double startOffset = (double)(chord.Notes.Count() - 1) / 2;
+                            var startOffset = (double) (chord.Notes.Count() - 1) / 2;
                             long timeoffset = 0;
                             foreach (var note in chord.Notes.OrderBy(x => x.NoteNumber))
                             {
-
-                                timeoffset = (long)((count - startOffset) * minTick);
-                                note.Length = (note.Length - (count * minTick)) > minTick ? (note.Length - (count * minTick)) : minTick;
-                                note.Time = note.Time+timeoffset < 0 ? 0 : note.Time + timeoffset;
+                                timeoffset = (long) ((count - startOffset) * minTick);
+                                note.Length = note.Length - count * minTick > minTick
+                                    ? note.Length - count * minTick
+                                    : minTick;
+                                note.Time = note.Time + timeoffset < 0 ? 0 : note.Time + timeoffset;
                                 count++;
                             }
-
                         }
-
                     }
-
-                }
             }
-
-
-
         }
 
         /// <summary>
-        /// Event处理，主要逻辑：遇到同音符连续按下时，提前offevent
+        ///     Event处理，主要逻辑：遇到同音符连续按下时，提前offevent
         /// </summary>
         public void PreProcessEvents()
         {
             var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
                 .TrimEnd(" ticks/qnote".ToCharArray()));
-            var tickBase = 60000 / (float)Bpm / ticksPerQuarterNote;
-            TimedEvent[] eventOffTimeArray = new TimedEvent[127];
+            var tickBase = 60000 / (float) Bpm / ticksPerQuarterNote;
+            var eventOffTimeArray = new TimedEvent[127];
             using (var eventsManager = trunks.ElementAt(Index).Events.ManageTimedEvents())
             {
                 foreach (var @event in eventsManager.Events)
                 {
-                    tickBase = 60000 / (float)Tmap.Tempo.AtTime(@event.Time).BeatsPerMinute /
+                    tickBase = 60000 / (float) Tmap.Tempo.AtTime(@event.Time).BeatsPerMinute /
                                ticksPerQuarterNote;
-                    var minTick = (long)(MIN_DELAY_TIME_MS_EVENT / tickBase);
+                    var minTick = (long) (MIN_DELAY_TIME_MS_EVENT / tickBase);
                     switch (@event.Event)
                     {
                         case NoteOnEvent noteOnEvent:
                             if (eventOffTimeArray[noteOnEvent.NoteNumber]?.Time + minTick > @event.Time)
-                            {
-                                eventOffTimeArray[noteOnEvent.NoteNumber].Time = (@event.Time- minTick)<0?minTick:(@event.Time - minTick);//未加小于0的判断
-                            }
+                                eventOffTimeArray[noteOnEvent.NoteNumber].Time =
+                                    @event.Time - minTick < 0 ? minTick : @event.Time - minTick; //未加小于0的判断
                             break;
                         case NoteOffEvent noteOffEvent:
                             eventOffTimeArray[noteOffEvent.NoteNumber] = @event;
                             break;
-                       
-                        
-
                     }
                 }
             }
-
         }
 
         public void SaveToFile()
         {
             PreProcessTempoMap();
-            for (int i = 0; i < trunks.Count; i++)
+            for (var i = 0; i < trunks.Count; i++)
             {
-                
                 PreProcessChord();
                 PreProcessEvents();
             }
-            var stfd=new SaveFileDialog();
+
+            var stfd = new SaveFileDialog();
             stfd.Filter = "Midi文件|*.mid";
-            if (stfd.ShowDialog()==DialogResult.OK)
-            {
-                midi.Write(stfd.FileName,false,MidiFileFormat.MultiTrack,new WritingSettings(){TextEncoding = Encoding.Default});
-            }
-            
+            if (stfd.ShowDialog() == DialogResult.OK)
+                midi.Write(stfd.FileName, false, MidiFileFormat.MultiTrack,
+                    new WritingSettings {TextEncoding = Encoding.Default});
         }
+
         public Queue<KeyPlayList> ArrangeKeyPlaysNew(double speed)
         {
             var trunkEvents = trunks.ElementAt(Index).Events;
 
             var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
                 .TrimEnd(" ticks/qnote".ToCharArray()));
-            var tickBase = 60000 / (float)Bpm / ticksPerQuarterNote;//duplicate code need to be delete
+            var tickBase = 60000 / (float) Bpm / ticksPerQuarterNote; //duplicate code need to be delete
             var nowTimeMs = 0;
             var retKeyPlayLists = new Queue<KeyPlayList>();
             PreProcessTempoMap();
@@ -232,115 +217,82 @@ namespace Daigassou
             using (var timedEvent = trunkEvents.ManageTimedEvents())
             {
                 foreach (var ev in timedEvent.Events)
-                {
-
                     switch (ev.Event)
                     {
                         case NoteOnEvent @event:
-                            {
-
-                                var noteNumber = (int)(@event.NoteNumber + Offset);
-                                nowTimeMs += (int)(tickBase * @event.DeltaTime);
-                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
+                        {
+                            var noteNumber = (int) (@event.NoteNumber + Offset);
+                            nowTimeMs += (int) (tickBase * @event.DeltaTime);
+                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
                                 noteNumber, nowTimeMs));
-
-                            }
+                        }
                             break;
                         case NoteOffEvent @event:
-                            {
-                                var noteNumber = (int)(@event.NoteNumber + Offset);
-                                nowTimeMs += (int)(tickBase * @event.DeltaTime);
-                                retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
+                        {
+                            var noteNumber = (int) (@event.NoteNumber + Offset);
+                            nowTimeMs += (int) (tickBase * @event.DeltaTime);
+                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                 noteNumber, nowTimeMs));
-                            }
+                        }
                             break;
                         case SetTempoEvent @event:
-                            {
-
-
-                                nowTimeMs += (int)(tickBase * @event.DeltaTime);
-                                tickBase = (float)@event.MicrosecondsPerQuarterNote / 1000 / ticksPerQuarterNote;
-
-                            }
+                        {
+                            nowTimeMs += (int) (tickBase * @event.DeltaTime);
+                            tickBase = (float) @event.MicrosecondsPerQuarterNote / 1000 / ticksPerQuarterNote;
+                        }
                             break;
                         default:
                         {
-                            nowTimeMs += (int)(tickBase * ev.Event.DeltaTime);
-                            }
+                            nowTimeMs += (int) (tickBase * ev.Event.DeltaTime);
+                        }
                             break;
                     }
-                }
             }
+
             return retKeyPlayLists;
         }
 
         public void PreProcessTempoMap()
         {
             foreach (var trackChunk in trunks)
-            {
                 using (var eventsManager = trackChunk.Events.ManageTimedEvents())
                 {
                     foreach (var tmpChange in Tmap.Tempo)
                     {
-
-                        SetTempoEvent ev = new SetTempoEvent(tmpChange.Value.MicrosecondsPerQuarterNote);
+                        var ev = new SetTempoEvent(tmpChange.Value.MicrosecondsPerQuarterNote);
                         eventsManager.Events.AddEvent(ev, tmpChange.Time);
                     }
-
                 }
-            }
-            
         }
+
         public void PreProcessSpeed(double speed)
         {
             using (var eventsManager = trunks.ElementAt(Index).Events.ManageTimedEvents())
             {
-                foreach (var @event in eventsManager.Events)
-                {
-                    @event.Time = (long)(@event.Time * speed);
-                    
-                }
-
+                foreach (var @event in eventsManager.Events) @event.Time = (long) (@event.Time * speed);
             }
         }
 
         public int PlaybackPause()
         {
-            if (playback == null)
-            {
-                return -1;
-            }
+            if (playback == null) return -1;
 
-            if (!playback.IsRunning)
-            {
-                return -2;
-            }
+            if (!playback.IsRunning) return -2;
             playback.Stop();
             return 0;
         }
 
         public int PlaybackStart(int BPM)
         {
-            if (midi == null)
-            {
-                return -1;
-            }
+            if (midi == null) return -1;
 
-            if (OutputDevice.GetDevicesCount() == 0)
-            {
-                return -2;
-            }
+            if (OutputDevice.GetDevicesCount() == 0) return -2;
             if (outputDevice == null && (outputDevice = OutputDevice.GetByName("Microsoft GS Wavetable Synth")) == null)
-            {
                 outputDevice = OutputDevice.GetAll().ElementAt(0);
-            }
             if (playback == null)
-            {
                 playback = new Playback(trunks.ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
-            }
-            playback.Speed = (double)BPM / GetBpm();
+            playback.Speed = (double) BPM / GetBpm();
             playback.Start();
-            
 
 
             return 0;
@@ -348,38 +300,34 @@ namespace Daigassou
 
         public string PlaybackInfo()
         {
-            string ret="";
+            var ret = "";
             var expression = @"\d*:(?<time>.+):\d+";
             if (playback.IsRunning)
             {
                 var cur = playback.GetCurrentTime(TimeSpanType.Metric);
                 var dur = playback.GetDuration(TimeSpanType.Metric);
-                
-                ret = Regex.Match(cur.ToString(),expression).Groups["time"].Value + "/" + Regex.Match(dur.ToString(), expression).Groups["time"].Value;
+
+                ret = Regex.Match(cur.ToString(), expression).Groups["time"].Value + "/" +
+                      Regex.Match(dur.ToString(), expression).Groups["time"].Value;
             }
+
             return ret;
         }
+
         public int PlaybackRestart()
         {
-            if (midi == null)
-            {
-                return -1;
-            }
-            if (playback == null)
-            {
-                return -2;
-            }
+            if (midi == null) return -1;
+            if (playback == null) return -2;
             playback.Stop();
             playback.Dispose();
             playback = null;
             return 0;
-
-
         }
+
         public int GetBpm()
         {
             var bpm = 80;
-            bpm = (int)Tmap.Tempo.AtTime(0).BeatsPerMinute;
+            bpm = (int) Tmap.Tempo.AtTime(0).BeatsPerMinute;
             return bpm;
         }
     }

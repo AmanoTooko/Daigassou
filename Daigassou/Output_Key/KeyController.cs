@@ -13,11 +13,11 @@ namespace Daigassou
 {
     public class KeyController
     {
-        private Keys _lastCtrlKey;
         private readonly BackgroundKey bkKeyController = new BackgroundKey();
-        public volatile bool isBackGroundKey = false;
 
         private readonly object keyLock = new object();
+        private Keys _lastCtrlKey;
+        public volatile bool isBackGroundKey = false;
 
         [DllImport("User32.dll")]
         public static extern void keybd_event(Keys bVk, byte bScan, int dwFlags, int dwExtraInfo);
@@ -46,13 +46,12 @@ namespace Daigassou
             Thread.Sleep(1);
             if (ctrKeys != Keys.None)
             {
-                keybd_event(ctrKeys, (byte)MapVirtualKey((uint)ctrKeys, 0), 0, 0);
+                keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 0, 0);
                 Thread.Sleep(15);
             }
 
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
             _lastCtrlKey = ctrKeys;
-            
         }
 
         private void KeyboardPress(Keys viKeys)
@@ -85,8 +84,8 @@ namespace Daigassou
 
         public void KeyboardRelease(Keys ctrKeys, Keys viKeys)
         {
-            if(ctrKeys != Keys.None)
-            keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 2, 0);
+            if (ctrKeys != Keys.None)
+                keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 2, 0);
             Thread.Sleep(1);
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 2, 0);
         }
@@ -111,6 +110,7 @@ namespace Daigassou
             KeyboardRelease(Keys.Alt);
             Thread.Sleep(1);
         }
+
         public void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed, CancellationToken token)
         {
             var startTime = Environment.TickCount;
@@ -128,7 +128,7 @@ namespace Daigassou
                 //startTime = Environment.TickCount;
 
                 if (nextKey.Ev == KeyPlayList.NoteEvent.NoteOn)
-                    KeyboardPress(nextKey.Pitch+ParameterController.GetInstance().Pitch);
+                    KeyboardPress(nextKey.Pitch + ParameterController.GetInstance().Pitch);
                 else
                     KeyboardRelease(nextKey.Pitch + ParameterController.GetInstance().Pitch);
 
