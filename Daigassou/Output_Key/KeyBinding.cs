@@ -70,11 +70,27 @@ namespace Daigassou
 
         public static Keys GetNoteToKey(int note)
         {
-            return (Keys)_keymap[note];
+            if (Settings.Default.IsEightKeyLayout)
+            {
+                if (note==84)
+                {
+                    return (Keys)_keymap[73];
+                }
+                else
+                {
+                    return (Keys)_keymap[note%12+60];
+                }
+            }
+            else
+            {
+                return (Keys)_keymap[note];
+            }
+            
         }
 
         public static Keys GetNoteToCtrlKey(int note)
         {
+            
             if (note < 60)
                 return _ctrKeyMap["OctaveLower"];
             if (note > 71)

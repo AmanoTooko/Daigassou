@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -34,18 +35,19 @@ namespace Daigassou
         private bool _runningFlag;
         private List<string> _tmpScore;
         private CancellationTokenSource cts = new CancellationTokenSource();
-        internal BondTech.HotkeyManagement.Win.GlobalHotKey gbk;
+        private ArrayList hotkeysArrayList;
         internal BondTech.HotkeyManagement.Win.HotKeyManager hkm;
 
         private bool isCaptureFlag;
         private Queue<KeyPlayList> keyPlayLists;
         private Network.Network net;
-
+        private Task _runningTask;
         public MainForm()
         {
             InitializeComponent();
             formUpdate();
             KeyBinding.LoadConfig();
+            InitHotKeyBiding();
             ThreadPool.SetMaxThreads(25, 50);
             Task.Run(() => { CommonUtilities.GetLatestVersion(); });
 
@@ -53,10 +55,54 @@ namespace Daigassou
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
         }
 
-        private void Gbk_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
+        private void InitHotKeyBiding()
         {
-            Console.WriteLine("test");
+            try
+            {
+
+                hkm = new BondTech.HotkeyManagement.Win.HotKeyManager(this);
+                if (Settings.Default.HotKeyBinding==null || Settings.Default.HotKeyBinding.Count < 4)
+                {
+                    hotkeysArrayList=new ArrayList();
+                    hotkeysArrayList.Clear();
+                    hotkeysArrayList.Add(
+                        new BondTech.HotkeyManagement.Win.GlobalHotKey(
+                            "Start", Modifiers.Control, Keys.F10, true));
+                    hotkeysArrayList.Add(
+                        new BondTech.HotkeyManagement.Win.GlobalHotKey(
+                            "Stop", Modifiers.Control, Keys.F11, true));
+                    hotkeysArrayList.Add(
+                        new BondTech.HotkeyManagement.Win.GlobalHotKey(
+                            "PitchUp", Modifiers.Control, Keys.F8, true));
+                    hotkeysArrayList.Add(
+                        new BondTech.HotkeyManagement.Win.GlobalHotKey(
+                            "PitchDown", Modifiers.Control, Keys.F9, true));
+                    Settings.Default.HotKeyBinding = hotkeysArrayList;
+                    Settings.Default.Save();
+                }
+                else
+                {
+                    hotkeysArrayList = Settings.Default.HotKeyBinding;
+                }
+                {
+                    ((BondTech.HotkeyManagement.Win.GlobalHotKey)hotkeysArrayList[0]).HotKeyPressed += Start_HotKeyPressed;
+                    ((BondTech.HotkeyManagement.Win.GlobalHotKey)hotkeysArrayList[1]).HotKeyPressed += Stop_HotKeyPressed;
+                    ((BondTech.HotkeyManagement.Win.GlobalHotKey)hotkeysArrayList[2]).HotKeyPressed += PitchUp_HotKeyPressed;
+                    ((BondTech.HotkeyManagement.Win.GlobalHotKey)hotkeysArrayList[3]).HotKeyPressed += PitchDown_HotKeyPressed;
+
+                }
+                foreach (BondTech.HotkeyManagement.Win.GlobalHotKey k in hotkeysArrayList)
+                {
+                    hkm.AddGlobalHotKey(k);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("无法注册快捷键，请检查是否被其他程序占用。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(0);
+            }
         }
+
 
         private void formUpdate()
         {
@@ -78,32 +124,38 @@ namespace Daigassou
             }
         }
 
-
-        private void HotKeyManagerPressed(object sender, KeyPressedEventArgs e)
+        private void Start_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
-            switch (e.HotKey.Key)
+            if (!_runningFlag)
+                StartKeyPlayback(1000);
+        }
+
+        private void Stop_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
+        {
+            if (_runningFlag)
             {
-                case Key.F10 when _runningFlag == false:
-                    StartKeyPlayback(1000);
-
-                    break;
-                case Key.F11 when _runningFlag:
-                    _runningFlag = false;
-                    cts.Cancel();
-                    break;
-                case Key.F8 when _runningFlag:
-                    ParameterController.GetInstance().Pitch -= 1;
-
-                    break;
-                case Key.F9 when _runningFlag:
-                    ParameterController.GetInstance().Pitch += 1;
-
-                    break;
+                _runningFlag = false;
+                cts.Cancel();
+                kc.ResetKey();
             }
         }
 
+        private void PitchUp_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
+        {
+            if (_runningFlag)
+                ParameterController.GetInstance().Pitch += 1;
+        }
+
+        private void PitchDown_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
+        {
+            if (_runningFlag)
+                ParameterController.GetInstance().Pitch -= 1;
+        }
+        
+
         private void StartKeyPlayback(int interval)
         {
+            kc.ResetKey();
             if (Path.GetExtension(midFileDiag.FileName) != ".mid" && Path.GetExtension(midFileDiag.FileName) != ".midi")
             {
                 MessageBox.Show("没有midi你演奏个锤锤？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
@@ -135,29 +187,6 @@ namespace Daigassou
             mtk.Index = trackComboBox.SelectedIndex;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                _hotKeyF10 = hotKeyManager.Register(Key.F10, System.Windows.Input.ModifierKeys.Control);
-                _hotKeyF12 = hotKeyManager.Register(Key.F11, System.Windows.Input.ModifierKeys.Control);
-                _hotKeyF8 = hotKeyManager.Register(Key.F8, System.Windows.Input.ModifierKeys.Control);
-                _hotKeyF9 = hotKeyManager.Register(Key.F9, System.Windows.Input.ModifierKeys.Control);
-                //hkm = new BondTech.HotkeyManagement.Win.HotKeyManager(this);
-                //gbk = new BondTech.HotkeyManagement.Win.GlobalHotKey("test", Modifiers.Alt, Keys.F8);
-                //gbk.HotKeyPressed += Gbk_HotKeyPressed;
-
-                //hkm.AddGlobalHotKey(gbk);
-            }
-            catch (Win32Exception)
-            {
-                MessageBox.Show("无法注册快捷键，请检查是否被其他程序占用。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
-            }
-
-
-            hotKeyManager.KeyPressed += HotKeyManagerPressed;
-        }
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
@@ -215,12 +244,7 @@ namespace Daigassou
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            hotKeyManager.Unregister(_hotKeyF10);
-            hotKeyManager.Unregister(_hotKeyF12);
-            hotKeyManager.Unregister(_hotKeyF8);
-            hotKeyManager.Unregister(_hotKeyF9);
-            // Dispose the hotkey manager.
-            hotKeyManager.Dispose();
+            
             KeyboardUtilities.Disconnect();
         }
 
@@ -234,7 +258,7 @@ namespace Daigassou
             timer1.Enabled = false;
             _runningFlag = true;
             cts = new CancellationTokenSource();
-            NewCancellableTask(cts.Token);
+            _runningTask=NewCancellableTask(cts.Token);
         }
 
 

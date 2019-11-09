@@ -127,5 +127,16 @@ namespace Daigassou.Properties {
                 this["AutoChord"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.ArrayList HotKeyBinding {
+            get {
+                return ((global::System.Collections.ArrayList)(this["HotKeyBinding"]));
+            }
+            set {
+                this["HotKeyBinding"] = value;
+            }
+        }
     }
 }

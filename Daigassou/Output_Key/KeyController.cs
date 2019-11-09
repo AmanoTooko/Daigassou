@@ -44,11 +44,15 @@ namespace Daigassou
         {
             keybd_event(_lastCtrlKey, (byte) MapVirtualKey((uint) _lastCtrlKey, 0), 2, 0);
             Thread.Sleep(1);
-            keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 0, 0);
-            Thread.Sleep(15);
+            if (ctrKeys != Keys.None)
+            {
+                keybd_event(ctrKeys, (byte)MapVirtualKey((uint)ctrKeys, 0), 0, 0);
+                Thread.Sleep(15);
+            }
+
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
             _lastCtrlKey = ctrKeys;
-            Thread.Sleep(10);
+            
         }
 
         private void KeyboardPress(Keys viKeys)
@@ -81,6 +85,7 @@ namespace Daigassou
 
         public void KeyboardRelease(Keys ctrKeys, Keys viKeys)
         {
+            if(ctrKeys != Keys.None)
             keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 2, 0);
             Thread.Sleep(1);
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 2, 0);
@@ -95,6 +100,16 @@ namespace Daigassou
         public void InitBackGroundKey(IntPtr pid)
         {
             bkKeyController.Init(pid);
+        }
+
+        public void ResetKey()
+        {
+            KeyboardRelease(Keys.Control);
+            Thread.Sleep(1);
+            KeyboardRelease(Keys.Shift);
+            Thread.Sleep(1);
+            KeyboardRelease(Keys.Alt);
+            Thread.Sleep(1);
         }
         public void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed, CancellationToken token)
         {
