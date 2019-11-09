@@ -92,9 +92,9 @@ namespace Daigassou
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 2, 0);
         }
 
-        public void InitBackGroundKey()
+        public void InitBackGroundKey(IntPtr pid)
         {
-            bkKeyController.Init(BackgroundKey.GetPids().FirstOrDefault());
+            bkKeyController.Init(pid);
         }
         public void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed, CancellationToken token)
         {

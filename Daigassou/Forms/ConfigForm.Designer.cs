@@ -49,7 +49,7 @@
             this.label1.Location = new System.Drawing.Point(13, 64);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 25);
+            this.label1.Size = new System.Drawing.Size(99, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "MinEventMs";
             // 
@@ -59,7 +59,7 @@
             this.label2.Location = new System.Drawing.Point(13, 128);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(146, 25);
+            this.label2.Size = new System.Drawing.Size(116, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "ChordEventMs";
             // 
@@ -69,7 +69,7 @@
             this.label3.Location = new System.Drawing.Point(13, 192);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 25);
+            this.label3.Size = new System.Drawing.Size(84, 20);
             this.label3.TabIndex = 5;
             this.label3.Text = "等比例琶音";
             // 
@@ -79,7 +79,7 @@
             this.label4.Location = new System.Drawing.Point(13, 252);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(88, 25);
+            this.label4.Size = new System.Drawing.Size(69, 20);
             this.label4.TabIndex = 8;
             this.label4.Text = "后台播放";
             // 
@@ -89,7 +89,7 @@
             this.label5.Location = new System.Drawing.Point(13, 302);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(107, 25);
+            this.label5.Size = new System.Drawing.Size(84, 20);
             this.label5.TabIndex = 11;
             this.label5.Text = "NTP服务器";
             // 
@@ -97,7 +97,7 @@
             // 
             this.minEventNum.Location = new System.Drawing.Point(178, 64);
             this.minEventNum.Name = "minEventNum";
-            this.minEventNum.Size = new System.Drawing.Size(120, 31);
+            this.minEventNum.Size = new System.Drawing.Size(120, 27);
             this.minEventNum.TabIndex = 12;
             this.minEventNum.ValueChanged += new System.EventHandler(this.MinEventNum_NumChanged);
             // 
@@ -105,7 +105,7 @@
             // 
             this.chordEventNum.Location = new System.Drawing.Point(178, 128);
             this.chordEventNum.Name = "chordEventNum";
-            this.chordEventNum.Size = new System.Drawing.Size(120, 31);
+            this.chordEventNum.Size = new System.Drawing.Size(120, 27);
             this.chordEventNum.TabIndex = 13;
             this.chordEventNum.ValueChanged += new System.EventHandler(this.ChordEventNum_NumChanged);
             // 
@@ -114,7 +114,7 @@
             this.cbAutoChord.AutoSize = true;
             this.cbAutoChord.Location = new System.Drawing.Point(178, 197);
             this.cbAutoChord.Name = "cbAutoChord";
-            this.cbAutoChord.Size = new System.Drawing.Size(72, 29);
+            this.cbAutoChord.Size = new System.Drawing.Size(58, 24);
             this.cbAutoChord.TabIndex = 14;
             this.cbAutoChord.Text = "开启";
             this.cbAutoChord.UseVisualStyleBackColor = true;
@@ -125,7 +125,7 @@
             this.cbBackgroundKey.AutoSize = true;
             this.cbBackgroundKey.Location = new System.Drawing.Point(178, 248);
             this.cbBackgroundKey.Name = "cbBackgroundKey";
-            this.cbBackgroundKey.Size = new System.Drawing.Size(72, 29);
+            this.cbBackgroundKey.Size = new System.Drawing.Size(58, 24);
             this.cbBackgroundKey.TabIndex = 15;
             this.cbBackgroundKey.Text = "开启";
             this.cbBackgroundKey.UseVisualStyleBackColor = true;
@@ -135,7 +135,7 @@
             // 
             this.tbNtpServer.Location = new System.Drawing.Point(178, 302);
             this.tbNtpServer.Name = "tbNtpServer";
-            this.tbNtpServer.Size = new System.Drawing.Size(100, 31);
+            this.tbNtpServer.Size = new System.Drawing.Size(100, 27);
             this.tbNtpServer.TabIndex = 16;
             this.tbNtpServer.TextChanged += new System.EventHandler(this.TbNtpServer_TextChanged);
             // 
@@ -145,17 +145,18 @@
             this.hotKeyControl1.Location = new System.Drawing.Point(23, 13);
             this.hotKeyControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hotKeyControl1.Name = "hotKeyControl1";
-            this.hotKeyControl1.Size = new System.Drawing.Size(255, 27);
+            this.hotKeyControl1.Size = new System.Drawing.Size(255, 23);
             this.hotKeyControl1.TabIndex = 17;
             this.hotKeyControl1.ToolTip = null;
             this.hotKeyControl1.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
             // 
             // ConfigForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(331, 363);
+            this.BackColor = System.Drawing.Color.LightGray;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(309, 376);
             this.Controls.Add(this.hotKeyControl1);
             this.Controls.Add(this.tbNtpServer);
             this.Controls.Add(this.cbBackgroundKey);
@@ -171,7 +172,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ConfigForm";
-            this.Text = "ConfigForm";
+            this.Text = "莫古莫古嘭";
             ((System.ComponentModel.ISupportInitialize)(this.minEventNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chordEventNum)).EndInit();
             this.ResumeLayout(false);

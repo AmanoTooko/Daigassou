@@ -61,7 +61,7 @@ namespace Daigassou
         private void CbBackgroundKey_CheckedChangeEvent(object sender, EventArgs e)
         {
             kc.isBackGroundKey = true;
-            kc.InitBackGroundKey();
+            kc.InitBackGroundKey(BackgroundKey.GetPids().FirstOrDefault());
         }
 
         private void TbNtpServer_TextChanged(object sender, EventArgs e)
