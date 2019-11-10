@@ -68,7 +68,8 @@ namespace Daigassou
             {
                 CommonUtilities.WriteLog(e.Message);
                 MessageBox.Show("同步失败\r\n" + e.Message);
-                
+                throw e;
+
             }
 
             return offset;

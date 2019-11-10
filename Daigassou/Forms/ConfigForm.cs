@@ -15,24 +15,28 @@ namespace Daigassou
         private HotKeyControl[] keyBindings;
         private ArrayList keyList;
         private int ClickCount = 0;
-        public ConfigForm(ArrayList _keyList)
+        public ConfigForm(ArrayList _keyList,KeyController _kc,HotKeyManager _hkm)
         {
             keyList = _keyList;
             InitializeComponent();
             keyBindings = new[] {hotKeyControl1, hotKeyControl2, hotKeyControl3, hotKeyControl4};
+            kc = _kc;
+            hkm = _hkm;
             InitValue();
         }
 
         private void InitValue()
         {
+            hkm.Enabled = false;
             minEventNum.Value = Settings.Default.MinEventMs;
             chordEventNum.Value = Settings.Default.MinChordMs;
             cbAutoChord.Checked = Settings.Default.AutoChord;
             tbNtpServer.Text = Settings.Default.NtpServer;
-            for (int i = 0; i < keyBindings.Length; i++)
+
+            foreach (GlobalHotKey hkmEnumerateGlobalHotKey in hkm.EnumerateGlobalHotKeys)
             {
-                keyBindings[i].Text = ((GlobalHotKey) keyList[i]).ToString().Split(';')[1].Trim();
-                
+                var index = keyList.IndexOf(hkmEnumerateGlobalHotKey);
+                keyBindings[index].Text = ((GlobalHotKey)keyList[index]).ToString().Split(';')[1].Trim();
             }
         }
 
@@ -77,7 +81,12 @@ namespace Daigassou
                 key.Enabled = true;
             }
             KeyBinding.SaveConfig();
-
+            hkm.RemoveHotKey("Start");
+            hkm.RemoveHotKey("Stop");
+            hkm.RemoveHotKey("PitchUp");
+            hkm.RemoveHotKey("PitchDown");
+            foreach (GlobalHotKey k in keyList) hkm.AddGlobalHotKey(k);
+            hkm.Enabled = true;
         }
 
 
@@ -90,6 +99,14 @@ namespace Daigassou
                 kc.InitBackGroundKey(BackgroundKey.GetPids().FirstOrDefault());
                 MessageBox.Show("后台演奏已开启");
             }
+        }
+
+        private void HotKeyControl1_HotKeyIsReset(object sender, EventArgs e)
+        {
+            var s = sender as HotKeyControl;
+            var index = Array.IndexOf(keyBindings, s);
+            ((GlobalHotKey)keyList[index]).Enabled = false;
+            KeyBinding.SaveConfig();
         }
     }
 }

@@ -92,6 +92,9 @@
     <Reference Include="Costura, Version=3.1.4.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.3.1.4\lib\net46\Costura.dll</HintPath>
     </Reference>
+    <Reference Include="HotkeyControl">
+      <HintPath>..\HotkeyControl\bin\Debug\HotkeyControl.dll</HintPath>
+    </Reference>
     <Reference Include="HotkeyManagement, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HotkeyManagement.WinForms.1.7.0\lib\HotkeyManagement.dll</HintPath>
     </Reference>
@@ -174,7 +177,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utils\FFProcess.cs" />
-    <Compile Include="Utils\HotKey.cs" />
     <Compile Include="Utils\LogForm.cs">
       <SubType>Form</SubType>
     </Compile>

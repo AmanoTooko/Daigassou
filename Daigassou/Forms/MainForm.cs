@@ -57,16 +57,16 @@ namespace Daigassou
                     hotkeysArrayList.Clear();
                     hotkeysArrayList.Add(
                         new GlobalHotKey(
-                            "Start", Modifiers.Control, Keys.F10, true));
+                            "Start", Modifiers.Control, Keys.F10, false));
                     hotkeysArrayList.Add(
                         new GlobalHotKey(
-                            "Stop", Modifiers.Control, Keys.F11, true));
+                            "Stop", Modifiers.Control, Keys.F11, false));
                     hotkeysArrayList.Add(
                         new GlobalHotKey(
-                            "PitchUp", Modifiers.Control, Keys.F8, true));
+                            "PitchUp", Modifiers.Control, Keys.F8, false));
                     hotkeysArrayList.Add(
                         new GlobalHotKey(
-                            "PitchDown", Modifiers.Control, Keys.F9, true));
+                            "PitchDown", Modifiers.Control, Keys.F9, false));
                     KeyBinding.hotkeyArrayList = hotkeysArrayList;
                 }
                 else
@@ -81,11 +81,12 @@ namespace Daigassou
                     ((GlobalHotKey) hotkeysArrayList[3]).HotKeyPressed += PitchDown_HotKeyPressed;
                 }
                 foreach (GlobalHotKey k in hotkeysArrayList) hkm.AddGlobalHotKey(k);
+                foreach (GlobalHotKey k in hotkeysArrayList) k.Enabled = true;
             }
             catch (Exception e)
             {
-                MessageBox.Show("无法注册快捷键，请检查是否被其他程序占用。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
+                MessageBox.Show("一些快捷键无法注册，请检查是否有其他程序占用。请点击下方小齿轮重新配置快捷键", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
             }
         }
 
@@ -319,13 +320,22 @@ namespace Daigassou
         private void TimeSync()
         {
             double error;
-            var offset = new NtpClient(Settings.Default.NtpServer).GetOffset(out error);
-            //TODO:error handler
-            if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(
-                DateTime.Now.AddMilliseconds(offset.TotalMilliseconds * -0.5)))
-                tlblTime.Text = "本地时钟已同步";
-            else
+            try
+            {
+                var offset = new NtpClient(Settings.Default.NtpServer).GetOffset(out error);
+                //TODO:error handler
+                if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(
+                    DateTime.Now.AddMilliseconds(offset.TotalMilliseconds * -0.5)))
+                    tlblTime.Text = "本地时钟已同步";
+            }
+            catch (Exception e)
+            {
                 tlblTime.Text = "设置时间出错";
+                
+            }
+
+           
+                
         }
 
 
@@ -370,7 +380,7 @@ namespace Daigassou
 
         private void BtnTimeSync_Click(object sender, EventArgs e)
         {
-            TimeSync();
+           
             if (isCaptureFlag)
             {
                 net.StopCapture();
@@ -379,6 +389,7 @@ namespace Daigassou
             }
             else
             {
+                TimeSync();
                 if (net == null) net = new Network.Network(this);
                 try
                 {
@@ -437,8 +448,14 @@ namespace Daigassou
 
         private void ToolStripSplitButton1_ButtonClick(object sender, EventArgs e)
         {
-            hkm.Enabled = false;
-            new ConfigForm(hotkeysArrayList).ShowDialog();
+            
+            var form=new ConfigForm(hotkeysArrayList,kc,hkm);
+            form.ShowDialog();
+        }
+
+        private void Form_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }
