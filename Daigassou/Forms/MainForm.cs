@@ -57,16 +57,16 @@ namespace Daigassou
                     hotkeysArrayList.Clear();
                     hotkeysArrayList.Add(
                         new GlobalHotKey(
-                            "Start", Modifiers.Control, Keys.F10, false));
+                            "Start", Modifiers.Control, Keys.F10, true));
                     hotkeysArrayList.Add(
                         new GlobalHotKey(
-                            "Stop", Modifiers.Control, Keys.F11, false));
+                            "Stop", Modifiers.Control, Keys.F11, true));
                     hotkeysArrayList.Add(
                         new GlobalHotKey(
-                            "PitchUp", Modifiers.Control, Keys.F8, false));
+                            "PitchUp", Modifiers.Control, Keys.F8, true));
                     hotkeysArrayList.Add(
                         new GlobalHotKey(
-                            "PitchDown", Modifiers.Control, Keys.F9, false));
+                            "PitchDown", Modifiers.Control, Keys.F9, true));
                     KeyBinding.hotkeyArrayList = hotkeysArrayList;
                 }
                 else
@@ -92,7 +92,7 @@ namespace Daigassou
             }
             catch (Exception e)
             {
-                MessageBox.Show("一些快捷键无法注册，请检查是否有其他程序占用。请点击下方小齿轮重新配置快捷键", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("一些快捷键无法注册,程序可能无法正常运行。\r\n请检查是否有其他程序占用。\r\n点击下方小齿轮重新配置快捷键", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
             }
         }
