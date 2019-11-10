@@ -161,7 +161,7 @@ namespace Daigassou
             hotkeyArrayList = new ArrayList();
             foreach (JObject j in tmpArraylist)
                 hotkeyArrayList.Add(new GlobalHotKey(j["Name"].ToString(), (Modifiers) j["Modifiers"].Value<int>(),
-                    (Keys) j["Key"].Value<int>(), true));
+                    (Keys) j["Key"].Value<int>(), j["Enabled"].Value<bool>()));
         }
 
         public static string SaveConfigToFile()

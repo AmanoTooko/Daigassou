@@ -42,7 +42,7 @@ namespace Daigassou
             ThreadPool.SetMaxThreads(25, 50);
             Task.Run(() => { CommonUtilities.GetLatestVersion(); });
 
-            Text += $" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
+            Text += $@" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
         }
 
@@ -462,7 +462,10 @@ namespace Daigassou
 
         private void Form_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            foreach (GlobalHotKey k in hkm.EnumerateGlobalHotKeys)
+            {
+                hkm.RemoveGlobalHotKey(k);
+            }
         }
     }
 }

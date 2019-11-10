@@ -246,7 +246,7 @@ namespace Daigassou
         {
             if (this.HotKeyIsSet != null)
                 this.HotKeyIsReset((object)this, new EventArgs());
-
+            this.TextBox.Text = string.Empty;
         }
     }
 }

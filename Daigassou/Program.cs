@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using BondTech.HotkeyManagement.Win;
 
 namespace Daigassou
 {
@@ -32,8 +34,16 @@ namespace Daigassou
             }
             catch (Exception ex)
             {
-                string str = GetExceptionMsg(ex, string.Empty);
-                MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex is HotKeyAlreadyRegisteredException)
+                {
+                    MessageBox.Show(@"快捷键似乎注册失败了，是否已经被占用？", @"快捷键无法注册", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    string str = GetExceptionMsg(ex, string.Empty);
+                    MessageBox.Show(str, @"系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
             }
         }
 
@@ -41,14 +51,14 @@ namespace Daigassou
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             string str = GetExceptionMsg(e.Exception, e.ToString());
-            MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(str, @"系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //LogManager.WriteLog(str);
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             string str = GetExceptionMsg(e.ExceptionObject as Exception, e.ToString());
-            MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(str, @"系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //LogManager.WriteLog(str);
         }
 
@@ -61,9 +71,10 @@ namespace Daigassou
         static string GetExceptionMsg(Exception ex, string backStr)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("*************************软件崩溃啦*******************************");
-            sb.AppendLine("****************请将当前界面截图并反馈给我们*************************");
-            sb.AppendLine("【崩溃时间】：" + DateTime.Now.ToString());
+            sb.AppendLine("*************************软件内部出错*************************");
+            sb.AppendLine("****************请将当前界面截图并反馈给我们****************");
+            sb.AppendLine("【异常时间】：" + DateTime.Now.ToString());
+            sb.AppendLine("【软件版本】：" + $"Ver{ Assembly.GetExecutingAssembly().GetName().Version}");
             if (ex != null)
             {                
                 sb.AppendLine("【异常类型】：" + ex.GetType().Name);

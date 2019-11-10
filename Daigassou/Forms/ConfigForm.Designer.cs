@@ -242,6 +242,7 @@
             // hotKeyControl4
             // 
             this.hotKeyControl4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.hotKeyControl4.ForceModifiers = false;
             this.hotKeyControl4.Location = new System.Drawing.Point(147, 117);
             this.hotKeyControl4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hotKeyControl4.Name = "hotKeyControl4";
@@ -254,6 +255,7 @@
             // hotKeyControl3
             // 
             this.hotKeyControl3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.hotKeyControl3.ForceModifiers = false;
             this.hotKeyControl3.Location = new System.Drawing.Point(147, 84);
             this.hotKeyControl3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hotKeyControl3.Name = "hotKeyControl3";
@@ -266,6 +268,7 @@
             // hotKeyControl1
             // 
             this.hotKeyControl1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.hotKeyControl1.ForceModifiers = false;
             this.hotKeyControl1.Location = new System.Drawing.Point(147, 18);
             this.hotKeyControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hotKeyControl1.Name = "hotKeyControl1";
@@ -278,6 +281,7 @@
             // hotKeyControl2
             // 
             this.hotKeyControl2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.hotKeyControl2.ForceModifiers = false;
             this.hotKeyControl2.Location = new System.Drawing.Point(147, 51);
             this.hotKeyControl2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hotKeyControl2.Name = "hotKeyControl2";

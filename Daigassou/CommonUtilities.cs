@@ -37,7 +37,7 @@ namespace Daigassou
                                 MessageBoxButtons.OKCancel,
                                 MessageBoxIcon.Information) == DialogResult.OK)
                         {
-                            Process.Start("http://file.ffxiv.cat/Release/latest.zip");
+                            Process.Start("http://blog.ffxiv.cat/index.php/download/");
 
                         }
                     if (versionObj.isForceUpdate)
