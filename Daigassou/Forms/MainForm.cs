@@ -80,8 +80,15 @@ namespace Daigassou
                     ((GlobalHotKey) hotkeysArrayList[2]).HotKeyPressed += PitchUp_HotKeyPressed;
                     ((GlobalHotKey) hotkeysArrayList[3]).HotKeyPressed += PitchDown_HotKeyPressed;
                 }
-                foreach (GlobalHotKey k in hotkeysArrayList) hkm.AddGlobalHotKey(k);
-                foreach (GlobalHotKey k in hotkeysArrayList) k.Enabled = true;
+                foreach (GlobalHotKey k in hotkeysArrayList)
+                {
+                    if (k.Enabled)
+                    {
+                        hkm.AddGlobalHotKey(k);
+                    }
+                    
+                }
+                
             }
             catch (Exception e)
             {

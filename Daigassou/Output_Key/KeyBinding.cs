@@ -13,17 +13,8 @@ namespace Daigassou
 {
     public static class KeyBinding
     {
-        [DllImport("user32.dll")]
-        static extern uint MapVirtualKey(uint uCode, uint uMapType);
-
-        public static char GetKeyChar(Keys k)
-        {
-            uint nonVirtualKey = MapVirtualKey((uint)k, 2);
-            char mappedChar = Convert.ToChar(nonVirtualKey);
-            return mappedChar;
-        }
-
         public static ArrayList hotkeyArrayList;
+
         private static Dictionary<int, int> _keymap = new Dictionary<int, int>
         {
             {48, 73},
@@ -71,29 +62,27 @@ namespace Daigassou
             {"OctaveHigher", Keys.ControlKey}
         };
 
+        [DllImport("user32.dll")]
+        private static extern uint MapVirtualKey(uint uCode, uint uMapType);
+
+        public static char GetKeyChar(Keys k)
+        {
+            var nonVirtualKey = MapVirtualKey((uint) k, 2);
+            var mappedChar = Convert.ToChar(nonVirtualKey);
+            return mappedChar;
+        }
+
         public static Keys GetNoteToKey(int note)
         {
-            if (Settings.Default.IsEightKeyLayout)
-            {
-                if (note==84)
-                {
-                    return (Keys)_keymap[73];
-                }
-                else
-                {
-                    return (Keys)_keymap[note%12+60];
-                }
-            }
-            else
-            {
-                return (Keys)_keymap[note];
-            }
-            
+            if (!Settings.Default.IsEightKeyLayout) return (Keys) _keymap[note];
+            if (note == 84)
+                return (Keys) _keymap[73];
+            return (Keys) _keymap[note % 12 + 60];
+
         }
 
         public static Keys GetNoteToCtrlKey(int note)
         {
-            
             if (note < 60)
                 return _ctrKeyMap["OctaveLower"];
             if (note > 71)
@@ -149,7 +138,8 @@ namespace Daigassou
             {
                 Settings.Default.KeyBinding22 = keyArrayList;
             }
-            Settings.Default.HotKeyBinding= JsonConvert.SerializeObject(hotkeyArrayList);
+
+            Settings.Default.HotKeyBinding = JsonConvert.SerializeObject(hotkeyArrayList);
             Settings.Default.Save();
         }
 
@@ -158,10 +148,6 @@ namespace Daigassou
             var settingArrayList = Settings.Default.KeyBinding22;
 
             if (Settings.Default.IsEightKeyLayout) settingArrayList = Settings.Default.KeyBinding8;
-
-            //ArrayList clear = new ArrayList();
-            //Properties.Settings.Default.KeyBinding8 = clear;
-            //Properties.Settings.Default.Save();
             var settingKeyArrayList = Settings.Default.CtrlKeyBinding;
             if (settingArrayList != null)
                 for (var i = 0; i < settingArrayList.Count; i++)
@@ -172,17 +158,15 @@ namespace Daigassou
             _ctrKeyMap["OctaveHigher"] = (Keys) settingKeyArrayList[1];
 
             var tmpArraylist = JsonConvert.DeserializeObject<ArrayList>(Settings.Default.HotKeyBinding);
-            hotkeyArrayList=new ArrayList();
+            hotkeyArrayList = new ArrayList();
             foreach (JObject j in tmpArraylist)
-            {
-                hotkeyArrayList.Add(new GlobalHotKey(j["Name"].ToString(), (Modifiers)j["Modifiers"].Value<int>(),
-                    (Keys)j["Key"].Value<int>(), true));
-            }
+                hotkeyArrayList.Add(new GlobalHotKey(j["Name"].ToString(), (Modifiers) j["Modifiers"].Value<int>(),
+                    (Keys) j["Key"].Value<int>(), true));
         }
 
         public static string SaveConfigToFile()
         {
-            string json = JsonConvert.SerializeObject(_keymap);
+            var json = JsonConvert.SerializeObject(_keymap);
             Debug.WriteLine(json);
             return json;
         }
@@ -191,18 +175,17 @@ namespace Daigassou
         {
             try
             {
-                Dictionary<int, int> _tmp = JsonConvert.DeserializeObject<Dictionary<int, int>>(config);
+                var _tmp = JsonConvert.DeserializeObject<Dictionary<int, int>>(config);
                 _keymap = _tmp;
             }
             catch
             {
-
+                // ignored
             }
             finally
             {
                 SaveConfig();
             }
-            
         }
     }
 }

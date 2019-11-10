@@ -10,12 +10,13 @@ namespace Daigassou
 {
     public partial class ConfigForm : Form
     {
-        private HotKeyManager hkm;
-        private KeyController kc;
-        private HotKeyControl[] keyBindings;
-        private ArrayList keyList;
-        private int ClickCount = 0;
-        public ConfigForm(ArrayList _keyList,KeyController _kc,HotKeyManager _hkm)
+        private int ClickCount;
+        private readonly HotKeyManager hkm;
+        private readonly KeyController kc;
+        private readonly HotKeyControl[] keyBindings;
+        private readonly ArrayList keyList;
+
+        public ConfigForm(ArrayList _keyList, KeyController _kc, HotKeyManager _hkm)
         {
             keyList = _keyList;
             InitializeComponent();
@@ -36,7 +37,8 @@ namespace Daigassou
             foreach (GlobalHotKey hkmEnumerateGlobalHotKey in hkm.EnumerateGlobalHotKeys)
             {
                 var index = keyList.IndexOf(hkmEnumerateGlobalHotKey);
-                keyBindings[index].Text = ((GlobalHotKey)keyList[index]).ToString().Split(';')[1].Trim();
+
+                keyBindings[index].Text = ((GlobalHotKey) keyList[index]).ToString().Split(';')[1].Trim();
             }
         }
 
@@ -68,27 +70,32 @@ namespace Daigassou
         private void HotKeyControl1_HotKeyIsSet(object sender, HotKeyIsSetEventArgs e)
         {
             var s = sender as HotKeyControl;
-            var index = Array.IndexOf(keyBindings,s);
+            var index = Array.IndexOf(keyBindings, s);
             ((GlobalHotKey) keyList[index]).Key = s.UserKey;
-            ((GlobalHotKey)keyList[index]).Modifier = s.UserModifier;
+            ((GlobalHotKey) keyList[index]).Modifier = s.UserModifier;
             KeyBinding.SaveConfig();
         }
 
         private void ConfigForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (GlobalHotKey key in keyList)
+            foreach (var hotKeyControl in keyBindings)
             {
-                key.Enabled = true;
+                ;
+                ((GlobalHotKey) keyList[Array.IndexOf(keyBindings, hotKeyControl)]).Enabled =
+                    (hotKeyControl.Text != string.Empty);
             }
+
+
             KeyBinding.SaveConfig();
             hkm.RemoveHotKey("Start");
             hkm.RemoveHotKey("Stop");
             hkm.RemoveHotKey("PitchUp");
             hkm.RemoveHotKey("PitchDown");
-            foreach (GlobalHotKey k in keyList) hkm.AddGlobalHotKey(k);
+            foreach (GlobalHotKey k in keyList)
+                if (k.Enabled)
+                    hkm.AddGlobalHotKey(k);
             hkm.Enabled = true;
         }
-
 
 
         private void Panel2_Click(object sender, EventArgs e)
@@ -105,7 +112,7 @@ namespace Daigassou
         {
             var s = sender as HotKeyControl;
             var index = Array.IndexOf(keyBindings, s);
-            ((GlobalHotKey)keyList[index]).Enabled = false;
+            ((GlobalHotKey) keyList[index]).Enabled = false;
             KeyBinding.SaveConfig();
         }
     }
