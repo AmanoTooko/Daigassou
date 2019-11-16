@@ -130,7 +130,9 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("[{\"Name\":\"Start\",\"Key\":121,\"Modifiers\":2,\"Enabled\":true},{\"Name\":\"Stop\",\"Key\":122" +
+            ",\"Modifiers\":2,\"Enabled\":true},{\"Name\":\"PitchUp\",\"Key\":119,\"Modifiers\":2,\"Enable" +
+            "d\":true},{\"Name\":\"PitchDown\",\"Key\":120,\"Modifiers\":2,\"Enabled\":true}]")]
         public string HotKeyBinding {
             get {
                 return ((string)(this["HotKeyBinding"]));

@@ -71,8 +71,10 @@ namespace Daigassou
         {
             var s = sender as HotKeyControl;
             var index = Array.IndexOf(keyBindings, s);
+            ((GlobalHotKey) keyList[index]).Enabled = false;
             ((GlobalHotKey) keyList[index]).Key = s.UserKey;
             ((GlobalHotKey) keyList[index]).Modifier = s.UserModifier;
+            ((GlobalHotKey) keyList[index]).Enabled = true;
             KeyBinding.SaveConfig();
         }
 

@@ -30,7 +30,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="HotKeyBinding" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">[{"Name":"Start","Key":121,"Modifiers":2,"Enabled":true},{"Name":"Stop","Key":122,"Modifiers":2,"Enabled":true},{"Name":"PitchUp","Key":119,"Modifiers":2,"Enabled":true},{"Name":"PitchDown","Key":120,"Modifiers":2,"Enabled":true}]</Value>
     </Setting>
   </Settings>
 </SettingsFile>

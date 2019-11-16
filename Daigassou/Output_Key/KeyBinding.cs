@@ -157,6 +157,7 @@ namespace Daigassou
             _ctrKeyMap["OctaveLower"] = (Keys) settingKeyArrayList[0];
             _ctrKeyMap["OctaveHigher"] = (Keys) settingKeyArrayList[1];
 
+            
             var tmpArraylist = JsonConvert.DeserializeObject<ArrayList>(Settings.Default.HotKeyBinding);
             hotkeyArrayList = new ArrayList();
             foreach (JObject j in tmpArraylist)

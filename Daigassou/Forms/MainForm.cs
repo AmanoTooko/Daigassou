@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,6 +13,7 @@ using BondTech.HotkeyManagement.Win;
 using Daigassou.Input_Midi;
 using Daigassou.Properties;
 using Daigassou.Utils;
+using Newtonsoft.Json;
 
 namespace Daigassou
 {
@@ -32,13 +34,13 @@ namespace Daigassou
         private bool isCaptureFlag;
         private Queue<KeyPlayList> keyPlayLists;
         private Network.Network net;
-
+        
         public MainForm()
         {
             InitializeComponent();
             formUpdate();
-            KeyBinding.LoadConfig();
-            InitHotKeyBiding();
+            
+            
             ThreadPool.SetMaxThreads(25, 50);
             Task.Run(() => { CommonUtilities.GetLatestVersion(); });
 
@@ -50,9 +52,13 @@ namespace Daigassou
         {
             try
             {
+
+
                 hkm = new HotKeyManager(this);
+                hkm.Enabled = false;
                 if (KeyBinding.hotkeyArrayList == null || KeyBinding.hotkeyArrayList.Count < 4)
                 {
+                    
                     hotkeysArrayList = new ArrayList();
                     hotkeysArrayList.Clear();
                     hotkeysArrayList.Add(
@@ -80,20 +86,43 @@ namespace Daigassou
                     ((GlobalHotKey) hotkeysArrayList[2]).HotKeyPressed += PitchUp_HotKeyPressed;
                     ((GlobalHotKey) hotkeysArrayList[3]).HotKeyPressed += PitchDown_HotKeyPressed;
                 }
+                var ret = true;
                 foreach (GlobalHotKey k in hotkeysArrayList)
                 {
+
                     if (k.Enabled)
                     {
-                        hkm.AddGlobalHotKey(k);
+                        try
+                        {
+                            hkm.AddGlobalHotKey(k);
+                        }
+                        catch (Exception e)
+                        {
+                            
+                            ret = false;
+                        }
+
                     }
-                    
+
                 }
-                
+
+                if (ret == false)
+                {
+                    
+                    throw new Exception();
+                }
+
             }
             catch (Exception e)
             {
-                MessageBox.Show("一些快捷键无法注册,程序可能无法正常运行。\r\n请检查是否有其他程序占用。\r\n点击下方小齿轮重新配置快捷键", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+                MessageBox.Show(
+                    $"一些快捷键无法注册,程序可能无法正常运行。\r\n请检查是否有其他程序占用。\r\n点击下方小齿轮重新配置快捷键+{JsonConvert.SerializeObject(hotkeysArrayList)}",
+                    "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            finally
+            {
+                hkm.Enabled = true;
             }
         }
 
@@ -239,6 +268,20 @@ namespace Daigassou
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             KeyboardUtilities.Disconnect();
+            hkm.Enabled = false;
+            ArrayList tmp=new ArrayList();
+            foreach (GlobalHotKey a in hkm.EnumerateGlobalHotKeys)
+            {
+                tmp.Add(a);
+            }
+
+            foreach (GlobalHotKey VARIABLE in tmp)
+            {
+                hkm.RemoveGlobalHotKey(VARIABLE);
+            }
+            hkm.Dispose();
+
+
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -462,10 +505,12 @@ namespace Daigassou
 
         private void Form_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            foreach (GlobalHotKey k in hkm.EnumerateGlobalHotKeys)
-            {
-                hkm.RemoveGlobalHotKey(k);
-            }
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            InitHotKeyBiding();
         }
     }
 }

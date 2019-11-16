@@ -78,9 +78,9 @@
             this.tlblTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.timeStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.playTimer = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.gBMidiFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -253,7 +253,6 @@
             this.numericUpDown2.Size = new System.Drawing.Size(100, 31);
             this.numericUpDown2.TabIndex = 5;
             this.toolTip1.SetToolTip(this.numericUpDown2, "海外党适用\r\n当队员们与服务器延迟过大的时候\r\n用于补正Ping值\r\n设置方法为全员平均Ping值-每个人的Ping值");
-
             // 
             // label8
             // 
@@ -708,11 +707,6 @@
             this.timeStripStatus.Size = new System.Drawing.Size(71, 20);
             this.timeStripStatus.Text = "20:00:00";
             // 
-            // playTimer
-            // 
-            this.playTimer.Enabled = true;
-            this.playTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
-            // 
             // toolStripSplitButton1
             // 
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -722,6 +716,11 @@
             this.toolStripSplitButton1.Size = new System.Drawing.Size(39, 24);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             this.toolStripSplitButton1.ButtonClick += new System.EventHandler(this.ToolStripSplitButton1_ButtonClick);
+            // 
+            // playTimer
+            // 
+            this.playTimer.Enabled = true;
+            this.playTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
             // 
             // MainForm
             // 
@@ -746,7 +745,7 @@
             this.Name = "MainForm";
             this.Text = "大合奏!";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.gBMidiFile.ResumeLayout(false);
             this.gBMidiFile.PerformLayout();
             this.groupBox1.ResumeLayout(false);
