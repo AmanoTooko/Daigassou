@@ -76,7 +76,7 @@ namespace Daigassou
                         bkKeyController.BackgroundKeyRelease(KeyBinding.GetNoteToKey(pitch));
                     else
                         KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
-                    Debug.WriteLine(
+                    Console.WriteLine(
                         $"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch - 24).ToString("X2")} Note Off");
                 }
             }
@@ -109,6 +109,7 @@ namespace Daigassou
             Thread.Sleep(1);
             KeyboardRelease(Keys.Alt);
             Thread.Sleep(1);
+            ParameterController.GetInstance().Pitch = 0;
         }
 
         public void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed, CancellationToken token)

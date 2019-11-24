@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace Daigassou
             InitializeComponent();
             formUpdate();
             
-            
+            KeyBinding.LoadConfig();
             ThreadPool.SetMaxThreads(25, 50);
             Task.Run(() => { CommonUtilities.GetLatestVersion(); });
 
@@ -58,7 +59,7 @@ namespace Daigassou
                 hkm.Enabled = false;
                 if (KeyBinding.hotkeyArrayList == null || KeyBinding.hotkeyArrayList.Count < 4)
                 {
-                    
+                   
                     hotkeysArrayList = new ArrayList();
                     hotkeysArrayList.Clear();
                     hotkeysArrayList.Add(
@@ -188,10 +189,11 @@ namespace Daigassou
             _runningFlag = true;
             timer1.Interval = interval < 1000 ? 1000 : interval;
             timer1.Start();
+
             mtk.OpenFile(midFileDiag.FileName);
             mtk.GetTrackManagers();
             keyPlayLists = mtk.ArrangeKeyPlaysNew((double) (mtk.GetBpm() / nudBpm.Value));
-        }
+            }
 
         private Task NewCancellableTask(CancellationToken token)
         {

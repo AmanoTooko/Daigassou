@@ -140,6 +140,7 @@ namespace Daigassou
             }
 
             Settings.Default.HotKeyBinding = JsonConvert.SerializeObject(hotkeyArrayList);
+            
             Settings.Default.Save();
         }
 
@@ -153,9 +154,12 @@ namespace Daigassou
                 for (var i = 0; i < settingArrayList.Count; i++)
                     _keymap[i + 48] = (int) settingArrayList[i];
 
-            if (settingKeyArrayList == null) return;
-            _ctrKeyMap["OctaveLower"] = (Keys) settingKeyArrayList[0];
-            _ctrKeyMap["OctaveHigher"] = (Keys) settingKeyArrayList[1];
+            if (settingKeyArrayList != null)
+            {
+                _ctrKeyMap["OctaveLower"] = (Keys)settingKeyArrayList[0];
+                _ctrKeyMap["OctaveHigher"] = (Keys)settingKeyArrayList[1];
+            }
+
 
             
             var tmpArraylist = JsonConvert.DeserializeObject<ArrayList>(Settings.Default.HotKeyBinding);
@@ -163,6 +167,7 @@ namespace Daigassou
             foreach (JObject j in tmpArraylist)
                 hotkeyArrayList.Add(new GlobalHotKey(j["Name"].ToString(), (Modifiers) j["Modifiers"].Value<int>(),
                     (Keys) j["Key"].Value<int>(), j["Enabled"].Value<bool>()));
+            
         }
 
         public static string SaveConfigToFile()
