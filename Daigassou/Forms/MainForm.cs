@@ -31,7 +31,7 @@ namespace Daigassou
         private CancellationTokenSource cts = new CancellationTokenSource();
         internal HotKeyManager hkm;
         private ArrayList hotkeysArrayList;
-
+        private int pauseTime = 0;
         private bool isCaptureFlag;
         private Queue<KeyPlayList> keyPlayLists;
         private Network.Network net;
@@ -57,7 +57,7 @@ namespace Daigassou
 
                 hkm = new HotKeyManager(this);
                 hkm.Enabled = false;
-                if (KeyBinding.hotkeyArrayList == null || KeyBinding.hotkeyArrayList.Count < 4)
+                if (KeyBinding.hotkeyArrayList == null || KeyBinding.hotkeyArrayList.Count < 5)
                 {
                    
                     hotkeysArrayList = new ArrayList();
@@ -74,6 +74,9 @@ namespace Daigassou
                     hotkeysArrayList.Add(
                         new GlobalHotKey(
                             "PitchDown", Modifiers.Control, Keys.F9, true));
+                    hotkeysArrayList.Add(
+                        new GlobalHotKey(
+                            "Pause", Modifiers.Control, Keys.F12, true));
                     KeyBinding.hotkeyArrayList = hotkeysArrayList;
                 }
                 else
@@ -86,6 +89,7 @@ namespace Daigassou
                     ((GlobalHotKey) hotkeysArrayList[1]).HotKeyPressed += Stop_HotKeyPressed;
                     ((GlobalHotKey) hotkeysArrayList[2]).HotKeyPressed += PitchUp_HotKeyPressed;
                     ((GlobalHotKey) hotkeysArrayList[3]).HotKeyPressed += PitchDown_HotKeyPressed;
+                    ((GlobalHotKey) hotkeysArrayList[4]).HotKeyPressed += Pause_HotKeyPressed;
                 }
                 var ret = true;
                 foreach (GlobalHotKey k in hotkeysArrayList)
@@ -127,6 +131,14 @@ namespace Daigassou
             }
         }
 
+        private void Pause_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
+        {
+            if (_runningFlag)
+            {
+                pauseTime = Environment.TickCount;
+                kc.internalRunningFlag = false;
+            }
+        }
 
         private void formUpdate()
         {
@@ -151,7 +163,16 @@ namespace Daigassou
         private void Start_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
             if (!_runningFlag)
+            {
                 StartKeyPlayback(1000);
+                
+            }
+                
+            else
+            {
+                kc.internalRunningFlag = true;
+                kc.pauseOffset += Environment.TickCount - pauseTime;
+            }
         }
 
         private void Stop_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
@@ -186,14 +207,34 @@ namespace Daigassou
                 return;
             }
 
-            _runningFlag = true;
-            timer1.Interval = interval < 1000 ? 1000 : interval;
-            timer1.Start();
+            if (!_runningFlag)
+            {
+                _runningFlag = true;
+                timer1.Interval = interval < 1000 ? 1000 : interval;
+                var sub = (long) (1000 - interval);
+                timer1.Start();
 
-            mtk.OpenFile(midFileDiag.FileName);
-            mtk.GetTrackManagers();
-            keyPlayLists = mtk.ArrangeKeyPlaysNew((double) (mtk.GetBpm() / nudBpm.Value));
+                mtk.OpenFile(midFileDiag.FileName);
+                mtk.GetTrackManagers();
+                keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                if (interval<0)
+                {
+                    var keyPlay=keyPlayLists.Where((x)=>x.TimeMs> sub);
+                    keyPlayLists=new Queue<KeyPlayList>();
+                    foreach (KeyPlayList kp in keyPlay)
+                    {
+                        kp.TimeMs -= sub;
+                        keyPlayLists.Enqueue(kp);
+                    }
+                }
+                sw.Stop();
+                Console.WriteLine(sw.ElapsedMilliseconds);
+                
             }
+
+        }
 
         private Task NewCancellableTask(CancellationToken token)
         {

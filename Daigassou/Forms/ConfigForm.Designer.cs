@@ -43,12 +43,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
             this.hotKeyControl4 = new Daigassou.HotKeyControl();
             this.hotKeyControl3 = new Daigassou.HotKeyControl();
             this.hotKeyControl1 = new Daigassou.HotKeyControl();
             this.hotKeyControl2 = new Daigassou.HotKeyControl();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.hotKeyControl5 = new Daigassou.HotKeyControl();
             ((System.ComponentModel.ISupportInitialize)(this.chordEventNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minEventNum)).BeginInit();
             this.panel1.SuspendLayout();
@@ -70,7 +72,7 @@
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.ForeColor = System.Drawing.Color.Gray;
-            this.label9.Location = new System.Drawing.Point(15, 123);
+            this.label9.Location = new System.Drawing.Point(15, 117);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(82, 24);
@@ -80,7 +82,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 88);
+            this.label8.Location = new System.Drawing.Point(14, 84);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(82, 24);
@@ -90,7 +92,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 53);
+            this.label7.Location = new System.Drawing.Point(14, 51);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(82, 24);
@@ -161,6 +163,11 @@
             // 
             this.chordEventNum.ForeColor = System.Drawing.Color.Gray;
             this.chordEventNum.Location = new System.Drawing.Point(140, 55);
+            this.chordEventNum.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
             this.chordEventNum.Name = "chordEventNum";
             this.chordEventNum.Size = new System.Drawing.Size(120, 31);
             this.chordEventNum.TabIndex = 38;
@@ -170,6 +177,11 @@
             // 
             this.minEventNum.ForeColor = System.Drawing.Color.Gray;
             this.minEventNum.Location = new System.Drawing.Point(140, 13);
+            this.minEventNum.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
             this.minEventNum.Name = "minEventNum";
             this.minEventNum.Size = new System.Drawing.Size(120, 31);
             this.minEventNum.TabIndex = 37;
@@ -207,37 +219,19 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.hotKeyControl5);
             this.panel3.Controls.Add(this.hotKeyControl4);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.hotKeyControl3);
             this.panel3.Controls.Add(this.hotKeyControl1);
+            this.panel3.Controls.Add(this.label11);
             this.panel3.Controls.Add(this.hotKeyControl2);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.panel2);
             this.panel3.Location = new System.Drawing.Point(12, 215);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(313, 176);
+            this.panel3.Size = new System.Drawing.Size(313, 214);
             this.panel3.TabIndex = 51;
-            // 
-            // panel2
-            // 
-            this.panel2.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel2.Location = new System.Drawing.Point(81, 113);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(63, 62);
-            this.panel2.TabIndex = 53;
-            this.panel2.Click += new System.EventHandler(this.Panel2_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.label10.Location = new System.Drawing.Point(23, 202);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(100, 24);
-            this.label10.TabIndex = 52;
-            this.label10.Text = "快捷键绑定";
             // 
             // hotKeyControl4
             // 
@@ -291,13 +285,58 @@
             this.hotKeyControl2.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
             this.hotKeyControl2.HotKeyIsReset += new System.EventHandler(this.HotKeyControl1_HotKeyIsReset);
             // 
+            // panel2
+            // 
+            this.panel2.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Location = new System.Drawing.Point(77, 151);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(63, 62);
+            this.panel2.TabIndex = 53;
+            this.panel2.Click += new System.EventHandler(this.Panel2_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.label10.Location = new System.Drawing.Point(23, 202);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(100, 24);
+            this.label10.TabIndex = 52;
+            this.label10.Text = "快捷键绑定";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.ForeColor = System.Drawing.Color.Gray;
+            this.label11.Location = new System.Drawing.Point(15, 150);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(82, 24);
+            this.label11.TabIndex = 45;
+            this.label11.Text = "暂停演奏";
+            // 
+            // hotKeyControl5
+            // 
+            this.hotKeyControl5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.hotKeyControl5.ForceModifiers = false;
+            this.hotKeyControl5.Location = new System.Drawing.Point(147, 151);
+            this.hotKeyControl5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.hotKeyControl5.Name = "hotKeyControl5";
+            this.hotKeyControl5.Size = new System.Drawing.Size(150, 27);
+            this.hotKeyControl5.TabIndex = 48;
+            this.hotKeyControl5.ToolTip = null;
+            this.hotKeyControl5.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
+            this.hotKeyControl5.HotKeyIsReset += new System.EventHandler(this.HotKeyControl1_HotKeyIsReset);
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(329, 402);
+            this.ClientSize = new System.Drawing.Size(336, 441);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.panel3);
@@ -343,5 +382,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel2;
+        internal HotKeyControl hotKeyControl5;
+        private System.Windows.Forms.Label label11;
     }
 }

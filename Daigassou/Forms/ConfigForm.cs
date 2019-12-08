@@ -20,7 +20,7 @@ namespace Daigassou
         {
             keyList = _keyList;
             InitializeComponent();
-            keyBindings = new[] {hotKeyControl1, hotKeyControl2, hotKeyControl3, hotKeyControl4};
+            keyBindings = new[] {hotKeyControl1, hotKeyControl2, hotKeyControl3, hotKeyControl4,hotKeyControl5};
             kc = _kc;
             hkm = _hkm;
             InitValue();
@@ -91,6 +91,7 @@ namespace Daigassou
             KeyBinding.SaveConfig();
             hkm.RemoveHotKey("Start");
             hkm.RemoveHotKey("Stop");
+            hkm.RemoveHotKey("Pause");
             hkm.RemoveHotKey("PitchUp");
             hkm.RemoveHotKey("PitchDown");
             foreach (GlobalHotKey k in keyList)
