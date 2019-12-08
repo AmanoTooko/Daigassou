@@ -18,7 +18,8 @@ namespace Daigassou
         private readonly object keyLock = new object();
         private Keys _lastCtrlKey;
         public volatile bool isBackGroundKey = false;
-
+        public bool internalRunningFlag = true;
+        public int pauseOffset = 0;
         [DllImport("User32.dll")]
         public static extern void keybd_event(Keys bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
@@ -103,6 +104,8 @@ namespace Daigassou
 
         public void ResetKey()
         {
+            internalRunningFlag = true;
+            pauseOffset = 0;
             KeyboardRelease(Keys.Control);
             Thread.Sleep(1);
             KeyboardRelease(Keys.Shift);
@@ -115,6 +118,7 @@ namespace Daigassou
         public void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed, CancellationToken token)
         {
             var startTime = Environment.TickCount;
+            
             while (keyQueue.Any() && !token.IsCancellationRequested)
             {
                 var nextKey = keyQueue.Dequeue();
@@ -122,12 +126,16 @@ namespace Daigassou
                 //var targetTime = startTime + duration;
                 var targetTime = startTime + nextKey.TimeMs * speed;
                 while (true)
-                    //TODO:process will cause offset
-                    if (targetTime + ParameterController.GetInstance().Offset <= Environment.TickCount)
-                        break;
+                {
+                    
+                    if (internalRunningFlag)
+                    {
 
-                //startTime = Environment.TickCount;
-
+                        if (targetTime + ParameterController.GetInstance().Offset+ pauseOffset <= Environment.TickCount && !token.IsCancellationRequested)
+                            break;
+                    }
+                    
+                }
                 if (nextKey.Ev == KeyPlayList.NoteEvent.NoteOn)
                     KeyboardPress(nextKey.Pitch + ParameterController.GetInstance().Pitch);
                 else
@@ -137,6 +145,7 @@ namespace Daigassou
                 System.Diagnostics.Console.WriteLine($@" i called function at {startTime} with target time is {targetTime}");
 #endif
             }
+            ResetKey();
         }
     }
 

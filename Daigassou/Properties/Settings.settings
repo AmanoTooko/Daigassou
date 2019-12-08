@@ -18,10 +18,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="MinEventMs" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">80</Value>
+      <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="MinChordMs" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">100</Value>
+      <Value Profile="(Default)">125</Value>
     </Setting>
     <Setting Name="NtpServer" Type="System.String" Scope="User">
       <Value Profile="(Default)">ntp3.aliyun.com</Value>
