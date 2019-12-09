@@ -212,6 +212,7 @@ namespace Daigassou
                 _runningFlag = true;
                 timer1.Interval = interval < 1000 ? 1000 : interval;
                 var sub = (long) (1000 - interval);
+                
                 timer1.Start();
 
                 mtk.OpenFile(midFileDiag.FileName);
@@ -300,6 +301,7 @@ namespace Daigassou
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             mtk.Bpm = (int) nudBpm.Value;
+            
         }
 
         private void SyncButton_Click(object sender, EventArgs e)
@@ -483,7 +485,8 @@ namespace Daigassou
             else
             {
                 TimeSync();
-                if (net == null) net = new Network(this);
+                if (net == null) net = new Network();
+                net.Play += Net_Play;
                 try
                 {
                     if (FFProcess.FindFFXIVProcess().Count > 0)
@@ -502,8 +505,31 @@ namespace Daigassou
                 }
             }
         }
+        private delegate void remotePlay(int time, string name);
+        private void Net_Play(object sender, Network.PlayEvent e)
+        {
+            if (this.InvokeRequired)
+            {
+                var n=new remotePlay(NetPlay);
+                this.Invoke(n, e.Time, e.Text);
+            }
+            else
+            {
+                NetPlay(e.Time, e.Text);
+            }
+            
+        }
 
+        private void NetPlay(int time,string name)
+        {
+            StartKeyPlayback(time * 1000 + (int)numericUpDown2.Value);
+            tlblTime.Text = $"{name.Trim()}:倒计时{time}s";
+        }
 
+        private void RemoteStart(int Time,string Name)
+        {
+            
+        }
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
             if (_playingFlag) timeLabel.Text = mtk.PlaybackInfo();

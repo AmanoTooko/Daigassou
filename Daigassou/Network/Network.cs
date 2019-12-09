@@ -10,7 +10,9 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Daigassou;
 using Daigassou.Properties;
 using Daigassou.Utils;
@@ -18,6 +20,19 @@ using NetFwTypeLib;
 
 internal partial class Network
 {
+    public class PlayEvent : EventArgs
+    {
+        private readonly String text;
+        private readonly int time;
+        public PlayEvent(int Time,String text)
+        {
+            this.time = Time;
+            this.text = text;
+        }
+        public String Text { get { return text; } }
+        public int Time { get { return time; } }
+    }
+    public event EventHandler<PlayEvent> Play;
     private static class NativeMethods
     {
         [DllImport("Iphlpapi.dll", SetLastError = true)]
@@ -48,15 +63,17 @@ internal partial class Network
     private List<Connection> connections = new List<Connection>();
     private string exePath;
     private MainForm mainForm;
+ 
     private Socket socket;
     private byte[] recvBuffer = new byte[0x20000];
     internal bool IsRunning { get; private set; } = false;
     private object lockAnalyse = new object();
 
-    internal Network(MainForm mainForm)
+    internal Network()
     {
+        
         exePath = Process.GetCurrentProcess().MainModule.FileName;
-        this.mainForm = mainForm;
+        
     }
 
     internal void StartCapture(Process process)
@@ -645,7 +662,25 @@ internal partial class Network
         }
 
         var opcode = BitConverter.ToUInt16(message, 18);
+        var data = message.Skip(32).ToArray();
         Console.WriteLine(opcode.ToString("X4"));
+        if (opcode == 0x018B) //Bard Performance
+        {
+            var length = data[0];
+            var notes = new byte[length];
+            Array.Copy(data,1,notes,0,length);
+            Log.B(notes, true);//TODO: Time analyze 
+            ParameterController.GetInstance().AnalyzeNotes(notes);
+        }
+
+        if (opcode == 0x011E)
+        {
+            var countDownTime = data[4];
+            var nameBytes = new byte[18];
+            Array.Copy(data, 9, nameBytes, 0, 18);
+            var name = Encoding.UTF8.GetString(nameBytes) ?? "";
+            if (Play != null) Play(this, new PlayEvent(Convert.ToInt32(countDownTime), name));
+        }
     }
 
 
