@@ -34,7 +34,7 @@ namespace Daigassou
         private int pauseTime = 0;
         private bool isCaptureFlag;
         private Queue<KeyPlayList> keyPlayLists;
-        private Network.Network net;
+        private Network net;
         
         public MainForm()
         {
@@ -483,7 +483,7 @@ namespace Daigassou
             else
             {
                 TimeSync();
-                if (net == null) net = new Network.Network(this);
+                if (net == null) net = new Network(this);
                 try
                 {
                     if (FFProcess.FindFFXIVProcess().Count > 0)

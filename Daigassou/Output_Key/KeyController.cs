@@ -134,7 +134,7 @@ namespace Daigassou
                         if (targetTime + ParameterController.GetInstance().Offset+ pauseOffset <= Environment.TickCount && !token.IsCancellationRequested)
                             break;
                     }
-                    
+                    Thread.Sleep(1);
                 }
                 if (nextKey.Ev == KeyPlayList.NoteEvent.NoteOn)
                     KeyboardPress(nextKey.Pitch + ParameterController.GetInstance().Pitch);

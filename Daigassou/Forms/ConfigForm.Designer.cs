@@ -43,14 +43,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.hotKeyControl5 = new Daigassou.HotKeyControl();
             this.hotKeyControl4 = new Daigassou.HotKeyControl();
             this.hotKeyControl3 = new Daigassou.HotKeyControl();
             this.hotKeyControl1 = new Daigassou.HotKeyControl();
+            this.label11 = new System.Windows.Forms.Label();
             this.hotKeyControl2 = new Daigassou.HotKeyControl();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.hotKeyControl5 = new Daigassou.HotKeyControl();
             ((System.ComponentModel.ISupportInitialize)(this.chordEventNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minEventNum)).BeginInit();
             this.panel1.SuspendLayout();
@@ -233,6 +233,19 @@
             this.panel3.Size = new System.Drawing.Size(313, 214);
             this.panel3.TabIndex = 51;
             // 
+            // hotKeyControl5
+            // 
+            this.hotKeyControl5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.hotKeyControl5.ForceModifiers = false;
+            this.hotKeyControl5.Location = new System.Drawing.Point(147, 151);
+            this.hotKeyControl5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.hotKeyControl5.Name = "hotKeyControl5";
+            this.hotKeyControl5.Size = new System.Drawing.Size(150, 27);
+            this.hotKeyControl5.TabIndex = 48;
+            this.hotKeyControl5.ToolTip = null;
+            this.hotKeyControl5.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
+            this.hotKeyControl5.HotKeyIsReset += new System.EventHandler(this.HotKeyControl1_HotKeyIsReset);
+            // 
             // hotKeyControl4
             // 
             this.hotKeyControl4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -272,6 +285,18 @@
             this.hotKeyControl1.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
             this.hotKeyControl1.HotKeyIsReset += new System.EventHandler(this.HotKeyControl1_HotKeyIsReset);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.ForeColor = System.Drawing.Color.Gray;
+            this.label11.Location = new System.Drawing.Point(15, 150);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(82, 24);
+            this.label11.TabIndex = 45;
+            this.label11.Text = "暂停演奏";
+            // 
             // hotKeyControl2
             // 
             this.hotKeyControl2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -294,6 +319,7 @@
             this.panel2.Size = new System.Drawing.Size(63, 62);
             this.panel2.TabIndex = 53;
             this.panel2.Click += new System.EventHandler(this.Panel2_Click);
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // label10
             // 
@@ -304,31 +330,6 @@
             this.label10.Size = new System.Drawing.Size(100, 24);
             this.label10.TabIndex = 52;
             this.label10.Text = "快捷键绑定";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.ForeColor = System.Drawing.Color.Gray;
-            this.label11.Location = new System.Drawing.Point(15, 150);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(82, 24);
-            this.label11.TabIndex = 45;
-            this.label11.Text = "暂停演奏";
-            // 
-            // hotKeyControl5
-            // 
-            this.hotKeyControl5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.hotKeyControl5.ForceModifiers = false;
-            this.hotKeyControl5.Location = new System.Drawing.Point(147, 151);
-            this.hotKeyControl5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.hotKeyControl5.Name = "hotKeyControl5";
-            this.hotKeyControl5.Size = new System.Drawing.Size(150, 27);
-            this.hotKeyControl5.TabIndex = 48;
-            this.hotKeyControl5.ToolTip = null;
-            this.hotKeyControl5.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
-            this.hotKeyControl5.HotKeyIsReset += new System.EventHandler(this.HotKeyControl1_HotKeyIsReset);
             // 
             // ConfigForm
             // 

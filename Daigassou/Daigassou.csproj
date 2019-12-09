@@ -148,6 +148,12 @@
     <Compile Include="Forms\ConfigForm.Designer.cs">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PidSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PidSelect.Designer.cs">
+      <DependentUpon>PidSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Input_Midi\KeyboardUtilities.cs" />
     <Compile Include="Forms\KeyBindForm37Key.cs">
       <SubType>Form</SubType>
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\KeyBindForm8Key.resx">
       <DependentUpon>KeyBindForm8Key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PidSelect.resx">
+      <DependentUpon>PidSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

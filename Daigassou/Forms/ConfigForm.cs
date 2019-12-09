@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Windows.Forms;
 using BondTech.HotkeyManagement.Win;
+using Daigassou.Forms;
 using Daigassou.Input_Midi;
 using Daigassou.Properties;
 
@@ -105,9 +106,7 @@ namespace Daigassou
         {
             if (ClickCount++ > 5)
             {
-                kc.isBackGroundKey = true;
-                kc.InitBackGroundKey(BackgroundKey.GetPids().FirstOrDefault());
-                MessageBox.Show("后台演奏已开启");
+                new PidSelect(kc).ShowDialog();
             }
         }
 
@@ -117,6 +116,11 @@ namespace Daigassou
             var index = Array.IndexOf(keyBindings, s);
             ((GlobalHotKey) keyList[index]).Enabled = false;
             KeyBinding.SaveConfig();
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
