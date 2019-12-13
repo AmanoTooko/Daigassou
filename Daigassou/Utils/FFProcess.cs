@@ -18,6 +18,14 @@ namespace Daigassou.Utils
             return processes;
 
         }
+        public static List<Process> FindDaigassouProcess()
+        {
+
+            var processes = new List<Process>();
+            processes.AddRange(Process.GetProcessesByName("Daigassou"));
+            return processes;
+
+        }
 
     }
 }

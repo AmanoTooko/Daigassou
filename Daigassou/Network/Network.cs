@@ -1,4 +1,4 @@
-﻿
+﻿//Packet Analyze code is from https://github.com/devunt/DFAssist by devunt
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,6 +17,8 @@ using Daigassou;
 using Daigassou.Properties;
 using Daigassou.Utils;
 using NetFwTypeLib;
+
+
 
 internal partial class Network
 {
@@ -153,7 +155,7 @@ internal partial class Network
         {
             if (!currentConnections.Contains(connection))
             {
-                // 기존에 있던 연결이 끊겨 있음. 새롭게 갱신 필요
+                //Connection broken
                 update = true;
                 Log.E("l-network-detected-connection-closing");
                 break;
@@ -209,15 +211,13 @@ internal partial class Network
 
                 if (!tcpPacket.IsValid)
                 {
-                    // 올바르지 못한 TCP 패킷
+                    // Invalid TCP Packet
                     return;
                 }
 
                 if (!tcpPacket.Flags.HasFlag(TCPFlags.ACK | TCPFlags.PSH))
                 {
-                    // 파판 서버에서 클라이언트로 보내주는 모든 TCP 패킷에는
-                    // ACK와 PSH 플래그가 설정되어 있음을 이용해 필터링 부하를 낮춤
-                    /* // 연결 종료 감지를 위해 RST와 FIN도 하단으로 넘겨줌 */
+                    
                     return;
                 }
 
@@ -226,27 +226,6 @@ internal partial class Network
                 var connection = new Connection() { localEndPoint = sourceEndPoint, remoteEndPoint = destinationEndPoint };
                 var reverseConnection = new Connection() { localEndPoint = destinationEndPoint, remoteEndPoint = sourceEndPoint };
 
-                
-
-                /*
-                if (tcpPacket.Flags.HasFlag(TCPFlags.RST) || tcpPacket.Flags.HasFlag(TCPFlags.FIN))
-                {
-                    // 연결 종료 발생. 현재 연결 목록에서 삭제함
-                    if (connections.Remove(connection) || connections.Remove(reverseConnection))
-                    {
-                        mainForm.overlayForm.SetStatus(false);
-                        Log.E("N: 게임서버와의 연결 종료됨");
-                        return;
-                    }
-                }
-                */
-
-                // 성능 문제로 연결 종료 즉시 중단 체크를 건너 뜀
-                // (어차피 30초마다 MainForm.cs::MainForm_Load에서 실행된 Task에서 체크하므로)
-
-                
-
-                // 파판 서버에서 오는 패킷이니 분석함
                 lock (lockAnalyse)
                 {
                     AnalyseFFXIVPacket(tcpPacket.Payload);
@@ -298,7 +277,7 @@ internal partial class Network
                 var netAuthApp = GetInstance<INetFwAuthorizedApplication>("HNetCfg.FwAuthorizedApplication");
 
                 netAuthApp.Enabled = true;
-                netAuthApp.Name = "任务/FATE助手 - DFA";
+                netAuthApp.Name = "Daigassou";
                 netAuthApp.ProcessImageFileName = exePath;
                 netAuthApp.Scope = NET_FW_SCOPE_.NET_FW_SCOPE_ALL;
 
@@ -628,8 +607,7 @@ internal partial class Network
                 }
                 else
                 {
-                    // 앞쪽이 잘려서 오는 패킷 workaround
-                    // 잘린 패킷 1개는 버리고 바로 다음 패킷부터 찾기...
+                    // sticky packet process
                     // TODO: 버리는 패킷 없게 제대로 수정하기
 
                     for (var offset = 0; offset < payload.Length - 2; offset++)
@@ -673,7 +651,7 @@ internal partial class Network
             ParameterController.GetInstance().AnalyzeNotes(notes);
         }
 
-        if (opcode == 0x011E)
+        if (opcode == 0x011E)//CountDown
         {
             var countDownTime = data[4];
             var nameBytes = new byte[18];

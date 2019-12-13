@@ -99,7 +99,7 @@
             radioButton3.Font = new System.Drawing.Font("微软雅黑", 12F);
             radioButton3.Location = new System.Drawing.Point(263, 70);
             radioButton3.Name = "radioButton3";
-            radioButton3.Size = new System.Drawing.Size(85, 31);
+            radioButton3.Size = new System.Drawing.Size(69, 25);
             radioButton3.TabIndex = 7;
             radioButton3.Text = "高8度";
             this.toolTip1.SetToolTip(radioButton3, "点这里是设置音高的");
@@ -114,7 +114,7 @@
             this.trackComboBox.Location = new System.Drawing.Point(93, 66);
             this.trackComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.trackComboBox.Name = "trackComboBox";
-            this.trackComboBox.Size = new System.Drawing.Size(243, 31);
+            this.trackComboBox.Size = new System.Drawing.Size(243, 28);
             this.trackComboBox.TabIndex = 1;
             this.toolTip1.SetToolTip(this.trackComboBox, "点这里选择音轨");
             this.trackComboBox.SelectedIndexChanged += new System.EventHandler(this.trackComboBox_SelectedIndexChanged);
@@ -168,7 +168,7 @@
             this.pathTextBox.ForeColor = System.Drawing.Color.Gray;
             this.pathTextBox.Location = new System.Drawing.Point(93, 31);
             this.pathTextBox.Name = "pathTextBox";
-            this.pathTextBox.Size = new System.Drawing.Size(192, 31);
+            this.pathTextBox.Size = new System.Drawing.Size(192, 26);
             this.pathTextBox.TabIndex = 6;
             // 
             // label1
@@ -178,7 +178,7 @@
             this.label1.ForeColor = System.Drawing.Color.Gray;
             this.label1.Location = new System.Drawing.Point(16, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 24);
+            this.label1.Size = new System.Drawing.Size(64, 20);
             this.label1.TabIndex = 5;
             this.label1.Text = "导入Mid";
             // 
@@ -189,7 +189,7 @@
             this.label2.ForeColor = System.Drawing.Color.Gray;
             this.label2.Location = new System.Drawing.Point(16, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 24);
+            this.label2.Size = new System.Drawing.Size(65, 20);
             this.label2.TabIndex = 4;
             this.label2.Text = "选择音轨";
             // 
@@ -250,7 +250,7 @@
             0,
             -2147483648});
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(100, 31);
+            this.numericUpDown2.Size = new System.Drawing.Size(100, 26);
             this.numericUpDown2.TabIndex = 5;
             this.toolTip1.SetToolTip(this.numericUpDown2, "海外党适用\r\n当队员们与服务器延迟过大的时候\r\n用于补正Ping值\r\n设置方法为全员平均Ping值-每个人的Ping值");
             // 
@@ -261,7 +261,7 @@
             this.label8.ForeColor = System.Drawing.Color.Gray;
             this.label8.Location = new System.Drawing.Point(16, 91);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(82, 24);
+            this.label8.Size = new System.Drawing.Size(65, 20);
             this.label8.TabIndex = 4;
             this.label8.Text = "网络延迟";
             // 
@@ -287,7 +287,7 @@
             this.label4.ForeColor = System.Drawing.Color.Gray;
             this.label4.Location = new System.Drawing.Point(16, 60);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 24);
+            this.label4.Size = new System.Drawing.Size(65, 20);
             this.label4.TabIndex = 2;
             this.label4.Text = "演奏时间";
             // 
@@ -300,7 +300,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(107, 55);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.ShowUpDown = true;
-            this.dateTimePicker1.Size = new System.Drawing.Size(100, 31);
+            this.dateTimePicker1.Size = new System.Drawing.Size(100, 26);
             this.dateTimePicker1.TabIndex = 1;
             this.toolTip1.SetToolTip(this.dateTimePicker1, "合奏用\r\n与队友们设定同样的时间后\r\n点击[准备好了]，就可以自动合奏\r\n*时间支持复制粘贴*");
             this.dateTimePicker1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DateTimePicker1_KeyDown);
@@ -312,7 +312,7 @@
             this.label3.ForeColor = System.Drawing.Color.Gray;
             this.label3.Location = new System.Drawing.Point(14, 30);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(208, 24);
+            this.label3.Size = new System.Drawing.Size(163, 20);
             this.label3.TabIndex = 0;
             this.label3.Text = "通过定时来同步的演奏吧";
             // 
@@ -367,7 +367,7 @@
             0,
             0});
             this.nudBpm.Name = "nudBpm";
-            this.nudBpm.Size = new System.Drawing.Size(154, 34);
+            this.nudBpm.Size = new System.Drawing.Size(154, 29);
             this.nudBpm.TabIndex = 9;
             this.toolTip1.SetToolTip(this.nudBpm, "点这里可以设置速度");
             this.nudBpm.Value = new decimal(new int[] {
@@ -384,7 +384,7 @@
             this.radioButton2.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.radioButton2.Location = new System.Drawing.Point(188, 70);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(73, 31);
+            this.radioButton2.Size = new System.Drawing.Size(60, 25);
             this.radioButton2.TabIndex = 6;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "原始";
@@ -398,7 +398,7 @@
             this.radioButton1.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.radioButton1.Location = new System.Drawing.Point(107, 70);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 31);
+            this.radioButton1.Size = new System.Drawing.Size(69, 25);
             this.radioButton1.TabIndex = 5;
             this.radioButton1.Text = "低8度";
             this.toolTip1.SetToolTip(this.radioButton1, "点这里是设置音高的");
@@ -412,7 +412,7 @@
             this.label5.ForeColor = System.Drawing.Color.Gray;
             this.label5.Location = new System.Drawing.Point(16, 70);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 24);
+            this.label5.Size = new System.Drawing.Size(65, 20);
             this.label5.TabIndex = 1;
             this.label5.Text = "音高调整";
             this.toolTip1.SetToolTip(this.label5, "点这里是设置音高的");
@@ -424,7 +424,7 @@
             this.label7.ForeColor = System.Drawing.Color.Gray;
             this.label7.Location = new System.Drawing.Point(16, 36);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(208, 24);
+            this.label7.Size = new System.Drawing.Size(161, 20);
             this.label7.TabIndex = 2;
             this.label7.Text = "设置BPM，范围40~250";
             // 
@@ -436,7 +436,7 @@
             this.cbMidiKeyboard.Location = new System.Drawing.Point(87, 34);
             this.cbMidiKeyboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbMidiKeyboard.Name = "cbMidiKeyboard";
-            this.cbMidiKeyboard.Size = new System.Drawing.Size(161, 31);
+            this.cbMidiKeyboard.Size = new System.Drawing.Size(161, 28);
             this.cbMidiKeyboard.TabIndex = 8;
             this.toolTip1.SetToolTip(this.cbMidiKeyboard, "如果你有Midi键盘可以在这里连接\r\n没有的就不要凑热闹了！\r\n樱桃键盘不行！Filco也不行！\r\nHHKB也不行！王总不是钱的问题！\r\n");
             this.cbMidiKeyboard.SelectedIndexChanged += new System.EventHandler(this.cbMidiKeyboard_SelectedIndexChanged);
@@ -557,7 +557,7 @@
             this.label9.ForeColor = System.Drawing.Color.Gray;
             this.label9.Location = new System.Drawing.Point(16, 38);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 24);
+            this.label9.Size = new System.Drawing.Size(65, 20);
             this.label9.TabIndex = 0;
             this.label9.Text = "键盘选择";
             // 
@@ -603,7 +603,7 @@
             this.timeLabel.ForeColor = System.Drawing.Color.Gray;
             this.timeLabel.Location = new System.Drawing.Point(277, 96);
             this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(35, 21);
+            this.timeLabel.Size = new System.Drawing.Size(29, 19);
             this.timeLabel.TabIndex = 27;
             this.timeLabel.Text = "     ";
             // 
@@ -683,7 +683,7 @@
             this.tlblTime.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tlblTime.ForeColor = System.Drawing.Color.Gray;
             this.tlblTime.Name = "tlblTime";
-            this.tlblTime.Size = new System.Drawing.Size(84, 20);
+            this.tlblTime.Size = new System.Drawing.Size(68, 21);
             this.tlblTime.Text = "时钟未同步";
             // 
             // statusStrip1
@@ -704,7 +704,7 @@
             this.timeStripStatus.BackColor = System.Drawing.Color.Transparent;
             this.timeStripStatus.Name = "timeStripStatus";
             this.timeStripStatus.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.timeStripStatus.Size = new System.Drawing.Size(71, 20);
+            this.timeStripStatus.Size = new System.Drawing.Size(56, 21);
             this.timeStripStatus.Text = "20:00:00";
             // 
             // toolStripSplitButton1
@@ -713,7 +713,7 @@
             this.toolStripSplitButton1.Image = global::Daigassou.Properties.Resources.s2;
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(39, 24);
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(36, 24);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             this.toolStripSplitButton1.ButtonClick += new System.EventHandler(this.ToolStripSplitButton1_ButtonClick);
             // 
@@ -724,7 +724,7 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(357, 719);

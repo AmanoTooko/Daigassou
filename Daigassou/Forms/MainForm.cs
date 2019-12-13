@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -481,6 +482,7 @@ namespace Daigassou
                 net.StopCapture();
                 isCaptureFlag = false;
                 (sender as Button).Text = "开始抓包";
+                (sender as Button).BackColor = Color.FromArgb(255, 128, 128);
             }
             else
             {
@@ -489,11 +491,29 @@ namespace Daigassou
                 net.Play += Net_Play;
                 try
                 {
-                    if (FFProcess.FindFFXIVProcess().Count > 0)
+                    var ffprocessList = FFProcess.FindFFXIVProcess();
+                    if (ffprocessList.Count == 1)
                     {
+                        
                         net.StartCapture(FFProcess.FindFFXIVProcess().First());
                         isCaptureFlag = true;
                         (sender as Button).Text = "停止抓包";
+                        (sender as Button).BackColor=Color.Aquamarine;
+                    }
+                    else if( ffprocessList.Count==2)
+                    {
+                        if (FFProcess.FindDaigassouProcess().Count>1)
+                        {
+                            net.StartCapture(FFProcess.FindFFXIVProcess()[1]);
+                        }
+                        else
+                        {
+                            net.StartCapture(FFProcess.FindFFXIVProcess().First());
+                        }
+                        
+                        isCaptureFlag = true;
+                        (sender as Button).Text = "停止抓包";
+                        (sender as Button).BackColor = Color.Aquamarine;
                     }
                     else
                     {
@@ -522,8 +542,9 @@ namespace Daigassou
 
         private void NetPlay(int time,string name)
         {
+            dateTimePicker1.Value = DateTime.Now.AddMilliseconds(time * 1000);
             StartKeyPlayback(time * 1000 + (int)numericUpDown2.Value);
-            tlblTime.Text = $"{name.Trim()}:倒计时{time}s";
+            tlblTime.Text = $"{name.Trim().Replace("\0",string.Empty)}发起:倒计时{time}s";
         }
 
         private void RemoteStart(int Time,string Name)
