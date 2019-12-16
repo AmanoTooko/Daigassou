@@ -98,6 +98,9 @@
     <Reference Include="HotkeyManagement, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HotkeyManagement.WinForms.1.7.0\lib\HotkeyManagement.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlRenderer">
+      <HintPath>Reference\HtmlRenderer.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.NetFwTypeLib">
       <HintPath>Reference\Interop.NetFwTypeLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -111,9 +114,13 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="OverlayPlugin.Common">
+      <HintPath>Reference\OverlayPlugin.Common.dll</HintPath>
+    </Reference>
     <Reference Include="PagedControl, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedControl.2.2.0\lib\net35\PagedControl.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -133,6 +140,9 @@
       <HintPath>C:\Users\tooko\source\repos\UpdateHelper\UpdateHelper\bin\x64\Release\UpdateHelper.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="Xilium.CefGlue">
+      <HintPath>Reference\Xilium.CefGlue.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Forms\AboutForm.cs">
@@ -179,6 +189,25 @@
     <Compile Include="Output_Key\KeyBinding.cs" />
     <Compile Include="Output_Key\KeyController.cs" />
     <Compile Include="Input_Midi\MidiToKey.cs" />
+    <Compile Include="Overlay\DIBitmap.cs" />
+    <Compile Include="Overlay\GlobalHotkeyChangedEventArgs.cs" />
+    <Compile Include="Overlay\GlobalHotkeyEnabledChangedEventArgs.cs" />
+    <Compile Include="Overlay\GlobalHotkeyType.cs" />
+    <Compile Include="Overlay\GlobalHotkeyTypeChangedEventArgs.cs" />
+    <Compile Include="Overlay\KeyPressedEventArgs.cs" />
+    <Compile Include="Overlay\LockStateChangedEventArgs.cs" />
+    <Compile Include="Overlay\MaxFrameRateChangedEventArgs.cs" />
+    <Compile Include="Overlay\OverlayBase`1.cs" />
+    <Compile Include="Overlay\OverlayConfigBase.cs" />
+    <Compile Include="Overlay\OverlayControl.cs" />
+    <Compile Include="Overlay\OverlayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Overlay\SortKeyChangedEventArgs.cs" />
+    <Compile Include="Overlay\ThruStateChangedEventArgs.cs" />
+    <Compile Include="Overlay\UrlChangedEventArgs.cs" />
+    <Compile Include="Overlay\Util.cs" />
+    <Compile Include="Overlay\VisibleStateChangedEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
@@ -208,6 +237,7 @@
     <EmbeddedResource Include="Forms\PidSelect.resx">
       <DependentUpon>PidSelect.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Overlay\OverlayForm.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>

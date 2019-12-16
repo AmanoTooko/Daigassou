@@ -16,6 +16,7 @@ using Daigassou.Input_Midi;
 using Daigassou.Properties;
 using Daigassou.Utils;
 using Newtonsoft.Json;
+using RainbowMage.OverlayPlugin;
 
 namespace Daigassou
 {
@@ -602,5 +603,11 @@ namespace Daigassou
         {
             InitHotKeyBiding();
         }
-    }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+            var a = new 标签美化窗口.OverlayControl();
+            a.InitializeOverlays();
+        }
+}
 }
