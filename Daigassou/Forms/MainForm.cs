@@ -179,6 +179,12 @@ namespace Daigassou
 
         private void Stop_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
+            StopKeyPlay();
+
+
+        }
+        private void StopKeyPlay()
+        {
             if (_runningFlag)
             {
                 _runningFlag = false;
@@ -186,7 +192,6 @@ namespace Daigassou
                 kc.ResetKey();
             }
         }
-
         private void PitchUp_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
             if (_runningFlag)
@@ -531,12 +536,29 @@ namespace Daigassou
         {
             if (this.InvokeRequired)
             {
-                var n=new remotePlay(NetPlay);
-                this.Invoke(n, e.Time, e.Text);
+                if (e.Mode==0)
+                {
+                    var n = new remotePlay(NetPlay);
+                    this.Invoke(n, e.Time, e.Text);
+                }
+                else if (e.Mode == 1)
+                {
+                    var n = new remotePlay(NetStop);
+                    this.Invoke(n, e.Time, e.Text);
+                }
+                
             }
             else
             {
-                NetPlay(e.Time, e.Text);
+                if (e.Mode == 0)
+                {
+                    NetPlay(e.Time, e.Text);
+                }
+                else if (e.Mode == 1)
+                {
+                    NetStop(e.Time, e.Text);
+                }
+                
             }
             
         }
@@ -545,9 +567,14 @@ namespace Daigassou
         {
             dateTimePicker1.Value = DateTime.Now.AddMilliseconds(time * 1000);
             StartKeyPlayback(time * 1000 + (int)numericUpDown2.Value);
-            tlblTime.Text = $"{name.Trim().Replace("\0",string.Empty)}发起:倒计时{time}s";
+            tlblTime.Text = $"{name.Trim().Replace("\0",string.Empty)}发起倒计时:{time}s";
         }
 
+        private void NetStop(int time, string name)
+        {
+            StopKeyPlay();
+            tlblTime.Text = $"{name.Trim().Replace("\0", string.Empty)}停止了演奏";
+        }
         private void RemoteStart(int Time,string Name)
         {
             

@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Navigation;
 using Daigassou;
 using Daigassou.Properties;
 using Daigassou.Utils;
@@ -26,13 +27,19 @@ internal partial class Network
     {
         private readonly String text;
         private readonly int time;
-        public PlayEvent(int Time,String text)
+        private readonly int mode;
+        public PlayEvent(int mode,int Time,String text)
         {
+            this.mode = mode;
             this.time = Time;
             this.text = text;
         }
         public String Text { get { return text; } }
         public int Time { get { return time; } }
+        public int Mode
+        {
+            get { return mode; }
+        }
     }
     public event EventHandler<PlayEvent> Play;
     private static class NativeMethods
@@ -209,17 +216,7 @@ internal partial class Network
             {
                 var tcpPacket = new TCPPacket(ipPacket.Data);
 
-                if (!tcpPacket.IsValid)
-                {
-                    // Invalid TCP Packet
-                    return;
-                }
-
-                if (!tcpPacket.Flags.HasFlag(TCPFlags.ACK | TCPFlags.PSH))
-                {
-                    
-                    return;
-                }
+              
 
                 var sourceEndPoint = new IPEndPoint(ipPacket.SourceIPAddress, tcpPacket.SourcePort);
                 var destinationEndPoint = new IPEndPoint(ipPacket.DestinationIPAddress, tcpPacket.DestinationPort);
@@ -534,7 +531,6 @@ internal partial class Network
                 }
 
                 var type = BitConverter.ToUInt16(payload, 0);
-
                 if (type == 0x0000 || type == 0x5252)
                 {
                     if (payload.Length < 28)
@@ -588,7 +584,7 @@ internal partial class Network
                                 var message = new byte[messageLength];
                                 messages.Seek(-4, SeekOrigin.Current);
                                 messages.Read(message, 0, messageLength);
-
+                                
                                 HandleMessage(message);
                             }
                             catch (Exception ex)
@@ -633,6 +629,8 @@ internal partial class Network
 
     private void HandleMessage(byte[] message)
     {
+        
+        var data = message.Skip(32).ToArray();
         if (message.Length < 32)
         {
             // type == 0x0000 이였던 메시지는 여기서 걸러짐
@@ -640,8 +638,8 @@ internal partial class Network
         }
 
         var opcode = BitConverter.ToUInt16(message, 18);
-        var data = message.Skip(32).ToArray();
         Console.WriteLine(opcode.ToString("X4"));
+
         if (opcode == 0x018B) //Bard Performance
         {
             var length = data[0];
@@ -657,7 +655,16 @@ internal partial class Network
             var nameBytes = new byte[18];
             Array.Copy(data, 9, nameBytes, 0, 18);
             var name = Encoding.UTF8.GetString(nameBytes) ?? "";
-            if (Play != null) Play(this, new PlayEvent(Convert.ToInt32(countDownTime), name));
+            Play?.Invoke(this, new PlayEvent(0,Convert.ToInt32(countDownTime), name));
+        }
+        
+        if (opcode == 0x011C) //party check
+        {
+            
+            var nameBytes = new byte[18];
+            Array.Copy(data, 20, nameBytes, 0, 18);
+            var name = Encoding.UTF8.GetString(nameBytes) ?? "";
+            Play?.Invoke(this, new PlayEvent(1,0, name));
         }
     }
 
