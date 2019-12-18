@@ -191,8 +191,8 @@ internal partial class Network
             var length = socket.EndReceive(ar);
             var buffer = recvBuffer.Take(length).ToArray();
             socket.BeginReceive(recvBuffer, 0, recvBuffer.Length, 0, new AsyncCallback(OnReceive), null);
+            Task.Run(() => { FilterAndProcessPacket(buffer); });
 
-            FilterAndProcessPacket(buffer);
         }
         catch (Exception ex) when (ex is ObjectDisposedException || ex is NullReferenceException)
         {
@@ -584,8 +584,8 @@ internal partial class Network
                                 var message = new byte[messageLength];
                                 messages.Seek(-4, SeekOrigin.Current);
                                 messages.Read(message, 0, messageLength);
-                                
                                 HandleMessage(message);
+
                             }
                             catch (Exception ex)
                             {
@@ -638,7 +638,7 @@ internal partial class Network
         }
 
         var opcode = BitConverter.ToUInt16(message, 18);
-        Console.WriteLine(opcode.ToString("X4"));
+        //Console.WriteLine(opcode.ToString("X4"));
 
         if (opcode == 0x018B) //Bard Performance
         {
@@ -660,11 +660,19 @@ internal partial class Network
         
         if (opcode == 0x011C) //party check
         {
-            
+            Console.WriteLine("get!");
             var nameBytes = new byte[18];
             Array.Copy(data, 20, nameBytes, 0, 18);
             var name = Encoding.UTF8.GetString(nameBytes) ?? "";
             Play?.Invoke(this, new PlayEvent(1,0, name));
+
+        }
+        if (opcode == 0x0272) //party check
+        {
+            Console.WriteLine("272");
+            
+            Play?.Invoke(this, new PlayEvent(1, 0, "紧急"));
+
         }
     }
 

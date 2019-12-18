@@ -112,6 +112,10 @@ namespace Daigassou
             Thread.Sleep(1);
             KeyboardRelease(Keys.Alt);
             Thread.Sleep(1);
+            for (int i = 48; i < 84; i++)
+            {
+                KeyboardRelease(KeyBinding.GetNoteToKey(i));
+            }
             ParameterController.GetInstance().Pitch = 0;
         }
 
