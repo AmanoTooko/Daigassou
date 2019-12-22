@@ -32,6 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblVersion
@@ -45,7 +46,6 @@
             this.lblVersion.Size = new System.Drawing.Size(94, 38);
             this.lblVersion.TabIndex = 1;
             this.lblVersion.Text = "Ver 1.1.0.54\r\n\r\n";
-            
             // 
             // label2
             // 
@@ -53,10 +53,10 @@
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label2.Location = new System.Drawing.Point(239, 104);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(200, 102);
+            this.label2.Size = new System.Drawing.Size(236, 102);
             this.label2.TabIndex = 2;
-            this.label2.Text = "使用本软件产品风险由用户自行承担\r\n在适用法律允许的最大范围内\r\n对因使用本软件所产生的损害\r\n包括但不限于游戏崩溃，被封号，\r\n计算机死机，硬盘爆炸等\r\n作者不" +
-    "承担任何责任。";
+            this.label2.Text = "您同意使用本软件产品风险由用户自行承担\r\n包括但不限于死机，封号，硬盘爆炸等\r\n为避免滥用，您同意使用本程序进行的活动\r\n不会侵犯第三方的权利。\r\n当发生滥用时\r" +
+    "\n作者保留禁止您继续使用本程序的权利。\r\n";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
@@ -79,7 +79,18 @@
             this.label1.Size = new System.Drawing.Size(54, 51);
             this.label1.TabIndex = 4;
             this.label1.Text = "              ";
-           
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.label4.Location = new System.Drawing.Point(239, 261);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(140, 17);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "两只猫娘是不是很可爱！";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // AboutForm
             // 
@@ -89,6 +100,7 @@
             this.BackgroundImage = global::Daigassou.Properties.Resources.about2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(490, 362);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblVersion);
@@ -111,5 +123,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label4;
     }
 }

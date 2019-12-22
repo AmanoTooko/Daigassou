@@ -332,7 +332,7 @@ namespace Daigassou
                 hkm.RemoveGlobalHotKey(VARIABLE);
             }
             hkm.Dispose();
-
+            a.f.Dispose();
 
         }
 
@@ -414,8 +414,8 @@ namespace Daigassou
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //BackgroundKey.Keytest();
-            new AboutForm(kc).ShowDialog();
+            a.config.Text = "90";
+            //new AboutForm(kc).ShowDialog();
         }
 
 
@@ -487,7 +487,7 @@ namespace Daigassou
             {
                 net.StopCapture();
                 isCaptureFlag = false;
-                (sender as Button).Text = "开始抓包";
+                (sender as Button).Text = "开始同步";
                 (sender as Button).BackColor = Color.FromArgb(255, 128, 128);
             }
             else
@@ -503,7 +503,7 @@ namespace Daigassou
                         
                         net.StartCapture(FFProcess.FindFFXIVProcess().First());
                         isCaptureFlag = true;
-                        (sender as Button).Text = "停止抓包";
+                        (sender as Button).Text = "停止同步";
                         (sender as Button).BackColor=Color.Aquamarine;
                     }
                     else if( ffprocessList.Count==2)
@@ -518,7 +518,7 @@ namespace Daigassou
                         }
                         
                         isCaptureFlag = true;
-                        (sender as Button).Text = "停止抓包";
+                        (sender as Button).Text = "停止同步";
                         (sender as Button).BackColor = Color.Aquamarine;
                     }
                     else
@@ -621,20 +621,27 @@ namespace Daigassou
             form.ShowDialog();
         }
 
-        private void Form_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
 
-        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             InitHotKeyBiding();
         }
 
+        private StatusOverlay.OverlayControl a;
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
-            var a = new 标签美化窗口.OverlayControl();
-            a.InitializeOverlays();
+            if (a!=null)
+            {
+                a.config.IsVisible = !a.config.IsVisible;
+            }
+            else
+            {
+                a = new StatusOverlay.OverlayControl();
+                a.InitializeOverlays();
+            }
+            
+            
         }
 }
 }

@@ -16,7 +16,7 @@ namespace RainbowMage.OverlayPlugin
     public class LabelOverlayConfig : OverlayConfigBase
     {
         private string text;
-
+        private string process;
 
         [XmlElement("Text")]
         public string Text
@@ -33,10 +33,23 @@ namespace RainbowMage.OverlayPlugin
             }
         }
 
+        public string Process
+        {
+            get { return this.process; }
+            set
+            {
+                if (!(this.process != value))
+                    return;
+                this.process = value;
+                if (this.processChanged == null)
+                    return;
+                this.processChanged((object)this, new TextChangedEventArgs(this.process));
+            }
+        }
 
 
         public event EventHandler<TextChangedEventArgs> TextChanged;
-
+        public event EventHandler<TextChangedEventArgs> processChanged;
 
         public LabelOverlayConfig(string name)
             : base(name)
@@ -52,25 +65,40 @@ namespace RainbowMage.OverlayPlugin
 
         public override Type OverlayType
         {
-            get { return typeof(标签美化窗口); }
+            get { return typeof(StatusOverlay); }
         }
     }
 
-    public class 标签美化窗口 : OverlayBase<LabelOverlayConfig>
+    public class StatusOverlay : OverlayBase<LabelOverlayConfig>
     {
-        public 标签美化窗口(LabelOverlayConfig config)
+        public StatusOverlay(LabelOverlayConfig config)
             : base(config, config.Name)
         {
             this.timer.Stop();
             config.TextChanged += (EventHandler<TextChangedEventArgs>) ((o, e) => this.UpdateOverlayText());
-           
+            config.processChanged += (EventHandler<TextChangedEventArgs>)((o, e) => this.UpdateOverlayProcess());
         }
 
+        private void UpdateOverlayProcess()
+        {
+            try
+            {
+                string dispatcherScript = this.CreateEventDispatcherScript(CreateJsonProcess());
+                if (this.Overlay != null && this.Overlay.Renderer != null && this.Overlay.Renderer.Browser != null)
+                    this.Overlay.Renderer.ExecuteScript(dispatcherScript);
+                else
+                    this.Log(RainbowMage.OverlayPlugin.LogLevel.Error, "更新: 浏览器未准备好");
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
         private void UpdateOverlayText()
         {
             try
             {
-                string dispatcherScript = this.CreateEventDispatcherScript();
+                string dispatcherScript = this.CreateEventDispatcherScript(CreateJsonLog());
                 if (this.Overlay != null && this.Overlay.Renderer != null && this.Overlay.Renderer.Browser != null)
                     this.Overlay.Renderer.ExecuteScript(dispatcherScript);
                 else
@@ -82,28 +110,31 @@ namespace RainbowMage.OverlayPlugin
             }
         }
 
-        private string CreateEventDispatcherScript()
+        private string CreateEventDispatcherScript(string json)
         {
             return string.Format("document.dispatchEvent(new CustomEvent('onOverlayDataUpdate', {{ detail: {0} }}));",
-                (object) this.CreateJson());
+                json);
         }
 
-        internal string CreateJson()
+        internal string CreateJsonLog()
         {
-            return string.Format("{{ text: \"{0}\", isHTML: {1} }}",
-                (object) Util.CreateJsonSafeString(this.Config.Text),
-                "true");
+            return string.Format("{{ log: \"{0}\"}}",
+                (object) Util.CreateJsonSafeString(this.Config.Text));
         }
-
+        internal string CreateJsonProcess()
+        {
+            return string.Format("{{process: \"{0}\"}}",
+                (object)Util.CreateJsonSafeString(this.Config.Process)
+                );
+        }
         protected override void Update()
         {
         }
 
         public class OverlayControl
         {
-            public 标签美化窗口 f;
-
-
+            public StatusOverlay f;
+            public LabelOverlayConfig config =new LabelOverlayConfig("标签");
             public OverlayControl()
             {
                 
@@ -111,13 +142,13 @@ namespace RainbowMage.OverlayPlugin
             public void InitializeOverlays()
             {
              
-                    var config =new LabelOverlayConfig("标签");
+                    
                     config.IsClickThru = false;
-                    config.Url = "http://www.baidu.com";
+                    config.Url = "C:\\Users\\tooko\\WebstormProjects\\overlay\\index.html";
                     config.MaxFrameRate = 60;
                     config.IsVisible = true;
                     config.Size=new Size(500,500);
-                    f=new 标签美化窗口((LabelOverlayConfig) config);
+                    f=new StatusOverlay((LabelOverlayConfig) config);
                     f.Start();
                 
                 
