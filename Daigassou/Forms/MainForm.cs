@@ -673,7 +673,7 @@ namespace Daigassou
             else
             {
                 a = new StatusOverlay.OverlayControl();
-                a.InitializeOverlays();
+                a.InitializeOverlays(PointToScreen(new Point(this.Width,this.Height-150)));
                 Log.log = a.config;
             }
         }

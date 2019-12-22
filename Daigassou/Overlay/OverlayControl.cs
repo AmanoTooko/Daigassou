@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 using RainbowMage.OverlayPlugin;
 using RainbowMage.HtmlRenderer;
@@ -139,7 +140,7 @@ namespace RainbowMage.OverlayPlugin
             {
                 
             }
-            public void InitializeOverlays()
+            public void InitializeOverlays(Point p)
             {
              
                     
@@ -148,6 +149,7 @@ namespace RainbowMage.OverlayPlugin
                     config.MaxFrameRate = 60;
                     config.IsVisible = true;
                     config.Size=new Size(250,150);
+                    config.Position = p;
                     f=new StatusOverlay((LabelOverlayConfig) config);
                     f.Start();
                 
