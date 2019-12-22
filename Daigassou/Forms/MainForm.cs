@@ -224,6 +224,7 @@ namespace Daigassou
             kc.ResetKey();
             if (Path.GetExtension(midFileDiag.FileName) != ".mid" && Path.GetExtension(midFileDiag.FileName) != ".midi")
             {
+                Log.overlayLog($"错误：没有Midi文件");
                 MessageBox.Show("没有midi你演奏个锤锤？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
                 return;
             }
@@ -276,6 +277,8 @@ namespace Daigassou
                 ParameterController.GetInstance().Offset = 0;
                 kc.KeyPlayBack(keyPlayLists, 1, cts.Token);
                 _runningFlag = false;
+                Log.overlayLog($"演奏：演奏结束");
+                kc.ResetKey();
             }, token);
         }
 
@@ -515,7 +518,10 @@ namespace Daigassou
 
         private void BtnTimeSync_Click(object sender, EventArgs e)
         {
-           
+            if (Log.isBeta)
+            {
+                this.Text += " Beta版";
+            }
             if (isCaptureFlag)
             {
                 net.StopCapture();
