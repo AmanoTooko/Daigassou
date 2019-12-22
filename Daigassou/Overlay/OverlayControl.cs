@@ -134,7 +134,7 @@ namespace RainbowMage.OverlayPlugin
         public class OverlayControl
         {
             public StatusOverlay f;
-            public LabelOverlayConfig config =new LabelOverlayConfig("标签");
+            public LabelOverlayConfig config =new LabelOverlayConfig("喵");
             public OverlayControl()
             {
                 
@@ -144,10 +144,10 @@ namespace RainbowMage.OverlayPlugin
              
                     
                     config.IsClickThru = false;
-                    config.Url = "C:\\Users\\tooko\\WebstormProjects\\overlay\\index.html";
+                    config.Url = "http://overlay.ffxiv.cat:8088/index.html";
                     config.MaxFrameRate = 60;
                     config.IsVisible = true;
-                    config.Size=new Size(500,500);
+                    config.Size=new Size(250,150);
                     f=new StatusOverlay((LabelOverlayConfig) config);
                     f.Start();
                 

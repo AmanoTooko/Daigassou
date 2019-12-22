@@ -137,6 +137,7 @@ namespace Daigassou
         {
             if (_runningFlag)
             {
+                Log.overlayLog($"快捷键：演奏暂停");
                 pauseTime = Environment.TickCount;
                 kc.internalRunningFlag = false;
             }
@@ -166,12 +167,15 @@ namespace Daigassou
         {
             if (!_runningFlag)
             {
+                Log.overlayLog($"快捷键：演奏开始");
                 StartKeyPlayback(1000);
                 
             }
                 
             else
             {
+
+                Log.overlayLog($"快捷键：演奏恢复");
                 kc.internalRunningFlag = true;
                 kc.pauseOffset += Environment.TickCount - pauseTime;
             }
@@ -179,14 +183,16 @@ namespace Daigassou
 
         private void Stop_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
+            Log.overlayLog($"快捷键：演奏停止");
             StopKeyPlay();
-
+            
 
         }
         private void StopKeyPlay()
         {
             if (_runningFlag)
             {
+                
                 _runningFlag = false;
                 cts.Cancel();
                 kc.ResetKey();
@@ -195,13 +201,21 @@ namespace Daigassou
         private void PitchUp_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
             if (_runningFlag)
+            {
                 ParameterController.GetInstance().Pitch += 1;
+                Log.overlayLog($"快捷键：向上移调 当前 {ParameterController.GetInstance().Pitch}");
+            }
+                
         }
 
         private void PitchDown_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
             if (_runningFlag)
+            {
                 ParameterController.GetInstance().Pitch -= 1;
+                Log.overlayLog($"快捷键：向下移调 当前 {ParameterController.GetInstance().Pitch}");
+            }
+                
         }
 
 
@@ -216,6 +230,7 @@ namespace Daigassou
 
             if (!_runningFlag)
             {
+                
                 _runningFlag = true;
                 timer1.Interval = interval < 1000 ? 1000 : interval;
                 var sub = (long) (1000 - interval);
@@ -237,9 +252,17 @@ namespace Daigassou
                         keyPlayLists.Enqueue(kp);
                     }
                 }
+                Log.overlayLog($"文件名：{Path.GetFileName(midFileDiag.FileName)}");
+                Log.overlayLog($"定时：{timer1.Interval}毫秒后演奏");
                 sw.Stop();
                 Console.WriteLine(sw.ElapsedMilliseconds);
                 
+            }
+            else
+            {
+                
+                kc.internalRunningFlag = true;
+                kc.pauseOffset += Environment.TickCount - pauseTime;
             }
 
         }
@@ -332,7 +355,15 @@ namespace Daigassou
                 hkm.RemoveGlobalHotKey(VARIABLE);
             }
             hkm.Dispose();
-            a.f.Dispose();
+            if (a!=null)
+            {
+                if (a.f!=null)
+                {
+                    a.f.Dispose();
+                    RainbowMage.HtmlRenderer.Renderer.Shutdown();
+                }
+                
+            }
 
         }
 
@@ -414,8 +445,8 @@ namespace Daigassou
 
         private void button1_Click(object sender, EventArgs e)
         {
-            a.config.Text = "90";
-            //new AboutForm(kc).ShowDialog();
+           
+            new AboutForm(kc).ShowDialog();
         }
 
 
@@ -424,7 +455,9 @@ namespace Daigassou
             double error;
             try
             {
+                Log.overlayLog($"时间同步：NTP请求发送");
                 var offset = new NtpClient(Settings.Default.NtpServer).GetOffset(out error);
+                Log.overlayLog($"时间同步：与北京时间相差{offset.Milliseconds}毫秒");
                 //TODO:error handler
                 if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(
                     DateTime.Now.AddMilliseconds(offset.TotalMilliseconds * -0.5)))
@@ -567,12 +600,14 @@ namespace Daigassou
         {
             dateTimePicker1.Value = DateTime.Now.AddMilliseconds(time * 1000);
             StartKeyPlayback(time * 1000 + (int)numericUpDown2.Value);
+            Log.overlayLog($"网络控制：{name.Trim().Replace("\0", string.Empty)}发起倒计时:{time}s");
             tlblTime.Text = $"{name.Trim().Replace("\0",string.Empty)}发起倒计时:{time}s";
         }
 
         private void NetStop(int time, string name)
         {
             StopKeyPlay();
+            Log.overlayLog($"网络控制：{name.Trim().Replace("\0", string.Empty)}停止了演奏");
             tlblTime.Text = $"{name.Trim().Replace("\0", string.Empty)}停止了演奏";
         }
         private void RemoteStart(int Time,string Name)
@@ -639,9 +674,8 @@ namespace Daigassou
             {
                 a = new StatusOverlay.OverlayControl();
                 a.InitializeOverlays();
+                Log.log = a.config;
             }
-            
-            
         }
 }
 }

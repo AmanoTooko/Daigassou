@@ -23,6 +23,23 @@ namespace Daigassou.Utils
     {
         private static LogForm logform { get; set; }
         private static DateTime lastTime;
+        public static RainbowMage.OverlayPlugin.LabelOverlayConfig log;
+        public static bool isBeta=false;
+        public static void overlayLog(string text)
+        {
+            if (log!=null)
+            {
+                log.Text = string.Format($"[{DateTime.Now.ToString("HH:mm:ss")}] {text}");
+            }
+        }
+
+        public static void overlayProcess(string process)
+        {
+            if (log != null)
+            {
+                log.Process = process;
+            }
+        }
         public static void Debug(string text)
         {
             Console.WriteLine(text);

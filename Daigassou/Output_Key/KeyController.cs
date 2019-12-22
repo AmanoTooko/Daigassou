@@ -122,7 +122,7 @@ namespace Daigassou
         public void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed, CancellationToken token)
         {
             var startTime = Environment.TickCount;
-            
+            var endTime = keyQueue.Last().TimeMs;
             while (keyQueue.Any() && !token.IsCancellationRequested)
             {
                 var nextKey = keyQueue.Dequeue();
@@ -140,6 +140,7 @@ namespace Daigassou
                     }
                     Thread.Sleep(1);
                 }
+                Log.overlayProcess(((int)(nextKey.TimeMs*100/endTime)).ToString());
                 if (nextKey.Ev == KeyPlayList.NoteEvent.NoteOn)
                     KeyboardPress(nextKey.Pitch + ParameterController.GetInstance().Pitch);
                 else

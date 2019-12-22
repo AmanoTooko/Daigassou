@@ -4,6 +4,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Daigassou.Utils;
 using Newtonsoft.Json;
 using UpdateHelper;
 
@@ -45,6 +46,11 @@ namespace Daigassou
                         Environment.Exit(-2);
                     }
 
+                    if (versionObj.isBeta)
+                    {
+                        Log.isBeta = true;
+                    }
+
                 }
                 catch (Exception e)
                 {
@@ -63,6 +69,7 @@ namespace Daigassou
             public bool isRefuseToUse { get; set; }
             public string Version { get; set; }
             public string Description { get; set; }
+            public bool isBeta { get; set; }
         }
         public static void WriteLog(string msg)
         {

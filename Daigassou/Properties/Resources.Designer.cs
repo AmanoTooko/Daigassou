@@ -203,6 +203,26 @@ namespace Daigassou.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_advertisement_page_90 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-advertisement-page-90", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_idea_window_100 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-idea-window-100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap ka0 {
             get {
                 object obj = ResourceManager.GetObject("ka0", resourceCulture);

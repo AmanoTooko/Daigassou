@@ -59,29 +59,29 @@
             this.cbMidiKeyboard = new System.Windows.Forms.ComboBox();
             this.gBKeySetting = new System.Windows.Forms.GroupBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.btnSwitch = new System.Windows.Forms.Button();
-            this.btn22key = new System.Windows.Forms.Button();
-            this.btn8key = new System.Windows.Forms.Button();
             this.gBKeyboardSetting = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnKeyboardConnect = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.timeLabel = new System.Windows.Forms.Label();
             this.lblMidiName = new System.Windows.Forms.Label();
             this.lblPlay = new System.Windows.Forms.Label();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.btnPause = new System.Windows.Forms.Button();
-            this.btnPlay = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tlblTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.timeStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.playTimer = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnStop = new System.Windows.Forms.Button();
+            this.btnPause = new System.Windows.Forms.Button();
+            this.btnPlay = new System.Windows.Forms.Button();
+            this.btnKeyboardConnect = new System.Windows.Forms.Button();
+            this.btnSwitch = new System.Windows.Forms.Button();
+            this.btn22key = new System.Windows.Forms.Button();
+            this.btn8key = new System.Windows.Forms.Button();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             radioButton3 = new System.Windows.Forms.RadioButton();
             this.gBMidiFile.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -468,54 +468,6 @@
             this.panel4.Size = new System.Drawing.Size(1346, 13);
             this.panel4.TabIndex = 17;
             // 
-            // btnSwitch
-            // 
-            this.btnSwitch.BackColor = System.Drawing.Color.Transparent;
-            this.btnSwitch.BackgroundImage = global::Daigassou.Properties.Resources.a0;
-            this.btnSwitch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSwitch.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.btnSwitch.ForeColor = System.Drawing.Color.White;
-            this.btnSwitch.Location = new System.Drawing.Point(128, 38);
-            this.btnSwitch.Name = "btnSwitch";
-            this.btnSwitch.Size = new System.Drawing.Size(95, 36);
-            this.btnSwitch.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.btnSwitch, "点一下可以切换8键和22键\r\n我当然是建议用22键啦！");
-            this.btnSwitch.UseVisualStyleBackColor = false;
-            this.btnSwitch.Click += new System.EventHandler(this.btnSwitch_Click);
-            // 
-            // btn22key
-            // 
-            this.btn22key.BackColor = System.Drawing.Color.Transparent;
-            this.btn22key.BackgroundImage = global::Daigassou.Properties.Resources.kb0;
-            this.btn22key.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn22key.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn22key.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.btn22key.ForeColor = System.Drawing.Color.White;
-            this.btn22key.Location = new System.Drawing.Point(229, 38);
-            this.btn22key.Name = "btn22key";
-            this.btn22key.Size = new System.Drawing.Size(95, 36);
-            this.btn22key.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.btn22key, "点这里就可以设置键位了\r\n22键位可以导入！导入！！导入！！！\r\n我辛苦做的导入你们都不看的吗！\r\n嗨呀气死我了你们不看教程的吗！");
-            this.btn22key.UseVisualStyleBackColor = false;
-            this.btn22key.Click += new System.EventHandler(this.btn22key_Click);
-            // 
-            // btn8key
-            // 
-            this.btn8key.BackColor = System.Drawing.Color.Transparent;
-            this.btn8key.BackgroundImage = global::Daigassou.Properties.Resources.ka1;
-            this.btn8key.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn8key.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn8key.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.btn8key.ForeColor = System.Drawing.Color.White;
-            this.btn8key.Location = new System.Drawing.Point(18, 38);
-            this.btn8key.Name = "btn8key";
-            this.btn8key.Size = new System.Drawing.Size(95, 36);
-            this.btn8key.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.btn8key, "点这里就可以设置键位了\r\n嗨呀气死我了你们不看教程的吗！\r\n\r\n");
-            this.btn8key.UseVisualStyleBackColor = false;
-            this.btn8key.Click += new System.EventHandler(this.button4_Click);
-            // 
             // gBKeyboardSetting
             // 
             this.gBKeyboardSetting.Controls.Add(this.panel2);
@@ -538,23 +490,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1346, 13);
             this.panel2.TabIndex = 15;
-            // 
-            // btnKeyboardConnect
-            // 
-            this.btnKeyboardConnect.BackColor = System.Drawing.Color.Transparent;
-            this.btnKeyboardConnect.BackgroundImage = global::Daigassou.Properties.Resources.btn1;
-            this.btnKeyboardConnect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnKeyboardConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKeyboardConnect.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.btnKeyboardConnect.ForeColor = System.Drawing.Color.White;
-            this.btnKeyboardConnect.Location = new System.Drawing.Point(263, 28);
-            this.btnKeyboardConnect.Name = "btnKeyboardConnect";
-            this.btnKeyboardConnect.Size = new System.Drawing.Size(82, 34);
-            this.btnKeyboardConnect.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.btnKeyboardConnect, "如果你有Midi键盘可以插上在这里连接\r\n没有的就不要凑热闹了！\r\n蓝牙的不行！LaunchPad你自己说你是Midi键盘吗！\r\n樱桃键盘不行！Filco也不行！" +
-        "\r\nHHKB也不行！带不带RGB都不行！\r\n王总这不是钱的问题！");
-            this.btnKeyboardConnect.UseVisualStyleBackColor = false;
-            this.btnKeyboardConnect.Click += new System.EventHandler(this.btnKeyboardConnect_Click);
             // 
             // label9
             // 
@@ -633,6 +568,50 @@
             this.lblPlay.Text = "试听未开始";
             this.lblPlay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panel1
+            // 
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(357, 13);
+            this.panel1.TabIndex = 14;
+            // 
+            // tlblTime
+            // 
+            this.tlblTime.BackColor = System.Drawing.Color.Transparent;
+            this.tlblTime.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tlblTime.ForeColor = System.Drawing.Color.Gray;
+            this.tlblTime.Name = "tlblTime";
+            this.tlblTime.Size = new System.Drawing.Size(68, 21);
+            this.tlblTime.Text = "时钟未同步";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlblTime,
+            this.timeStripStatus,
+            this.toolStripSplitButton1,
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 693);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(357, 26);
+            this.statusStrip1.TabIndex = 18;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // timeStripStatus
+            // 
+            this.timeStripStatus.BackColor = System.Drawing.Color.Transparent;
+            this.timeStripStatus.Name = "timeStripStatus";
+            this.timeStripStatus.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.timeStripStatus.Size = new System.Drawing.Size(56, 21);
+            this.timeStripStatus.Text = "20:00:00";
+            // 
+            // playTimer
+            // 
+            this.playTimer.Enabled = true;
+            this.playTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
+            // 
             // btnStop
             // 
             this.btnStop.BackColor = System.Drawing.Color.Transparent;
@@ -675,44 +654,70 @@
             this.btnPlay.UseVisualStyleBackColor = false;
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
-            // panel1
+            // btnKeyboardConnect
             // 
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(357, 13);
-            this.panel1.TabIndex = 14;
+            this.btnKeyboardConnect.BackColor = System.Drawing.Color.Transparent;
+            this.btnKeyboardConnect.BackgroundImage = global::Daigassou.Properties.Resources.btn1;
+            this.btnKeyboardConnect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnKeyboardConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnKeyboardConnect.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.btnKeyboardConnect.ForeColor = System.Drawing.Color.White;
+            this.btnKeyboardConnect.Location = new System.Drawing.Point(263, 28);
+            this.btnKeyboardConnect.Name = "btnKeyboardConnect";
+            this.btnKeyboardConnect.Size = new System.Drawing.Size(82, 34);
+            this.btnKeyboardConnect.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.btnKeyboardConnect, "如果你有Midi键盘可以插上在这里连接\r\n没有的就不要凑热闹了！\r\n蓝牙的不行！LaunchPad你自己说你是Midi键盘吗！\r\n樱桃键盘不行！Filco也不行！" +
+        "\r\nHHKB也不行！带不带RGB都不行！\r\n王总这不是钱的问题！");
+            this.btnKeyboardConnect.UseVisualStyleBackColor = false;
+            this.btnKeyboardConnect.Click += new System.EventHandler(this.btnKeyboardConnect_Click);
             // 
-            // tlblTime
+            // btnSwitch
             // 
-            this.tlblTime.BackColor = System.Drawing.Color.Transparent;
-            this.tlblTime.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tlblTime.ForeColor = System.Drawing.Color.Gray;
-            this.tlblTime.Name = "tlblTime";
-            this.tlblTime.Size = new System.Drawing.Size(68, 21);
-            this.tlblTime.Text = "时钟未同步";
+            this.btnSwitch.BackColor = System.Drawing.Color.Transparent;
+            this.btnSwitch.BackgroundImage = global::Daigassou.Properties.Resources.a0;
+            this.btnSwitch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSwitch.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.btnSwitch.ForeColor = System.Drawing.Color.White;
+            this.btnSwitch.Location = new System.Drawing.Point(128, 38);
+            this.btnSwitch.Name = "btnSwitch";
+            this.btnSwitch.Size = new System.Drawing.Size(95, 36);
+            this.btnSwitch.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnSwitch, "点一下可以切换8键和22键\r\n我当然是建议用22键啦！");
+            this.btnSwitch.UseVisualStyleBackColor = false;
+            this.btnSwitch.Click += new System.EventHandler(this.btnSwitch_Click);
             // 
-            // statusStrip1
+            // btn22key
             // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tlblTime,
-            this.timeStripStatus,
-            this.toolStripSplitButton1,
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 693);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(357, 26);
-            this.statusStrip1.TabIndex = 18;
-            this.statusStrip1.Text = "statusStrip1";
+            this.btn22key.BackColor = System.Drawing.Color.Transparent;
+            this.btn22key.BackgroundImage = global::Daigassou.Properties.Resources.kb0;
+            this.btn22key.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn22key.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn22key.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.btn22key.ForeColor = System.Drawing.Color.White;
+            this.btn22key.Location = new System.Drawing.Point(229, 38);
+            this.btn22key.Name = "btn22key";
+            this.btn22key.Size = new System.Drawing.Size(95, 36);
+            this.btn22key.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.btn22key, "点这里就可以设置键位了\r\n22键位可以导入！导入！！导入！！！\r\n我辛苦做的导入你们都不看的吗！\r\n嗨呀气死我了你们不看教程的吗！");
+            this.btn22key.UseVisualStyleBackColor = false;
+            this.btn22key.Click += new System.EventHandler(this.btn22key_Click);
             // 
-            // timeStripStatus
+            // btn8key
             // 
-            this.timeStripStatus.BackColor = System.Drawing.Color.Transparent;
-            this.timeStripStatus.Name = "timeStripStatus";
-            this.timeStripStatus.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.timeStripStatus.Size = new System.Drawing.Size(56, 21);
-            this.timeStripStatus.Text = "20:00:00";
+            this.btn8key.BackColor = System.Drawing.Color.Transparent;
+            this.btn8key.BackgroundImage = global::Daigassou.Properties.Resources.ka1;
+            this.btn8key.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn8key.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn8key.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.btn8key.ForeColor = System.Drawing.Color.White;
+            this.btn8key.Location = new System.Drawing.Point(18, 38);
+            this.btn8key.Name = "btn8key";
+            this.btn8key.Size = new System.Drawing.Size(95, 36);
+            this.btn8key.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.btn8key, "点这里就可以设置键位了\r\n嗨呀气死我了你们不看教程的吗！\r\n\r\n");
+            this.btn8key.UseVisualStyleBackColor = false;
+            this.btn8key.Click += new System.EventHandler(this.button4_Click);
             // 
             // toolStripSplitButton1
             // 
@@ -726,16 +731,14 @@
             // 
             // toolStripStatusLabel1
             // 
+            this.toolStripStatusLabel1.AutoSize = false;
             this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripStatusLabel1.Image = global::Daigassou.Properties.Resources.icons8_advertisement_page_90;
+            this.toolStripStatusLabel1.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(131, 21);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(24, 21);
+            this.toolStripStatusLabel1.ToolTipText = "内测版的悬浮窗功能\r\n不是内测用户不要点";
             this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
-            // 
-            // playTimer
-            // 
-            this.playTimer.Enabled = true;
-            this.playTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
             // 
             // MainForm
             // 

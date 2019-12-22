@@ -649,7 +649,7 @@ internal partial class Network
             ParameterController.GetInstance().AnalyzeNotes(notes);
         }
 
-        if (opcode == 0x011E)//CountDown
+        if (opcode == 0x011E && Log.isBeta)//CountDown
         {
             var countDownTime = data[4];
             var nameBytes = new byte[18];
@@ -657,8 +657,9 @@ internal partial class Network
             var name = Encoding.UTF8.GetString(nameBytes) ?? "";
             Play?.Invoke(this, new PlayEvent(0,Convert.ToInt32(countDownTime), name));
         }
-        
-        if (opcode == 0x011C) //party check
+
+
+        if (opcode == 0x011C&&Log.isBeta) //party check
         {
             Console.WriteLine("get!");
             var nameBytes = new byte[18];
@@ -667,7 +668,7 @@ internal partial class Network
             Play?.Invoke(this, new PlayEvent(1,0, name));
 
         }
-        if (opcode == 0x0272) //party check
+        if (opcode == 0x0272 && Log.isBeta) //party check
         {
             Console.WriteLine("272");
             
