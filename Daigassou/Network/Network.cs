@@ -21,7 +21,7 @@ using NetFwTypeLib;
 
 
 
-internal partial class Network
+public partial class Network
 {
     public class PlayEvent : EventArgs
     {

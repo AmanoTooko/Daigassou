@@ -36,7 +36,7 @@ namespace Daigassou
         private int pauseTime = 0;
         private bool isCaptureFlag;
         private Queue<KeyPlayList> keyPlayLists;
-        private Network net;
+        private NetworkClass net;
         
         public MainForm()
         {
@@ -190,12 +190,13 @@ namespace Daigassou
         }
         private void StopKeyPlay()
         {
+            kc.ResetKey();
             if (_runningFlag)
             {
                 
                 _runningFlag = false;
                 cts.Cancel();
-                kc.ResetKey();
+                
             }
         }
         private void PitchUp_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
@@ -259,12 +260,7 @@ namespace Daigassou
                 Console.WriteLine(sw.ElapsedMilliseconds);
                 
             }
-            else
-            {
-                
-                kc.internalRunningFlag = true;
-                kc.pauseOffset += Environment.TickCount - pauseTime;
-            }
+
 
         }
 
@@ -524,7 +520,8 @@ namespace Daigassou
             }
             if (isCaptureFlag)
             {
-                net.StopCapture();
+
+                net._shouldStop = true;
                 isCaptureFlag = false;
                 (sender as Button).Text = "开始同步";
                 (sender as Button).BackColor = Color.FromArgb(255, 128, 128);
@@ -532,15 +529,17 @@ namespace Daigassou
             else
             {
                 TimeSync();
-                if (net == null) net = new Network();
+                
+                
+                if (net == null) net = new NetworkClass();
                 net.Play += Net_Play;
                 try
                 {
                     var ffprocessList = FFProcess.FindFFXIVProcess();
                     if (ffprocessList.Count == 1)
                     {
+                        Task.Run(() => { net.Run((uint) FFProcess.FindFFXIVProcess().First().Id); });
                         
-                        net.StartCapture(FFProcess.FindFFXIVProcess().First());
                         isCaptureFlag = true;
                         (sender as Button).Text = "停止同步";
                         (sender as Button).BackColor=Color.Aquamarine;
@@ -549,11 +548,13 @@ namespace Daigassou
                     {
                         if (FFProcess.FindDaigassouProcess().Count>1)
                         {
-                            net.StartCapture(FFProcess.FindFFXIVProcess()[1]);
+                            Task.Run(() => { net.Run((uint)FFProcess.FindFFXIVProcess()[1].Id); });
+                            
                         }
                         else
                         {
-                            net.StartCapture(FFProcess.FindFFXIVProcess().First());
+                            Task.Run(() => { net.Run((uint)FFProcess.FindFFXIVProcess().First().Id); });
+                            
                         }
                         
                         isCaptureFlag = true;

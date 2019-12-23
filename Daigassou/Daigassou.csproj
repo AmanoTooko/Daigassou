@@ -105,6 +105,12 @@
       <HintPath>Reference\Interop.NetFwTypeLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Machina">
+      <HintPath>Reference\Machina.dll</HintPath>
+    </Reference>
+    <Reference Include="Machina.FFXIV">
+      <HintPath>Reference\Machina.FFXIV.dll</HintPath>
+    </Reference>
     <Reference Include="Melanchall.DryWetMidi, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Melanchall.DryWetMidi.4.1.1\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
     </Reference>
@@ -184,6 +190,7 @@
       <DependentUpon>KeyBindForm8Key.cs</DependentUpon>
     </Compile>
     <Compile Include="Network\Network.cs" />
+    <Compile Include="Network\NetworkClass.cs" />
     <Compile Include="NtpClient.cs" />
     <Compile Include="Output_Key\BackgroundKey.cs" />
     <Compile Include="Output_Key\KeyBinding.cs" />

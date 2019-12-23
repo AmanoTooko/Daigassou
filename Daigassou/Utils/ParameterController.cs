@@ -134,6 +134,7 @@ namespace Daigassou.Utils
             {
                 Offset = InternalOffset+(500-packetTime);
                 Console.WriteLine($"InternalOffset is sync to {Offset}");
+                Log.overlayLog($"网络同步:内部延迟同步至{Offset}毫秒");
                 NeedSync = false;
             }
 
