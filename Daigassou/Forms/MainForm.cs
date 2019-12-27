@@ -572,7 +572,7 @@ namespace Daigassou
             }
         }
         private delegate void remotePlay(int time, string name);
-        private void Net_Play(object sender, Network.PlayEvent e)
+        private void Net_Play(object sender, PlayEvent e)
         {
             if (this.InvokeRequired)
             {

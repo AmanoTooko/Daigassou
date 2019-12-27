@@ -123,7 +123,7 @@ namespace Daigassou.Utils
                 sb.Append(text[i].ToString("X2"));
             }
 
-            Log.overlayLog(sb.ToString());
+            //Log.overlayLog(sb.ToString());
             Debug(sb.ToString());
         }
     }

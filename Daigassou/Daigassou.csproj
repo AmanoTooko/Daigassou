@@ -189,7 +189,6 @@
     <Compile Include="Forms\KeyBindForm8Key.Designer.cs">
       <DependentUpon>KeyBindForm8Key.cs</DependentUpon>
     </Compile>
-    <Compile Include="Network\Network.cs" />
     <Compile Include="Network\NetworkClass.cs" />
     <Compile Include="NtpClient.cs" />
     <Compile Include="Output_Key\BackgroundKey.cs" />

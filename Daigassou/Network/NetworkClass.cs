@@ -10,8 +10,28 @@ using System.Xml.Serialization;
 using Daigassou.Utils;
 using Machina.FFXIV;
 using Machina;
+using NetFwTypeLib;
+
 namespace Daigassou
 {
+    public class PlayEvent : EventArgs
+    {
+        private readonly String text;
+        private readonly int time;
+        private readonly int mode;
+        public PlayEvent(int mode, int Time, String text)
+        {
+            this.mode = mode;
+            this.time = Time;
+            this.text = text;
+        }
+        public String Text { get { return text; } }
+        public int Time { get { return time; } }
+        public int Mode
+        {
+            get { return mode; }
+        }
+    }
     public class PacketEntry
     {
         public string Direction { get; set; }
@@ -53,7 +73,7 @@ namespace Daigassou
     }
     public class NetworkClass
     {
-        public event EventHandler<Network.PlayEvent> Play;
+        public event EventHandler<PlayEvent> Play;
         private void MessageReceived(long epoch, byte[] message, int set, FFXIVNetworkMonitor.ConnectionType connectionType)
         {
             var res = Parse(message);
@@ -65,7 +85,7 @@ namespace Daigassou
                 var nameBytes = new byte[18];
                 Array.Copy(res.data, 41, nameBytes, 0, 18);
                 var name = Encoding.UTF8.GetString(nameBytes) ?? "";
-                Play?.Invoke(this, new Network.PlayEvent(0, Convert.ToInt32(countDownTime), name));
+                Play?.Invoke(this, new PlayEvent(0, Convert.ToInt32(countDownTime), name));
             }
 
 
@@ -75,14 +95,14 @@ namespace Daigassou
                 var nameBytes = new byte[18];
                 Array.Copy(res.data, 52, nameBytes, 0, 18);
                 var name = Encoding.UTF8.GetString(nameBytes) ?? "";
-                Play?.Invoke(this, new Network.PlayEvent(1, 0, name));
+                Play?.Invoke(this, new PlayEvent(1, 0, name));
 
             }
             if (res.header.MessageType == 0x0272 && Log.isBeta) //party check
             {
                 Console.WriteLine("272");
 
-                Play?.Invoke(this, new Network.PlayEvent(1, 0, "紧急"));
+                Play?.Invoke(this, new PlayEvent(1, 0, "紧急"));
 
             }
             
@@ -151,6 +171,7 @@ namespace Daigassou
         public void Run(uint processID)
         {
             FFXIVNetworkMonitor monitor = new FFXIVNetworkMonitor();
+            RegisterToFirewall();
             monitor.MonitorType = TCPNetworkMonitor.NetworkMonitorType.RawSocket;
             monitor.MessageReceived = MessageReceived;
             monitor.MessageSent = MessageSent;
@@ -165,6 +186,60 @@ namespace Daigassou
 
             Console.WriteLine("MachinaCaptureWorker: Terminating");
             monitor.Stop();
+        }
+        private void RegisterToFirewall()
+        {
+            try
+            {
+                Process p = new Process();
+                var exePath = Process.GetCurrentProcess().MainModule.FileName;
+                p.StartInfo.FileName = "cmd.exe"; //命令
+                p.StartInfo.UseShellExecute = false; //不启用shell启动进程
+                p.StartInfo.RedirectStandardInput = true; // 重定向输入
+                p.StartInfo.RedirectStandardOutput = true; // 重定向标准输出
+                p.StartInfo.RedirectStandardError = true; // 重定向错误输出 
+                p.StartInfo.CreateNoWindow = true; // 不创建新窗口
+                p.Start();
+                p.StandardInput.WriteLine("netsh advfirewall firewall add rule name=\"WinClient\" dir=in program=\"" + exePath + "\" action=allow localip=any remoteip=any security=notrequired description=DFAssist"); //cmd执行的语句
+                                                                                                                                                                                                                        //p.StandardOutput.ReadToEnd(); //读取命令执行信息
+                p.StandardInput.WriteLine("exit"); //退出
+
+                var netFwMgr = GetInstance<INetFwMgr>("HNetCfg.FwMgr");
+                var netAuthApps = netFwMgr.LocalPolicy.CurrentProfile.AuthorizedApplications;
+
+                var isExists = false;
+                foreach (var netAuthAppObject in netAuthApps)
+                {
+                    var netAuthApp = netAuthAppObject as INetFwAuthorizedApplication;
+                    if (netAuthApp != null && netAuthApp.ProcessImageFileName == exePath && netAuthApp.Enabled)
+                    {
+                        isExists = true;
+                    }
+                }
+
+                if (!isExists)
+                {
+                    var netAuthApp = GetInstance<INetFwAuthorizedApplication>("HNetCfg.FwAuthorizedApplication");
+
+                    netAuthApp.Enabled = true;
+                    netAuthApp.Name = "Daigassou";
+                    netAuthApp.ProcessImageFileName = exePath;
+                    netAuthApp.Scope = NET_FW_SCOPE_.NET_FW_SCOPE_ALL;
+
+                    netAuthApps.Add(netAuthApp);
+
+                }
+                Log.S("l-firewall-registered");
+            }
+            catch (Exception ex)
+            {
+                Log.Ex(ex, "l-firewall-error");
+            }
+        }
+
+        private T GetInstance<T>(string typeName)
+        {
+            return (T)Activator.CreateInstance(Type.GetTypeFromProgID(typeName));
         }
     }
 }
