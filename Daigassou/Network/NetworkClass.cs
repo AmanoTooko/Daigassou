@@ -19,6 +19,7 @@ namespace Daigassou
         private readonly String text;
         private readonly int time;
         private readonly int mode;
+
         public PlayEvent(int mode, int Time, String text)
         {
             this.mode = mode;
@@ -82,27 +83,28 @@ namespace Daigassou
             if (res.header.MessageType == 0x011E && Log.isBeta)//CountDown
             {
                 var countDownTime = res.data[36];
+                var unixTime = BitConverter.ToUInt32(res.data, 24);
                 var nameBytes = new byte[18];
                 Array.Copy(res.data, 41, nameBytes, 0, 18);
                 var name = Encoding.UTF8.GetString(nameBytes) ?? "";
-                Play?.Invoke(this, new PlayEvent(0, Convert.ToInt32(countDownTime), name));
+                Play?.Invoke(this, new PlayEvent(0, Convert.ToInt32(unixTime+countDownTime), name));
             }
 
 
-            if (res.header.MessageType == 0x011C && Log.isBeta) //party check
-            {
-                Console.WriteLine("get!");
-                var nameBytes = new byte[18];
-                Array.Copy(res.data, 52, nameBytes, 0, 18);
-                var name = Encoding.UTF8.GetString(nameBytes) ?? "";
-                Play?.Invoke(this, new PlayEvent(1, 0, name));
+            //if (res.header.MessageType == 0x011C && Log.isBeta) //party check
+            //{
+            //    Console.WriteLine("get!");
+            //    var nameBytes = new byte[18];
+            //    Array.Copy(res.data, 52, nameBytes, 0, 18);
+            //    var name = Encoding.UTF8.GetString(nameBytes) ?? "";
+            //    Play?.Invoke(this, new PlayEvent(1, 0, name));
 
-            }
+            //}
             if (res.header.MessageType == 0x0272 && Log.isBeta) //party check
             {
-                Console.WriteLine("272");
+                
 
-                Play?.Invoke(this, new PlayEvent(1, 0, "紧急"));
+                Play?.Invoke(this, new PlayEvent(1, 0, " "));
 
             }
             

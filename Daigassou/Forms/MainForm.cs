@@ -522,6 +522,7 @@ namespace Daigassou
             {
 
                 net._shouldStop = true;
+                
                 isCaptureFlag = false;
                 (sender as Button).Text = "开始同步";
                 (sender as Button).BackColor = Color.FromArgb(255, 128, 128);
@@ -605,10 +606,14 @@ namespace Daigassou
 
         private void NetPlay(int time,string name)
         {
-            dateTimePicker1.Value = DateTime.Now.AddMilliseconds(time * 1000);
-            StartKeyPlayback(time * 1000 + (int)numericUpDown2.Value);
-            Log.overlayLog($"网络控制：{name.Trim().Replace("\0", string.Empty)}发起倒计时:{time}s");
-            tlblTime.Text = $"{name.Trim().Replace("\0",string.Empty)}发起倒计时:{time}s";
+            System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1)); // 当地时区
+            DateTime dt = startTime.AddSeconds(time);
+
+            dateTimePicker1.Value = dt;
+            var msTime = (dt - DateTime.Now).TotalMilliseconds;
+            StartKeyPlayback((int)msTime + (int)numericUpDown2.Value);
+            Log.overlayLog($"网络控制：{name.Trim().Replace("\0", string.Empty)}发起倒计时，目标时间:{dt.ToString("HH:mm:ss")}");
+            tlblTime.Text = $"{name.Trim().Replace("\0",string.Empty)}发起倒计时:{msTime}毫秒";
         }
 
         private void NetStop(int time, string name)
