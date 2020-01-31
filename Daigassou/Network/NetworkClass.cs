@@ -172,6 +172,7 @@ namespace Daigassou
         public bool _shouldStop = false;
         public void Run(uint processID)
         {
+            Log.overlayLog($"开始检测进程：{processID}");
             FFXIVNetworkMonitor monitor = new FFXIVNetworkMonitor();
             RegisterToFirewall();
             monitor.MonitorType = TCPNetworkMonitor.NetworkMonitorType.RawSocket;
@@ -188,6 +189,7 @@ namespace Daigassou
 
             Console.WriteLine("MachinaCaptureWorker: Terminating");
             monitor.Stop();
+            
         }
         private void RegisterToFirewall()
         {

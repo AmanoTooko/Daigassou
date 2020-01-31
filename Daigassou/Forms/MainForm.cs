@@ -532,7 +532,7 @@ namespace Daigassou
                 TimeSync();
                 
                 
-                if (net == null) net = new NetworkClass();
+                net = new NetworkClass();
                 net.Play += Net_Play;
                 try
                 {
@@ -549,6 +549,7 @@ namespace Daigassou
                     {
                         if (FFProcess.FindDaigassouProcess().Count>1)
                         {
+                            
                             Task.Run(() => { net.Run((uint)FFProcess.FindFFXIVProcess()[1].Id); });
                             
                         }
