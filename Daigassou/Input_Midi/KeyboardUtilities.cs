@@ -48,6 +48,7 @@ namespace Daigassou.Input_Midi
 
         private static void MidiKeyboard_EventReceived(object sender, MidiEventReceivedEventArgs e)
         {
+            Log.overlayLog($"收到Note@{DateTime.Now.ToString("HH: mm:ss.fff")} ");
             switch (e.Event)
             {
                 case NoteOnEvent @event:
@@ -89,28 +90,34 @@ namespace Daigassou.Input_Midi
 
         public static void NoteProcess(CancellationToken token)
         {
+           
+            
             var minimumInterval = (int) Settings.Default.MinEventMs;
-
             while (!token.IsCancellationRequested)
             {
                 NoteEvent nextKey;
                 lock (noteLock)
                 {
-                    if (noteQueue.Count <= 0) continue;
+                    if (noteQueue.Count <= 0)
+                    {
+                        Thread.Sleep(1); continue;
+                    }
+                        
                     nextKey = noteQueue.Dequeue();
                 }
-
+                
                 switch (nextKey)
                 {
                     case NoteOnEvent keyon:
                         NoteOn(keyon);
-                        Thread.Sleep(minimumInterval);
+                        Thread.Sleep(10);
                         break;
                     case NoteOffEvent keyoff:
                         NoteOff(keyoff);
                         Thread.Sleep(5);
                         break;
                 }
+                
             }
         }
 

@@ -114,9 +114,6 @@
     <Reference Include="Melanchall.DryWetMidi, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Melanchall.DryWetMidi.4.1.1\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
     </Reference>
-    <Reference Include="Midi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\midi-dot-net2.2.0.1\lib\net461\Midi.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -272,7 +269,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Version.ORZ" />
     <None Include="[大合奏]使用教程.md" />
   </ItemGroup>
   <ItemGroup>
@@ -309,7 +305,6 @@
     <None Include="Resources\icons8-idea-window-100.png" />
     <None Include="Resources\icons8-advertisement-page-90.png" />
     <Content Include="Resources\ico_128.ico" />
-    <None Include="Resources\TIM图片20180319212757.png" />
     <None Include="Resources\keybindingBGimg.png" />
   </ItemGroup>
   <ItemGroup>

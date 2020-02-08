@@ -37,6 +37,7 @@ namespace Daigassou
                 else
                     KeyboardPress(KeyBinding.GetNoteToKey(pitch));
                 Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch - 24).ToString("X2")} Note On");
+                Log.overlayLog($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch - 24).ToString("X2")} Note On");
                 ParameterController.GetInstance().CheckSyncStatus();
             }
         }

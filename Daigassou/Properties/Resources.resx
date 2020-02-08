@@ -160,9 +160,6 @@
   <data name="ka0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ka0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TIM图片20180319212757" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TIM图片20180319212757.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="btn1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btn1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

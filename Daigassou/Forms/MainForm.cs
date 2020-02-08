@@ -264,7 +264,7 @@ namespace Daigassou
 
         }
 
-        private Task NewCancellableTask(CancellationToken token)
+        private Task createPerformanceTask(CancellationToken token)
         {
             return Task.Run(() =>
             {
@@ -291,7 +291,7 @@ namespace Daigassou
             else
                 return;
 
-            pathTextBox.Text = midFileDiag.FileName;
+            pathTextBox.Text = Path.GetFileName( midFileDiag.FileName);
             _tmpScore = mtk.GetTrackManagers(); //note tracks
             var bpm = mtk.GetBpm();
             var tmp = new List<string>();
@@ -302,7 +302,9 @@ namespace Daigassou
 
 
             trackComboBox.DataSource = tmp;
-            trackComboBox.SelectedIndex = 0;
+            trackComboBox.SelectedIndex =0;
+            //TODO: if source midi not imported successfully will cause error
+            //TODO: Enhancement issue#14 lock track selection
             if (bpm >= nudBpm.Maximum)
                 nudBpm.Value = nudBpm.Maximum;
             else if (bpm <= nudBpm.Minimum)
@@ -376,7 +378,7 @@ namespace Daigassou
             timer1.Enabled = false;
             _runningFlag = true;
             cts = new CancellationTokenSource();
-            _runningTask = NewCancellableTask(cts.Token);
+            _runningTask = createPerformanceTask(cts.Token);
         }
 
 
