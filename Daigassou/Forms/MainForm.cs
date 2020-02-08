@@ -22,13 +22,15 @@ namespace Daigassou
 {
     public partial class MainForm : Form
     {
+        [DllImport("winmm.dll")] internal static extern uint timeBeginPeriod(uint period);
+        [DllImport("winmm.dll")] internal static extern uint timeEndPeriod(uint period);
         private readonly KeyController kc = new KeyController();
         private readonly KeyBindFormOld keyForm22 = new KeyBindFormOld();
         private readonly KeyBindForm8Key keyForm8 = new KeyBindForm8Key();
         private readonly MidiToKey mtk = new MidiToKey();
         private bool _playingFlag;
         private bool _runningFlag;
-        private Task _runningTask;
+        private Thread _runningTask;
         private List<string> _tmpScore;
         private CancellationTokenSource cts = new CancellationTokenSource();
         internal HotKeyManager hkm;
@@ -44,6 +46,7 @@ namespace Daigassou
             formUpdate();
             
             KeyBinding.LoadConfig();
+            timeBeginPeriod(1);
             ThreadPool.SetMaxThreads(25, 50);
             Task.Run(() => { CommonUtilities.GetLatestVersion(); });
 
@@ -185,6 +188,7 @@ namespace Daigassou
         {
             Log.overlayLog($"快捷键：演奏停止");
             StopKeyPlay();
+            _runningTask?.Abort();
             
 
         }
@@ -219,6 +223,16 @@ namespace Daigassou
                 
         }
 
+        void Spin(Stopwatch w, int duration)
+        {
+            w.Start();
+            var current = w.ElapsedMilliseconds;
+            
+            while ((w.ElapsedMilliseconds - current) < duration)
+                Thread.SpinWait(10);
+                
+            
+        }
 
         private void StartKeyPlayback(int interval)
         {
@@ -236,14 +250,15 @@ namespace Daigassou
                 _runningFlag = true;
                 timer1.Interval = interval < 1000 ? 1000 : interval;
                 var sub = (long) (1000 - interval);
-                
-                timer1.Start();
 
+                //timer1.Start();
+                var sw = new Stopwatch();
+                sw.Start();
+                Log.overlayLog($"文件名：{Path.GetFileName(midFileDiag.FileName)}");
+                Log.overlayLog($"定时：{timer1.Interval}毫秒后演奏");
                 mtk.OpenFile(midFileDiag.FileName);
                 mtk.GetTrackManagers();
                 keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 if (interval<0)
                 {
                     var keyPlay=keyPlayLists.Where((x)=>x.TimeMs> sub);
@@ -254,28 +269,30 @@ namespace Daigassou
                         keyPlayLists.Enqueue(kp);
                     }
                 }
-                Log.overlayLog($"文件名：{Path.GetFileName(midFileDiag.FileName)}");
-                Log.overlayLog($"定时：{timer1.Interval}毫秒后演奏");
                 sw.Stop();
-                Console.WriteLine(sw.ElapsedMilliseconds);
-                
+                _runningFlag = true;
+                cts = new CancellationTokenSource();
+                _runningTask = createPerformanceTask(cts.Token, interval-(int)sw.ElapsedMilliseconds);//minus bug?
+                _runningTask.Priority = ThreadPriority.Highest;
+
             }
 
 
         }
 
-        private Task createPerformanceTask(CancellationToken token)
+        private Thread createPerformanceTask(CancellationToken token,int startOffset)
         {
-            return Task.Run(() =>
-            {
-                //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
-                ParameterController.GetInstance().InternalOffset = (int) numericUpDown2.Value;
-                ParameterController.GetInstance().Offset = 0;
-                kc.KeyPlayBack(keyPlayLists, 1, cts.Token);
-                _runningFlag = false;
-                Log.overlayLog($"演奏：演奏结束");
-                kc.ResetKey();
-            }, token);
+            ParameterController.GetInstance().InternalOffset = (int)numericUpDown2.Value;
+            ParameterController.GetInstance().Offset = 0;
+            Thread thread = new Thread(
+                () => {
+                    kc.KeyPlayBack(keyPlayLists, 1, cts.Token, startOffset);
+                    _runningFlag = false;
+                }
+                );
+            thread.Start();
+            return thread;
+
         }
 
         private void trackComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -365,7 +382,7 @@ namespace Daigassou
                 }
                 
             }
-
+            timeEndPeriod(1);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -378,7 +395,7 @@ namespace Daigassou
             timer1.Enabled = false;
             _runningFlag = true;
             cts = new CancellationTokenSource();
-            _runningTask = createPerformanceTask(cts.Token);
+            //_runningTask = createPerformanceTask(cts.Token);
         }
 
 

@@ -30,7 +30,7 @@ namespace Daigassou.Input_Midi
                     wetMidiKeyboard.StartEventsListening();
                     cts = new CancellationTokenSource();
                     kc = _keyController;
-
+                    kc.UpdateKeyMap();
                     Task.Run(() =>
                     {
                         //var keyPlayLists = mtk.ArrangeKeyPlays(mtk.Index);
@@ -110,14 +110,14 @@ namespace Daigassou.Input_Midi
                 {
                     case NoteOnEvent keyon:
                         NoteOn(keyon);
-                        Thread.Sleep(10);
+                        Thread.Sleep(5);
                         break;
                     case NoteOffEvent keyoff:
                         NoteOff(keyoff);
                         Thread.Sleep(5);
                         break;
                 }
-                
+                Thread.Sleep(1);
             }
         }
 

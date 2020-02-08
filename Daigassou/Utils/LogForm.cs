@@ -29,7 +29,8 @@ namespace Daigassou.Utils
         {
             if (log!=null)
             {
-                log.Text = string.Format($"[{DateTime.Now.ToString("HH:mm:ss")}] {text}");
+                log.Text = string.Format($"[{DateTime.Now.ToString("HH:mm:ss.fff")}] {text}");
+                Console.WriteLine(string.Format($"[{DateTime.Now.ToString("HH:mm:ss.fff")}] {text}"));
             }
         }
 

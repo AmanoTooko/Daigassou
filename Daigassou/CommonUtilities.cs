@@ -12,9 +12,6 @@ namespace Daigassou
 {
     internal class CommonUtilities
     {
-        private const string LatestApiAddress =
-            "https://raw.githubusercontent.com/AmanoTooko/Daigassou/master/Daigassou/Version.ORZ";
-
         public static async void GetLatestVersion()
         {
             var wc = new WebClient();
@@ -59,7 +56,7 @@ namespace Daigassou
                 }
                 
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
         }

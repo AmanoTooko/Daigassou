@@ -14,6 +14,7 @@ namespace Daigassou
     public class KeyController
     {
         private readonly BackgroundKey bkKeyController = new BackgroundKey();
+        private static Dictionary<int, Keys> _keymap = new Dictionary<int, Keys>();
 
         private readonly object keyLock = new object();
         private Keys _lastCtrlKey;
@@ -37,7 +38,7 @@ namespace Daigassou
                 else
                     KeyboardPress(KeyBinding.GetNoteToKey(pitch));
                 Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch - 24).ToString("X2")} Note On");
-                Log.overlayLog($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch - 24).ToString("X2")} Note On");
+                Log.overlayLog($"{(pitch - 24).ToString("X2")} Note On");
                 ParameterController.GetInstance().CheckSyncStatus();
             }
         }
@@ -49,7 +50,7 @@ namespace Daigassou
             if (ctrKeys != Keys.None)
             {
                 keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 0, 0);
-                Thread.Sleep(15);
+                Thread.Sleep(10);
             }
 
             keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
@@ -61,7 +62,7 @@ namespace Daigassou
             lock (keyLock)
             {
                 keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
-                Thread.Sleep(1);
+                
             }
         }
 
@@ -80,6 +81,7 @@ namespace Daigassou
                         KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
                     Console.WriteLine(
                         $"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch - 24).ToString("X2")} Note Off");
+                    Log.overlayLog($"{(pitch - 24).ToString("X2")} Note Off");
                 }
             }
         }
@@ -119,38 +121,52 @@ namespace Daigassou
             }
             ParameterController.GetInstance().Pitch = 0;
         }
-
-        public void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed, CancellationToken token)
+        public void UpdateKeyMap()
         {
-            var startTime = Environment.TickCount;
+            for(int i =48;i<84;i++)
+            {
+                _keymap[i] = KeyBinding.GetNoteToKey(i);
+            }
+           
+        }
+        public void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed, CancellationToken token,int startOffset)
+        {
+            UpdateKeyMap();
             var endTime = keyQueue.Last().TimeMs;
+            var sw = new Stopwatch();
+            sw.Start();
             while (keyQueue.Any() && !token.IsCancellationRequested)
             {
                 var nextKey = keyQueue.Dequeue();
-                // var duration = tick * nextKey.TimeMs;
-                //var targetTime = startTime + duration;
-                var targetTime = startTime + nextKey.TimeMs * speed;
+                var targetTime = startOffset + nextKey.TimeMs * speed;                
+                
                 while (true)
                 {
                     
                     if (internalRunningFlag)
                     {
 
-                        if (targetTime + ParameterController.GetInstance().Offset+ pauseOffset <= Environment.TickCount && !token.IsCancellationRequested)
+                        if (targetTime + ParameterController.GetInstance().Offset+ pauseOffset <= sw.ElapsedMilliseconds && !token.IsCancellationRequested)
                             break;
                     }
                     Thread.Sleep(1);
                 }
-                Log.overlayProcess(((int)(nextKey.TimeMs*100/endTime)).ToString());
+                Log.overlayLog($"StartTime{startOffset} now Time={sw.ElapsedMilliseconds} Offset={ParameterController.GetInstance().Offset + pauseOffset}");
                 if (nextKey.Ev == KeyPlayList.NoteEvent.NoteOn)
                     KeyboardPress(nextKey.Pitch + ParameterController.GetInstance().Pitch);
                 else
                     KeyboardRelease(nextKey.Pitch + ParameterController.GetInstance().Pitch);
+                Log.overlayLog($"StartTime{startOffset} now Time={sw.ElapsedMilliseconds} Offset={ParameterController.GetInstance().Offset + pauseOffset}");
+
+                Log.overlayProcess(((int)(nextKey.TimeMs*100/endTime)).ToString());
+                
 
 #if _log
                 System.Diagnostics.Console.WriteLine($@" i called function at {startTime} with target time is {targetTime}");
 #endif
             }
+            
+            Log.overlayLog($"演奏：演奏结束");
             ResetKey();
         }
     }
