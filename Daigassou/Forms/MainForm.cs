@@ -188,20 +188,15 @@ namespace Daigassou
         {
             Log.overlayLog($"快捷键：演奏停止");
             StopKeyPlay();
-            _runningTask?.Abort();
+
             
 
         }
         private void StopKeyPlay()
         {
+            _runningFlag = false;
             kc.ResetKey();
-            if (_runningFlag)
-            {
-                
-                _runningFlag = false;
-                cts.Cancel();
-                
-            }
+            _runningTask?.Abort();
         }
         private void PitchUp_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
@@ -223,16 +218,6 @@ namespace Daigassou
                 
         }
 
-        void Spin(Stopwatch w, int duration)
-        {
-            w.Start();
-            var current = w.ElapsedMilliseconds;
-            
-            while ((w.ElapsedMilliseconds - current) < duration)
-                Thread.SpinWait(10);
-                
-            
-        }
 
         private void StartKeyPlayback(int interval)
         {
@@ -248,14 +233,14 @@ namespace Daigassou
             {
                 
                 _runningFlag = true;
-                timer1.Interval = interval < 1000 ? 1000 : interval;
+                var Interval = interval < 1000 ? 1000 : interval;
                 var sub = (long) (1000 - interval);
 
                 //timer1.Start();
                 var sw = new Stopwatch();
                 sw.Start();
                 Log.overlayLog($"文件名：{Path.GetFileName(midFileDiag.FileName)}");
-                Log.overlayLog($"定时：{timer1.Interval}毫秒后演奏");
+                Log.overlayLog($"定时：{Interval}毫秒后演奏");
                 mtk.OpenFile(midFileDiag.FileName);
                 mtk.GetTrackManagers();
                 keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
@@ -382,7 +367,9 @@ namespace Daigassou
                 }
                 
             }
+            StopKeyPlay();
             timeEndPeriod(1);
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -390,13 +377,7 @@ namespace Daigassou
             keyForm8.ShowDialog();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            timer1.Enabled = false;
-            _runningFlag = true;
-            cts = new CancellationTokenSource();
-            //_runningTask = createPerformanceTask(cts.Token);
-        }
+       
 
 
         private void btnKeyboardConnect_Click(object sender, EventArgs e)

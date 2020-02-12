@@ -48,7 +48,6 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.midFileDiag = new System.Windows.Forms.OpenFileDialog();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.gBParameterSetting = new System.Windows.Forms.GroupBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.nudBpm = new System.Windows.Forms.NumericUpDown();
@@ -323,10 +322,6 @@
             // 
             this.midFileDiag.FileName = "openFileDialog1";
             this.midFileDiag.Filter = "mid文件|*.mid";
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // gBParameterSetting
             // 
@@ -804,7 +799,6 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button btn8key;
-        public System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cbMidiKeyboard;

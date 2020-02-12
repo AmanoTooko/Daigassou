@@ -184,7 +184,27 @@ namespace Daigassou
                 }
             }
         }
-
+        /// <summary>
+        /// 清除水果或其他软件产生的duration小于5的奇怪杂音
+        /// </summary>
+        public void PreProcessNoise()
+        {
+            var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
+               .TrimEnd(" ticks/qnote".ToCharArray()));
+            var tickBase = 60000 / (float)Bpm / ticksPerQuarterNote;
+            var eventOffTimeArray = new TimedEvent[127];
+            using (var eventsManager = trunks.ElementAt(Index).Events.ManageNotes())
+            {
+                foreach (var @event in eventsManager.Notes)
+                {
+                    tickBase = 60000 / (float)Tmap.Tempo.AtTime(@event.Time).BeatsPerMinute /
+                               ticksPerQuarterNote;
+                    var minTick = (long)(MIN_DELAY_TIME_MS_EVENT / tickBase);
+                    if (@event.Length < minTick / 2) 
+                        eventsManager.Notes.Remove(@event);
+                }
+            }
+        }
         public void SaveToFile()
         {
             PreProcessTempoMap();
@@ -207,10 +227,11 @@ namespace Daigassou
 
             var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
                 .TrimEnd(" ticks/qnote".ToCharArray()));
-            var tickBase = 60000 / (float) Bpm / ticksPerQuarterNote; //duplicate code need to be delete
+            var tickBase = 60000 / (double) Bpm / ticksPerQuarterNote; //duplicate code need to be delete
             var nowTimeMs = 0;
             var retKeyPlayLists = new Queue<KeyPlayList>();
             PreProcessTempoMap();
+            PreProcessNoise();
             PreProcessSpeed(speed);
             PreProcessChord();
             PreProcessEvents();
@@ -238,7 +259,7 @@ namespace Daigassou
                         case SetTempoEvent @event:
                         {
                             nowTimeMs += (int) (tickBase * @event.DeltaTime);
-                            tickBase = (float) @event.MicrosecondsPerQuarterNote / 1000 / ticksPerQuarterNote;
+                            tickBase = (double) @event.MicrosecondsPerQuarterNote / (1000.0 *ticksPerQuarterNote);
                         }
                             break;
                         default:

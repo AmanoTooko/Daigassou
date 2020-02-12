@@ -107,7 +107,7 @@ namespace MidiKeyBoardTest
 
         public static void NoteProcess(CancellationToken token)
         {
-            var minimumInterval = 50;
+            var minimumInterval = 30;
 
             while (!token.IsCancellationRequested)
             {
