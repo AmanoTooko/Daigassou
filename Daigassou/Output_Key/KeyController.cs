@@ -19,7 +19,7 @@ namespace Daigassou
         private readonly object keyLock = new object();
         private Keys _lastCtrlKey;
         public volatile bool isBackGroundKey = false;
-        public bool internalRunningFlag = true;
+        public bool internalRunningFlag = false;
         public int pauseOffset = 0;
         [DllImport("User32.dll")]
         public static extern void keybd_event(Keys bVk, byte bScan, int dwFlags, int dwExtraInfo);
@@ -38,7 +38,7 @@ namespace Daigassou
                 else
                     KeyboardPress(KeyBinding.GetNoteToKey(pitch));
                 Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch - 24).ToString("X2")} Note On");
-                Log.overlayLog($"{(pitch - 24).ToString("X2")} Note On");
+                //Log.overlayLog($"{(pitch - 24).ToString("X2")} Note On");
                 ParameterController.GetInstance().CheckSyncStatus();
             }
         }
@@ -81,7 +81,7 @@ namespace Daigassou
                         KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
                     Console.WriteLine(
                         $"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch - 24).ToString("X2")} Note Off");
-                    Log.overlayLog($"{(pitch - 24).ToString("X2")} Note Off");
+                    //Log.overlayLog($"{(pitch - 24).ToString("X2")} Note Off");
                 }
             }
         }
@@ -107,7 +107,7 @@ namespace Daigassou
 
         public void ResetKey()
         {
-            internalRunningFlag = true;
+            internalRunningFlag = false;
             pauseOffset = 0;
             KeyboardRelease(Keys.Control);
             Thread.Sleep(1);
@@ -132,7 +132,7 @@ namespace Daigassou
         public void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed, CancellationToken token,int startOffset)
         {
             UpdateKeyMap();
-            var endTime = keyQueue.Last().TimeMs;
+            var endTime = keyQueue.LastOrDefault()?.TimeMs;
             var sw = new Stopwatch();
             sw.Start();
             while (keyQueue.Any() && !token.IsCancellationRequested)
@@ -151,12 +151,12 @@ namespace Daigassou
                     }
                     Thread.Sleep(1);
                 }
-                Log.overlayLog($"StartTime{startOffset} now Time={sw.ElapsedMilliseconds} Offset={ParameterController.GetInstance().Offset + pauseOffset}");
+                //Log.overlayLog($"StartTime{startOffset} now Time={sw.ElapsedMilliseconds} Offset={ParameterController.GetInstance().Offset + pauseOffset}");
                 if (nextKey.Ev == KeyPlayList.NoteEvent.NoteOn)
                     KeyboardPress(nextKey.Pitch + ParameterController.GetInstance().Pitch);
                 else
                     KeyboardRelease(nextKey.Pitch + ParameterController.GetInstance().Pitch);
-                Log.overlayLog($"StartTime{startOffset} now Time={sw.ElapsedMilliseconds} Offset={ParameterController.GetInstance().Offset + pauseOffset}");
+                //Log.overlayLog($"StartTime{startOffset} now Time={sw.ElapsedMilliseconds} Offset={ParameterController.GetInstance().Offset + pauseOffset}");
 
                 Log.overlayProcess(((int)(nextKey.TimeMs*100/endTime)).ToString());
                 

@@ -138,7 +138,7 @@ namespace Daigassou
 
         private void Pause_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
-            if (_runningFlag)
+            if (kc.internalRunningFlag)
             {
                 Log.overlayLog($"快捷键：演奏暂停");
                 pauseTime = Environment.TickCount;
@@ -168,7 +168,7 @@ namespace Daigassou
 
         private void Start_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
-            if (!_runningFlag)
+            if (!kc.internalRunningFlag)
             {
                 Log.overlayLog($"快捷键：演奏开始");
                 StartKeyPlayback(1000);
@@ -197,24 +197,24 @@ namespace Daigassou
             _runningFlag = false;
             kc.ResetKey();
             _runningTask?.Abort();
+            while (_runningTask!=null&&
+                _runningTask.ThreadState != System.Threading.ThreadState.Stopped &&
+                _runningTask.ThreadState != System.Threading.ThreadState.Aborted) Thread.Sleep(1);
         }
         private void PitchUp_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
-            if (_runningFlag)
-            {
+
                 ParameterController.GetInstance().Pitch += 1;
                 Log.overlayLog($"快捷键：向上移调 当前 {ParameterController.GetInstance().Pitch}");
-            }
                 
         }
 
         private void PitchDown_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
-            if (_runningFlag)
-            {
+
                 ParameterController.GetInstance().Pitch -= 1;
                 Log.overlayLog($"快捷键：向下移调 当前 {ParameterController.GetInstance().Pitch}");
-            }
+            
                 
         }
 
@@ -229,10 +229,13 @@ namespace Daigassou
                 return;
             }
 
-            if (!_runningFlag)
+            if (_runningTask==null||
+                _runningTask.ThreadState!= System.Threading.ThreadState.Running&&
+                _runningTask.ThreadState != System.Threading.ThreadState.Suspended)
             {
+                _runningTask?.Abort();
                 
-                _runningFlag = true;
+                kc.internalRunningFlag = true;
                 var Interval = interval < 1000 ? 1000 : interval;
                 var sub = (long) (1000 - interval);
 
@@ -294,6 +297,7 @@ namespace Daigassou
                 return;
 
             pathTextBox.Text = Path.GetFileName( midFileDiag.FileName);
+            Log.overlayLog($"打开文件：{Path.GetFileName(midFileDiag.FileName)}");
             _tmpScore = mtk.GetTrackManagers(); //note tracks
             var bpm = mtk.GetBpm();
             var tmp = new List<string>();
@@ -679,16 +683,24 @@ namespace Daigassou
         private StatusOverlay.OverlayControl a;
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
-            if (a!=null)
+            try
             {
-                a.config.IsVisible = !a.config.IsVisible;
+                if (a != null)
+                {
+                    a.config.IsVisible = !a.config.IsVisible;
+                }
+                else
+                {
+                    a = new StatusOverlay.OverlayControl();
+                    a.InitializeOverlays(PointToScreen(new Point(this.Width, this.Height - 150)));
+                    Log.log = a.config;
+                }
             }
-            else
+            catch (NullReferenceException ex)
             {
-                a = new StatusOverlay.OverlayControl();
-                a.InitializeOverlays(PointToScreen(new Point(this.Width,this.Height-150)));
-                Log.log = a.config;
+                MessageBox.Show("悬浮窗库文件似乎不完全", "你是只傻肥！", MessageBoxButtons.OK, MessageBoxIcon.Information);                
             }
+            
         }
 }
 }
