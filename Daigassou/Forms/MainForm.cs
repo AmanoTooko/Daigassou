@@ -142,12 +142,11 @@ namespace Daigassou
 
         private void Pause_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
-            if (kc.internalRunningFlag)
-            {
-                Log.overlayLog($"快捷键：演奏暂停");
-                pauseTime = Environment.TickCount;
-                kc.internalRunningFlag = false;
-            }
+            if (!this.kc.isRunningFlag || !this.kc.isPlayingFlag)
+                return;
+            Daigassou.Utils.Log.overlayLog("快捷键：演奏暂停");
+            this.pauseTime = Environment.TickCount;
+            this.kc.isPlayingFlag = false;
         }
 
         private void formUpdate()
@@ -172,19 +171,16 @@ namespace Daigassou
 
         private void Start_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
-            if (!kc.internalRunningFlag)
+            if (!this.kc.isRunningFlag)
             {
-                Log.overlayLog($"快捷键：演奏开始");
-                StartKeyPlayback(1000);
-                
+                Daigassou.Utils.Log.overlayLog("快捷键：演奏开始");
+                this.StartKeyPlayback(1000);
             }
-                
             else
             {
-
-                Log.overlayLog($"快捷键：演奏恢复");
-                kc.internalRunningFlag = true;
-                kc.pauseOffset += Environment.TickCount - pauseTime;
+                Daigassou.Utils.Log.overlayLog("快捷键：演奏恢复");
+                this.kc.isPlayingFlag = true;
+                this.kc.pauseOffset += Environment.TickCount - this.pauseTime;
             }
         }
 
@@ -238,8 +234,8 @@ namespace Daigassou
                 _runningTask.ThreadState != System.Threading.ThreadState.Suspended)
             {
                 _runningTask?.Abort();
-                
-                kc.internalRunningFlag = true;
+
+                this.kc.isPlayingFlag = true;
                 var Interval = interval < 1000 ? 1000 : interval;
                 var sub = (long) (1000 - interval);
 

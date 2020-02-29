@@ -1,193 +1,181 @@
-﻿using System;
+﻿// Decompiled with JetBrains decompiler
+// Type: Daigassou.KeyController
+// Assembly: Daigassou, Version=2.5.2.5, Culture=neutral, PublicKeyToken=null
+// MVID: 24E3D967-932D-40D8-89F0-CFA3C67A7EA7
+// Assembly location: D:\dev\Daigassou\Daigassou\bin\x64\Debug\Daigassou.exe
+
+using Daigassou.Input_Midi;
+using Daigassou.Properties;
+using Daigassou.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using Daigassou.Input_Midi;
-using Daigassou.Properties;
-using Daigassou.Utils;
 
 namespace Daigassou
 {
-    public class KeyController
+  public class KeyController
+  {
+    private static Dictionary<int, Keys> _keymap = new Dictionary<int, Keys>();
+    private readonly BackgroundKey bkKeyController = new BackgroundKey();
+    private readonly object keyLock = new object();
+    public volatile bool isBackGroundKey = false;
+    public volatile bool isPlayingFlag = false;
+    public volatile bool isRunningFlag = false;
+    public int pauseOffset = 0;
+    private Keys _lastCtrlKey;
+
+    [DllImport("User32.dll")]
+    public static extern void keybd_event(Keys bVk, byte bScan, int dwFlags, int dwExtraInfo);
+
+    [DllImport("user32.dll")]
+    private static extern uint MapVirtualKey(uint uCode, uint uMapType);
+
+    public void KeyboardPress(int pitch)
     {
-        private readonly BackgroundKey bkKeyController = new BackgroundKey();
-        private static Dictionary<int, Keys> _keymap = new Dictionary<int, Keys>();
-
-        private readonly object keyLock = new object();
-        private Keys _lastCtrlKey;
-        public volatile bool isBackGroundKey = false;
-        public bool internalRunningFlag = false;
-        public int pauseOffset = 0;
-        [DllImport("User32.dll")]
-        public static extern void keybd_event(Keys bVk, byte bScan, int dwFlags, int dwExtraInfo);
-
-        [DllImport("user32.dll")]
-        private static extern uint MapVirtualKey(uint uCode, uint uMapType);
-
-        public void KeyboardPress(int pitch)
-        {
-            if (pitch <= 84 && pitch >= 48)
-            {
-                if (Settings.Default.IsEightKeyLayout)
-                    KeyboardPress(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
-                else if (isBackGroundKey)
-                    bkKeyController.BackgroundKeyPress(KeyBinding.GetNoteToKey(pitch));
-                else
-                    KeyboardPress(KeyBinding.GetNoteToKey(pitch));
-                Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch - 24).ToString("X2")} Note On");
-                //Log.overlayLog($"{(pitch - 24).ToString("X2")} Note On");
-                ParameterController.GetInstance().CheckSyncStatus();
-            }
-        }
-
-        public void KeyboardPress(Keys ctrKeys, Keys viKeys)
-        {
-            keybd_event(_lastCtrlKey, (byte) MapVirtualKey((uint) _lastCtrlKey, 0), 2, 0);
-            Thread.Sleep(1);
-            if (ctrKeys != Keys.None)
-            {
-                keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 0, 0);
-                Thread.Sleep(10);
-            }
-
-            keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
-            _lastCtrlKey = ctrKeys;
-        }
-
-        private void KeyboardPress(Keys viKeys)
-        {
-            lock (keyLock)
-            {
-                keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 0, 0);
-                
-            }
-        }
-
-
-        public void KeyboardRelease(int pitch)
-        {
-            lock (keyLock)
-            {
-                if (pitch <= 84 && pitch >= 48)
-                {
-                    if (Settings.Default.IsEightKeyLayout)
-                        KeyboardRelease(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
-                    else if (isBackGroundKey)
-                        bkKeyController.BackgroundKeyRelease(KeyBinding.GetNoteToKey(pitch));
-                    else
-                        KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
-                    Console.WriteLine(
-                        $"{DateTime.Now.ToString("HH:mm:ss.fff")},{(pitch - 24).ToString("X2")} Note Off");
-                    //Log.overlayLog($"{(pitch - 24).ToString("X2")} Note Off");
-                }
-            }
-        }
-
-        public void KeyboardRelease(Keys ctrKeys, Keys viKeys)
-        {
-            if (ctrKeys != Keys.None)
-                keybd_event(ctrKeys, (byte) MapVirtualKey((uint) ctrKeys, 0), 2, 0);
-            Thread.Sleep(1);
-            keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 2, 0);
-        }
-
-
-        public void KeyboardRelease(Keys viKeys)
-        {
-            keybd_event(viKeys, (byte) MapVirtualKey((uint) viKeys, 0), 2, 0);
-        }
-
-        public void InitBackGroundKey(IntPtr pid)
-        {
-            bkKeyController.Init(pid);
-        }
-
-        public void ResetKey()
-        {
-            internalRunningFlag = false;
-            pauseOffset = 0;
-            KeyboardRelease(Keys.Control);
-            Thread.Sleep(1);
-            KeyboardRelease(Keys.Shift);
-            Thread.Sleep(1);
-            KeyboardRelease(Keys.Alt);
-            Thread.Sleep(1);
-            for (int i = 48; i < 84; i++)
-            {
-                KeyboardRelease(KeyBinding.GetNoteToKey(i));
-            }
-            ParameterController.GetInstance().Pitch = 0;
-        }
-        public void UpdateKeyMap()
-        {
-            for(int i =48;i<84;i++)
-            {
-                _keymap[i] = KeyBinding.GetNoteToKey(i);
-            }
-           
-        }
-        public void KeyPlayBack(Queue<KeyPlayList> keyQueue, double speed, CancellationToken token,int startOffset)
-        {
-            UpdateKeyMap();
-            var endTime = keyQueue.LastOrDefault()?.TimeMs;
-            var sw = new Stopwatch();
-            sw.Start();
-            while (keyQueue.Any() && !token.IsCancellationRequested)
-            {
-                var nextKey = keyQueue.Dequeue();
-                var targetTime = startOffset + nextKey.TimeMs * speed;                
-                
-                while (true)
-                {
-                    
-                    if (internalRunningFlag)
-                    {
-
-                        if (targetTime + ParameterController.GetInstance().Offset+ pauseOffset <= sw.ElapsedMilliseconds && !token.IsCancellationRequested)
-                            break;
-                    }
-                    Thread.Sleep(1);
-                }
-                //Log.overlayLog($"StartTime{startOffset} now Time={sw.ElapsedMilliseconds} Offset={ParameterController.GetInstance().Offset + pauseOffset}");
-                if (nextKey.Ev == KeyPlayList.NoteEvent.NoteOn)
-                    KeyboardPress(nextKey.Pitch + ParameterController.GetInstance().Pitch);
-                else
-                    KeyboardRelease(nextKey.Pitch + ParameterController.GetInstance().Pitch);
-                //Log.overlayLog($"StartTime{startOffset} now Time={sw.ElapsedMilliseconds} Offset={ParameterController.GetInstance().Offset + pauseOffset}");
-
-                Log.overlayProcess(((int)(nextKey.TimeMs*100/endTime)).ToString());
-                
-
-#if _log
-                System.Diagnostics.Console.WriteLine($@" i called function at {startTime} with target time is {targetTime}");
-#endif
-            }
-            
-            Log.overlayLog($"演奏：演奏结束");
-            ResetKey();
-        }
+      if (pitch > 84 || pitch < 48)
+        return;
+      if (Settings.Default.IsEightKeyLayout)
+        this.KeyboardPress(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
+      else if (this.isBackGroundKey)
+        this.bkKeyController.BackgroundKeyPress(KeyBinding.GetNoteToKey(pitch));
+      else
+        this.KeyboardPress(KeyBinding.GetNoteToKey(pitch));
+      ParameterController.GetInstance().NetSyncQueue.Enqueue(new Daigassou.Utils.TimedNote()
+      {
+        Note = pitch - 24,
+        StartTime = DateTime.Now
+      });
     }
 
+    public void KeyboardPress(Keys ctrKeys, Keys viKeys)
+    {
+      KeyController.keybd_event(this._lastCtrlKey, (byte) KeyController.MapVirtualKey((uint) this._lastCtrlKey, 0U), 2, 0);
+      Thread.Sleep(1);
+      if ((uint) ctrKeys > 0U)
+      {
+        KeyController.keybd_event(ctrKeys, (byte) KeyController.MapVirtualKey((uint) ctrKeys, 0U), 0, 0);
+        Thread.Sleep(10);
+      }
+      KeyController.keybd_event(viKeys, (byte) KeyController.MapVirtualKey((uint) viKeys, 0U), 0, 0);
+      this._lastCtrlKey = ctrKeys;
+    }
+
+    private void KeyboardPress(Keys viKeys)
+    {
+      lock (this.keyLock)
+        KeyController.keybd_event(viKeys, (byte) KeyController.MapVirtualKey((uint) viKeys, 0U), 0, 0);
+    }
+
+    public void KeyboardRelease(int pitch)
+    {
+      lock (this.keyLock)
+      {
+        if (pitch > 84 || pitch < 48)
+          return;
+        if (Settings.Default.IsEightKeyLayout)
+          this.KeyboardRelease(KeyBinding.GetNoteToCtrlKey(pitch), KeyBinding.GetNoteToKey(pitch));
+        else if (this.isBackGroundKey)
+          this.bkKeyController.BackgroundKeyRelease(KeyBinding.GetNoteToKey(pitch));
+        else
+          this.KeyboardRelease(KeyBinding.GetNoteToKey(pitch));
+      }
+    }
+
+    public void KeyboardRelease(Keys ctrKeys, Keys viKeys)
+    {
+      if ((uint) ctrKeys > 0U)
+        KeyController.keybd_event(ctrKeys, (byte) KeyController.MapVirtualKey((uint) ctrKeys, 0U), 2, 0);
+      Thread.Sleep(1);
+      KeyController.keybd_event(viKeys, (byte) KeyController.MapVirtualKey((uint) viKeys, 0U), 2, 0);
+    }
+
+    public void KeyboardRelease(Keys viKeys)
+    {
+      KeyController.keybd_event(viKeys, (byte) KeyController.MapVirtualKey((uint) viKeys, 0U), 2, 0);
+    }
+
+    public void InitBackGroundKey(IntPtr pid)
+    {
+      this.bkKeyController.Init(pid);
+    }
+
+    public void ResetKey()
+    {
+      this.isPlayingFlag = false;
+      this.isRunningFlag = false;
+      this.pauseOffset = 0;
+      this.KeyboardRelease(Keys.Control);
+      Thread.Sleep(1);
+      this.KeyboardRelease(Keys.Shift);
+      Thread.Sleep(1);
+      this.KeyboardRelease(Keys.Alt);
+      Thread.Sleep(1);
+      for (int note = 48; note < 84; ++note)
+        this.KeyboardRelease(KeyBinding.GetNoteToKey(note));
+      ParameterController.GetInstance().Pitch = 0;
+    }
+
+    public void UpdateKeyMap()
+    {
+      for (int note = 48; note < 84; ++note)
+        KeyController._keymap[note] = KeyBinding.GetNoteToKey(note);
+    }
+
+    public void KeyPlayBack(
+      Queue<KeyPlayList> keyQueue,
+      double speed,
+      CancellationToken token,
+      int startOffset)
+    {
+      this.isRunningFlag = true;
+      this.UpdateKeyMap();
+      double? timeMs = keyQueue.LastOrDefault<KeyPlayList>()?.TimeMs;
+      Stopwatch stopwatch = new Stopwatch();
+      stopwatch.Start();
+      while (keyQueue.Any<KeyPlayList>())
+      {
+        KeyPlayList keyPlayList = keyQueue.Dequeue();
+        double num1 = (double) startOffset + keyPlayList.TimeMs * speed;
+        while (true)
+        {
+          if (!this.isPlayingFlag || num1 + (double) ParameterController.GetInstance().Offset + (double) this.pauseOffset > (double) stopwatch.ElapsedMilliseconds)
+            Thread.Sleep(1);
+          else
+            break;
+        }
+        if (keyPlayList.Ev == KeyPlayList.NoteEvent.NoteOn)
+          this.KeyboardPress(keyPlayList.Pitch + ParameterController.GetInstance().Pitch);
+        else
+          this.KeyboardRelease(keyPlayList.Pitch + ParameterController.GetInstance().Pitch);
+        double num2 = keyPlayList.TimeMs * 100.0;
+        double? nullable = timeMs;
+        Daigassou.Utils.Log.overlayProcess(((int) (nullable.HasValue ? new double?(num2 / nullable.GetValueOrDefault()) : new double?()).Value).ToString());
+      }
+      Daigassou.Utils.Log.overlayLog("演奏：演奏结束");
+      this.ResetKey();
+    }
+  }
     public class KeyPlayList
     {
+        public KeyPlayList.NoteEvent Ev;
+        public int Pitch;
+        public double TimeMs;
+
+        public KeyPlayList(KeyPlayList.NoteEvent ev, int pitch, double timeMs)
+        {
+            this.TimeMs = timeMs;
+            this.Ev = ev;
+            this.Pitch = pitch;
+        }
+
         public enum NoteEvent
         {
             NoteOff,
-            NoteOn
-        }
-
-        public NoteEvent Ev;
-        public int Pitch;
-        public long TimeMs;
-
-        public KeyPlayList(NoteEvent ev, int pitch, long timeMs)
-        {
-            TimeMs = timeMs;
-            Ev = ev;
-            Pitch = pitch;
+            NoteOn,
         }
     }
 }
