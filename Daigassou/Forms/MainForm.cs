@@ -17,7 +17,7 @@ using Daigassou.Properties;
 using Daigassou.Utils;
 using Newtonsoft.Json;
 using RainbowMage.OverlayPlugin;
-
+using Daigassou.Forms;
 namespace Daigassou
 {
     public partial class MainForm : Form
@@ -48,7 +48,11 @@ namespace Daigassou
             KeyBinding.LoadConfig();
             timeBeginPeriod(1);
             ThreadPool.SetMaxThreads(25, 50);
-            Task.Run(() => { CommonUtilities.GetLatestVersion(); });
+            Task.Run((Action)(() =>
+            {
+                CommonUtilities.GetLatestVersion();
+                this.TimeSync();
+            }));
 
             Text += $@" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
@@ -518,15 +522,10 @@ namespace Daigassou
 
         private void BtnTimeSync_Click(object sender, EventArgs e)
         {
-            if (Log.isBeta)
-            {
-                this.Text += " Beta版";
-            }
+
             if (isCaptureFlag)
             {
-
-                net._shouldStop = true;
-                
+                net._shouldStop = true;                
                 isCaptureFlag = false;
                 (sender as Button).Text = "开始同步";
                 (sender as Button).BackColor = Color.FromArgb(255, 128, 128);
@@ -540,30 +539,22 @@ namespace Daigassou
                 net.Play += Net_Play;
                 try
                 {
-                    var ffprocessList = FFProcess.FindFFXIVProcess();
-                    if (ffprocessList.Count == 1)
+                    List<Process> ffxivProcess = FFProcess.FindFFXIVProcess();
+                    if (ffxivProcess.Count == 1)
                     {
-                        Task.Run(() => { net.Run((uint) FFProcess.FindFFXIVProcess().First().Id); });
-                        
-                        isCaptureFlag = true;
+                        Task.Run((Action)(() => this.net.Run((uint)FFProcess.FindFFXIVProcess().First<Process>().Id)));
+                        this.isCaptureFlag = true;
                         (sender as Button).Text = "停止同步";
-                        (sender as Button).BackColor=Color.Aquamarine;
+                        (sender as Button).BackColor = Color.Aquamarine;
                     }
-                    else if( ffprocessList.Count==2)
+                    else if (ffxivProcess.Count >= 2)
                     {
-                        if (FFProcess.FindDaigassouProcess().Count>1)
-                        {
-                            
-                            Task.Run(() => { net.Run((uint)FFProcess.FindFFXIVProcess()[1].Id); });
-                            
-                        }
-                        else
-                        {
-                            Task.Run(() => { net.Run((uint)FFProcess.FindFFXIVProcess().First().Id); });
-                            
-                        }
-                        
-                        isCaptureFlag = true;
+                        uint id = 0;
+                        PidSelect pidSelect = new PidSelect();
+                        pidSelect.GetPid += (PidSelect.PidSelector)(x => id = (uint)x);
+                        int num = (int)pidSelect.ShowDialog();
+                        Task.Run((Action)(() => this.net.Run(id)));
+                        this.isCaptureFlag = true;
                         (sender as Button).Text = "停止同步";
                         (sender as Button).BackColor = Color.Aquamarine;
                     }
@@ -627,10 +618,7 @@ namespace Daigassou
             Log.overlayLog($"网络控制：{name.Trim().Replace("\0", string.Empty)}停止了演奏");
             tlblTime.Text = $"{name.Trim().Replace("\0", string.Empty)}停止了演奏";
         }
-        private void RemoteStart(int Time,string Name)
-        {
-            
-        }
+
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
             if (_playingFlag) timeLabel.Text = mtk.PlaybackInfo();
