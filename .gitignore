@@ -287,3 +287,5 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 /Daigassou/Output_Key/BackgroundKey.cs
+Daigassou/Network/NetworkClass.cs
+Daigassou/Utils/ParameterController.cs
