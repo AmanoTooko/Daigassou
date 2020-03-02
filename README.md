@@ -2,7 +2,7 @@
 A simple software to play midi file in FFXIV Bard performance.
 
 
-##### 这是什么？
+## 这是什么？
 
 这是一款辅助工具，或者说是外挂，可以帮助你在最终幻想14中更好地享受演奏系统。
 
@@ -12,7 +12,7 @@ A simple software to play midi file in FFXIV Bard performance.
 
 软件灵感来源于DS游戏《大合奏！》
 
-##### 主要功能
+## 主要功能
 
 - 导入，读取Midi文件，绑定按键后在游戏中模拟键盘输入
 - 可识别多个midi轨道
@@ -23,13 +23,13 @@ A simple software to play midi file in FFXIV Bard performance.
 - 可连接Midi设备演奏，响应延迟低于100ms
 
 
-##### To Do List V2.7 合奏时代
+## To Do List V2.7 合奏时代
 - [ ] LRC歌词读取解析发送，真的吟游诗人当然要唱歌
 - [ ] 基于聊天框的网络同步机制
 - [ ] 基于合奏助手的反馈-同步机制
 - [ ] 非合奏助手下的反馈机制调查
 
-##### To Do List V3.0 音游计划
+## To Do List V3.0 音游计划
 
 - [ ] Midi作为谱面进行解析，游戏内类似ACT浮动界面，以下落式音游形式呈现
 - [ ] Note分为 面条Note和普通Note以及控制Note（高低八度）
@@ -38,7 +38,7 @@ A simple software to play midi file in FFXIV Bard performance.
 
 
 
-##### 已知问题/Known Issue
+## 已知问题/Known Issue
 
 - 当BPM过高导致的event间隔缩短时，在8key/13key模式下会因为控制键的按下丢失部分音符
 - 已连接的Midi设备异常断开后无法再次断开或选择
