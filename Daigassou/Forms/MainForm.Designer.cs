@@ -509,7 +509,7 @@
             this.btn8key.TabIndex = 4;
             this.tipTsukkomi.SetToolTip(this.btn8key, "点这里就可以设置键位了\r\n嗨呀气死我了你们不看教程的吗！\r\n\r\n");
             this.btn8key.UseVisualStyleBackColor = false;
-            this.btn8key.Click += new System.EventHandler(this.button4_Click);
+            this.btn8key.Click += new System.EventHandler(this.keyForm13Button_Click);
             // 
             // gBKeyboardSetting
             // 

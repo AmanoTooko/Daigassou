@@ -194,12 +194,12 @@ namespace Daigassou
         }
         private void StopKeyPlay()
         {
-            _runningFlag = false;
-            kc.ResetKey();
+            _runningFlag = false;            
             _runningTask?.Abort();
             while (_runningTask!=null&&
                 _runningTask.ThreadState != System.Threading.ThreadState.Stopped &&
                 _runningTask.ThreadState != System.Threading.ThreadState.Aborted) Thread.Sleep(1);
+            kc.ResetKey();
         }
         private void PitchUp_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
@@ -221,7 +221,9 @@ namespace Daigassou
 
         private void StartKeyPlayback(int interval)
         {
-            kc.ResetKey();
+            kc.isPlayingFlag = false;
+            kc.isRunningFlag = false;
+            kc.pauseOffset = 0;
             if (Path.GetExtension(midFileDiag.FileName) != ".mid" && Path.GetExtension(midFileDiag.FileName) != ".midi")
             {
                 Log.overlayLog($"错误：没有Midi文件");
@@ -376,7 +378,7 @@ namespace Daigassou
             
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void keyForm13Button_Click(object sender, EventArgs e)
         {
             keyForm8.ShowDialog();
         }
@@ -606,6 +608,14 @@ namespace Daigassou
             StartKeyPlayback((int)msTime + (int)numericUpDown2.Value);
             Log.overlayLog($"网络控制：{name.Trim().Replace("\0", string.Empty)}发起倒计时，目标时间:{dt.ToString("HH:mm:ss")}");
             tlblTime.Text = $"{name.Trim().Replace("\0",string.Empty)}发起倒计时:{msTime}毫秒";
+            //if (ParameterController.GetInstance().isEnsembleSync)
+            //{
+            //    System.Threading.Timer timer1 = new System.Threading.Timer((TimerCallback)(x => this.kc.KeyboardPress(48)), new object(), 2000, 0);
+            //    System.Threading.Timer timer2 = new System.Threading.Timer((TimerCallback)(x => this.kc.KeyboardRelease(48)), new object(), 2050, 0);
+
+            //}
+
+
         }
 
         private void NetStop(int time, string name)
