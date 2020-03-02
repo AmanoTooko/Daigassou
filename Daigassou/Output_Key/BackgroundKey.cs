@@ -19,13 +19,13 @@ namespace Daigassou.Input_Midi
         [DllImport("user32.dll", EntryPoint = "PostMessage", CallingConvention = CallingConvention.Winapi)]
         public static extern bool PostMessage(IntPtr hwnd, uint msg, uint wParam, uint lParam);
 
-        public static IEnumerable<IntPtr> GetPids()
+        public static IEnumerable<int> GetPids()
         {
             foreach (var p in Process.GetProcesses())
             {
                 if (string.Equals(p.ProcessName, "ffxiv", StringComparison.Ordinal)
                     || string.Equals(p.ProcessName, "ffxiv_dx11", StringComparison.Ordinal))
-                    yield return p.MainWindowHandle;
+                    yield return p.Id;
                 p.Dispose();
             }
         }
@@ -38,13 +38,13 @@ namespace Daigassou.Input_Midi
         public void BackgroundKeyPress(Keys viKeys)
         {
             if (_gameIntPtr != IntPtr.Zero)
-                SendMessage(_gameIntPtr, WmKeydown, (int) viKeys, 0);
+                PostMessage(_gameIntPtr, WmKeydown, (uint) viKeys, 0);
         }
 
         public void BackgroundKeyRelease(Keys viKeys)
         {
             if (_gameIntPtr != IntPtr.Zero)
-                SendMessage(_gameIntPtr, WmKeyup, (int) viKeys, 0);
+                PostMessage(_gameIntPtr, WmKeyup, (uint) viKeys, 0);
         }
     }
 }

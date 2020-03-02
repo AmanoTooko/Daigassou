@@ -80,7 +80,7 @@ namespace Daigassou
             var res = Parse(message);
 
             
-            if (res.header.MessageType == 0x011E && Log.isBeta)//CountDown
+            if (res.header.MessageType == 0x036B && Log.isBeta)//CountDown
             {
                 var countDownTime = res.data[36];
                 var unixTime = BitConverter.ToUInt32(res.data, 24);
@@ -100,7 +100,7 @@ namespace Daigassou
             //    Play?.Invoke(this, new PlayEvent(1, 0, name));
 
             //}
-            if (res.header.MessageType == 0x0272 && Log.isBeta) //party check
+            if (res.header.MessageType == 0x0355 && Log.isBeta) //party check
             {
                 
 

@@ -34,14 +34,14 @@ namespace Daigassou
             var tmpBox = (TextBox) sender;
             if (tmpBox == null) throw new ArgumentNullException(nameof(tmpBox));
             tmpBox.Text = e.KeyCode.ToString();
-            KeyBinding.SetKeyToNote_8(Array.IndexOf(keyBoxs, tmpBox) + 60, e.KeyValue);
+            KeyBinding.SetKeyToNote_13(Array.IndexOf(keyBoxs, tmpBox) + 60, e.KeyValue);
         }
 
         private void KeyBindForm_Load(object sender, EventArgs e)
         {
             KeyBinding.LoadConfig();
-            for (var i = 0; i < 12; i++) keyBoxs[i].Text = KeyBinding.GetKeyChar(KeyBinding.GetNoteToKey(i + 60)).ToString();
-            keyBoxs[12].Text = KeyBinding.GetKeyChar(KeyBinding.GetNoteToKey(84)).ToString();
+            for (var i = 0; i < 13; i++) keyBoxs[i].Text = KeyBinding.GetKeyChar(KeyBinding.GetNoteToKey(i + 72)).ToString();
+            //keyBoxs[12].Text = KeyBinding.GetKeyChar(KeyBinding.GetNoteToKey(84)).ToString();
             var settingLower = KeyBinding.GetNoteToCtrlKey(OCTAVE_KEY_LOW);
             var settingHigher = KeyBinding.GetNoteToCtrlKey(OCTAVE_KEY_HIGH);
             switch (settingLower)
@@ -71,12 +71,12 @@ namespace Daigassou
         private void KeyBindForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            Hide();
+            this.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Close();
         }
 
         private void cbOctaveHigh_SelectedIndexChanged(object sender, EventArgs e)

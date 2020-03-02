@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Windows.Forms;
-using BondTech.HotkeyManagement.Win;
+﻿using BondTech.HotkeyManagement.Win;
 using Daigassou.Forms;
-using Daigassou.Input_Midi;
 using Daigassou.Properties;
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Daigassou
 {
@@ -104,10 +105,13 @@ namespace Daigassou
 
         private void Panel2_Click(object sender, EventArgs e)
         {
-            if (ClickCount++ > 5)
+            PidSelect pidSelect = new PidSelect();
+            pidSelect.GetPid += (PidSelect.PidSelector)(x =>
             {
-                new PidSelect(kc).ShowDialog();
-            }
+                this.kc.isBackGroundKey = true;
+                this.kc.InitBackGroundKey(Process.GetProcessById(x).MainWindowHandle);
+            });
+            pidSelect.ShowDialog();
         }
 
         private void HotKeyControl1_HotKeyIsReset(object sender, EventArgs e)

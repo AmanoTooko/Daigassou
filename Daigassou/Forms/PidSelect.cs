@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Daigassou.Input_Midi;
+using System;
 using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
-using Daigassou.Input_Midi;
 
 namespace Daigassou.Forms
 {
     public partial class PidSelect : Form
     {
-        private KeyController _kc;
-        public PidSelect(KeyController kc)
+        private BackgroundKey kc = new BackgroundKey();
+        public delegate void PidSelector(int id);
+        public PidSelect.PidSelector GetPid;
+        public PidSelect()
         {
-            _kc = kc;
+            
             InitializeComponent();
 
             comboBox1.DataSource = BackgroundKey.GetPids().ToList();
@@ -29,10 +29,15 @@ namespace Daigassou.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _kc.isBackGroundKey = true;
-            _kc.InitBackGroundKey((IntPtr)Convert.ToInt32(comboBox1.SelectedItem.ToString()));
-            MessageBox.Show("后台演奏已开启");
-            Close();
+            this.GetPid(Convert.ToInt32(this.comboBox1.SelectedItem?.ToString()));
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.kc.Init(Process.GetProcessById(Convert.ToInt32(this.comboBox1.SelectedItem?.ToString())).MainWindowHandle);
+            System.Threading.Timer timer1 = new System.Threading.Timer((TimerCallback)(x => this.kc.BackgroundKeyPress(Keys.Space)), new object(), 100, 0);
+            System.Threading.Timer timer2 = new System.Threading.Timer((TimerCallback)(x => this.kc.BackgroundKeyRelease(Keys.Space)), new object(), 200, 0);
         }
     }
 }

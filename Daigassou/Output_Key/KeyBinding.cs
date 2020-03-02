@@ -75,9 +75,8 @@ namespace Daigassou
         public static Keys GetNoteToKey(int note)
         {
             if (!Settings.Default.IsEightKeyLayout) return (Keys) _keymap[note];
-            if (note == 84)
-                return (Keys) _keymap[73];
-            return (Keys) _keymap[note % 12 + 60];
+            if (note == 84) return (Keys)_keymap[84];
+            else return (Keys) _keymap[note % 12 + 60];
 
         }
 
@@ -96,7 +95,7 @@ namespace Daigassou
             SaveConfig();
         }
 
-        public static void SetKeyToNote_8(int note, int key)
+        public static void SetKeyToNote_13(int note, int key)
         {
             var offset = note % 12;
             if (note == 72)
