@@ -25,6 +25,8 @@ namespace Daigassou
         public volatile bool isBackGroundKey = false;
         public volatile bool isPlayingFlag = false;
         public volatile bool isRunningFlag = false;
+        public delegate void stopped();
+        public stopped stopHandler;
         public int pauseOffset = 0;
         private Keys _lastCtrlKey;
 
@@ -164,6 +166,10 @@ namespace Daigassou
                 Daigassou.Utils.Log.overlayProcess(((int)(nullable.HasValue ? new double?(num2 / nullable.GetValueOrDefault()) : new double?()).Value).ToString());
             }
             Daigassou.Utils.Log.overlayLog("演奏：演奏结束");
+            if(stopHandler!=null)
+            {
+                stopHandler.BeginInvoke(null, null);
+            }
             this.ResetKey();
         }
     }

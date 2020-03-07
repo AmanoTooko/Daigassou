@@ -53,9 +53,10 @@ namespace Daigassou
                 CommonUtilities.GetLatestVersion();
                 this.TimeSync();
             }));
-
+            if (DateTime.Now > new DateTime(2020, 03, 15)) Environment.Exit(-2);
             Text += $@" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
+            kc.stopHandler += StopKeyPlay;
         }
 
         private void InitHotKeyBiding()
@@ -129,8 +130,8 @@ namespace Daigassou
             }
             catch (Exception e)
             {
-                MessageBox.Show(
-                    $"一些快捷键无法注册,程序可能无法正常运行。\r\n请检查是否有其他程序占用。\r\n点击下方小齿轮重新配置快捷键+{JsonConvert.SerializeObject(hotkeysArrayList)}",
+                MessageBox.Show(new Form() { TopMost = true },
+                    $"部分快捷键注册失败,程序可能无法正常运行。\r\n请检查是否有其他程序占用。\r\n点击下方小齿轮重新配置快捷键",
                     "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
@@ -199,6 +200,8 @@ namespace Daigassou
             while (_runningTask!=null&&
                 _runningTask.ThreadState != System.Threading.ThreadState.Stopped &&
                 _runningTask.ThreadState != System.Threading.ThreadState.Aborted) Thread.Sleep(1);
+            btnSyncReady.BackColor = Color.FromArgb(255, 128, 128);
+            btnSyncReady.Text = "准备好了";
             kc.ResetKey();
         }
         private void PitchUp_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
@@ -227,7 +230,7 @@ namespace Daigassou
             if (Path.GetExtension(midFileDiag.FileName) != ".mid" && Path.GetExtension(midFileDiag.FileName) != ".midi")
             {
                 Log.overlayLog($"错误：没有Midi文件");
-                MessageBox.Show("没有midi你演奏个锤锤？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                MessageBox.Show(new Form() { TopMost = true }, "没有midi你演奏个锤锤？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
                 return;
             }
 
@@ -238,6 +241,8 @@ namespace Daigassou
                 _runningTask?.Abort();
 
                 this.kc.isPlayingFlag = true;
+                btnSyncReady.BackColor = Color.Aquamarine;
+                btnSyncReady.Text = "中断演奏";
                 var Interval = interval < 1000 ? 1000 : interval;
                 var sub = (long) (1000 - interval);
 
@@ -262,6 +267,9 @@ namespace Daigassou
                 sw.Stop();
                 _runningFlag = true;
                 cts = new CancellationTokenSource();
+                //var lyric = new lyricPoster();
+                //var l=lyric.AnalyzeLrc(@"D:\花火.lrc");
+                //Task.Run(() => { lyric.RunningLrc(l, interval - (int)sw.ElapsedMilliseconds); });
                 _runningTask = createPerformanceTask(cts.Token, interval-(int)sw.ElapsedMilliseconds);//minus bug?
                 _runningTask.Priority = ThreadPriority.Highest;
 
@@ -345,8 +353,17 @@ namespace Daigassou
 
         private void SyncButton_Click(object sender, EventArgs e)
         {
-            var interval = dateTimePicker1.Value - DateTime.Now;
-            StartKeyPlayback((int) interval.TotalMilliseconds + (int) numericUpDown2.Value);
+            var interval = dtpSyncTime.Value - DateTime.Now;
+            if (kc.isRunningFlag)
+            {
+                
+                StopKeyPlay();
+            }
+            else
+            {
+                StartKeyPlayback((int)interval.TotalMilliseconds + (int)numericUpDown2.Value);
+            }
+            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -558,7 +575,7 @@ namespace Daigassou
                     }
                     else
                     {
-                        MessageBox.Show("你开游戏了吗？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                        MessageBox.Show(new Form() { TopMost = true }, "你开游戏了吗？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
                     }
                 }
                 catch (Exception exception)
@@ -603,7 +620,7 @@ namespace Daigassou
             System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1)); // 当地时区
             DateTime dt = startTime.AddSeconds(time);
 
-            dateTimePicker1.Value = dt;
+            dtpSyncTime.Value = dt;
             var msTime = (dt - DateTime.Now).TotalMilliseconds;
             StartKeyPlayback((int)msTime + (int)numericUpDown2.Value);
             Log.overlayLog($"网络控制：{name.Trim().Replace("\0", string.Empty)}发起倒计时，目标时间:{dt.ToString("HH:mm:ss")}");
@@ -641,7 +658,7 @@ namespace Daigassou
                 try
                 {
                     var dt = DateTime.ParseExact(targetTime, "HH:mm:ss", CultureInfo.CurrentCulture);
-                    dateTimePicker1.Value = dt;
+                    dtpSyncTime.Value = dt;
                 }
                 catch (Exception)
                 {
@@ -649,7 +666,7 @@ namespace Daigassou
             }
             else if (!e.Alt && !e.Shift && e.Control && e.KeyCode == Keys.C)
             {
-                var targetTime = dateTimePicker1.Value.ToString("HH:mm:ss");
+                var targetTime = dtpSyncTime.Value.ToString("HH:mm:ss");
                 Clipboard.SetDataObject(targetTime);
             }
         }
@@ -692,9 +709,41 @@ namespace Daigassou
             }
             catch (NullReferenceException ex)
             {
-                MessageBox.Show("悬浮窗库文件似乎不完全", "你是只傻肥！", MessageBoxButtons.OK, MessageBoxIcon.Information);                
+                MessageBox.Show(new Form() { TopMost = true }, "悬浮窗库文件似乎不完全", "你是只傻肥！", MessageBoxButtons.OK, MessageBoxIcon.Information);                
             }
             
         }
-}
+
+        private void btnSyncReady_MouseClick(object sender, MouseEventArgs e)
+        {
+            SyncButton_Click(sender, e);
+        }
+
+        private void label4_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            var tempTime = DateTime.Now.AddMinutes(2);
+            DateTime targetTime;
+            if (tempTime.Minute%2==1)
+            {
+                targetTime = new DateTime(tempTime.Year, tempTime.Month, tempTime.Day, tempTime.Hour, tempTime.Minute - 1, 0);
+            }
+            else
+            {
+                targetTime = new DateTime(tempTime.Year, tempTime.Month, tempTime.Day, tempTime.Hour, tempTime.Minute , 0);
+
+            }
+            dtpSyncTime.Value = targetTime;
+            SyncButton_Click(sender, e);
+        }
+
+        private void btnSyncReady_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
