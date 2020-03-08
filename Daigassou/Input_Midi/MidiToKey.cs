@@ -228,7 +228,7 @@ namespace Daigassou
             var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
                 .TrimEnd(" ticks/qnote".ToCharArray()));
             var tickBase = 60000 / (double) Bpm / ticksPerQuarterNote; //duplicate code need to be delete
-            var nowTimeMs = 0;
+            var nowTimeMs = 0.0;
             var retKeyPlayLists = new Queue<KeyPlayList>();
             PreProcessTempoMap();
             PreProcessNoise();
@@ -243,7 +243,7 @@ namespace Daigassou
                         case NoteOnEvent @event:
                         {
                             var noteNumber = (int) (@event.NoteNumber + Offset);
-                            nowTimeMs += (int) (tickBase * @event.DeltaTime);
+                            nowTimeMs +=  (tickBase * @event.DeltaTime);
                             retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
                                 noteNumber, nowTimeMs));
                         }
@@ -251,14 +251,14 @@ namespace Daigassou
                         case NoteOffEvent @event:
                         {
                             var noteNumber = (int) (@event.NoteNumber + Offset);
-                            nowTimeMs += (int) (tickBase * @event.DeltaTime);
+                            nowTimeMs +=  (tickBase * @event.DeltaTime);
                             retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
                                 noteNumber, nowTimeMs));
                         }
                             break;
                         case SetTempoEvent @event:
                         {
-                            nowTimeMs += (int) (tickBase * @event.DeltaTime);
+                            nowTimeMs +=  (tickBase * @event.DeltaTime);
                             tickBase = (double) @event.MicrosecondsPerQuarterNote / (1000.0 *ticksPerQuarterNote);
                         }
                             break;
