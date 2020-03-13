@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Daigassou</RootNamespace>
     <AssemblyName>Daigassou</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -41,6 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,6 +52,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\ico_128.ico</ApplicationIcon>
@@ -78,6 +80,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -87,6 +90,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="alsa-sharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -120,8 +124,10 @@
     <Reference Include="Melanchall.DryWetMidi, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Melanchall.DryWetMidi.4.1.1\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
     </Reference>
-    <Reference Include="mml2midi">
-      <HintPath>C:\Users\tooko\source\repos\mml2midi\Release\mml2midi.dll</HintPath>
+    <Reference Include="mml2MidiDotNet, Version=1.0.7377.40371, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>C:\Users\tooko\source\repos\mml2midi\x64\Release\mml2MidiDotNet.dll</HintPath>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="mugene, Version=1.0.7217.4744, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\mugene.1.2.5\lib\net45\mugene.exe</HintPath>
@@ -240,6 +246,9 @@
     <Compile Include="Utils\lyricPoster.cs" />
     <Compile Include="Utils\MmlMidiConventer.cs" />
     <Compile Include="Utils\ParameterController.cs" />
+    <Compile Include="Utils\roundButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
