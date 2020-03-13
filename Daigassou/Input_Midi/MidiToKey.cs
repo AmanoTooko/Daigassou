@@ -163,24 +163,22 @@ namespace Daigassou
                 .TrimEnd(" ticks/qnote".ToCharArray()));
             var tickBase = 60000 / (float) Bpm / ticksPerQuarterNote;
             var eventOffTimeArray = new TimedEvent[127];
-            using (var eventsManager = trunks.ElementAt(Index).Events.ManageTimedEvents())
+
+            using (var notesManager = trunks.ElementAt(Index).ManageNotes())
             {
-                foreach (var @event in eventsManager.Events)
+                var lastNote = notesManager.Notes.FirstOrDefault();
+                foreach (var @note in notesManager.Notes)
                 {
-                    tickBase = 60000 / (float) Tmap.Tempo.AtTime(@event.Time).BeatsPerMinute /
+                    tickBase = 60000 / (float) Tmap.Tempo.AtTime(@note.Time).BeatsPerMinute /
                                ticksPerQuarterNote;
-                    var minTick = (long) (MIN_DELAY_TIME_MS_EVENT / tickBase);
-                    switch (@event.Event)
+                    var minTick = (long) (85 / tickBase);
+
+                    if(lastNote.Time+lastNote.Length+minTick> @note.Time)
                     {
-                        case NoteOnEvent noteOnEvent:
-                            if (eventOffTimeArray[noteOnEvent.NoteNumber]?.Time + minTick > @event.Time)
-                                eventOffTimeArray[noteOnEvent.NoteNumber].Time =
-                                    @event.Time - minTick < 0 ? minTick : @event.Time - minTick; //未加小于0的判断
-                            break;
-                        case NoteOffEvent noteOffEvent:
-                            eventOffTimeArray[noteOffEvent.NoteNumber] = @event;
-                            break;
+                        lastNote.Length = lastNote.Length < minTick ? @note.Time - lastNote.Time + minTick: lastNote.Length-minTick;
                     }
+                    lastNote = @note;
+
                 }
             }
         }
