@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Daigassou.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="KeyBinding8" Type="System.Collections.ArrayList" Scope="User">
+    <Setting Name="KeyBinding13" Type="System.Collections.ArrayList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="StartKey" Type="System.Int32" Scope="User">
@@ -14,14 +14,14 @@
     <Setting Name="IsEightKeyLayout" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="KeyBinding22" Type="System.Collections.ArrayList" Scope="User">
+    <Setting Name="KeyBinding37" Type="System.Collections.ArrayList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="MinEventMs" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">60</Value>
+      <Value Profile="(Default)">50</Value>
     </Setting>
     <Setting Name="MinChordMs" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">125</Value>
+      <Value Profile="(Default)">50</Value>
     </Setting>
     <Setting Name="NtpServer" Type="System.String" Scope="User">
       <Value Profile="(Default)">ntp3.aliyun.com</Value>
