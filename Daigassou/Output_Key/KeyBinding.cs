@@ -130,12 +130,12 @@ namespace Daigassou
 
             if (Settings.Default.IsEightKeyLayout)
             {
-                Settings.Default.KeyBinding8 = keyArrayList;
+                Settings.Default.KeyBinding13 = keyArrayList;
                 Settings.Default.CtrlKeyBinding = ctrlKeyArrayList;
             }
             else
             {
-                Settings.Default.KeyBinding22 = keyArrayList;
+                Settings.Default.KeyBinding37 = keyArrayList;
             }
 
             Settings.Default.HotKeyBinding = JsonConvert.SerializeObject(hotkeyArrayList);
@@ -145,9 +145,9 @@ namespace Daigassou
 
         public static void LoadConfig()
         {
-            var settingArrayList = Settings.Default.KeyBinding22;
+            var settingArrayList = Settings.Default.KeyBinding37;
 
-            if (Settings.Default.IsEightKeyLayout) settingArrayList = Settings.Default.KeyBinding8;
+            if (Settings.Default.IsEightKeyLayout) settingArrayList = Settings.Default.KeyBinding13;
             var settingKeyArrayList = Settings.Default.CtrlKeyBinding;
             if (settingArrayList != null)
                 for (var i = 0; i < settingArrayList.Count; i++)

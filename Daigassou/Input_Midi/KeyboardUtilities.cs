@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Daigassou.Properties;
 using Daigassou.Utils;
 using Melanchall.DryWetMidi.Devices;
-using Melanchall.DryWetMidi.Smf;
+using Melanchall.DryWetMidi.Core;
 
 namespace Daigassou.Input_Midi
 {

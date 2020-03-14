@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Daigassou.Properties;
 using Melanchall.DryWetMidi.Devices;
-using Melanchall.DryWetMidi.Smf;
-using Melanchall.DryWetMidi.Smf.Interaction;
+using Melanchall.DryWetMidi.Standards;
+using Melanchall.DryWetMidi.Core;
+using Melanchall.DryWetMidi.Interaction;
 
 namespace Daigassou
 {
@@ -45,6 +47,27 @@ namespace Daigassou
         public EnumPitchOffset Offset { get; set; }
         public int Bpm { get; set; }
 
+        public void OpenFile(byte[] s)
+        {
+            
+            midi = MidiFile.Read(new MemoryStream(s), new ReadingSettings
+            {
+                NoHeaderChunkPolicy = NoHeaderChunkPolicy.Ignore,
+                NotEnoughBytesPolicy = NotEnoughBytesPolicy.Ignore,
+                InvalidChannelEventParameterValuePolicy = InvalidChannelEventParameterValuePolicy.ReadValid,
+                InvalidChunkSizePolicy = InvalidChunkSizePolicy.Ignore,
+                InvalidMetaEventParameterValuePolicy = InvalidMetaEventParameterValuePolicy.SnapToLimits,
+                MissedEndOfTrackPolicy = MissedEndOfTrackPolicy.Ignore,
+                UnexpectedTrackChunksCountPolicy = UnexpectedTrackChunksCountPolicy.Ignore,
+                ExtraTrackChunkPolicy = ExtraTrackChunkPolicy.Read,
+                UnknownChunkIdPolicy = UnknownChunkIdPolicy.ReadAsUnknownChunk,
+                SilentNoteOnPolicy = SilentNoteOnPolicy.NoteOff,
+                TextEncoding = Encoding.Default,
+                InvalidSystemCommonEventParameterValuePolicy=InvalidSystemCommonEventParameterValuePolicy.SnapToLimits,
+                
+            });
+            Tmap = midi.GetTempoMap();
+        }
         public void OpenFile(string path)
         {
             midi = MidiFile.Read(path, new ReadingSettings
@@ -116,7 +139,7 @@ namespace Daigassou
                 .TrimEnd(" ticks/qnote".ToCharArray()));
             var tickBase = 60000 / (float) Bpm / ticksPerQuarterNote; //duplicate code need to be delete
 
-            using (var chordManager = trunks.ElementAt(Index).Events.ManageChords())
+            using (var chordManager = new ChordsManager(trunks.ElementAt(Index).Events))
             {
                 foreach (var chord in chordManager.Chords)
                     if (chord.Notes.Count() > 1)
@@ -233,7 +256,7 @@ namespace Daigassou
             PreProcessSpeed(speed);
             PreProcessChord();
             PreProcessEvents();
-            using (var timedEvent = trunkEvents.ManageTimedEvents())
+            using (var timedEvent = trunkEvents .ManageTimedEvents())
             {
                 foreach (var ev in timedEvent.Events)
                     switch (ev.Event)
@@ -301,7 +324,7 @@ namespace Daigassou
             return 0;
         }
 
-        public int PlaybackStart(int BPM)
+        public int PlaybackStart(int BPM,EventHandler playbackFinishHandler)
         {
             if (midi == null) return -1;
 
@@ -311,12 +334,37 @@ namespace Daigassou
             if (playback == null)
                 playback = new Playback(trunks.ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
             playback.Speed = (double) BPM / GetBpm();
+            playback.InterruptNotesOnStop = true;
             playback.Start();
-
+            playback.Finished += playbackFinishHandler;
 
             return 0;
         }
 
+
+
+        public int PlaybackPercentGet()
+        {
+            if (playback.IsRunning)
+            {
+                var cur = (MidiTimeSpan)playback.GetCurrentTime(TimeSpanType.Midi);
+                var dur = (MidiTimeSpan)playback.GetDuration(TimeSpanType.Midi);
+
+                return (int)(cur.TimeSpan * 100 / dur.TimeSpan);
+            }
+            return 0;
+        }
+        public void PlaybackPercentSet(int process)
+        {
+            if (playback.IsRunning)
+            {
+                MidiTimeSpan dur = (MidiTimeSpan)playback.GetDuration(TimeSpanType.Midi);
+
+                var tar = new MidiTimeSpan(dur.TimeSpan * process / 100);
+                playback.MoveToTime(tar); 
+                
+            }
+        }
         public string PlaybackInfo()
         {
             var ret = "";
@@ -329,7 +377,6 @@ namespace Daigassou
                 ret = Regex.Match(cur.ToString(), expression).Groups["time"].Value + "/" +
                       Regex.Match(dur.ToString(), expression).Groups["time"].Value;
             }
-
             return ret;
         }
 
@@ -337,6 +384,7 @@ namespace Daigassou
         {
             if (midi == null) return -1;
             if (playback == null) return -2;
+            
             playback.Stop();
             playback.Dispose();
             playback = null;
@@ -345,8 +393,7 @@ namespace Daigassou
 
         public int GetBpm()
         {
-            var bpm = 80;
-            bpm = (int) Tmap.Tempo.AtTime(0).BeatsPerMinute;
+            var bpm = (int) Tmap.Tempo.AtTime(0).BeatsPerMinute;
             return bpm;
         }
     }

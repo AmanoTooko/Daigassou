@@ -25,8 +25,8 @@ namespace Daigassou
         [DllImport("winmm.dll")] internal static extern uint timeBeginPeriod(uint period);
         [DllImport("winmm.dll")] internal static extern uint timeEndPeriod(uint period);
         private readonly KeyController kc = new KeyController();
-        private readonly KeyBindFormOld keyForm22 = new KeyBindFormOld();
-        private readonly KeyBindForm8Key keyForm8 = new KeyBindForm8Key();
+        private readonly KeyBindFormOld keyForm37 = new KeyBindFormOld();
+        private readonly KeyBindForm8Key keyForm13 = new KeyBindForm8Key();
         private readonly MidiToKey mtk = new MidiToKey();
         private bool _playingFlag;
         private bool _runningFlag;
@@ -154,19 +154,23 @@ namespace Daigassou
         {
             if (Settings.Default.IsEightKeyLayout)
             {
-                btn8key.BackgroundImage = Resources.ka1;
-                btn22key.BackgroundImage = Resources.kb0;
+                btn13Key.ForeColor = Color.WhiteSmoke;
+                btn37Key.ForeColor = Color.WhiteSmoke;
+                btn13Key.BackColor = Color.FromArgb(255, 110, 128);
+                btn37Key.BackColor = Color.Silver;
                 btnSwitch.BackgroundImage = Resources.a0;
-                btn8key.Enabled = true;
-                btn22key.Enabled = false;
+                btn13Key.Enabled = true;
+                btn37Key.Enabled = false;
             }
             else
             {
-                btn8key.BackgroundImage = Resources.ka0;
-                btn22key.BackgroundImage = Resources.kb1;
+                btn13Key.ForeColor = Color.WhiteSmoke;
+                btn37Key.ForeColor = Color.WhiteSmoke;
+                btn37Key.BackColor = Color.FromArgb(255, 110, 128);
+                btn13Key.BackColor = Color.Silver;
                 btnSwitch.BackgroundImage = Resources.a1;
-                btn8key.Enabled = false;
-                btn22key.Enabled = true;
+                btn13Key.Enabled = false;
+                btn37Key.Enabled = true;
             }
         }
 
@@ -200,7 +204,7 @@ namespace Daigassou
             while (_runningTask!=null&&
                 _runningTask.ThreadState != System.Threading.ThreadState.Stopped &&
                 _runningTask.ThreadState != System.Threading.ThreadState.Aborted) Thread.Sleep(1);
-            btnSyncReady.BackColor = Color.FromArgb(255, 128, 128);
+            btnSyncReady.BackColor = Color.FromArgb(255, 110, 128);
             btnSyncReady.Text = "准备好了";
             kc.ResetKey();
         }
@@ -251,7 +255,7 @@ namespace Daigassou
                 sw.Start();
                 Log.overlayLog($"文件名：{Path.GetFileName(midFileDiag.FileName)}");
                 Log.overlayLog($"定时：{Interval}毫秒后演奏");
-                mtk.OpenFile(midFileDiag.FileName);
+                OpenFile(midFileDiag.FileName);
                 mtk.GetTrackManagers();
                 keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
                 if (interval<0)
@@ -278,6 +282,23 @@ namespace Daigassou
 
         }
 
+        private void OpenFile(string fileName)
+        {
+            switch (Path.GetExtension(fileName))
+            {
+                case ".mid":
+                    mtk.OpenFile(fileName);
+                    break;
+                case ".mml":
+                    var buffer = MmlMidiConventer.mmlRead(fileName);
+                    if (buffer != null)
+                        mtk.OpenFile(buffer);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private Thread createPerformanceTask(CancellationToken token,int startOffset)
         {
             ParameterController.GetInstance().InternalOffset = (int)numericUpDown2.Value;
@@ -302,7 +323,10 @@ namespace Daigassou
         private void selectFileButton_Click(object sender, EventArgs e)
         {
             if (midFileDiag.ShowDialog() == DialogResult.OK)
-                mtk.OpenFile(midFileDiag.FileName);
+            {
+                OpenFile(midFileDiag.FileName);
+            }
+                
             else
                 return;
 
@@ -397,7 +421,7 @@ namespace Daigassou
 
         private void keyForm13Button_Click(object sender, EventArgs e)
         {
-            keyForm8.ShowDialog();
+            keyForm13.ShowDialog();
         }
 
        
@@ -411,7 +435,7 @@ namespace Daigassou
                     if (KeyboardUtilities.Connect(cbMidiKeyboard.SelectedItem.ToString(), kc) == 0)
                     {
                         cbMidiKeyboard.Enabled = false;
-                        btnKeyboardConnect.BackgroundImage = Resources.btn2;
+                        btnKeyboardConnect.BackColor = Color.Aquamarine;
                     }
                 }
                 else
@@ -419,7 +443,7 @@ namespace Daigassou
                     KeyboardUtilities.Disconnect();
                     cbMidiKeyboard.Enabled = true;
                     cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
-                    btnKeyboardConnect.BackgroundImage = Resources.btn1;
+                    btnKeyboardConnect.BackColor = Color.FromArgb(255,110,128);
                 }
         }
 
@@ -460,14 +484,13 @@ namespace Daigassou
             formUpdate();
         }
 
-        private void btn22key_Click(object sender, EventArgs e)
+        private void btn37key_Click(object sender, EventArgs e)
         {
-            keyForm22.ShowDialog();
+            keyForm37.ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
             new AboutForm(kc).ShowDialog();
         }
 
@@ -494,16 +517,20 @@ namespace Daigassou
            
                 
         }
-
+        private void Playback_Finished(object sender, EventArgs e)
+        {
+            this.Invoke(new Action(()=> { btnStop_Click(sender, e); }));
+        }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            if (mtk.PlaybackStart((int) nudBpm.Value) == 0)
+            if (mtk.PlaybackStart((int) nudBpm.Value,Playback_Finished) == 0)
             {
+                mtk.PlaybackPercentSet(tbMidiProcess.Value);
                 btnPlay.BackgroundImage = Resources.c_play_1;
                 btnPause.BackgroundImage = Resources.c_pause;
                 btnStop.BackgroundImage = Resources.c_stop;
-
+                tbMidiProcess.Visible = true;
                 lblPlay.Text = "正在试听";
                 lblMidiName.Text = Path.GetFileNameWithoutExtension(midFileDiag.FileName);
                 _playingFlag = true;
@@ -518,6 +545,8 @@ namespace Daigassou
                 btnPause.BackgroundImage = Resources.c_pause;
                 btnStop.BackgroundImage = Resources.c_stop_1;
                 lblPlay.Text = "试听已停止";
+                tbMidiProcess.Value = 0;
+                tbMidiProcess.Visible = false;
                 timeLabel.Text = "";
                 _playingFlag = false;
             }
@@ -542,8 +571,8 @@ namespace Daigassou
             {
                 net._shouldStop = true;                
                 isCaptureFlag = false;
-                (sender as Button).Text = "开始同步";
-                (sender as Button).BackColor = Color.FromArgb(255, 128, 128);
+                (sender as Button).Text = "网络同步";
+                (sender as Button).BackColor = Color.FromArgb(255, 110, 128);
             }
             else
             {
@@ -644,8 +673,13 @@ namespace Daigassou
 
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
-            if (_playingFlag) timeLabel.Text = mtk.PlaybackInfo();
-
+            if (_playingFlag)
+            {
+                timeLabel.Text = mtk.PlaybackInfo();
+                var per= mtk.PlaybackPercentGet();
+                tbMidiProcess.Value = per;
+                
+            }
             timeStripStatus.Text = DateTime.Now.ToString("T");
         }
 
@@ -744,6 +778,11 @@ namespace Daigassou
         private void btnSyncReady_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void tbMidiProcess_Scroll(object sender, EventArgs e)
+        {
+            mtk.PlaybackPercentSet(tbMidiProcess.Value);
         }
     }
 }

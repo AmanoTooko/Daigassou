@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Commons.Music.Midi.Mml;
-using Melanchall.DryWetMidi.Smf;
 using Melanchall.DryWetMidi.Common;
 using mml2MidiDotNet;
 namespace Daigassou.Utils
@@ -20,11 +19,20 @@ namespace Daigassou.Utils
 			var midiPath = mmlPath.Replace(".mml", ".mid");
 			unsafe
 			{
-				fixed (byte* b1 = (Encoding.Default.GetBytes(mmlPath)),
-					b2 = Encoding.Default.GetBytes(midiPath))
+				try
 				{
-					ret = c.convert((sbyte*)b1, (sbyte*)b2);
+					fixed (byte* b1 = (Encoding.Default.GetBytes(mmlPath)),
+					b2 = Encoding.Default.GetBytes(midiPath))
+					{
+						ret = c.convert((sbyte*)b1, (sbyte*)b2);
+					}
 				}
+				catch (Exception)
+				{
+
+					return null;
+				}
+				
 				
 			}
 			if (ret != 0)
@@ -50,6 +58,7 @@ namespace Daigassou.Utils
 			else
 			{
 				var mmlOut = File.ReadAllBytes(midiPath);
+				
 				File.Delete(midiPath);
 				return mmlOut;
 			}
