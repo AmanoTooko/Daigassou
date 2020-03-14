@@ -26,6 +26,7 @@ namespace Daigassou
             kc = _kc;
             hkm = _hkm;
             InitValue();
+            tabControl1.TabPages.Remove(tbLyric);
         }
 
         private void InitValue()
@@ -125,6 +126,42 @@ namespace Daigassou
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void cbLrcEnable_CheckedChanged(object sender, EventArgs e)
+        {
+            Daigassou.Utils.lyricPoster.IsLrcEnable = cbLrcEnable.Checked;
+        }
+
+        private void nudPort_ValueChanged(object sender, EventArgs e)
+        {
+            Daigassou.Utils.lyricPoster.port = (uint)nudPort.Value;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbSuffix_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Daigassou.Utils.lyricPoster.suffix = cbSuffix.SelectedItem.ToString();
+        }
+
+        private void panel4_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void panel4_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!tabControl1.TabPages.Contains(tbLyric)&&e.Button==MouseButtons.Middle)
+                tabControl1.TabPages.Add(tbLyric);
         }
     }
 }

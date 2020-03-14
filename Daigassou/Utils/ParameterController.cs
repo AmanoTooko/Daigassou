@@ -22,8 +22,8 @@ namespace Daigassou.Utils
 
         private static ParameterController Parameter;
         private static readonly object locker = new object();
-        public Queue<TimedNote> NetSyncQueue { get; }
-        public Queue<TimedNote> LocalPlayQueue { get; }
+        public Queue<TimedNote> NetSyncQueue { get; set; }
+        public Queue<TimedNote> LocalPlayQueue { get; set; }
         public volatile int InternalOffset;
         public volatile int Offset;
         public int Pitch { get; set; }
@@ -31,15 +31,19 @@ namespace Daigassou.Utils
         public bool NeedSync { get; set; } = true;
         private DateTime lastSentTime;
         private Timer offsetTimer;
+        public bool isEnsembleSync { get; set; } = false;
+        public static uint countDownPacket= 0x01AC;
+        public static uint ensembleStopPacket= 0x0159;
+        public static uint partyStopPacket=0xFFFF;
+        public static uint ensembleStartPacket = 0xFFFF;
+        public static uint ensemblePacket = 0xFFFF;
+
 
         private ParameterController()
         {
             NetSyncQueue = new Queue<TimedNote>();
             LocalPlayQueue = new Queue<TimedNote>();
-            offsetTimer=new Timer(1300);
-            offsetTimer.AutoReset = false;
-            
-            offsetTimer.Elapsed += OffsetTimer_Elapsed;
+
         }
 
         private void OffsetTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -79,6 +83,8 @@ namespace Daigassou.Utils
                 }
             }
         }
+
+    
         internal void AnalyzeNotes(byte[] msg)
         {
             /*
@@ -94,36 +100,55 @@ namespace Daigassou.Utils
              */
             lock (locker)
             {
-
+                Console.Write(DateTime.Now.ToString("hh:mm:ss.fff :"));
+                foreach (var b in msg)
+                {
+                    Console.Write($"{b.ToString("X2")} ");
+                }
+                Console.WriteLine();
                 offsetTimer.Enabled = false;
-                var nowTime = DateTime.Now;
-                lastSentTime = nowTime;
 
+                lastSentTime = DateTime.Now;
+                var startTime = lastSentTime + new TimeSpan(0, 0, 0, 0, -500);
                 var packetTime = 0;
-                var ret = new Queue<TimedNote>();
+
                 for (int i = 0; i < msg.Length; i++)
                 {
-                    if (msg[i] == 0xFF)
+                    if (msg[i] != 0xFF && msg[i] != 0xFE)
                     {
-                        packetTime += Convert.ToInt32(msg[i + 1]);
-                        if (i < msg.Length - 2 && msg[i + 2] != 0xFF && msg[i + 2] != 0xFE)
-                        {
-                            ret.Enqueue(new TimedNote() { Note = msg[i + 2], StartTime = nowTime + new TimeSpan(0, 0, 0, 0, packetTime) });
-                        }
+                        packetTime = (i * 50);
+
+                        LocalPlayQueue.Enqueue(new TimedNote() { Note = msg[i], StartTime = startTime + new TimeSpan(0, 0, 0, 0, packetTime) });
+
                     }
                 }
 
-                OffsetSync(packetTime);
+                //OffsetSync(packetTime);
 
                 offsetTimer.Enabled = true;
 #if true
-                foreach (var timedNote in ret)
+                while (LocalPlayQueue.Count > 0)
                 {
-                    timedNote.StartTime -= new TimeSpan(0, 0, 0, 0, packetTime);
-                    Console.WriteLine(timedNote.ToString());
+                    var note = LocalPlayQueue.Dequeue();
+                    while (NetSyncQueue.Any())
+                    {
+                        var netNote = NetSyncQueue.Dequeue();
+                        if (note.Note == netNote.Note)
+                        {
+                            var offset = note.StartTime - netNote.StartTime;
+                            if (offset.TotalMilliseconds > 50)
+                            {
+
+                                Console.WriteLine(note.ToString() + $"Offset={offset.TotalMilliseconds}");
+                            }
+                            break;
+                        }
+
+                    }
+
                 }
 #endif
-                
+
             }
 
         }
@@ -132,7 +157,7 @@ namespace Daigassou.Utils
 
             if (NeedSync)
             {
-                Offset = InternalOffset+(500-packetTime);
+                Offset = InternalOffset + (500 - packetTime);
                 Console.WriteLine($"InternalOffset is sync to {Offset}");
                 Log.overlayLog($"网络同步:内部延迟同步至{Offset}毫秒");
                 NeedSync = false;

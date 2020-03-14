@@ -246,9 +246,6 @@
     <Compile Include="Utils\lyricPoster.cs" />
     <Compile Include="Utils\MmlMidiConventer.cs" />
     <Compile Include="Utils\ParameterController.cs" />
-    <Compile Include="Utils\roundButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -69,12 +69,12 @@ namespace Daigassou
             this.lblPlay = new System.Windows.Forms.Label();
             this.btnAbout = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tbMidiProcess = new System.Windows.Forms.TrackBar();
-            this.timeLabel = new System.Windows.Forms.Label();
             this.lblMidiName = new System.Windows.Forms.Label();
+            this.timeLabel = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
+            this.tbMidiProcess = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tlblTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -327,7 +327,7 @@ namespace Daigassou
             // midFileDiag
             // 
             this.midFileDiag.FileName = "此处广告位招租";
-            this.midFileDiag.Filter = "mid文件.mml文件|*.mid;*.mml";
+            this.midFileDiag.Filter = ".mid文件|*.mid|.mml文件|*.mml";
             // 
             // gBParameterSetting
             // 
@@ -613,18 +613,16 @@ namespace Daigassou
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Midi轨道试听";
             // 
-            // tbMidiProcess
+            // lblMidiName
             // 
-            this.tbMidiProcess.BackColor = System.Drawing.Color.White;
-            this.tbMidiProcess.Location = new System.Drawing.Point(9, 75);
-            this.tbMidiProcess.Maximum = 100;
-            this.tbMidiProcess.Name = "tbMidiProcess";
-            this.tbMidiProcess.Size = new System.Drawing.Size(260, 45);
-            this.tbMidiProcess.TabIndex = 28;
-            this.tbMidiProcess.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.tipTsukkomi.SetToolTip(this.tbMidiProcess, "我给你讲哦这个东西叫进度条的说\r\n只要用力拖就可以改变试听的位置嗷！");
-            this.tbMidiProcess.Visible = false;
-            this.tbMidiProcess.Scroll += new System.EventHandler(this.tbMidiProcess_Scroll);
+            this.lblMidiName.BackColor = System.Drawing.Color.Transparent;
+            this.lblMidiName.Font = new System.Drawing.Font("Microsoft YaHei", 11F, System.Drawing.FontStyle.Bold);
+            this.lblMidiName.ForeColor = System.Drawing.Color.Gray;
+            this.lblMidiName.Location = new System.Drawing.Point(6, 93);
+            this.lblMidiName.Name = "lblMidiName";
+            this.lblMidiName.Size = new System.Drawing.Size(333, 22);
+            this.lblMidiName.TabIndex = 26;
+            this.lblMidiName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timeLabel
             // 
@@ -636,17 +634,6 @@ namespace Daigassou
             this.timeLabel.Size = new System.Drawing.Size(29, 19);
             this.timeLabel.TabIndex = 27;
             this.timeLabel.Text = "     ";
-            // 
-            // lblMidiName
-            // 
-            this.lblMidiName.BackColor = System.Drawing.Color.Transparent;
-            this.lblMidiName.Font = new System.Drawing.Font("Microsoft YaHei", 11F, System.Drawing.FontStyle.Bold);
-            this.lblMidiName.ForeColor = System.Drawing.Color.Gray;
-            this.lblMidiName.Location = new System.Drawing.Point(6, 93);
-            this.lblMidiName.Name = "lblMidiName";
-            this.lblMidiName.Size = new System.Drawing.Size(333, 22);
-            this.lblMidiName.TabIndex = 26;
-            this.lblMidiName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnStop
             // 
@@ -690,6 +677,19 @@ namespace Daigassou
             this.tipTsukkomi.SetToolTip(this.btnPlay, "这是西瓜视频的Logo\r\n真的不是试听的播放键");
             this.btnPlay.UseVisualStyleBackColor = false;
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
+            // 
+            // tbMidiProcess
+            // 
+            this.tbMidiProcess.BackColor = System.Drawing.Color.White;
+            this.tbMidiProcess.Location = new System.Drawing.Point(9, 75);
+            this.tbMidiProcess.Maximum = 100;
+            this.tbMidiProcess.Name = "tbMidiProcess";
+            this.tbMidiProcess.Size = new System.Drawing.Size(260, 45);
+            this.tbMidiProcess.TabIndex = 28;
+            this.tbMidiProcess.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.tipTsukkomi.SetToolTip(this.tbMidiProcess, "我给你讲哦这个东西叫进度条的说\r\n只要用力拖就可以改变试听的位置嗷！");
+            this.tbMidiProcess.Visible = false;
+            this.tbMidiProcess.Scroll += new System.EventHandler(this.tbMidiProcess_Scroll);
             // 
             // panel1
             // 

@@ -204,6 +204,7 @@ namespace Daigassou
             while (_runningTask!=null&&
                 _runningTask.ThreadState != System.Threading.ThreadState.Stopped &&
                 _runningTask.ThreadState != System.Threading.ThreadState.Aborted) Thread.Sleep(1);
+            lyricPoster.LrcStop();
             btnSyncReady.BackColor = Color.FromArgb(255, 110, 128);
             btnSyncReady.Text = "准备好了";
             kc.ResetKey();
@@ -256,6 +257,7 @@ namespace Daigassou
                 Log.overlayLog($"文件名：{Path.GetFileName(midFileDiag.FileName)}");
                 Log.overlayLog($"定时：{Interval}毫秒后演奏");
                 OpenFile(midFileDiag.FileName);
+                lyricPoster.LrcStart(midFileDiag.FileName.Replace(".mid", ".mml").Replace(".mml", ".lrc"), interval);
                 mtk.GetTrackManagers();
                 keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
                 if (interval<0)
@@ -269,6 +271,7 @@ namespace Daigassou
                     }
                 }
                 sw.Stop();
+                
                 _runningFlag = true;
                 cts = new CancellationTokenSource();
                 //var lyric = new lyricPoster();
