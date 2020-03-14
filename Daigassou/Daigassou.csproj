@@ -121,13 +121,13 @@
     <Reference Include="Machina.FFXIV">
       <HintPath>Reference\Machina.FFXIV.dll</HintPath>
     </Reference>
-    <Reference Include="Melanchall.DryWetMidi, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Melanchall.DryWetMidi.4.1.1\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
+    <Reference Include="Melanchall.DryWetMidi, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Melanchall.DryWetMidi.5.0.0\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
     </Reference>
-    <Reference Include="mml2MidiDotNet, Version=1.0.7377.40371, Culture=neutral, processorArchitecture=AMD64">
+    <Reference Include="mml2MidiDotNet, Version=1.0.7378.18290, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>C:\Users\tooko\source\repos\mml2midi\x64\Release\mml2MidiDotNet.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="mugene, Version=1.0.7217.4744, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\mugene.1.2.5\lib\net45\mugene.exe</HintPath>
