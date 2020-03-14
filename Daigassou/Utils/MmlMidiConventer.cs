@@ -17,25 +17,29 @@ namespace Daigassou.Utils
 			mml2midi c = new mml2midi();
 			var ret = 0;
 			var midiPath = mmlPath.Replace(".mml", ".mid");
-			unsafe
+			var text = File.ReadAllText(mmlPath);
+			if(text.Contains("MML@"))
 			{
-				try
+				unsafe
 				{
-					fixed (byte* b1 = (Encoding.Default.GetBytes(mmlPath)),
-					b2 = Encoding.Default.GetBytes(midiPath))
+					try
 					{
-						ret = c.convert((sbyte*)b1, (sbyte*)b2);
+						fixed (byte* b1 = (Encoding.Default.GetBytes(mmlPath)),
+						b2 = Encoding.Default.GetBytes(midiPath))
+						{
+							ret = c.convert((sbyte*)b1, (sbyte*)b2);
+						}
 					}
-				}
-				catch (Exception)
-				{
+					catch (Exception)
+					{
 
-					return null;
+						return null;
+					}
+
+
 				}
-				
-				
 			}
-			if (ret != 0)
+			else
 			{
 				try
 				{
@@ -47,21 +51,21 @@ namespace Daigassou.Utils
 						return outs.ToArray();
 					}
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
 					return null;
 
 				}
-
-				
 			}
-			else
+			if (ret == 0)
 			{
+
 				var mmlOut = File.ReadAllBytes(midiPath);
-				
 				File.Delete(midiPath);
 				return mmlOut;
+
 			}
+			return null;
 			
 		}
 	}

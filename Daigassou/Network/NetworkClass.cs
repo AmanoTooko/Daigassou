@@ -79,35 +79,25 @@ namespace Daigassou
         {
             var res = Parse(message);
 
-            
-            if (res.header.MessageType == 0x036B && Log.isBeta)//CountDown
+
+            if (res.header.MessageType == ParameterController.countDownPacket)//CountDown
             {
                 var countDownTime = res.data[36];
                 var unixTime = BitConverter.ToUInt32(res.data, 24);
                 var nameBytes = new byte[18];
                 Array.Copy(res.data, 41, nameBytes, 0, 18);
                 var name = Encoding.UTF8.GetString(nameBytes) ?? "";
-                Play?.Invoke(this, new PlayEvent(0, Convert.ToInt32(unixTime+countDownTime), name));
+                Play?.Invoke(this, new PlayEvent(0, Convert.ToInt32(unixTime + countDownTime), name));
             }
 
 
-            //if (res.header.MessageType == 0x011C && Log.isBeta) //party check
-            //{
-            //    Console.WriteLine("get!");
-            //    var nameBytes = new byte[18];
-            //    Array.Copy(res.data, 52, nameBytes, 0, 18);
-            //    var name = Encoding.UTF8.GetString(nameBytes) ?? "";
-            //    Play?.Invoke(this, new PlayEvent(1, 0, name));
-
-            //}
-            if (res.header.MessageType == 0x0355 && Log.isBeta) //party check
+            if (res.header.MessageType == ParameterController.partyStopPacket|| res.header.MessageType == ParameterController.ensembleStopPacket) //Stop
             {
-                
 
                 Play?.Invoke(this, new PlayEvent(1, 0, " "));
 
             }
-            
+
 
         }
         internal class ParseResult
@@ -138,21 +128,20 @@ namespace Daigassou
                 Message = res.header.MessageType.ToString("X4"),
                 Direction = "C",
                 Category = set.ToString(),
-               // Timestamp = Util.UnixTimeStampToDateTime(res.header.Seconds).ToString(@"MM\/dd\/yyyy HH:mm:ss"),
                 Size = res.header.MessageLength.ToString(),
                 Set = set,
                 RouteID = res.header.RouteID.ToString(),
                 PacketUnixTime = res.header.Seconds,
-               // SystemMsTime = Millis(),
                 Connection = connectionType
             };
-            if (res.header.MessageType == 0x018B) //Bard Performance
+            if (res.header.MessageType == 0x0287) //Bard Performance
             {
                 var length = res.data[32];
                 var notes = new byte[length];
                 Array.Copy(res.data, 33, notes, 0, length);
-                Log.B(notes, true);//TODO: Time analyze 
-                ParameterController.GetInstance().AnalyzeNotes(notes);
+                //Console.WriteLine("1 packet");
+                //Log.B(notes, true);//TODO: Time analyze 
+                //ParameterController.GetInstance().AnalyzeNotes(notes);
             }
         }
 
@@ -189,7 +178,7 @@ namespace Daigassou
 
             Console.WriteLine("MachinaCaptureWorker: Terminating");
             monitor.Stop();
-            
+
         }
         private void RegisterToFirewall()
         {
