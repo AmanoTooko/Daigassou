@@ -189,16 +189,16 @@ namespace Daigassou
 
             using (var notesManager = trunks.ElementAt(Index).ManageNotes())
             {
-                var lastNote = notesManager.Notes.FirstOrDefault();
+                Note lastNote = null;
                 foreach (var @note in notesManager.Notes)
                 {
                     tickBase = 60000 / (float) Tmap.Tempo.AtTime(@note.Time).BeatsPerMinute /
                                ticksPerQuarterNote;
                     var minTick = (long) (85 / tickBase);
 
-                    if(lastNote.Time+lastNote.Length+minTick> @note.Time)
+                    if(lastNote!=null&& (lastNote.Time+lastNote.Length+minTick> @note.Time))
                     {
-                        lastNote.Length = lastNote.Length < minTick ? @note.Time - lastNote.Time + minTick: lastNote.Length-minTick;
+                        lastNote.Length = lastNote.Length < minTick ?  minTick: lastNote.Length-minTick;
                     }
                     lastNote = @note;
 
@@ -231,8 +231,10 @@ namespace Daigassou
             PreProcessTempoMap();
             for (var i = 0; i < trunks.Count; i++)
             {
+                PreProcessNoise();
                 PreProcessChord();
                 PreProcessEvents();
+
             }
 
             var stfd = new SaveFileDialog();

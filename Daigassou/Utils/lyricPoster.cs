@@ -24,7 +24,7 @@ namespace Daigassou.Utils
                 startTimeMs += Convert.ToInt32(result.Groups["min"].Value) * 60000 + Convert.ToInt32(result.Groups["sec"].Value) * 1000 + Convert.ToInt32(result.Groups["hm"].Value) * 10;
             } 
     }
-        public static uint port;
+        public static uint port=2345;
         public static string suffix = "/s";
         public static string url = $"http://127.0.0.1:{port}/command";
         public static Thread LrcThread;
@@ -45,7 +45,7 @@ namespace Daigassou.Utils
         {
             try
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create($"http://127.0.0.1:{port}/command");
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
@@ -73,6 +73,7 @@ namespace Daigassou.Utils
                     LrcThread = new Thread(
                             () => {RunningLrc(lyric, startOffset);}
                             );
+                    Log.overlayLog("【歌词播放】歌词导入成功，开始播放");
                     LrcThread.Start();
                 }
                 else
