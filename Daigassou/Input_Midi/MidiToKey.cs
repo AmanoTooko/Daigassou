@@ -287,7 +287,7 @@ namespace Daigassou
                             break;
                         default:
                         {
-                            nowTimeMs += (int) (tickBase * ev.Event.DeltaTime);
+                            nowTimeMs += (tickBase * ev.Event.DeltaTime);
                         }
                             break;
                     }
