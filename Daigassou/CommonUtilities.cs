@@ -18,8 +18,11 @@ namespace Daigassou
             try
             {
                 var nowVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
+               
+                System.Threading.Thread.Sleep(50);
                 var newVersionJson = await UpdateHelper.UpdateHelper.CheckUpdate();
+                System.Threading.Thread.Sleep(50);
+                
                 try
                 {
                     var versionObj = JsonConvert.DeserializeObject<versionObject>(newVersionJson);
@@ -28,6 +31,7 @@ namespace Daigassou
                     ParameterController.ensembleStartPacket = versionObj.ensembleStartPacket;
                     ParameterController.ensembleStopPacket = versionObj.ensembleStopPacket;
                     ParameterController.partyStopPacket = versionObj.partyStopPacket;
+                    
                     if (versionObj.isRefuseToUse)
                     {
                         Environment.Exit(-1);
@@ -56,13 +60,16 @@ namespace Daigassou
                 }
                 catch (Exception e)
                 {
+                    MessageBox.Show(e.ToString());
                     Console.WriteLine(e);
-                    throw;
+                    
                 }
                 
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                MessageBox.Show(e.ToString());
+                
             }
         }
         public class versionObject
