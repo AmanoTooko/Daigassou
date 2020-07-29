@@ -44,17 +44,16 @@ namespace Daigassou
         {
             InitializeComponent();
             formUpdate();
-            
             KeyBinding.LoadConfig();
             timeBeginPeriod(1);
-            ThreadPool.SetMaxThreads(25, 50);
+            
             Task.Run((Action)(() =>
             {
                 CommonUtilities.GetLatestVersion();
                 this.TimeSync();
             }));
-            if (DateTime.Now > new DateTime(2020, 03, 15)) Environment.Exit(-2);
-            Text += $@" Ver{Assembly.GetExecutingAssembly().GetName().Version}";
+            
+            Text += $@" Ver{Assembly.GetExecutingAssembly().GetName().Version} ";
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
             kc.stopHandler += StopKeyPlay;
         }
@@ -232,6 +231,7 @@ namespace Daigassou
             kc.isPlayingFlag = false;
             kc.isRunningFlag = false;
             kc.pauseOffset = 0;
+            ParameterController.GetInstance().Pitch = 0;
             if (Path.GetExtension(midFileDiag.FileName) != ".mid" && Path.GetExtension(midFileDiag.FileName) != ".midi")
             {
                 Log.overlayLog($"错误：没有Midi文件");
@@ -256,10 +256,12 @@ namespace Daigassou
                 sw.Start();
                 Log.overlayLog($"文件名：{Path.GetFileName(midFileDiag.FileName)}");
                 Log.overlayLog($"定时：{Interval}毫秒后演奏");
+
                 OpenFile(midFileDiag.FileName);
                 lyricPoster.LrcStart(midFileDiag.FileName.Replace(".mid", ".mml").Replace(".mml", ".lrc"), interval);
                 mtk.GetTrackManagers();
                 keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(mtk.GetBpm() / nudBpm.Value));
+                //File.WriteAllText($"1.txt", JsonConvert.SerializeObject(keyPlayLists));
                 if (interval<0)
                 {
                     var keyPlay=keyPlayLists.Where((x)=>x.TimeMs> sub);
@@ -274,9 +276,6 @@ namespace Daigassou
                 
                 _runningFlag = true;
                 cts = new CancellationTokenSource();
-                //var lyric = new lyricPoster();
-                //var l=lyric.AnalyzeLrc(@"D:\花火.lrc");
-                //Task.Run(() => { lyric.RunningLrc(l, interval - (int)sw.ElapsedMilliseconds); });
                 _runningTask = createPerformanceTask(cts.Token, interval-(int)sw.ElapsedMilliseconds);//minus bug?
                 _runningTask.Priority = ThreadPriority.Highest;
 
@@ -335,6 +334,7 @@ namespace Daigassou
 
             pathTextBox.Text = Path.GetFileName( midFileDiag.FileName);
             Log.overlayLog($"打开文件：{Path.GetFileName(midFileDiag.FileName)}");
+            radioButton2.Checked = true;
             _tmpScore = mtk.GetTrackManagers(); //note tracks
             var bpm = mtk.GetBpm();
             var tmp = new List<string>();
@@ -359,17 +359,24 @@ namespace Daigassou
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
+            ParameterController.GetInstance().Pitch = EnumPitchOffset.OctaveLower - mtk.Offset;
             mtk.Offset = EnumPitchOffset.OctaveLower;
+            Log.overlayLog($"[移调] 当前 {ParameterController.GetInstance().Pitch}");
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
+            ParameterController.GetInstance().Pitch = EnumPitchOffset.None - mtk.Offset;
             mtk.Offset = EnumPitchOffset.None;
+            Log.overlayLog($"[移调] 当前 {ParameterController.GetInstance().Pitch}");
+
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
+            ParameterController.GetInstance().Pitch = EnumPitchOffset.OctaveHigher - mtk.Offset;
             mtk.Offset = EnumPitchOffset.OctaveHigher;
+            Log.overlayLog($"[移调] 当前 {ParameterController.GetInstance().Pitch}");
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -584,6 +591,7 @@ namespace Daigassou
                 
                 net = new NetworkClass();
                 net.Play += Net_Play;
+                
                 try
                 {
                     List<Process> ffxivProcess = FFProcess.FindFFXIVProcess();
@@ -616,6 +624,8 @@ namespace Daigassou
             }
         }
         private delegate void remotePlay(int time, string name);
+        private delegate void updateForm(string text);
+        
         private void Net_Play(object sender, PlayEvent e)
         {
             if (this.InvokeRequired)
@@ -629,6 +639,11 @@ namespace Daigassou
                 {
                     var n = new remotePlay(NetStop);
                     this.Invoke(n, e.Time, e.Text);
+                }
+                else if (e.Mode==2)
+                {
+                    //var n = new updateForm(upform);
+                    //this.Invoke(n, e.Text);
                 }
                 
             }
@@ -653,20 +668,19 @@ namespace Daigassou
             DateTime dt = startTime.AddSeconds(time);
 
             dtpSyncTime.Value = dt;
-            var msTime = (dt - DateTime.Now).TotalMilliseconds;
-            StartKeyPlayback((int)msTime + (int)numericUpDown2.Value);
+             SyncButton_Click(new object(), new EventArgs());
+            //var msTime = (dt - DateTime.Now).TotalMilliseconds;
+            //StartKeyPlayback((int)msTime + (int)numericUpDown2.Value);
             Log.overlayLog($"网络控制：{name.Trim().Replace("\0", string.Empty)}发起倒计时，目标时间:{dt.ToString("HH:mm:ss")}");
-            tlblTime.Text = $"{name.Trim().Replace("\0",string.Empty)}发起倒计时:{msTime}毫秒";
-            //if (ParameterController.GetInstance().isEnsembleSync)
-            //{
-            //    System.Threading.Timer timer1 = new System.Threading.Timer((TimerCallback)(x => this.kc.KeyboardPress(48)), new object(), 2000, 0);
-            //    System.Threading.Timer timer2 = new System.Threading.Timer((TimerCallback)(x => this.kc.KeyboardRelease(48)), new object(), 2050, 0);
+            //tlblTime.Text = $"{name.Trim().Replace("\0",string.Empty)}发起倒计时:{msTime}毫秒";
 
-            //}
 
 
         }
-
+        private void upform(string text)
+        {
+            this.Text= $@"[{text}]大合奏！ Ver{Assembly.GetExecutingAssembly().GetName().Version} ";
+        }
         private void NetStop(int time, string name)
         {
             StopKeyPlay();
