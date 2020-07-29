@@ -163,5 +163,11 @@ namespace Daigassou
             if (!tabControl1.TabPages.Contains(tbLyric)&&e.Button==MouseButtons.Middle)
                 tabControl1.TabPages.Add(tbLyric);
         }
+
+        private void cbPcap_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.isUsingWinPCap = cbPcap.Checked;
+            Settings.Default.Save();
+        }
     }
 }
