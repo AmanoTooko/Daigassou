@@ -145,19 +145,19 @@ namespace Daigassou
                     if (chord.Notes.Count() > 1)
                     {
                         var count = 0;
-                        if (autoChord)
+                        if (autoChord)//等分拆分
                         {
-                            var autoTick = chord.Notes.First().Length / (chord.Notes.Count() + 1);
+                            var autoTick = chord.Length / (chord.Notes.Count() + 1);
                             foreach (var note in chord.Notes.OrderBy(x => x.NoteNumber))
                             {
                                 note.Time += count * autoTick;
-                                note.Length = note.Length - count * autoTick;
+                                note.Length = (long)((chord.Length - count * autoTick)<MIN_DELAY_TIME_MS_CHORD/tickBase? MIN_DELAY_TIME_MS_CHORD / tickBase: (chord.Length - count * autoTick));
                                 count++;
                             }
                         }
-                        else //修改为等比例前后
+                        else //前后最小值化
                         {
-                            tickBase = 60000 / (float) Tmap.Tempo.AtTime(chord.Notes.First().Time).BeatsPerMinute /
+                            tickBase = 60000 / (float) Tmap.Tempo.AtTime(chord.Time).BeatsPerMinute /
                                        ticksPerQuarterNote;
                             var minTick = (long) (MIN_DELAY_TIME_MS_CHORD / tickBase);
                             //original time is on the center of chord
