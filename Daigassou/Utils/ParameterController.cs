@@ -32,11 +32,11 @@ namespace Daigassou.Utils
         private DateTime lastSentTime;
         private Timer offsetTimer;
         public bool isEnsembleSync { get; set; } = false;
-        public static uint countDownPacket= 0x01AC;
-        public static uint ensembleStopPacket= 0x0159;
-        public static uint partyStopPacket=0xFFFF;
-        public static uint ensembleStartPacket = 0xFFFF;
-        public static uint ensemblePacket = 0xFFFF;
+        public static uint countDownPacket= 622;
+        public static uint ensembleStopPacket= 251;
+        public static uint partyStopPacket=419;
+        public static uint ensembleStartPacket = 745;
+        public static uint ensemblePacket = 284;
 
 
         private ParameterController()
@@ -84,7 +84,10 @@ namespace Daigassou.Utils
             }
         }
 
-    
+        internal void AnalyzeEnsembleNotes(byte[] msg)
+        {
+            //not yet implemented
+        }
         internal void AnalyzeNotes(byte[] msg)
         {
             /*
@@ -106,7 +109,7 @@ namespace Daigassou.Utils
                     Console.Write($"{b.ToString("X2")} ");
                 }
                 Console.WriteLine();
-                offsetTimer.Enabled = false;
+               
 
                 lastSentTime = DateTime.Now;
                 var startTime = lastSentTime + new TimeSpan(0, 0, 0, 0, -500);
@@ -125,7 +128,7 @@ namespace Daigassou.Utils
 
                 //OffsetSync(packetTime);
 
-                offsetTimer.Enabled = true;
+               
 #if true
                 while (LocalPlayQueue.Count > 0)
                 {
@@ -136,10 +139,10 @@ namespace Daigassou.Utils
                         if (note.Note == netNote.Note)
                         {
                             var offset = note.StartTime - netNote.StartTime;
-                            if (offset.TotalMilliseconds > 50)
+                            if (offset.TotalMilliseconds > 75)
                             {
 
-                                Console.WriteLine(note.ToString() + $"Offset={offset.TotalMilliseconds}");
+                                Log.overlayLog(note.ToString() + $"Offset={offset.TotalMilliseconds}");
                             }
                             break;
                         }
