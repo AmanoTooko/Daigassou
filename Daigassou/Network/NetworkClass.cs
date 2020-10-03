@@ -135,7 +135,7 @@ namespace Daigassou
             try
             {
                 var res = Parse(message);
-                if (res.header.MessageType == 0x02A3) //Bard Performance 
+                if (res.header.MessageType == ParameterController.instruSendingPacket) //Bard Performance 
                 {
                     string[] instrumentlist = { "妹有乐器", "竖琴", "钢琴", "鲁特琴", "提琴拨弦", "长笛", "双簧管", "单簧管", "横笛", "排箫", "定音鼓", "邦戈鼓", "低音鼓", "小军鼓", "镲", "小号", "长号", "大号", "圆号", "萨克斯管" };
                     var type = BitConverter.ToUInt16(res.data, 32);

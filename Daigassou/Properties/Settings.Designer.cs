@@ -153,5 +153,17 @@ namespace Daigassou.Properties {
                 this["isUsingWinPCap"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isUsingAnalysis {
+            get {
+                return ((bool)(this["isUsingAnalysis"]));
+            }
+            set {
+                this["isUsingAnalysis"] = value;
+            }
+        }
     }
 }
