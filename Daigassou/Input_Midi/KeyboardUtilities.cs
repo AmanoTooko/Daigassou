@@ -18,11 +18,11 @@ namespace Daigassou.Input_Midi
         private static readonly object noteLock = new object();
         private static readonly Queue<NoteEvent> noteQueue = new Queue<NoteEvent>();
         private static CancellationTokenSource cts = new CancellationTokenSource();
-        private static KeyController kc;
+        public static KeyController kc;
 
         public static int Connect(string name, KeyController _keyController)
         {
-            wetMidiKeyboard = InputDevice.GetByName(name);
+            wetMidiKeyboard = InputDevice.GetById(Convert.ToInt32(name.Split('|')[1]));
             {
                 try
                 {
@@ -82,7 +82,7 @@ namespace Daigassou.Input_Midi
         {
             var ret = new List<string>();
 
-            foreach (var device in InputDevice.GetAll()) ret.Add(device.Name);
+            foreach (var device in InputDevice.GetAll()) ret.Add(device.Name+"|"+device.Id);
 
             return ret;
         }

@@ -41,7 +41,8 @@
             this.chordEventNum = new System.Windows.Forms.NumericUpDown();
             this.minEventNum = new System.Windows.Forms.NumericUpDown();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.cbPcap = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.hotKeyControl5 = new Daigassou.HotKeyControl();
             this.hotKeyControl4 = new Daigassou.HotKeyControl();
@@ -49,20 +50,21 @@
             this.hotKeyControl1 = new Daigassou.HotKeyControl();
             this.label11 = new System.Windows.Forms.Label();
             this.hotKeyControl2 = new Daigassou.HotKeyControl();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpKey = new System.Windows.Forms.TabPage();
             this.tpPlaySetting = new System.Windows.Forms.TabPage();
             this.tbLyric = new System.Windows.Forms.TabPage();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.cbSuffix = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.cbLrcEnable = new System.Windows.Forms.CheckBox();
             this.nudPort = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
-            this.cbPcap = new System.Windows.Forms.CheckBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chordEventNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minEventNum)).BeginInit();
             this.panel1.SuspendLayout();
@@ -80,7 +82,7 @@
             this.label6.Location = new System.Drawing.Point(14, 18);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(82, 24);
+            this.label6.Size = new System.Drawing.Size(96, 28);
             this.label6.TabIndex = 42;
             this.label6.Text = "开始演奏";
             // 
@@ -92,7 +94,7 @@
             this.label9.Location = new System.Drawing.Point(15, 117);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 24);
+            this.label9.Size = new System.Drawing.Size(96, 28);
             this.label9.TabIndex = 45;
             this.label9.Text = "向下移调";
             // 
@@ -102,7 +104,7 @@
             this.label8.Location = new System.Drawing.Point(14, 84);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(82, 24);
+            this.label8.Size = new System.Drawing.Size(96, 28);
             this.label8.TabIndex = 44;
             this.label8.Text = "向上移调";
             // 
@@ -112,7 +114,7 @@
             this.label7.Location = new System.Drawing.Point(14, 51);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(82, 24);
+            this.label7.Size = new System.Drawing.Size(96, 28);
             this.label7.TabIndex = 43;
             this.label7.Text = "结束演奏";
             // 
@@ -122,7 +124,7 @@
             this.label1.Location = new System.Drawing.Point(4, 19);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 24);
+            this.label1.Size = new System.Drawing.Size(159, 28);
             this.label1.TabIndex = 33;
             this.label1.Text = "音符间最小间隔";
             // 
@@ -132,35 +134,35 @@
             this.label2.Location = new System.Drawing.Point(4, 57);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(154, 24);
+            this.label2.Size = new System.Drawing.Size(180, 28);
             this.label2.TabIndex = 34;
             this.label2.Text = "和弦解析最小间隔";
             // 
             // tbNtpServer
             // 
             this.tbNtpServer.ForeColor = System.Drawing.Color.Gray;
-            this.tbNtpServer.Location = new System.Drawing.Point(140, 131);
+            this.tbNtpServer.Location = new System.Drawing.Point(146, 130);
             this.tbNtpServer.Name = "tbNtpServer";
-            this.tbNtpServer.Size = new System.Drawing.Size(142, 31);
+            this.tbNtpServer.Size = new System.Drawing.Size(142, 35);
             this.tbNtpServer.TabIndex = 40;
             this.tbNtpServer.TextChanged += new System.EventHandler(this.TbNtpServer_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 95);
+            this.label3.Location = new System.Drawing.Point(4, 210);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 24);
+            this.label3.Size = new System.Drawing.Size(117, 28);
             this.label3.TabIndex = 35;
             this.label3.Text = "和弦平均化";
             // 
             // cbAutoChord
             // 
             this.cbAutoChord.AutoSize = true;
-            this.cbAutoChord.Location = new System.Drawing.Point(140, 95);
+            this.cbAutoChord.Location = new System.Drawing.Point(146, 209);
             this.cbAutoChord.Name = "cbAutoChord";
-            this.cbAutoChord.Size = new System.Drawing.Size(68, 28);
+            this.cbAutoChord.Size = new System.Drawing.Size(80, 32);
             this.cbAutoChord.TabIndex = 39;
             this.cbAutoChord.Text = "开启";
             this.cbAutoChord.UseVisualStyleBackColor = true;
@@ -172,26 +174,26 @@
             this.label5.Location = new System.Drawing.Point(4, 135);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 24);
+            this.label5.Size = new System.Drawing.Size(117, 28);
             this.label5.TabIndex = 36;
             this.label5.Text = "NTP服务器";
             // 
             // chordEventNum
             // 
             this.chordEventNum.ForeColor = System.Drawing.Color.Gray;
-            this.chordEventNum.Location = new System.Drawing.Point(140, 55);
+            this.chordEventNum.Location = new System.Drawing.Point(146, 54);
             this.chordEventNum.Maximum = new decimal(new int[] {
             200,
             0,
             0,
             0});
             this.chordEventNum.Minimum = new decimal(new int[] {
-            45,
+            10,
             0,
             0,
             0});
             this.chordEventNum.Name = "chordEventNum";
-            this.chordEventNum.Size = new System.Drawing.Size(120, 31);
+            this.chordEventNum.Size = new System.Drawing.Size(120, 35);
             this.chordEventNum.TabIndex = 38;
             this.chordEventNum.Value = new decimal(new int[] {
             50,
@@ -203,7 +205,7 @@
             // minEventNum
             // 
             this.minEventNum.ForeColor = System.Drawing.Color.Gray;
-            this.minEventNum.Location = new System.Drawing.Point(140, 13);
+            this.minEventNum.Location = new System.Drawing.Point(146, 12);
             this.minEventNum.Maximum = new decimal(new int[] {
             200,
             0,
@@ -215,7 +217,7 @@
             0,
             0});
             this.minEventNum.Name = "minEventNum";
-            this.minEventNum.Size = new System.Drawing.Size(120, 31);
+            this.minEventNum.Size = new System.Drawing.Size(120, 35);
             this.minEventNum.TabIndex = 37;
             this.minEventNum.Value = new decimal(new int[] {
             50,
@@ -228,6 +230,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.cbPcap);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.panel4);
@@ -242,20 +246,30 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(295, 234);
+            this.panel1.Size = new System.Drawing.Size(308, 258);
             this.panel1.TabIndex = 50;
             // 
-            // panel4
+            // cbPcap
             // 
-            this.panel4.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
-            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel4.Location = new System.Drawing.Point(231, 174);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(63, 62);
-            this.panel4.TabIndex = 54;
-            this.panel4.Click += new System.EventHandler(this.panel4_Click);
-            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
-            this.panel4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseClick);
+            this.cbPcap.AutoSize = true;
+            this.cbPcap.Location = new System.Drawing.Point(146, 171);
+            this.cbPcap.Name = "cbPcap";
+            this.cbPcap.Size = new System.Drawing.Size(80, 32);
+            this.cbPcap.TabIndex = 56;
+            this.cbPcap.Text = "开启";
+            this.cbPcap.UseVisualStyleBackColor = true;
+            this.cbPcap.CheckedChanged += new System.EventHandler(this.cbPcap_CheckedChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(4, 172);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(139, 28);
+            this.label13.TabIndex = 55;
+            this.label13.Text = "使用winpcap";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // panel3
             // 
@@ -274,7 +288,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(295, 234);
+            this.panel3.Size = new System.Drawing.Size(308, 258);
             this.panel3.TabIndex = 51;
             // 
             // hotKeyControl5
@@ -284,7 +298,7 @@
             this.hotKeyControl5.Location = new System.Drawing.Point(131, 151);
             this.hotKeyControl5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hotKeyControl5.Name = "hotKeyControl5";
-            this.hotKeyControl5.Size = new System.Drawing.Size(150, 27);
+            this.hotKeyControl5.Size = new System.Drawing.Size(150, 31);
             this.hotKeyControl5.TabIndex = 48;
             this.hotKeyControl5.ToolTip = null;
             this.hotKeyControl5.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
@@ -297,7 +311,7 @@
             this.hotKeyControl4.Location = new System.Drawing.Point(131, 117);
             this.hotKeyControl4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hotKeyControl4.Name = "hotKeyControl4";
-            this.hotKeyControl4.Size = new System.Drawing.Size(150, 27);
+            this.hotKeyControl4.Size = new System.Drawing.Size(150, 31);
             this.hotKeyControl4.TabIndex = 48;
             this.hotKeyControl4.ToolTip = null;
             this.hotKeyControl4.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
@@ -310,7 +324,7 @@
             this.hotKeyControl3.Location = new System.Drawing.Point(131, 84);
             this.hotKeyControl3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hotKeyControl3.Name = "hotKeyControl3";
-            this.hotKeyControl3.Size = new System.Drawing.Size(150, 27);
+            this.hotKeyControl3.Size = new System.Drawing.Size(150, 31);
             this.hotKeyControl3.TabIndex = 47;
             this.hotKeyControl3.ToolTip = null;
             this.hotKeyControl3.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
@@ -323,7 +337,7 @@
             this.hotKeyControl1.Location = new System.Drawing.Point(131, 18);
             this.hotKeyControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hotKeyControl1.Name = "hotKeyControl1";
-            this.hotKeyControl1.Size = new System.Drawing.Size(150, 27);
+            this.hotKeyControl1.Size = new System.Drawing.Size(150, 31);
             this.hotKeyControl1.TabIndex = 41;
             this.hotKeyControl1.ToolTip = null;
             this.hotKeyControl1.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
@@ -337,7 +351,7 @@
             this.label11.Location = new System.Drawing.Point(15, 150);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(82, 24);
+            this.label11.Size = new System.Drawing.Size(96, 28);
             this.label11.TabIndex = 45;
             this.label11.Text = "暂停演奏";
             // 
@@ -348,22 +362,11 @@
             this.hotKeyControl2.Location = new System.Drawing.Point(131, 51);
             this.hotKeyControl2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hotKeyControl2.Name = "hotKeyControl2";
-            this.hotKeyControl2.Size = new System.Drawing.Size(150, 27);
+            this.hotKeyControl2.Size = new System.Drawing.Size(150, 31);
             this.hotKeyControl2.TabIndex = 46;
             this.hotKeyControl2.ToolTip = null;
             this.hotKeyControl2.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
             this.hotKeyControl2.HotKeyIsReset += new System.EventHandler(this.HotKeyControl1_HotKeyIsReset);
-            // 
-            // panel2
-            // 
-            this.panel2.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel2.Location = new System.Drawing.Point(231, 174);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(63, 62);
-            this.panel2.TabIndex = 53;
-            this.panel2.Click += new System.EventHandler(this.Panel2_Click);
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // tabControl1
             // 
@@ -374,16 +377,16 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(309, 276);
+            this.tabControl1.Size = new System.Drawing.Size(322, 305);
             this.tabControl1.TabIndex = 53;
             // 
             // tpKey
             // 
             this.tpKey.Controls.Add(this.panel3);
-            this.tpKey.Location = new System.Drawing.Point(4, 32);
+            this.tpKey.Location = new System.Drawing.Point(4, 37);
             this.tpKey.Name = "tpKey";
             this.tpKey.Padding = new System.Windows.Forms.Padding(3);
-            this.tpKey.Size = new System.Drawing.Size(301, 240);
+            this.tpKey.Size = new System.Drawing.Size(314, 264);
             this.tpKey.TabIndex = 0;
             this.tpKey.Text = "快捷键绑定";
             this.tpKey.UseVisualStyleBackColor = true;
@@ -391,10 +394,10 @@
             // tpPlaySetting
             // 
             this.tpPlaySetting.Controls.Add(this.panel1);
-            this.tpPlaySetting.Location = new System.Drawing.Point(4, 32);
+            this.tpPlaySetting.Location = new System.Drawing.Point(4, 37);
             this.tpPlaySetting.Name = "tpPlaySetting";
             this.tpPlaySetting.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPlaySetting.Size = new System.Drawing.Size(301, 240);
+            this.tpPlaySetting.Size = new System.Drawing.Size(314, 264);
             this.tpPlaySetting.TabIndex = 1;
             this.tpPlaySetting.Text = "播放参数";
             this.tpPlaySetting.UseVisualStyleBackColor = true;
@@ -408,22 +411,13 @@
             this.tbLyric.Controls.Add(this.label12);
             this.tbLyric.Controls.Add(this.cbLrcEnable);
             this.tbLyric.Controls.Add(this.nudPort);
-            this.tbLyric.Location = new System.Drawing.Point(4, 32);
+            this.tbLyric.Location = new System.Drawing.Point(4, 37);
             this.tbLyric.Name = "tbLyric";
             this.tbLyric.Padding = new System.Windows.Forms.Padding(3);
-            this.tbLyric.Size = new System.Drawing.Size(301, 240);
+            this.tbLyric.Size = new System.Drawing.Size(301, 235);
             this.tbLyric.TabIndex = 2;
             this.tbLyric.Text = "歌词设置";
             this.tbLyric.UseVisualStyleBackColor = true;
-            // 
-            // panel5
-            // 
-            this.panel5.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
-            this.panel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel5.Location = new System.Drawing.Point(238, 181);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(63, 62);
-            this.panel5.TabIndex = 55;
             // 
             // label10
             // 
@@ -431,7 +425,7 @@
             this.label10.Location = new System.Drawing.Point(9, 98);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(82, 24);
+            this.label10.Size = new System.Drawing.Size(96, 28);
             this.label10.TabIndex = 49;
             this.label10.Text = "消息类别";
             // 
@@ -445,7 +439,7 @@
             "/感情表现 "});
             this.cbSuffix.Location = new System.Drawing.Point(144, 95);
             this.cbSuffix.Name = "cbSuffix";
-            this.cbSuffix.Size = new System.Drawing.Size(121, 31);
+            this.cbSuffix.Size = new System.Drawing.Size(121, 36);
             this.cbSuffix.TabIndex = 48;
             this.cbSuffix.SelectedIndexChanged += new System.EventHandler(this.cbSuffix_SelectedIndexChanged);
             // 
@@ -455,7 +449,7 @@
             this.label4.Location = new System.Drawing.Point(9, 58);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(118, 24);
+            this.label4.Size = new System.Drawing.Size(138, 28);
             this.label4.TabIndex = 41;
             this.label4.Text = "鲶鱼精端口号";
             // 
@@ -465,7 +459,7 @@
             this.label12.Location = new System.Drawing.Point(9, 21);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(82, 24);
+            this.label12.Size = new System.Drawing.Size(96, 28);
             this.label12.TabIndex = 43;
             this.label12.Text = "歌词功能";
             // 
@@ -474,7 +468,7 @@
             this.cbLrcEnable.AutoSize = true;
             this.cbLrcEnable.Location = new System.Drawing.Point(145, 21);
             this.cbLrcEnable.Name = "cbLrcEnable";
-            this.cbLrcEnable.Size = new System.Drawing.Size(68, 28);
+            this.cbLrcEnable.Size = new System.Drawing.Size(80, 32);
             this.cbLrcEnable.TabIndex = 47;
             this.cbLrcEnable.Text = "开启";
             this.cbLrcEnable.UseVisualStyleBackColor = true;
@@ -490,7 +484,7 @@
             0,
             0});
             this.nudPort.Name = "nudPort";
-            this.nudPort.Size = new System.Drawing.Size(120, 31);
+            this.nudPort.Size = new System.Drawing.Size(120, 35);
             this.nudPort.TabIndex = 45;
             this.nudPort.Value = new decimal(new int[] {
             2345,
@@ -499,34 +493,66 @@
             0});
             this.nudPort.ValueChanged += new System.EventHandler(this.nudPort_ValueChanged);
             // 
-            // label13
+            // panel2
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(5, 174);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(119, 24);
-            this.label13.TabIndex = 55;
-            this.label13.Text = "使用winpcap";
+            this.panel2.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Location = new System.Drawing.Point(247, 195);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(63, 62);
+            this.panel2.TabIndex = 53;
+            this.panel2.Click += new System.EventHandler(this.Panel2_Click);
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
-            // cbPcap
+            // panel4
             // 
-            this.cbPcap.AutoSize = true;
-            this.cbPcap.Location = new System.Drawing.Point(140, 174);
-            this.cbPcap.Name = "cbPcap";
-            this.cbPcap.Size = new System.Drawing.Size(68, 28);
-            this.cbPcap.TabIndex = 56;
-            this.cbPcap.Text = "开启";
-            this.cbPcap.UseVisualStyleBackColor = true;
-            this.cbPcap.CheckedChanged += new System.EventHandler(this.cbPcap_CheckedChanged);
+            this.panel4.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
+            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel4.Location = new System.Drawing.Point(247, 195);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(63, 62);
+            this.panel4.TabIndex = 54;
+            this.panel4.Click += new System.EventHandler(this.panel4_Click);
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
+            this.panel4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseClick);
+            // 
+            // panel5
+            // 
+            this.panel5.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
+            this.panel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel5.Location = new System.Drawing.Point(238, 181);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(63, 62);
+            this.panel5.TabIndex = 55;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(146, 92);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(80, 32);
+            this.checkBox1.TabIndex = 58;
+            this.checkBox1.Text = "开启";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(4, 93);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(138, 28);
+            this.label14.TabIndex = 57;
+            this.label14.Text = "使用和弦解析";
             // 
             // ConfigForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(309, 276);
+            this.ClientSize = new System.Drawing.Size(322, 305);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("微软雅黑", 10.5F);
             this.ForeColor = System.Drawing.Color.Gray;
@@ -588,5 +614,7 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.CheckBox cbPcap;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label14;
     }
 }

@@ -10,6 +10,7 @@ using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Standards;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using System.Threading;
 
 namespace Daigassou
 {
@@ -33,6 +34,7 @@ namespace Daigassou
         private Playback playback;
         private TempoMap Tmap;
         private List<TrackChunk> trunks;
+        public Playback midiPlay;
 
         public MidiToKey()
         {
@@ -243,7 +245,7 @@ namespace Daigassou
                 midi.Write(stfd.FileName, false, MidiFileFormat.MultiTrack,
                     new WritingSettings {TextEncoding = Encoding.Default});
         }
-
+        
         public Queue<KeyPlayList> ArrangeKeyPlaysNew(double speed)
         {
             var trunkEvents = trunks.ElementAt(Index).Events;
@@ -253,6 +255,7 @@ namespace Daigassou
             var tickBase = 60000 / (double) Bpm / ticksPerQuarterNote; //duplicate code need to be delete
             var nowTimeMs = 0.0;
             var retKeyPlayLists = new Queue<KeyPlayList>();
+            
             PreProcessTempoMap();
             PreProcessNoise();
             PreProcessSpeed(speed);
@@ -343,6 +346,19 @@ namespace Daigassou
             return 0;
         }
 
+        public void PlaybackWithoutAnalysis(double speed,EventHandler<MidiEventPlayedEventArgs> P_EventPlayed, CancellationToken token)
+        {
+            midiPlay = trunks.ElementAt(Index).GetPlayback(midi.GetTempoMap());
+            midiPlay.Speed = speed;
+            midiPlay.EventPlayed += P_EventPlayed;
+            midiPlay.Play();
+            while(!token.IsCancellationRequested)
+            {
+                Thread.Sleep(1);
+            }
+            midiPlay.Stop();
+        }
+
 
 
         public int PlaybackPercentGet()
@@ -398,5 +414,6 @@ namespace Daigassou
             var bpm = (int) Tmap.Tempo.AtTime(0).BeatsPerMinute;
             return bpm;
         }
+
     }
 }

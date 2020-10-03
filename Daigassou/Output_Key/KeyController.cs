@@ -29,7 +29,7 @@ namespace Daigassou
         public stopped stopHandler;
         public int pauseOffset = 0;
         private Keys _lastCtrlKey;
-
+        private bool initFlag=true;
         [DllImport("User32.dll")]
         public static extern void keybd_event(Keys bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
@@ -51,6 +51,16 @@ namespace Daigassou
                 Note = pitch - 24,
                 StartTime = DateTime.Now
             });
+            if(ParameterController.GetInstance().isEnsembleSync)
+            {
+                Log.overlayLog($"{pitch} pressed");
+            }
+            if (initFlag)
+            {
+                Log.overlayLog($"{pitch} note on");
+                initFlag = false;
+            }
+
         }
 
         public void KeyboardPress(Keys ctrKeys, Keys viKeys)
@@ -113,6 +123,7 @@ namespace Daigassou
         {
             this.isPlayingFlag = false;
             this.isRunningFlag = false;
+            initFlag = true;
             this.pauseOffset = 0;
             this.KeyboardRelease(Keys.ControlKey);
             Thread.Sleep(1);
@@ -142,6 +153,7 @@ namespace Daigassou
           int startOffset)
         {
             this.isRunningFlag = true;
+            initFlag = true;
             this.UpdateKeyMap();
             double? timeMs = keyQueue.LastOrDefault<KeyPlayList>()?.TimeMs;
             Stopwatch stopwatch = new Stopwatch();

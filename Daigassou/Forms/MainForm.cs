@@ -18,6 +18,9 @@ using Daigassou.Utils;
 using Newtonsoft.Json;
 using RainbowMage.OverlayPlugin;
 using Daigassou.Forms;
+using Melanchall.DryWetMidi.Devices;
+using Melanchall.DryWetMidi.Core;
+
 namespace Daigassou
 {
     public partial class MainForm : Form
@@ -39,7 +42,7 @@ namespace Daigassou
         private bool isCaptureFlag;
         private Queue<KeyPlayList> keyPlayLists;
         private NetworkClass net;
-        
+        private int trackLock = 0;
         public MainForm()
         {
             InitializeComponent();
@@ -204,6 +207,7 @@ namespace Daigassou
                 _runningTask.ThreadState != System.Threading.ThreadState.Stopped &&
                 _runningTask.ThreadState != System.Threading.ThreadState.Aborted) Thread.Sleep(1);
             lyricPoster.LrcStop();
+            mtk.midiPlay?.Stop();
             btnSyncReady.BackColor = Color.FromArgb(255, 110, 128);
             btnSyncReady.Text = "准备好了";
             kc.ResetKey();
@@ -256,7 +260,12 @@ namespace Daigassou
                 sw.Start();
                 Log.overlayLog($"文件名：{Path.GetFileName(midFileDiag.FileName)}");
                 Log.overlayLog($"定时：{Interval}毫秒后演奏");
-
+                if (ParameterController.GetInstance().isEnsembleSync)
+                {
+                    System.Threading.Timer timer1 = new System.Threading.Timer((TimerCallback)(x => this.kc.KeyboardPress(48)), new object(), Interval - 4000, 0);
+                    System.Threading.Timer timer2 = new System.Threading.Timer((TimerCallback)(x => this.kc.KeyboardRelease(48)), new object(), Interval - 3950, 0);
+                    Log.overlayLog($"定时：同步音按下");
+                }
                 OpenFile(midFileDiag.FileName);
                 lyricPoster.LrcStart(midFileDiag.FileName.Replace(".mid", ".mml").Replace(".mml", ".lrc"), interval);
                 mtk.GetTrackManagers();
@@ -276,7 +285,10 @@ namespace Daigassou
                 
                 _runningFlag = true;
                 cts = new CancellationTokenSource();
-                _runningTask = createPerformanceTask(cts.Token, interval-(int)sw.ElapsedMilliseconds);//minus bug?
+                if (Settings.Default.isUsingAnalysis)
+                    _runningTask = createPerformanceTask(cts.Token, interval - (int)sw.ElapsedMilliseconds);//minus bug?
+                else
+                    _runningTask = createPerformanceTaskOriginal(cts.Token);
                 _runningTask.Priority = ThreadPriority.Highest;
 
             }
@@ -315,6 +327,40 @@ namespace Daigassou
             return thread;
 
         }
+        private Thread createPerformanceTaskOriginal(CancellationToken token)
+        {
+            ParameterController.GetInstance().InternalOffset = (int)numericUpDown2.Value;
+            ParameterController.GetInstance().Offset = 0;
+            
+            Thread thread = new Thread(
+                () => {
+                    KeyboardUtilities.kc = kc;
+                    kc.isRunningFlag = true;
+                    mtk.PlaybackWithoutAnalysis((double)(nudBpm.Value / mtk.GetBpm()), P_EventPlayed, cts.Token);
+                  
+                    _runningFlag = false;
+                }
+                );
+            thread.Start();
+            return thread;
+
+        }
+
+        private void P_EventPlayed(object sender, MidiEventPlayedEventArgs e)
+        {
+            switch (e.Event)
+            {
+                case NoteOnEvent keyon:
+                    KeyboardUtilities.NoteOn(keyon);
+                    
+                    break;
+                case NoteOffEvent keyoff:
+                    KeyboardUtilities.NoteOff(keyoff);
+                    
+                    break;
+            }
+        }
+
 
         private void trackComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -345,7 +391,7 @@ namespace Daigassou
 
 
             trackComboBox.DataSource = tmp;
-            trackComboBox.SelectedIndex =0;
+            trackComboBox.SelectedIndex =Math.Min(tmp.Count-1,trackLock);
             //TODO: if source midi not imported successfully will cause error
             //TODO: Enhancement issue#14 lock track selection
             if (bpm >= nudBpm.Maximum)
@@ -446,6 +492,7 @@ namespace Daigassou
                     {
                         cbMidiKeyboard.Enabled = false;
                         btnKeyboardConnect.BackColor = Color.Aquamarine;
+                        btnKeyboardConnect.Text = "断开连接";
                     }
                 }
                 else
@@ -454,6 +501,7 @@ namespace Daigassou
                     cbMidiKeyboard.Enabled = true;
                     cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
                     btnKeyboardConnect.BackColor = Color.FromArgb(255,110,128);
+                    btnKeyboardConnect.Text = "开始连接";
                 }
         }
 
@@ -642,8 +690,8 @@ namespace Daigassou
                 }
                 else if (e.Mode==2)
                 {
-                    //var n = new updateForm(upform);
-                    //this.Invoke(n, e.Text);
+                    var n = new updateForm(upform);
+                    this.Invoke(n, e.Text);
                 }
                 
             }
@@ -800,6 +848,20 @@ namespace Daigassou
         private void tbMidiProcess_Scroll(object sender, EventArgs e)
         {
             mtk.PlaybackPercentSet(tbMidiProcess.Value);
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            if(trackLock!=0)
+            {
+                trackLock = 0;
+                label2.BackColor = Color.White;
+            }
+            else
+            {
+                trackLock = trackComboBox.SelectedIndex;
+                label2.BackColor = Color.FromArgb(255, 110, 128);
+            }    
         }
     }
 }
