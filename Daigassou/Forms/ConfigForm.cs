@@ -36,7 +36,7 @@ namespace Daigassou
             chordEventNum.Value = Settings.Default.MinChordMs;
             cbAutoChord.Checked = Settings.Default.AutoChord;
             tbNtpServer.Text = Settings.Default.NtpServer;
-            checkBox1.Checked = Settings.Default.isUsingAnalysis;
+            cbUsingAnalysis.Checked = Settings.Default.isUsingAnalysis;
             foreach (GlobalHotKey hkmEnumerateGlobalHotKey in hkm.EnumerateGlobalHotKeys)
             {
                 var index = keyList.IndexOf(hkmEnumerateGlobalHotKey);
@@ -177,7 +177,13 @@ namespace Daigassou
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.isUsingAnalysis = checkBox1.Checked;
+            Settings.Default.isUsingAnalysis = cbUsingAnalysis.Checked;
+            Settings.Default.Save();
+        }
+
+        private void cbUsingAnalysis_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.isUsingAnalysis = cbUsingAnalysis.Checked;
             Settings.Default.Save();
         }
     }

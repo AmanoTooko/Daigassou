@@ -32,11 +32,13 @@ namespace Daigassou.Utils
         private DateTime lastSentTime;
         private Timer offsetTimer;
         public bool isEnsembleSync { get; set; } = false;
-        public static uint countDownPacket= 622;
-        public static uint ensembleStopPacket= 251;
-        public static uint partyStopPacket=419;
-        public static uint ensembleStartPacket = 745;
-        public static uint ensemblePacket = 284;
+        public static uint countDownPacket = 110;//0x06e;
+        public static uint ensembleStopPacket = 378;//0x017a;
+        public static uint partyStopPacket = 233;// 0x0e9;
+        public static uint ensembleStartPacket = 741;// 0x2e5;
+        public static uint ensemblePacket = 571;// 0x23b;
+        //public static uint ensembleConfirmPacket = 0x2e5;//369
+        public static uint instruSendingPacket = 0x01FA;
 
 
         private ParameterController()
@@ -86,7 +88,7 @@ namespace Daigassou.Utils
 
         internal void AnalyzeEnsembleNotes(byte[] msg)
         {
-            //not yet implemented
+             //not yet implemented
         }
         internal void AnalyzeNotes(byte[] msg)
         {

@@ -32,7 +32,7 @@ namespace Daigassou
                     ParameterController.ensembleStopPacket = versionObj.ensembleStopPacket;
                     ParameterController.partyStopPacket = versionObj.partyStopPacket;
                     
-                    if (versionObj.isRefuseToUse)
+                    if (versionObj.isRefuseToUse||versionObj.APIVersion==2)
                     {
                         Environment.Exit(-1);
                     }
@@ -83,6 +83,8 @@ namespace Daigassou
             public uint partyStopPacket { get; set; }
             public uint ensembleStartPacket { get; set; }
             public uint ensemblePacket { get; set; }
+            public uint instruPacket { get; set; }
+            public uint APIVersion { get; set; }
             //public bool isBeta { get; set; }
         }
         public static void WriteLog(string msg)

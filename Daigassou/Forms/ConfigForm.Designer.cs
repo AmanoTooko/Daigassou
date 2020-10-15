@@ -41,8 +41,11 @@
             this.chordEventNum = new System.Windows.Forms.NumericUpDown();
             this.minEventNum = new System.Windows.Forms.NumericUpDown();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbUsingAnalysis = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.cbPcap = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.hotKeyControl5 = new Daigassou.HotKeyControl();
             this.hotKeyControl4 = new Daigassou.HotKeyControl();
@@ -50,21 +53,18 @@
             this.hotKeyControl1 = new Daigassou.HotKeyControl();
             this.label11 = new System.Windows.Forms.Label();
             this.hotKeyControl2 = new Daigassou.HotKeyControl();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpKey = new System.Windows.Forms.TabPage();
             this.tpPlaySetting = new System.Windows.Forms.TabPage();
             this.tbLyric = new System.Windows.Forms.TabPage();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.cbSuffix = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.cbLrcEnable = new System.Windows.Forms.CheckBox();
             this.nudPort = new System.Windows.Forms.NumericUpDown();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chordEventNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minEventNum)).BeginInit();
             this.panel1.SuspendLayout();
@@ -230,7 +230,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.cbUsingAnalysis);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.cbPcap);
             this.panel1.Controls.Add(this.label13);
@@ -248,6 +248,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(308, 258);
             this.panel1.TabIndex = 50;
+            // 
+            // cbUsingAnalysis
+            // 
+            this.cbUsingAnalysis.AutoSize = true;
+            this.cbUsingAnalysis.Location = new System.Drawing.Point(146, 92);
+            this.cbUsingAnalysis.Name = "cbUsingAnalysis";
+            this.cbUsingAnalysis.Size = new System.Drawing.Size(80, 32);
+            this.cbUsingAnalysis.TabIndex = 58;
+            this.cbUsingAnalysis.Text = "开启";
+            this.cbUsingAnalysis.UseVisualStyleBackColor = true;
+            this.cbUsingAnalysis.CheckedChanged += new System.EventHandler(this.cbUsingAnalysis_CheckedChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(4, 93);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(138, 28);
+            this.label14.TabIndex = 57;
+            this.label14.Text = "使用和弦解析";
             // 
             // cbPcap
             // 
@@ -270,6 +291,18 @@
             this.label13.TabIndex = 55;
             this.label13.Text = "使用winpcap";
             this.label13.Click += new System.EventHandler(this.label13_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
+            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel4.Location = new System.Drawing.Point(247, 195);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(63, 62);
+            this.panel4.TabIndex = 54;
+            this.panel4.Click += new System.EventHandler(this.panel4_Click);
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
+            this.panel4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseClick);
             // 
             // panel3
             // 
@@ -368,6 +401,17 @@
             this.hotKeyControl2.HotKeyIsSet += new BondTech.HotkeyManagement.Win.HotKeyIsSetEventHandler(this.HotKeyControl1_HotKeyIsSet);
             this.hotKeyControl2.HotKeyIsReset += new System.EventHandler(this.HotKeyControl1_HotKeyIsReset);
             // 
+            // panel2
+            // 
+            this.panel2.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Location = new System.Drawing.Point(247, 195);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(63, 62);
+            this.panel2.TabIndex = 53;
+            this.panel2.Click += new System.EventHandler(this.Panel2_Click);
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tpKey);
@@ -414,10 +458,19 @@
             this.tbLyric.Location = new System.Drawing.Point(4, 37);
             this.tbLyric.Name = "tbLyric";
             this.tbLyric.Padding = new System.Windows.Forms.Padding(3);
-            this.tbLyric.Size = new System.Drawing.Size(301, 235);
+            this.tbLyric.Size = new System.Drawing.Size(314, 264);
             this.tbLyric.TabIndex = 2;
             this.tbLyric.Text = "歌词设置";
             this.tbLyric.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            this.panel5.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
+            this.panel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel5.Location = new System.Drawing.Point(238, 181);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(63, 62);
+            this.panel5.TabIndex = 55;
             // 
             // label10
             // 
@@ -493,59 +546,6 @@
             0});
             this.nudPort.ValueChanged += new System.EventHandler(this.nudPort_ValueChanged);
             // 
-            // panel2
-            // 
-            this.panel2.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel2.Location = new System.Drawing.Point(247, 195);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(63, 62);
-            this.panel2.TabIndex = 53;
-            this.panel2.Click += new System.EventHandler(this.Panel2_Click);
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            // 
-            // panel4
-            // 
-            this.panel4.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
-            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel4.Location = new System.Drawing.Point(247, 195);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(63, 62);
-            this.panel4.TabIndex = 54;
-            this.panel4.Click += new System.EventHandler(this.panel4_Click);
-            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
-            this.panel4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel4_MouseClick);
-            // 
-            // panel5
-            // 
-            this.panel5.BackgroundImage = global::Daigassou.Properties.Resources.c_about;
-            this.panel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel5.Location = new System.Drawing.Point(238, 181);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(63, 62);
-            this.panel5.TabIndex = 55;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(146, 92);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 32);
-            this.checkBox1.TabIndex = 58;
-            this.checkBox1.Text = "开启";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(4, 93);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(138, 28);
-            this.label14.TabIndex = 57;
-            this.label14.Text = "使用和弦解析";
-            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 28F);
@@ -614,7 +614,7 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.CheckBox cbPcap;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbUsingAnalysis;
         private System.Windows.Forms.Label label14;
     }
 }
