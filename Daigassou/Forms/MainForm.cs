@@ -46,6 +46,8 @@ namespace Daigassou
         private bool netMidiFlag = false;
         public MainForm()
         {
+            new MainFormEx().Show();
+            AutoScaleMode = AutoScaleMode.None;
             InitializeComponent();
             formUpdate();
             KeyBinding.LoadConfig();
@@ -53,7 +55,7 @@ namespace Daigassou
             
             Task.Run((Action)(() =>
             {
-                CommonUtilities.GetLatestVersion();
+                //CommonUtilities.GetLatestVersion();
                 this.TimeSync();
             }));
             

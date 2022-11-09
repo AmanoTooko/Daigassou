@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Daigassou.Utils;
 using Newtonsoft.Json;
-using UpdateHelper;
+//using UpdateHelper;
 
 namespace Daigassou
 {
@@ -20,7 +20,7 @@ namespace Daigassou
                 var nowVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                
                 System.Threading.Thread.Sleep(50);
-                var newVersionJson = await UpdateHelper.UpdateHelper.CheckUpdate();
+                var newVersionJson = "";//await UpdateHelper.UpdateHelper.CheckUpdate();
                 System.Threading.Thread.Sleep(50);
                 
                 try

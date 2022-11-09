@@ -21,7 +21,7 @@ namespace Daigassou
 
             try
             {
-
+              
                 Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
                 Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
@@ -46,7 +46,6 @@ namespace Daigassou
                 
             }
         }
-
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {

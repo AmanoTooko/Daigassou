@@ -1,4 +1,6 @@
-﻿namespace Daigassou
+﻿using BondTech.HotkeyManagement.Win;
+using BondTech.HotkeyManagement;
+namespace Daigassou
 {
     partial class ConfigForm
     {
