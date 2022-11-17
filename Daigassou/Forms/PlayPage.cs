@@ -43,8 +43,18 @@ namespace Daigassou.Forms
         }
 
         private void uiTrackBar1_ValueChanged(object sender, EventArgs e)
-        {
 
+        {
+            var speed = tbSpeed.Value > 50 ? 1 + (tbSpeed.Value - 50) / 50.0 : 0.5 + (tbSpeed.Value) / 100.0;
+            lblSpeed.Text = $"当前速度 {speed.ToString("F2")} 倍";
+        }
+
+        private void tbKey_ValueChanged(object sender, EventArgs e)
+        {
+           
+            lblKey.Text = $"当前音高  {tbKey.Value}";
+
+            
         }
     }
 }

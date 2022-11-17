@@ -197,6 +197,18 @@
     <Compile Include="Forms\MainFormEx.Designer.cs">
       <DependentUpon>MainFormEx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MidiDevicePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MidiDevicePage.Designer.cs">
+      <DependentUpon>MidiDevicePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MidiPreviewPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MidiPreviewPage.Designer.cs">
+      <DependentUpon>MidiPreviewPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MuiltiPlayForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -297,6 +309,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainFormEx.resx">
       <DependentUpon>MainFormEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MidiDevicePage.resx">
+      <DependentUpon>MidiDevicePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MidiPreviewPage.resx">
+      <DependentUpon>MidiPreviewPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MuiltiPlayForm.resx">
+      <DependentUpon>MuiltiPlayForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PidSelect.resx">
       <DependentUpon>PidSelect.cs</DependentUpon>

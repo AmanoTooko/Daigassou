@@ -11,18 +11,17 @@ using Sunny.UI;
 
 namespace Daigassou.Forms
 {
-    public partial class MuiltiPlayForm : UIPage
+    public partial class MidiDevicePage : UIPage
     {
-        public MuiltiPlayForm()
+        public MidiDevicePage()
         {
             InitializeComponent();
         }
         public override void Init()
         {
             base.Init();
-            uiLine1.ForeColor = Color.FromArgb(255, 113, 128);
-            uiLine2.ForeColor = Color.FromArgb(255, 113, 128);
             uiLine3.ForeColor = Color.FromArgb(255, 113, 128);
+            uiLine2.ForeColor = Color.FromArgb(255, 113, 128);
         }
 
         public override void Final()
@@ -31,9 +30,9 @@ namespace Daigassou.Forms
 
         }
 
-        private void uiSwitch1_ValueChanged(object sender, bool value)
+        private void tbMidiKey_ValueChanged(object sender, EventArgs e)
         {
-            uiPanel1.Enabled = false;
+            lblMidiKey.Text = $"键盘起始Key +{tbMidiKey.Value * 12}";
         }
     }
 }
