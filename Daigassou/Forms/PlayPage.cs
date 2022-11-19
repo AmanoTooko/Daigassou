@@ -4,19 +4,27 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Daigassou.Utils;
+using Daigassou.Controller;
 using Sunny.UI;
+using System.Xml.Linq;
+
 
 namespace Daigassou.Forms
 {
     public partial class PlayPage : UIPage
     {
+        MidiFileParser midiFileParser;
+        private Instrument instru;
         public PlayPage()
         {
             InitializeComponent();
-            
+            midiFileParser = new MidiFileParser();
+            instru = new Instrument();
         }
         public override void Init()
         {
@@ -55,6 +63,43 @@ namespace Daigassou.Forms
             lblKey.Text = $"当前音高  {tbKey.Value}";
 
             
+        }
+
+        private void btnOpenFile_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog()==DialogResult.OK)
+            {
+                //发送midi信息
+                tbFilename.Text = openFileDialog1.FileName.Split("\\").Last();
+
+                SendParamToPage((int)PageID.MultiPlayPage,
+                    new CommObject() {eventId = eventCata.MIDI_FILE_NAME, payload = openFileDialog1.FileName});
+                SendParamToPage((int)PageID.PreviewPlayPage,
+                    new CommObject() { eventId = eventCata.MIDI_FILE_NAME, payload = openFileDialog1.FileName });
+                //开始读取track信息
+
+                midiFileParser.OpenFile(openFileDialog1.FileName);
+                var trackNameList = midiFileParser.GetTrackNames();
+
+                for (int i = 0; i < trackNameList.Count; i++)
+                {
+                   var name = trackNameList[i];
+                    if (instru.AliasToCode(name))
+                    {
+                        trackNameList[i] = $"[{instru.ToString()}]{name}";
+                    }
+                }
+                
+                cbTrackname.DataSource = trackNameList;
+            }
+        }
+
+        private void cbTrackname_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SendParamToPage((int)PageID.MultiPlayPage,
+                new CommObject() { eventId = eventCata.TRACK_FILE_NAME, payload = $"{cbTrackname.SelectedIndex}|{cbTrackname.SelectedItem}" });
+            SendParamToPage((int)PageID.PreviewPlayPage,
+                new CommObject() { eventId = eventCata.TRACK_FILE_NAME, payload = $"{cbTrackname.SelectedIndex}|{cbTrackname.SelectedItem}" });
         }
     }
 }

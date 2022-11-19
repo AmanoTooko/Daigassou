@@ -18,7 +18,7 @@ using Daigassou.Utils;
 using Newtonsoft.Json;
 using RainbowMage.OverlayPlugin;
 using Daigassou.Forms;
-using Melanchall.DryWetMidi.Devices;
+using Melanchall.DryWetMidi.Multimedia;
 using Melanchall.DryWetMidi.Core;
 
 namespace Daigassou
@@ -41,7 +41,7 @@ namespace Daigassou
         private int pauseTime = 0;
         private bool isCaptureFlag;
         private Queue<KeyPlayList> keyPlayLists;
-        private NetworkClass net;
+        //private NetworkClass net;
         private int trackLock = 0;
         private bool netMidiFlag = false;
         public MainForm()
@@ -52,13 +52,13 @@ namespace Daigassou
             formUpdate();
             KeyBinding.LoadConfig();
             timeBeginPeriod(1);
-            
+
             Task.Run((Action)(() =>
             {
-                //CommonUtilities.GetLatestVersion();
+                CommonUtilities.GetLatestVersion();
                 this.TimeSync();
             }));
-            
+
             Text += $@" Ver{Assembly.GetExecutingAssembly().GetName().Version} ";
             cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
             kc.stopHandler += StopKeyPlay;
@@ -74,7 +74,7 @@ namespace Daigassou
                 hkm.Enabled = false;
                 if (KeyBinding.hotkeyArrayList == null || KeyBinding.hotkeyArrayList.Count < 5)
                 {
-                   
+
                     hotkeysArrayList = new ArrayList();
                     hotkeysArrayList.Clear();
                     hotkeysArrayList.Add(
@@ -100,11 +100,11 @@ namespace Daigassou
                 }
 
                 {
-                    ((GlobalHotKey) hotkeysArrayList[0]).HotKeyPressed += Start_HotKeyPressed;
-                    ((GlobalHotKey) hotkeysArrayList[1]).HotKeyPressed += Stop_HotKeyPressed;
-                    ((GlobalHotKey) hotkeysArrayList[2]).HotKeyPressed += PitchUp_HotKeyPressed;
-                    ((GlobalHotKey) hotkeysArrayList[3]).HotKeyPressed += PitchDown_HotKeyPressed;
-                    ((GlobalHotKey) hotkeysArrayList[4]).HotKeyPressed += Pause_HotKeyPressed;
+                    ((GlobalHotKey)hotkeysArrayList[0]).HotKeyPressed += Start_HotKeyPressed;
+                    ((GlobalHotKey)hotkeysArrayList[1]).HotKeyPressed += Stop_HotKeyPressed;
+                    ((GlobalHotKey)hotkeysArrayList[2]).HotKeyPressed += PitchUp_HotKeyPressed;
+                    ((GlobalHotKey)hotkeysArrayList[3]).HotKeyPressed += PitchDown_HotKeyPressed;
+                    ((GlobalHotKey)hotkeysArrayList[4]).HotKeyPressed += Pause_HotKeyPressed;
                 }
                 var ret = true;
                 foreach (GlobalHotKey k in hotkeysArrayList)
@@ -118,7 +118,7 @@ namespace Daigassou
                         }
                         catch (Exception e)
                         {
-                            
+
                             ret = false;
                         }
 
@@ -128,7 +128,7 @@ namespace Daigassou
 
                 if (ret == false)
                 {
-                    
+
                     throw new Exception();
                 }
 
@@ -199,14 +199,14 @@ namespace Daigassou
             Log.overlayLog($"快捷键：演奏停止");
             StopKeyPlay();
 
-            
+
 
         }
         private void StopKeyPlay()
         {
-            _runningFlag = false;            
+            _runningFlag = false;
             _runningTask?.Abort();
-            while (_runningTask!=null&&
+            while (_runningTask != null &&
                 _runningTask.ThreadState != System.Threading.ThreadState.Stopped &&
                 _runningTask.ThreadState != System.Threading.ThreadState.Aborted) Thread.Sleep(1);
             lyricPoster.LrcStop();
@@ -218,95 +218,95 @@ namespace Daigassou
         private void PitchUp_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
 
-                ParameterController.GetInstance().Pitch += 1;
-                Log.overlayLog($"快捷键：向上移调 当前 {ParameterController.GetInstance().Pitch}");
-                
+            ParameterController.GetInstance().Pitch += 1;
+            Log.overlayLog($"快捷键：向上移调 当前 {ParameterController.GetInstance().Pitch}");
+
         }
 
         private void PitchDown_HotKeyPressed(object sender, GlobalHotKeyEventArgs e)
         {
 
-                ParameterController.GetInstance().Pitch -= 1;
-                Log.overlayLog($"快捷键：向下移调 当前 {ParameterController.GetInstance().Pitch}");
-            
-                
+            ParameterController.GetInstance().Pitch -= 1;
+            Log.overlayLog($"快捷键：向下移调 当前 {ParameterController.GetInstance().Pitch}");
+
+
         }
 
 
         private void StartKeyPlayback(int interval)
         {
-            kc.isPlayingFlag = false;
-            kc.isRunningFlag = false;
-            kc.pauseOffset = 0;
-            ParameterController.GetInstance().Pitch = 0;
-            if (midFileDiag.FileName==string.Empty)
-            {
-                Log.overlayLog($"错误：没有Midi文件");
-                MessageBox.Show(new Form() { TopMost = true }, "没有midi你演奏个锤锤？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                return;
-            }
+            //kc.isPlayingFlag = false;
+            //kc.isRunningFlag = false;
+            //kc.pauseOffset = 0;
+            //ParameterController.GetInstance().Pitch = 0;
+            //if (midFileDiag.FileName == string.Empty)
+            //{
+            //    Log.overlayLog($"错误：没有Midi文件");
+            //    MessageBox.Show(new Form() { TopMost = true }, "没有midi你演奏个锤锤？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            //    return;
+            //}
 
-            if (_runningTask==null||
-                _runningTask.ThreadState!= System.Threading.ThreadState.Running&&
-                _runningTask.ThreadState != System.Threading.ThreadState.Suspended)
-            {
-                _runningTask?.Abort();
+            //if (_runningTask == null ||
+            //    _runningTask.ThreadState != System.Threading.ThreadState.Running &&
+            //    _runningTask.ThreadState != System.Threading.ThreadState.Suspended)
+            //{
+            //    _runningTask?.Abort();
 
-                this.kc.isPlayingFlag = true;
-                btnSyncReady.BackColor = Color.Aquamarine;
-                btnSyncReady.Text = "中断演奏";
-                var Interval = interval < 1000 ? 1000 : interval;
-                var sub = (long) (1000 - interval);
-                int bpm = 120;
-                //timer1.Start();
-                var sw = new Stopwatch();
-                sw.Start();
-                Log.overlayLog($"文件名：{Path.GetFileName(midFileDiag.FileName)}");
-                Log.overlayLog($"定时：{Interval}毫秒后演奏");
-                if (ParameterController.GetInstance().isEnsembleSync)
-                {
-                    System.Threading.Timer timer1 = new System.Threading.Timer((TimerCallback)(x => this.kc.KeyboardPress(48)), new object(), Interval - 4000, 0);
-                    System.Threading.Timer timer2 = new System.Threading.Timer((TimerCallback)(x => this.kc.KeyboardRelease(48)), new object(), Interval - 3950, 0);
-                    Log.overlayLog($"定时：同步音按下");
-                }
-                if(netMidiFlag)
-                {
-                    keyPlayLists = mtk.netmidi?.Tracks[trackComboBox.SelectedIndex].notes;
-                    bpm = mtk.netmidi.BPM;
-                }
-                else
-                {
-                    
-                    OpenFile(midFileDiag.FileName);
-                    bpm = mtk.GetBpm();
-                    mtk.GetTrackManagers();
-                    keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(bpm / nudBpm.Value));
-                }
+            //    this.kc.isPlayingFlag = true;
+            //    btnSyncReady.BackColor = Color.Aquamarine;
+            //    btnSyncReady.Text = "中断演奏";
+            //    var Interval = interval < 1000 ? 1000 : interval;
+            //    var sub = (long)(1000 - interval);
+            //    int bpm = 120;
+            //    //timer1.Start();
+            //    var sw = new Stopwatch();
+            //    sw.Start();
+            //    Log.overlayLog($"文件名：{Path.GetFileName(midFileDiag.FileName)}");
+            //    Log.overlayLog($"定时：{Interval}毫秒后演奏");
+            //    if (ParameterController.GetInstance().isEnsembleSync)
+            //    {
+            //        System.Threading.Timer timer1 = new System.Threading.Timer((TimerCallback)(x => this.kc.KeyboardPress(48)), new object(), Interval - 4000, 0);
+            //        System.Threading.Timer timer2 = new System.Threading.Timer((TimerCallback)(x => this.kc.KeyboardRelease(48)), new object(), Interval - 3950, 0);
+            //        Log.overlayLog($"定时：同步音按下");
+            //    }
+            //    if (netMidiFlag)
+            //    {
+            //        keyPlayLists = mtk.netmidi?.Tracks[trackComboBox.SelectedIndex].notes;
+            //        bpm = mtk.netmidi.BPM;
+            //    }
+            //    else
+            //    {
+
+            //        OpenFile(midFileDiag.FileName);
+            //        bpm = mtk.GetBpm();
+            //        mtk.GetTrackManagers();
+            //        keyPlayLists = mtk.ArrangeKeyPlaysNew((double)(bpm / nudBpm.Value));
+            //    }
 
 
-                lyricPoster.LrcStart(midFileDiag.FileName.Replace(".mid", ".mml").Replace(".mml", ".lrc"), interval);
-                File.WriteAllText($"1.txt", JsonConvert.SerializeObject(keyPlayLists));
-                if (interval<0)
-                {
-                    var keyPlay=keyPlayLists.Where((x)=>x.TimeMs> sub);
-                    keyPlayLists=new Queue<KeyPlayList>();
-                    foreach (KeyPlayList kp in keyPlay)
-                    {
-                        kp.TimeMs -= sub;
-                        keyPlayLists.Enqueue(kp);
-                    }
-                }
-                sw.Stop();
-                
-                _runningFlag = true;
-                cts = new CancellationTokenSource();
-                if (Settings.Default.isUsingAnalysis||netMidiFlag==true)
-                    _runningTask = createPerformanceTask(cts.Token, interval - (int)sw.ElapsedMilliseconds);//minus bug?
-                else
-                    _runningTask = createPerformanceTaskOriginal(cts.Token, (double)(nudBpm.Value / bpm));
-                _runningTask.Priority = ThreadPriority.Highest;
+            //    lyricPoster.LrcStart(midFileDiag.FileName.Replace(".mid", ".mml").Replace(".mml", ".lrc"), interval);
+            //    File.WriteAllText($"1.txt", JsonConvert.SerializeObject(keyPlayLists));
+            //    if (interval < 0)
+            //    {
+            //        var keyPlay = keyPlayLists.Where((x) => x.TimeMs > sub);
+            //        keyPlayLists = new Queue<KeyPlayList>();
+            //        foreach (KeyPlayList kp in keyPlay)
+            //        {
+            //            kp.TimeMs -= sub;
+            //            keyPlayLists.Enqueue(kp);
+            //        }
+            //    }
+            //    sw.Stop();
 
-            }
+            //    _runningFlag = true;
+            //    cts = new CancellationTokenSource();
+            //    if (Settings.Default.isUsingAnalysis || netMidiFlag == true)
+            //        _runningTask = createPerformanceTask(cts.Token, interval - (int)sw.ElapsedMilliseconds);//minus bug?
+            //    else
+            //        _runningTask = createPerformanceTaskOriginal(cts.Token, (double)(nudBpm.Value / bpm));
+            //    _runningTask.Priority = ThreadPriority.Highest;
+
+            //}
 
 
         }
@@ -328,12 +328,13 @@ namespace Daigassou
             }
         }
 
-        private Thread createPerformanceTask(CancellationToken token,int startOffset)
+        private Thread createPerformanceTask(CancellationToken token, int startOffset)
         {
             ParameterController.GetInstance().InternalOffset = (int)numericUpDown2.Value;
             ParameterController.GetInstance().Offset = 0;
             Thread thread = new Thread(
-                () => {
+                () =>
+                {
                     kc.KeyPlayBack(keyPlayLists, 1, cts.Token, startOffset);
                     _runningFlag = false;
                 }
@@ -342,17 +343,18 @@ namespace Daigassou
             return thread;
 
         }
-        private Thread createPerformanceTaskOriginal(CancellationToken token,double speed)
+        private Thread createPerformanceTaskOriginal(CancellationToken token, double speed)
         {
             ParameterController.GetInstance().InternalOffset = (int)numericUpDown2.Value;
             ParameterController.GetInstance().Offset = 0;
-            
+
             Thread thread = new Thread(
-                () => {
+                () =>
+                {
                     KeyboardUtilities.kc = kc;
                     kc.isRunningFlag = true;
                     mtk.PlaybackWithoutAnalysis(speed, P_EventPlayed, cts.Token);
-                  
+
                     _runningFlag = false;
                 }
                 );
@@ -367,11 +369,11 @@ namespace Daigassou
             {
                 case NoteOnEvent keyon:
                     KeyboardUtilities.NoteOn(keyon);
-                    
+
                     break;
                 case NoteOffEvent keyoff:
                     KeyboardUtilities.NoteOff(keyoff);
-                    
+
                     break;
             }
         }
@@ -389,11 +391,11 @@ namespace Daigassou
             {
                 OpenFile(midFileDiag.FileName);
             }
-                
+
             else
                 return;
             netMidiFlag = false;
-            pathTextBox.Text = Path.GetFileName( midFileDiag.FileName);
+            pathTextBox.Text = Path.GetFileName(midFileDiag.FileName);
             Log.overlayLog($"打开文件：{Path.GetFileName(midFileDiag.FileName)}");
             radioButton2.Checked = true;
             _tmpScore = mtk.GetTrackManagers(); //note tracks
@@ -406,9 +408,9 @@ namespace Daigassou
 
 
             trackComboBox.DataSource = tmp;
-            trackComboBox.SelectedIndex =Math.Min(tmp.Count-1,trackLock);
-            //TODO: if source midi not imported successfully will cause error
-            //TODO: Enhancement issue#14 lock track selection
+            trackComboBox.SelectedIndex = Math.Min(tmp.Count - 1, trackLock);
+       // TODO: if source midi not imported successfully will cause error
+       // TODO: Enhancement issue#14 lock track selection
             if (bpm >= nudBpm.Maximum)
                 nudBpm.Value = nudBpm.Maximum;
             else if (bpm <= nudBpm.Minimum)
@@ -442,8 +444,8 @@ namespace Daigassou
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            mtk.Bpm = (int) nudBpm.Value;
-            
+            mtk.Bpm = (int)nudBpm.Value;
+
         }
 
         private void SyncButton_Click(object sender, EventArgs e)
@@ -451,21 +453,21 @@ namespace Daigassou
             var interval = dtpSyncTime.Value - DateTime.Now;
             if (kc.isRunningFlag)
             {
-                
+
                 StopKeyPlay();
             }
             else
             {
                 StartKeyPlayback((int)interval.TotalMilliseconds + (int)numericUpDown2.Value);
             }
-            
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             KeyboardUtilities.Disconnect();
             hkm.Enabled = false;
-            ArrayList tmp=new ArrayList();
+            ArrayList tmp = new ArrayList();
             foreach (GlobalHotKey a in hkm.EnumerateGlobalHotKeys)
             {
                 tmp.Add(a);
@@ -476,18 +478,18 @@ namespace Daigassou
                 hkm.RemoveGlobalHotKey(VARIABLE);
             }
             hkm.Dispose();
-            if (a!=null)
-            {
-                if (a.f!=null)
-                {
-                    a.f.Dispose();
-                    RainbowMage.HtmlRenderer.Renderer.Shutdown();
-                }
-                
-            }
+            //if (a != null)
+            //{
+            //    if (a.f != null)
+            //    {
+            //        a.f.Dispose();
+            //        RainbowMage.HtmlRenderer.Renderer.Shutdown();
+            //    }
+
+            //}
             StopKeyPlay();
             timeEndPeriod(1);
-            
+
         }
 
         private void keyForm13Button_Click(object sender, EventArgs e)
@@ -495,7 +497,7 @@ namespace Daigassou
             keyForm13.ShowDialog();
         }
 
-       
+
 
 
         private void btnKeyboardConnect_Click(object sender, EventArgs e)
@@ -515,7 +517,7 @@ namespace Daigassou
                     KeyboardUtilities.Disconnect();
                     cbMidiKeyboard.Enabled = true;
                     cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
-                    btnKeyboardConnect.BackColor = Color.FromArgb(255,110,128);
+                    btnKeyboardConnect.BackColor = Color.FromArgb(255, 110, 128);
                     btnKeyboardConnect.Text = "开始连接";
                 }
         }
@@ -543,7 +545,7 @@ namespace Daigassou
 
         private void cbMidiKeyboard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
+            cbMidiKeyboard.DataSource = KeyboardUtilities.GetKeyboardList();
         }
 
         private void btnSwitch_Click(object sender, EventArgs e)
@@ -576,7 +578,7 @@ namespace Daigassou
                 Log.overlayLog($"时间同步：NTP请求发送");
                 var offset = new NtpClient(Settings.Default.NtpServer).GetOffset(out error);
                 Log.overlayLog($"时间同步：与北京时间相差{offset.Milliseconds}毫秒");
-                //TODO:error handler
+           // TODO: error handler
                 if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(
                     DateTime.Now.AddMilliseconds(offset.TotalMilliseconds * -0.5)))
                     tlblTime.Text = "本地时钟已同步";
@@ -584,20 +586,20 @@ namespace Daigassou
             catch (Exception e)
             {
                 tlblTime.Text = "设置时间出错";
-                
+
             }
 
-           
-                
+
+
         }
         private void Playback_Finished(object sender, EventArgs e)
         {
-            this.Invoke(new Action(()=> { btnStop_Click(sender, e); }));
+            this.Invoke(new Action(() => { btnStop_Click(sender, e); }));
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            if (mtk.PlaybackStart((int) nudBpm.Value,Playback_Finished) == 0)
+            if (mtk.PlaybackStart((int)nudBpm.Value, Playback_Finished) == 0)
             {
                 mtk.PlaybackPercentSet(tbMidiProcess.Value);
                 btnPlay.BackgroundImage = Resources.c_play_1;
@@ -640,109 +642,109 @@ namespace Daigassou
         private void BtnTimeSync_Click(object sender, EventArgs e)
         {
 
-            if (isCaptureFlag)
-            {
-                net._shouldStop = true;                
-                isCaptureFlag = false;
-                (sender as Button).Text = "网络同步";
-                (sender as Button).BackColor = Color.FromArgb(255, 110, 128);
-            }
-            else
-            {
-                TimeSync();
-                
-                
-                net = new NetworkClass();
-                net.Play += Net_Play;
-                
-                try
-                {
-                    List<Process> ffxivProcess = FFProcess.FindFFXIVProcess();
-                    if (ffxivProcess.Count == 1)
-                    {
-                        Task.Run((Action)(() => this.net.Run((uint)FFProcess.FindFFXIVProcess().First<Process>().Id)));
-                        this.isCaptureFlag = true;
-                        (sender as Button).Text = "停止同步";
-                        (sender as Button).BackColor = Color.Aquamarine;
-                    }
-                    else if (ffxivProcess.Count >= 2)
-                    {
-                        uint id = 0;
-                        PidSelect pidSelect = new PidSelect();
-                        pidSelect.GetPid += (PidSelect.PidSelector)(x => id = (uint)x);
-                        int num = (int)pidSelect.ShowDialog();
-                        Task.Run((Action)(() => this.net.Run(id)));
-                        this.isCaptureFlag = true;
-                        (sender as Button).Text = "停止同步";
-                        (sender as Button).BackColor = Color.Aquamarine;
-                    }
-                    else
-                    {
-                        MessageBox.Show(new Form() { TopMost = true }, "你开游戏了吗？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                    }
-                }
-                catch (Exception exception)
-                {
-                }
-            }
+            //if (isCaptureFlag)
+            //{
+            //    net._shouldStop = true;
+            //    isCaptureFlag = false;
+            //    (sender as Button).Text = "网络同步";
+            //    (sender as Button).BackColor = Color.FromArgb(255, 110, 128);
+            //}
+            //else
+            //{
+            //    TimeSync();
+
+
+            //    net = new NetworkClass();
+            //    net.Play += Net_Play;
+
+            //    try
+            //    {
+            //        List<Process> ffxivProcess = FFProcess.FindFFXIVProcess();
+            //        if (ffxivProcess.Count == 1)
+            //        {
+            //            Task.Run((Action)(() => this.net.Run((uint)FFProcess.FindFFXIVProcess().First<Process>().Id)));
+            //            this.isCaptureFlag = true;
+            //            (sender as Button).Text = "停止同步";
+            //            (sender as Button).BackColor = Color.Aquamarine;
+            //        }
+            //        else if (ffxivProcess.Count >= 2)
+            //        {
+            //            uint id = 0;
+            //            PidSelect pidSelect = new PidSelect();
+            //            pidSelect.GetPid += (PidSelect.PidSelector)(x => id = (uint)x);
+            //            int num = (int)pidSelect.ShowDialog();
+            //            Task.Run((Action)(() => this.net.Run(id)));
+            //            this.isCaptureFlag = true;
+            //            (sender as Button).Text = "停止同步";
+            //            (sender as Button).BackColor = Color.Aquamarine;
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show(new Form() { TopMost = true }, "你开游戏了吗？", "喵喵喵？", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            //        }
+            //    }
+            //    catch (Exception exception)
+            //    {
+            //    }
+            //}
         }
         private delegate void remotePlay(int time, string name);
         private delegate void updateForm(string text);
-        
-        private void Net_Play(object sender, PlayEvent e)
-        {
-            if (this.InvokeRequired)
-            {
-                if (e.Mode==0)
-                {
-                    var n = new remotePlay(NetPlay);
-                    this.Invoke(n, e.Time, e.Text);
-                }
-                else if (e.Mode == 1)
-                {
-                    var n = new remotePlay(NetStop);
-                    this.Invoke(n, e.Time, e.Text);
-                }
-                else if (e.Mode==2)
-                {
-                    var n = new updateForm(upform);
-                    this.Invoke(n, e.Text);
-                }
-                
-            }
-            else
-            {
-                if (e.Mode == 0)
-                {
-                    NetPlay(e.Time, e.Text);
-                }
-                else if (e.Mode == 1)
-                {
-                    NetStop(e.Time, e.Text);
-                }
-                
-            }
-            
-        }
 
-        private void NetPlay(int time,string name)
+        //private void Net_Play(object sender, PlayEvent e)
+        //{
+        //    if (this.InvokeRequired)
+        //    {
+        //        if (e.Mode == 0)
+        //        {
+        //            var n = new remotePlay(NetPlay);
+        //            this.Invoke(n, e.Time, e.Text);
+        //        }
+        //        else if (e.Mode == 1)
+        //        {
+        //            var n = new remotePlay(NetStop);
+        //            this.Invoke(n, e.Time, e.Text);
+        //        }
+        //        else if (e.Mode == 2)
+        //        {
+        //            var n = new updateForm(upform);
+        //            this.Invoke(n, e.Text);
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        if (e.Mode == 0)
+        //        {
+        //            NetPlay(e.Time, e.Text);
+        //        }
+        //        else if (e.Mode == 1)
+        //        {
+        //            NetStop(e.Time, e.Text);
+        //        }
+
+        //    }
+
+        //}
+
+        private void NetPlay(int time, string name)
         {
             System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1)); // 当地时区
             DateTime dt = startTime.AddSeconds(time);
 
             dtpSyncTime.Value = dt;
-             SyncButton_Click(new object(), new EventArgs());
-            //var msTime = (dt - DateTime.Now).TotalMilliseconds;
-            //StartKeyPlayback((int)msTime + (int)numericUpDown2.Value);
+            SyncButton_Click(new object(), new EventArgs());
+            var msTime = (dt - DateTime.Now).TotalMilliseconds;
+            StartKeyPlayback((int)msTime + (int)numericUpDown2.Value);
             Log.overlayLog($"网络控制：{name.Trim().Replace("\0", string.Empty)}发起倒计时，目标时间:{dt.ToString("HH:mm:ss")}");
-            //tlblTime.Text = $"{name.Trim().Replace("\0",string.Empty)}发起倒计时:{msTime}毫秒";
+            tlblTime.Text = $"{name.Trim().Replace("\0", string.Empty)}发起倒计时:{msTime}毫秒";
 
 
 
         }
         private void upform(string text)
         {
-            this.Text= $@"[{text}]大合奏！ Ver{Assembly.GetExecutingAssembly().GetName().Version} ";
+            this.Text = $@"[{text}]大合奏！ Ver{Assembly.GetExecutingAssembly().GetName().Version} ";
         }
         private void NetStop(int time, string name)
         {
@@ -756,9 +758,9 @@ namespace Daigassou
             if (_playingFlag)
             {
                 timeLabel.Text = mtk.PlaybackInfo();
-                var per= mtk.PlaybackPercentGet();
+                var per = mtk.PlaybackPercentGet();
                 tbMidiProcess.Value = per;
-                
+
             }
             timeStripStatus.Text = DateTime.Now.ToString("T");
         }
@@ -794,8 +796,8 @@ namespace Daigassou
 
         private void ToolStripSplitButton1_ButtonClick(object sender, EventArgs e)
         {
-            
-            var form=new ConfigForm(hotkeysArrayList,kc,hkm);
+
+            var form = new ConfigForm(hotkeysArrayList, kc, hkm);
             form.ShowDialog();
         }
 
@@ -806,27 +808,27 @@ namespace Daigassou
             InitHotKeyBiding();
         }
 
-        private StatusOverlay.OverlayControl a;
+        //private StatusOverlay.OverlayControl a;
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (a != null)
-                {
-                    a.config.IsVisible = !a.config.IsVisible;
-                }
-                else
-                {
-                    a = new StatusOverlay.OverlayControl();
-                    a.InitializeOverlays(PointToScreen(new Point(this.Width, this.Height - 150)));
-                    Log.log = a.config;
-                }
-            }
-            catch (NullReferenceException ex)
-            {
-                MessageBox.Show(new Form() { TopMost = true }, "悬浮窗库文件似乎不完全", "你是只傻肥！", MessageBoxButtons.OK, MessageBoxIcon.Information);                
-            }
-            
+        //    try
+        //    {
+        //        if (a != null)
+        //        {
+        //            a.config.IsVisible = !a.config.IsVisible;
+        //        }
+        //        else
+        //        {
+        //            a = new StatusOverlay.OverlayControl();
+        //            a.InitializeOverlays(PointToScreen(new Point(this.Width, this.Height - 150)));
+        //            Log.log = a.config;
+        //        }
+        //    }
+        //    catch (NullReferenceException ex)
+        //    {
+        //        MessageBox.Show(new Form() { TopMost = true }, "悬浮窗库文件似乎不完全", "你是只傻肥！", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    }
+
         }
 
         private void btnSyncReady_MouseClick(object sender, MouseEventArgs e)
@@ -843,13 +845,13 @@ namespace Daigassou
         {
             var tempTime = DateTime.Now.AddMinutes(2);
             DateTime targetTime;
-            if (tempTime.Minute%2==1)
+            if (tempTime.Minute % 2 == 1)
             {
                 targetTime = new DateTime(tempTime.Year, tempTime.Month, tempTime.Day, tempTime.Hour, tempTime.Minute - 1, 0);
             }
             else
             {
-                targetTime = new DateTime(tempTime.Year, tempTime.Month, tempTime.Day, tempTime.Hour, tempTime.Minute , 0);
+                targetTime = new DateTime(tempTime.Year, tempTime.Month, tempTime.Day, tempTime.Hour, tempTime.Minute, 0);
 
             }
             dtpSyncTime.Value = targetTime;
@@ -868,7 +870,7 @@ namespace Daigassou
 
         private void label2_Click(object sender, EventArgs e)
         {
-            if(trackLock!=0)
+            if (trackLock != 0)
             {
                 trackLock = 0;
                 label2.BackColor = Color.White;
@@ -877,21 +879,21 @@ namespace Daigassou
             {
                 trackLock = trackComboBox.SelectedIndex;
                 label2.BackColor = Color.FromArgb(255, 110, 128);
-            }    
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
             var s = new SongSelect();
-            string id="";
+            string id = "";
             s.Getid += (SongSelect.IdSelector)(x =>
             {
                 id = x;
             });
             s.ShowDialog();
-            if (id!=null)
+            if (id != null)
             {
-                var jsonscore=NetMidiDownload.DownloadMidi(id);
+                var jsonscore = NetMidiDownload.DownloadMidi(id);
                 try
                 {
                     KeyplayClass keyplay = JsonConvert.DeserializeObject<KeyplayClass>(jsonscore);
@@ -913,8 +915,8 @@ namespace Daigassou
 
                     trackComboBox.DataSource = tmp;
                     trackComboBox.SelectedIndex = Math.Min(tmp.Count - 1, trackLock);
-                    //TODO: if source midi not imported successfully will cause error
-                    //TODO: Enhancement issue#14 lock track selection
+                //TODO: if source midi not imported successfully will cause error
+                //TODO: Enhancement issue#14 lock track selection
                     if (bpm >= nudBpm.Maximum)
                         nudBpm.Value = nudBpm.Maximum;
                     else if (bpm <= nudBpm.Minimum)
@@ -928,10 +930,10 @@ namespace Daigassou
                 catch (Exception ee)
                 {
 
-                   throw ee ;
+                    throw ee;
                 }
             }
-            
+
         }
     }
 }

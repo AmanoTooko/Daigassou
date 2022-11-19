@@ -30,10 +30,10 @@
         {
             this.uiLine1 = new Sunny.UI.UILine();
             this.uiPanel1 = new Sunny.UI.UIPanel();
-            this.uiSymbolButton8 = new Sunny.UI.UISymbolButton();
+            this.btnOpenFile = new Sunny.UI.UISymbolButton();
             this.uiSymbolLabel1 = new Sunny.UI.UISymbolLabel();
-            this.uiComboBox1 = new Sunny.UI.UIComboBox();
-            this.uiTextBox1 = new Sunny.UI.UITextBox();
+            this.cbTrackname = new Sunny.UI.UIComboBox();
+            this.tbFilename = new Sunny.UI.UITextBox();
             this.uiLine2 = new Sunny.UI.UILine();
             this.tbSpeed = new Sunny.UI.UITrackBar();
             this.uiSymbolLabel2 = new Sunny.UI.UISymbolLabel();
@@ -50,6 +50,7 @@
             this.uiSymbolButton5 = new Sunny.UI.UISymbolButton();
             this.uiSymbolButton4 = new Sunny.UI.UISymbolButton();
             this.uiLabel3 = new Sunny.UI.UILabel();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.uiPanel1.SuspendLayout();
             this.uiPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -72,10 +73,10 @@
             // 
             // uiPanel1
             // 
-            this.uiPanel1.Controls.Add(this.uiSymbolButton8);
+            this.uiPanel1.Controls.Add(this.btnOpenFile);
             this.uiPanel1.Controls.Add(this.uiSymbolLabel1);
-            this.uiPanel1.Controls.Add(this.uiComboBox1);
-            this.uiPanel1.Controls.Add(this.uiTextBox1);
+            this.uiPanel1.Controls.Add(this.cbTrackname);
+            this.uiPanel1.Controls.Add(this.tbFilename);
             this.uiPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.uiPanel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiPanel1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
@@ -95,30 +96,31 @@
             this.uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.uiPanel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiSymbolButton8
+            // btnOpenFile
             // 
-            this.uiSymbolButton8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiSymbolButton8.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton8.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton8.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton8.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton8.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton8.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton8.Location = new System.Drawing.Point(13, 16);
-            this.uiSymbolButton8.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolButton8.Name = "uiSymbolButton8";
-            this.uiSymbolButton8.Radius = 1;
-            this.uiSymbolButton8.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton8.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton8.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton8.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton8.Size = new System.Drawing.Size(105, 35);
-            this.uiSymbolButton8.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolButton8.Symbol = 361564;
-            this.uiSymbolButton8.TabIndex = 22;
-            this.uiSymbolButton8.Text = "导入文件";
-            this.uiSymbolButton8.TipsFont = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton8.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnOpenFile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOpenFile.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnOpenFile.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnOpenFile.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnOpenFile.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnOpenFile.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnOpenFile.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnOpenFile.Location = new System.Drawing.Point(13, 16);
+            this.btnOpenFile.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnOpenFile.Name = "btnOpenFile";
+            this.btnOpenFile.Radius = 1;
+            this.btnOpenFile.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnOpenFile.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnOpenFile.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnOpenFile.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnOpenFile.Size = new System.Drawing.Size(105, 35);
+            this.btnOpenFile.Style = Sunny.UI.UIStyle.Colorful;
+            this.btnOpenFile.Symbol = 361564;
+            this.btnOpenFile.TabIndex = 22;
+            this.btnOpenFile.Text = "导入文件";
+            this.btnOpenFile.TipsFont = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnOpenFile.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
             // uiSymbolLabel1
             // 
@@ -134,55 +136,54 @@
             this.uiSymbolLabel1.Text = "选择轨道";
             this.uiSymbolLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiComboBox1
+            // cbTrackname
             // 
-            this.uiComboBox1.DataSource = null;
-            this.uiComboBox1.FillColor = System.Drawing.Color.White;
-            this.uiComboBox1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiComboBox1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiComboBox1.ItemHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(242)))), ((int)(((byte)(238)))));
-            this.uiComboBox1.ItemRectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiComboBox1.ItemSelectBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiComboBox1.ItemSelectForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiComboBox1.Location = new System.Drawing.Point(124, 67);
-            this.uiComboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiComboBox1.MinimumSize = new System.Drawing.Size(63, 0);
-            this.uiComboBox1.Name = "uiComboBox1";
-            this.uiComboBox1.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            this.uiComboBox1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiComboBox1.Size = new System.Drawing.Size(345, 34);
-            this.uiComboBox1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiComboBox1.TabIndex = 8;
-            this.uiComboBox1.Text = "uiComboBox1";
-            this.uiComboBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiComboBox1.Watermark = "";
-            this.uiComboBox1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.cbTrackname.DataSource = null;
+            this.cbTrackname.FillColor = System.Drawing.Color.White;
+            this.cbTrackname.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.cbTrackname.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbTrackname.ItemHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(242)))), ((int)(((byte)(238)))));
+            this.cbTrackname.ItemRectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.cbTrackname.ItemSelectBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.cbTrackname.ItemSelectForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.cbTrackname.Location = new System.Drawing.Point(124, 67);
+            this.cbTrackname.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbTrackname.MinimumSize = new System.Drawing.Size(63, 0);
+            this.cbTrackname.Name = "cbTrackname";
+            this.cbTrackname.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            this.cbTrackname.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.cbTrackname.Size = new System.Drawing.Size(345, 34);
+            this.cbTrackname.Style = Sunny.UI.UIStyle.Colorful;
+            this.cbTrackname.TabIndex = 8;
+            this.cbTrackname.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cbTrackname.Watermark = "轨道名";
+            this.cbTrackname.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.cbTrackname.SelectedIndexChanged += new System.EventHandler(this.cbTrackname_SelectedIndexChanged);
             // 
-            // uiTextBox1
+            // tbFilename
             // 
-            this.uiTextBox1.ButtonFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiTextBox1.ButtonFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiTextBox1.ButtonFillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiTextBox1.ButtonRectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiTextBox1.ButtonRectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiTextBox1.ButtonRectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.uiTextBox1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiTextBox1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiTextBox1.Location = new System.Drawing.Point(124, 16);
-            this.uiTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiTextBox1.MinimumSize = new System.Drawing.Size(1, 16);
-            this.uiTextBox1.Name = "uiTextBox1";
-            this.uiTextBox1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiTextBox1.ScrollBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiTextBox1.ShowText = false;
-            this.uiTextBox1.Size = new System.Drawing.Size(345, 34);
-            this.uiTextBox1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiTextBox1.TabIndex = 6;
-            this.uiTextBox1.Text = "uiTextBox1";
-            this.uiTextBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiTextBox1.Watermark = "";
-            this.uiTextBox1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.tbFilename.ButtonFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.tbFilename.ButtonFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.tbFilename.ButtonFillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.tbFilename.ButtonRectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.tbFilename.ButtonRectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.tbFilename.ButtonRectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.tbFilename.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbFilename.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.tbFilename.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tbFilename.Location = new System.Drawing.Point(124, 16);
+            this.tbFilename.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tbFilename.MinimumSize = new System.Drawing.Size(1, 16);
+            this.tbFilename.Name = "tbFilename";
+            this.tbFilename.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.tbFilename.ScrollBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.tbFilename.ShowText = false;
+            this.tbFilename.Size = new System.Drawing.Size(345, 34);
+            this.tbFilename.Style = Sunny.UI.UIStyle.Colorful;
+            this.tbFilename.TabIndex = 6;
+            this.tbFilename.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tbFilename.Watermark = "打开的文件名";
+            this.tbFilename.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // uiLine2
             // 
@@ -504,11 +505,17 @@
             this.uiLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiLabel3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "此处广告位招租";
+            this.openFileDialog1.Filter = "mid 文件|*.mid|midi文件|*.midi";
+            // 
             // PlayPage
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(510, 350);
+            this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
             this.Controls.Add(this.uiPanel2);
             this.Controls.Add(this.uiLine2);
             this.Controls.Add(this.uiPanel1);
@@ -527,8 +534,8 @@
         #endregion
         private Sunny.UI.UILine uiLine1;
         private Sunny.UI.UIPanel uiPanel1;
-        private Sunny.UI.UIComboBox uiComboBox1;
-        private Sunny.UI.UITextBox uiTextBox1;
+        private Sunny.UI.UIComboBox cbTrackname;
+        private Sunny.UI.UITextBox tbFilename;
         private Sunny.UI.UILine uiLine2;
         private Sunny.UI.UITrackBar tbSpeed;
         private Sunny.UI.UISymbolLabel uiSymbolLabel2;
@@ -542,10 +549,11 @@
         private Sunny.UI.UISymbolButton uiSymbolButton5;
         private Sunny.UI.UISymbolButton uiSymbolButton4;
         private Sunny.UI.UISymbolButton uiSymbolButton7;
-        private Sunny.UI.UISymbolButton uiSymbolButton8;
+        private Sunny.UI.UISymbolButton btnOpenFile;
         private Sunny.UI.UISymbolLabel uiSymbolLabel1;
         private Sunny.UI.UILabel lblSpeed;
         private Sunny.UI.UILabel lblKey;
         private Sunny.UI.UILabel uiLabel3;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

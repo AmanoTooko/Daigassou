@@ -48,6 +48,7 @@
             this.radioBtnCtd = new Sunny.UI.UIRadioButton();
             this.uiSymbolLabel5 = new Sunny.UI.UISymbolLabel();
             this.uiLinkLabel1 = new Sunny.UI.UILinkLabel();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.uiPanel1.SuspendLayout();
             this.uiPanel2.SuspendLayout();
             this.uiPanel3.SuspendLayout();
@@ -224,7 +225,7 @@
             this.lblKey.Size = new System.Drawing.Size(349, 17);
             this.lblKey.Style = Sunny.UI.UIStyle.Colorful;
             this.lblKey.TabIndex = 24;
-            this.lblKey.Text = "乐谱名:直到深度将我们分开 - splatoon3 ";
+            this.lblKey.Text = "乐谱名：妹有乐谱";
             this.lblKey.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblKey.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
@@ -237,7 +238,7 @@
             this.uiLabel1.Size = new System.Drawing.Size(349, 26);
             this.uiLabel1.Style = Sunny.UI.UIStyle.Colorful;
             this.uiLabel1.TabIndex = 25;
-            this.uiLabel1.Text = "轨道名：[钢琴]Piano ";
+            this.uiLabel1.Text = "轨道名：妹有轨道";
             this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
@@ -410,6 +411,10 @@
             this.uiLinkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.uiLinkLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // MuiltiPlayForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -455,5 +460,6 @@
         private Sunny.UI.UIRadioButton radioBtnCtd;
         private Sunny.UI.UISymbolLabel uiSymbolLabel5;
         private Sunny.UI.UILinkLabel uiLinkLabel1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
