@@ -297,22 +297,29 @@ namespace Daigassou.Controller
 
         public Playback GetPlayback()
         {
-            PreProcessNoise();
+            if (Properties.Settings.Default.isUsingAnalysis)
+            {
+                PreProcessNoise();
+                PreProcessChord();
+                PreProcessEvents();
+            }
 
-            PreProcessChord();
-            PreProcessEvents();
             var playback = new Playback(trunks.ElementAt(Index).GetNotes(), Tmap);
             return playback;
         }
 
         public Playback GetPlaybackForAll()
         {
-            for (int i = 0; i < trunks.Count; i++)
+            if (Properties.Settings.Default.isUsingAnalysis)
             {
-                Index = i;
-                PreProcessNoise();
-                PreProcessChord();
-                PreProcessEvents();
+                for (int i = 0; i < trunks.Count; i++)
+                {
+                    Index = i;
+                    PreProcessNoise();
+                    PreProcessChord();
+                    PreProcessEvents();
+                }
+
             }
 
             var playback = midi.GetPlayback();

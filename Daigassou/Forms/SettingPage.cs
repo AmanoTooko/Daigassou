@@ -18,9 +18,28 @@ namespace Daigassou.Forms
             InitializeComponent();
         }
 
-        private void SettingPage_ReceiveParams(object sender, UIPageParamsArgs e)
+        public override void Init()
         {
-            uiTextBox1.Text = e.Value.ToString();
+            base.Init();
+            uiLine1.ForeColor = Color.FromArgb(255, 113, 128);
+            uiLine2.ForeColor = Color.FromArgb(255, 113, 128);
+            uiLine3.ForeColor = Color.FromArgb(255, 113, 128);
+        }
+
+        public override void Final()
+        {
+            base.Final();
+
+        }
+
+        private void uiSymbolButton2_Click(object sender, EventArgs e)
+        {
+            new KeyBindingForm().ShowDialog();
+        }
+
+        private void uiSymbolLabel2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

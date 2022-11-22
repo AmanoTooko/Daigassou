@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sunny.UI;
+using Melanchall.DryWetMidi.Multimedia;
 
 namespace Daigassou.Forms
 {
@@ -16,6 +17,7 @@ namespace Daigassou.Forms
         public MidiDevicePage()
         {
             InitializeComponent();
+            GetInputDevice();
         }
         public override void Init()
         {
@@ -33,6 +35,21 @@ namespace Daigassou.Forms
         private void tbMidiKey_ValueChanged(object sender, EventArgs e)
         {
             lblMidiKey.Text = $"键盘起始Key +{tbMidiKey.Value * 12}";
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void GetInputDevice()
+        {
+            var Namelist = new List<string>();
+            foreach (var device in InputDevice.GetAll())
+            {
+                Namelist.Add(device.Name);
+            }
+
+            cbInputDevice.DataSource = Namelist;
         }
     }
 }

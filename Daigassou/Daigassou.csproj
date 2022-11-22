@@ -115,14 +115,14 @@
       <HintPath>Reference\Interop.NetFwTypeLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Machina">
-      <HintPath>Reference\Machina.dll</HintPath>
+    <Reference Include="Machina, Version=2.3.1.1, Culture=neutral, PublicKeyToken=9f740ac505d6bc50, processorArchitecture=MSIL">
+      <HintPath>..\packages\Machina.2.3.1.1\lib\netstandard2.0\Machina.dll</HintPath>
     </Reference>
-    <Reference Include="Machina.FFXIV">
-      <HintPath>Reference\Machina.FFXIV.dll</HintPath>
+    <Reference Include="Machina.FFXIV, Version=2.3.4.6, Culture=neutral, PublicKeyToken=9f740ac505d6bc50, processorArchitecture=MSIL">
+      <HintPath>..\packages\Machina.FFXIV.2.3.4.6\lib\netstandard2.0\Machina.FFXIV.dll</HintPath>
     </Reference>
-    <Reference Include="Melanchall.DryWetMidi, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Melanchall.DryWetMidi.5.0.0\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
+    <Reference Include="Melanchall.DryWetMidi, Version=6.1.3.0, Culture=neutral, PublicKeyToken=83d0ffad275219ad, processorArchitecture=MSIL">
+      <HintPath>..\packages\Melanchall.DryWetMidi.6.1.3\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
     </Reference>
     <Reference Include="mml2mididotnet">
       <HintPath>Reference\mml2mididotnet.dll</HintPath>
@@ -172,6 +172,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +191,12 @@
     </Compile>
     <Compile Include="Forms\KeyBindForm13Key.Designer.cs">
       <DependentUpon>KeyBindForm13Key.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\KeyBindingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\KeyBindingForm.Designer.cs">
+      <DependentUpon>KeyBindingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainFormEx.cs">
       <SubType>Form</SubType>
@@ -252,31 +259,17 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Network\NetworkClass.cs" />
+    <Compile Include="Input_Midi\MidiFileParser.cs" />
+    <Compile Include="Input_Midi\MidiPlayController.cs" />
+    <Compile Include="Utils\Instrument.cs" />
+    <Compile Include="Network\NetworkParser.cs" />
     <Compile Include="NtpClient.cs" />
     <Compile Include="Output_Key\BackgroundKey.cs" />
     <Compile Include="Output_Key\KeyBinding.cs" />
     <Compile Include="Output_Key\KeyController.cs" />
     <Compile Include="Input_Midi\MidiToKey.cs" />
-    <Compile Include="Overlay\DIBitmap.cs" />
-    <Compile Include="Overlay\GlobalHotkeyChangedEventArgs.cs" />
-    <Compile Include="Overlay\GlobalHotkeyEnabledChangedEventArgs.cs" />
-    <Compile Include="Overlay\GlobalHotkeyType.cs" />
-    <Compile Include="Overlay\GlobalHotkeyTypeChangedEventArgs.cs" />
-    <Compile Include="Overlay\KeyPressedEventArgs.cs" />
-    <Compile Include="Overlay\LockStateChangedEventArgs.cs" />
-    <Compile Include="Overlay\MaxFrameRateChangedEventArgs.cs" />
-    <Compile Include="Overlay\OverlayBase`1.cs" />
-    <Compile Include="Overlay\OverlayConfigBase.cs" />
-    <Compile Include="Overlay\OverlayControl.cs" />
-    <Compile Include="Overlay\OverlayForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Overlay\SortKeyChangedEventArgs.cs" />
-    <Compile Include="Overlay\ThruStateChangedEventArgs.cs" />
-    <Compile Include="Overlay\UrlChangedEventArgs.cs" />
-    <Compile Include="Overlay\Util.cs" />
-    <Compile Include="Overlay\VisibleStateChangedEventArgs.cs" />
+    <Compile Include="ProcessHelper.cs" />
+    <Compile Include="ProcessKeyController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
@@ -303,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\KeyBindForm37Key.resx">
       <DependentUpon>KeyBindForm37Key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\KeyBindingForm.resx">
+      <DependentUpon>KeyBindingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -331,7 +327,6 @@
     <EmbeddedResource Include="Forms\SongSelect.resx">
       <DependentUpon>SongSelect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Overlay\OverlayForm.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -395,6 +390,9 @@
     <None Include="Resources\c_about.png" />
     <None Include="Resources\icons8-idea-window-100.png" />
     <None Include="Resources\icons8-advertisement-page-90.png" />
+    <None Include="Resources\EX\PNA2KM]%29BJ1SK%4065UPJ}J55.png" />
+    <None Include="Resources\EX\keyBindingBackground.png" />
+    <None Include="Resources\EX\PNA2KM]%29BJ1SK%4065UPJ}J55 %282%29.png" />
     <Content Include="Resources\ico_128.ico" />
     <None Include="Resources\keybindingBGimg.png" />
   </ItemGroup>
@@ -420,6 +418,8 @@
     <Error Condition="!Exists('..\packages\Fody.3.2.9\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.3.2.9\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.3.1.4\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.1.4\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.3.1.4\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.1.4\build\Costura.Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Melanchall.DryWetMidi.6.1.3\build\Melanchall.DryWetMidi.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Melanchall.DryWetMidi.6.1.3\build\Melanchall.DryWetMidi.targets'))" />
   </Target>
   <Import Project="..\packages\Costura.Fody.3.1.4\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.3.1.4\build\Costura.Fody.targets')" />
+  <Import Project="..\packages\Melanchall.DryWetMidi.6.1.3\build\Melanchall.DryWetMidi.targets" Condition="Exists('..\packages\Melanchall.DryWetMidi.6.1.3\build\Melanchall.DryWetMidi.targets')" />
 </Project>
