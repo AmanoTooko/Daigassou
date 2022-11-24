@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.uiLinkLabel1 = new Sunny.UI.UILinkLabel();
             this.uiLine2 = new Sunny.UI.UILine();
             this.lblScoreName = new Sunny.UI.UILabel();
             this.lblTrackName = new Sunny.UI.UILabel();
             this.uiSymbolLabel2 = new Sunny.UI.UISymbolLabel();
             this.uiPanel1 = new Sunny.UI.UIPanel();
+            this.uiLabel1 = new Sunny.UI.UILabel();
             this.uiSymbolLabel1 = new Sunny.UI.UISymbolLabel();
             this.swAll = new Sunny.UI.UISwitch();
             this.btnBackward = new Sunny.UI.UISymbolButton();
@@ -45,7 +47,7 @@
             this.uiPanel2 = new Sunny.UI.UIPanel();
             this.uiLine1 = new Sunny.UI.UILine();
             this.cbMidiDevice = new Sunny.UI.UIComboBox();
-            this.uiLabel1 = new Sunny.UI.UILabel();
+            this.uiToolTip1 = new Sunny.UI.UIToolTip(this.components);
             this.uiPanel1.SuspendLayout();
             this.uiPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -105,7 +107,7 @@
             this.lblTrackName.Size = new System.Drawing.Size(349, 26);
             this.lblTrackName.Style = Sunny.UI.UIStyle.Colorful;
             this.lblTrackName.TabIndex = 25;
-            this.lblTrackName.Text = "轨道名：[钢琴]Piano ";
+            this.lblTrackName.Text = "轨道名：妹有轨道";
             this.lblTrackName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblTrackName.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
@@ -118,7 +120,7 @@
             this.uiSymbolLabel2.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.uiSymbolLabel2.Size = new System.Drawing.Size(105, 35);
             this.uiSymbolLabel2.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolLabel2.Symbol = 363244;
+            this.uiSymbolLabel2.Symbol = 361479;
             this.uiSymbolLabel2.SymbolOffset = new System.Drawing.Point(4, 0);
             this.uiSymbolLabel2.SymbolSize = 26;
             this.uiSymbolLabel2.TabIndex = 28;
@@ -127,6 +129,7 @@
             // 
             // uiPanel1
             // 
+            this.uiPanel1.Controls.Add(this.cbMidiDevice);
             this.uiPanel1.Controls.Add(this.uiLabel1);
             this.uiPanel1.Controls.Add(this.uiSymbolLabel1);
             this.uiPanel1.Controls.Add(this.swAll);
@@ -155,33 +158,47 @@
             this.uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.uiPanel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
+            // uiLabel1
+            // 
+            this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiLabel1.Location = new System.Drawing.Point(12, 215);
+            this.uiLabel1.Name = "uiLabel1";
+            this.uiLabel1.Size = new System.Drawing.Size(426, 23);
+            this.uiLabel1.Style = Sunny.UI.UIStyle.Colorful;
+            this.uiLabel1.TabIndex = 44;
+            this.uiLabel1.Text = "*本地音色试听开发中~预计下个节气更新";
+            this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uiLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
             // uiSymbolLabel1
             // 
             this.uiSymbolLabel1.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel1.Location = new System.Drawing.Point(3, 41);
+            this.uiSymbolLabel1.Location = new System.Drawing.Point(17, 40);
             this.uiSymbolLabel1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel1.Name = "uiSymbolLabel1";
             this.uiSymbolLabel1.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.uiSymbolLabel1.Size = new System.Drawing.Size(158, 35);
+            this.uiSymbolLabel1.Size = new System.Drawing.Size(123, 35);
             this.uiSymbolLabel1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolLabel1.Symbol = 363244;
+            this.uiSymbolLabel1.Symbol = 361641;
             this.uiSymbolLabel1.SymbolOffset = new System.Drawing.Point(4, 0);
             this.uiSymbolLabel1.SymbolSize = 26;
             this.uiSymbolLabel1.TabIndex = 43;
             this.uiSymbolLabel1.Text = "播放所有轨道";
+            this.uiToolTip1.SetToolTip(this.uiSymbolLabel1, "开启后，将会试听所有音轨。\r\n试听功能与设定中的乐谱解析耦合\r\n当乐谱解析开启时，将试听解析后的音乐\r\n会丢失乐器选择等对于演奏无关的");
             this.uiSymbolLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // swAll
             // 
             this.swAll.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.swAll.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.swAll.Location = new System.Drawing.Point(176, 42);
+            this.swAll.Location = new System.Drawing.Point(145, 42);
             this.swAll.MinimumSize = new System.Drawing.Size(1, 1);
             this.swAll.Name = "swAll";
             this.swAll.Size = new System.Drawing.Size(75, 29);
             this.swAll.Style = Sunny.UI.UIStyle.Colorful;
             this.swAll.TabIndex = 42;
             this.swAll.Text = "uiSwitch1";
+            this.uiToolTip1.SetToolTip(this.swAll, "开启后，将会试听所有音轨。\r\n试听功能与设定中的乐谱解析耦合\r\n当乐谱解析开启时，将试听解析后的音乐\r\n会丢失乐器选择等对于演奏无关的");
             this.swAll.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.swAll.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.swAll_ValueChanged);
             // 
@@ -365,7 +382,7 @@
             this.cbMidiDevice.ItemRectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.cbMidiDevice.ItemSelectBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.cbMidiDevice.ItemSelectForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.cbMidiDevice.Location = new System.Drawing.Point(124, 103);
+            this.cbMidiDevice.Location = new System.Drawing.Point(144, 0);
             this.cbMidiDevice.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbMidiDevice.MinimumSize = new System.Drawing.Size(63, 0);
             this.cbMidiDevice.Name = "cbMidiDevice";
@@ -379,23 +396,16 @@
             this.cbMidiDevice.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.cbMidiDevice.SelectedIndexChanged += new System.EventHandler(this.cbMidiDevice_SelectedIndexChanged);
             // 
-            // uiLabel1
+            // uiToolTip1
             // 
-            this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLabel1.Location = new System.Drawing.Point(12, 215);
-            this.uiLabel1.Name = "uiLabel1";
-            this.uiLabel1.Size = new System.Drawing.Size(426, 23);
-            this.uiLabel1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiLabel1.TabIndex = 44;
-            this.uiLabel1.Text = "本地音色试听预计下个节气更新";
-            this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.uiToolTip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
+            this.uiToolTip1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(239)))));
+            this.uiToolTip1.OwnerDraw = true;
             // 
             // MidiPreviewPage
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(510, 350);
-            this.Controls.Add(this.cbMidiDevice);
             this.Controls.Add(this.uiPanel1);
             this.Controls.Add(this.uiLine2);
             this.Controls.Add(this.uiPanel2);
@@ -431,5 +441,6 @@
         private Sunny.UI.UIComboBox cbMidiDevice;
         private Sunny.UI.UISymbolLabel uiSymbolLabel1;
         private Sunny.UI.UILabel uiLabel1;
+        private Sunny.UI.UIToolTip uiToolTip1;
     }
 }

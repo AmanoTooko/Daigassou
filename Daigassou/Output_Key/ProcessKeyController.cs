@@ -54,8 +54,15 @@ namespace DaigassouDX.Controller
             {81, 78},
             {82, 74},
             {83, 77},
-            {84, 191}
+            {84, 191},
+            {108,49},
+            {109,52},
+            {110,188},
+            {111,190},
+            {112,65},
             
+            
+
         };
         public static  Dictionary<int, int> _keymap = new Dictionary<int, int>
         {
@@ -150,6 +157,16 @@ namespace DaigassouDX.Controller
         [DllImport("user32.dll")]
         private static extern uint MapVirtualKey(uint uCode, uint uMapType);
 
+        private static ProcessKeyController controller;
+        public static ProcessKeyController GetInstance()
+        {
+            if (controller==null)
+            {
+                controller = new ProcessKeyController();
+            }
+
+            return controller;
+        }
         internal void ReleaseAllKey()
         {
             foreach (var item in _keymap) ReleaseKeyBoardByPitch(item.Key);
@@ -158,19 +175,20 @@ namespace DaigassouDX.Controller
 
         public void PressKeyBoardByPitch(int pitch)
         {
-            if (pitch >= 48 && pitch <= 84)
+            if ((pitch >= 48 && pitch <= 84) || (pitch >= 108 && pitch <= 113 && Settings.Default.isUsingGuitarKey))
                 KeyDownBoardByKey((Keys) _keymap[pitch]);
+
         }
 
         public void ReleaseKeyBoardByPitch(int pitch)
         {
-            if (pitch >= 48 && pitch <= 84)
+            if ((pitch >= 48 && pitch <= 84) || (pitch >= 108 && pitch <= 113 && Settings.Default.isUsingGuitarKey))
                 KeyUpBoardByKey((Keys) _keymap[pitch]);
         }
 
         public void KeyDownBoardByKey(Keys viKeys)
         {
-            if (Settings.Default.isUsingAnalysis)
+            if (Settings.Default.isBackgroundKey)
             {
                 if (Process != null && Process.MainWindowHandle != IntPtr.Zero)
                     PostMessage(Process.MainWindowHandle, WmKeydown, (uint) viKeys, 0);
@@ -183,7 +201,7 @@ namespace DaigassouDX.Controller
 
         public void KeyUpBoardByKey(Keys viKeys)
         {
-            if (Settings.Default.isUsingAnalysis)
+            if (Settings.Default.isBackgroundKey)
             {
                 if (Process != null && Process.MainWindowHandle != IntPtr.Zero)
                     PostMessage(Process.MainWindowHandle, WmKeyup, (uint) viKeys, 0);

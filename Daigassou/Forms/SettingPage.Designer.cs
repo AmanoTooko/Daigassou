@@ -31,28 +31,28 @@
             this.components = new System.ComponentModel.Container();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.uiPanel3 = new Sunny.UI.UIPanel();
-            this.uiButton1 = new Sunny.UI.UIButton();
-            this.uiTextBox1 = new Sunny.UI.UITextBox();
+            this.btnAbout = new Sunny.UI.UIButton();
+            this.tbNTPServerAddr = new Sunny.UI.UITextBox();
             this.uiSymbolLabel7 = new Sunny.UI.UISymbolLabel();
-            this.uiSwitch4 = new Sunny.UI.UISwitch();
+            this.swUsingPcap = new Sunny.UI.UISwitch();
             this.uiSymbolLabel5 = new Sunny.UI.UISymbolLabel();
             this.uiSymbolLabel3 = new Sunny.UI.UISymbolLabel();
-            this.uiSwitch1 = new Sunny.UI.UISwitch();
+            this.swEnableGuitarKey = new Sunny.UI.UISwitch();
             this.uiLine3 = new Sunny.UI.UILine();
             this.uiLine2 = new Sunny.UI.UILine();
             this.uiPanel2 = new Sunny.UI.UIPanel();
-            this.uiSymbolButton1 = new Sunny.UI.UISymbolButton();
-            this.uiSwitch3 = new Sunny.UI.UISwitch();
+            this.btnHotkeySetting = new Sunny.UI.UISymbolButton();
+            this.swEnableBackgroundPlay = new Sunny.UI.UISwitch();
             this.uiSymbolLabel6 = new Sunny.UI.UISymbolLabel();
-            this.uiSymbolButton2 = new Sunny.UI.UISymbolButton();
+            this.btnKeybinding = new Sunny.UI.UISymbolButton();
             this.uiSymbolLabel2 = new Sunny.UI.UISymbolLabel();
             this.uiSymbolLabel1 = new Sunny.UI.UISymbolLabel();
             this.uiPanel1 = new Sunny.UI.UIPanel();
             this.uiLinkLabel1 = new Sunny.UI.UILinkLabel();
-            this.uiIntegerUpDown1 = new Sunny.UI.UIIntegerUpDown();
+            this.updIntervalMinMs = new Sunny.UI.UIIntegerUpDown();
             this.uiSymbolLabel4 = new Sunny.UI.UISymbolLabel();
-            this.uiSwitch2 = new Sunny.UI.UISwitch();
-            this.uiIntegerUpDown2 = new Sunny.UI.UIIntegerUpDown();
+            this.swEnableAnalyze = new Sunny.UI.UISwitch();
+            this.updChordMinMs = new Sunny.UI.UIIntegerUpDown();
             this.uiLine1 = new Sunny.UI.UILine();
             this.uiToolTip1 = new Sunny.UI.UIToolTip(this.components);
             this.uiPanel3.SuspendLayout();
@@ -66,10 +66,10 @@
             // 
             // uiPanel3
             // 
-            this.uiPanel3.Controls.Add(this.uiButton1);
-            this.uiPanel3.Controls.Add(this.uiTextBox1);
+            this.uiPanel3.Controls.Add(this.btnAbout);
+            this.uiPanel3.Controls.Add(this.tbNTPServerAddr);
             this.uiPanel3.Controls.Add(this.uiSymbolLabel7);
-            this.uiPanel3.Controls.Add(this.uiSwitch4);
+            this.uiPanel3.Controls.Add(this.swUsingPcap);
             this.uiPanel3.Controls.Add(this.uiSymbolLabel5);
             this.uiPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
@@ -88,64 +88,66 @@
             this.uiPanel3.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.uiPanel3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiButton1
+            // btnAbout
             // 
-            this.uiButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.uiButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiButton1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiButton1.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiButton1.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiButton1.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiButton1.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiButton1.Location = new System.Drawing.Point(0, 54);
-            this.uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton1.Name = "uiButton1";
-            this.uiButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiButton1.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiButton1.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiButton1.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiButton1.Size = new System.Drawing.Size(510, 22);
-            this.uiButton1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiButton1.TabIndex = 38;
-            this.uiButton1.Text = "关于[大合奏!!Ex]";
-            this.uiButton1.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiButton1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnAbout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAbout.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnAbout.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnAbout.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnAbout.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnAbout.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnAbout.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnAbout.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnAbout.Location = new System.Drawing.Point(0, 54);
+            this.btnAbout.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnAbout.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnAbout.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnAbout.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnAbout.Size = new System.Drawing.Size(510, 22);
+            this.btnAbout.Style = Sunny.UI.UIStyle.Colorful;
+            this.btnAbout.TabIndex = 38;
+            this.btnAbout.Text = "关于[大合奏!!Ex]";
+            this.btnAbout.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnAbout.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
-            // uiTextBox1
+            // tbNTPServerAddr
             // 
-            this.uiTextBox1.ButtonFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiTextBox1.ButtonFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiTextBox1.ButtonFillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiTextBox1.ButtonRectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiTextBox1.ButtonRectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiTextBox1.ButtonRectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.uiTextBox1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiTextBox1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiTextBox1.Location = new System.Drawing.Point(379, 0);
-            this.uiTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiTextBox1.MinimumSize = new System.Drawing.Size(1, 16);
-            this.uiTextBox1.Name = "uiTextBox1";
-            this.uiTextBox1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiTextBox1.ScrollBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiTextBox1.ShowText = false;
-            this.uiTextBox1.Size = new System.Drawing.Size(118, 29);
-            this.uiTextBox1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiTextBox1.TabIndex = 40;
-            this.uiTextBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiToolTip1.SetToolTip(this.uiTextBox1, "为了保证合奏时每个计算机的时间一致，需要使用NTP协议进行时间校准。一般不用改");
-            this.uiTextBox1.Watermark = "";
-            this.uiTextBox1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.tbNTPServerAddr.ButtonFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.tbNTPServerAddr.ButtonFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.tbNTPServerAddr.ButtonFillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.tbNTPServerAddr.ButtonRectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.tbNTPServerAddr.ButtonRectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.tbNTPServerAddr.ButtonRectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.tbNTPServerAddr.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbNTPServerAddr.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.tbNTPServerAddr.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tbNTPServerAddr.Location = new System.Drawing.Point(368, 2);
+            this.tbNTPServerAddr.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tbNTPServerAddr.MinimumSize = new System.Drawing.Size(1, 16);
+            this.tbNTPServerAddr.Name = "tbNTPServerAddr";
+            this.tbNTPServerAddr.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.tbNTPServerAddr.ScrollBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.tbNTPServerAddr.ShowText = false;
+            this.tbNTPServerAddr.Size = new System.Drawing.Size(118, 29);
+            this.tbNTPServerAddr.Style = Sunny.UI.UIStyle.Colorful;
+            this.tbNTPServerAddr.TabIndex = 40;
+            this.tbNTPServerAddr.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uiToolTip1.SetToolTip(this.tbNTPServerAddr, "为了保证合奏时每个计算机的时间一致，需要使用NTP协议进行时间校准。一般不用改");
+            this.tbNTPServerAddr.Watermark = "";
+            this.tbNTPServerAddr.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.tbNTPServerAddr.TextChanged += new System.EventHandler(this.tbNTPServerAddr_TextChanged);
             // 
             // uiSymbolLabel7
             // 
             this.uiSymbolLabel7.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel7.Location = new System.Drawing.Point(252, -4);
+            this.uiSymbolLabel7.Location = new System.Drawing.Point(241, 0);
             this.uiSymbolLabel7.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel7.Name = "uiSymbolLabel7";
             this.uiSymbolLabel7.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.uiSymbolLabel7.Size = new System.Drawing.Size(144, 35);
+            this.uiSymbolLabel7.Size = new System.Drawing.Size(120, 35);
             this.uiSymbolLabel7.Style = Sunny.UI.UIStyle.Colorful;
             this.uiSymbolLabel7.Symbol = 362003;
             this.uiSymbolLabel7.SymbolOffset = new System.Drawing.Point(4, 0);
@@ -155,24 +157,25 @@
             this.uiToolTip1.SetToolTip(this.uiSymbolLabel7, "为了保证合奏时每个计算机的时间一致，需要使用NTP协议进行时间校准。一般不用改");
             this.uiSymbolLabel7.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiSwitch4
+            // swUsingPcap
             // 
-            this.uiSwitch4.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSwitch4.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSwitch4.Location = new System.Drawing.Point(160, 0);
-            this.uiSwitch4.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSwitch4.Name = "uiSwitch4";
-            this.uiSwitch4.Size = new System.Drawing.Size(70, 25);
-            this.uiSwitch4.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSwitch4.TabIndex = 37;
-            this.uiSwitch4.Text = "uiSwitch1";
-            this.uiToolTip1.SetToolTip(this.uiSwitch4, "使用WinPcap库抓包，需要额外安装支持库。");
-            this.uiSwitch4.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.swUsingPcap.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.swUsingPcap.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.swUsingPcap.Location = new System.Drawing.Point(160, 3);
+            this.swUsingPcap.MinimumSize = new System.Drawing.Size(1, 1);
+            this.swUsingPcap.Name = "swUsingPcap";
+            this.swUsingPcap.Size = new System.Drawing.Size(70, 25);
+            this.swUsingPcap.Style = Sunny.UI.UIStyle.Colorful;
+            this.swUsingPcap.TabIndex = 37;
+            this.swUsingPcap.Text = "uiSwitch1";
+            this.uiToolTip1.SetToolTip(this.swUsingPcap, "使用WinPcap库抓包，需要额外安装支持库。");
+            this.swUsingPcap.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.swUsingPcap.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.swUsingPcap_ValueChanged);
             // 
             // uiSymbolLabel5
             // 
             this.uiSymbolLabel5.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel5.Location = new System.Drawing.Point(10, -4);
+            this.uiSymbolLabel5.Location = new System.Drawing.Point(10, 0);
             this.uiSymbolLabel5.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel5.Name = "uiSymbolLabel5";
             this.uiSymbolLabel5.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
@@ -202,18 +205,19 @@
             this.uiSymbolLabel3.Text = "电吉他快捷键";
             this.uiSymbolLabel3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiSwitch1
+            // swEnableGuitarKey
             // 
-            this.uiSwitch1.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSwitch1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSwitch1.Location = new System.Drawing.Point(379, 3);
-            this.uiSwitch1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSwitch1.Name = "uiSwitch1";
-            this.uiSwitch1.Size = new System.Drawing.Size(70, 25);
-            this.uiSwitch1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSwitch1.TabIndex = 32;
-            this.uiSwitch1.Text = "uiSwitch1";
-            this.uiSwitch1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.swEnableGuitarKey.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.swEnableGuitarKey.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.swEnableGuitarKey.Location = new System.Drawing.Point(379, 3);
+            this.swEnableGuitarKey.MinimumSize = new System.Drawing.Size(1, 1);
+            this.swEnableGuitarKey.Name = "swEnableGuitarKey";
+            this.swEnableGuitarKey.Size = new System.Drawing.Size(70, 25);
+            this.swEnableGuitarKey.Style = Sunny.UI.UIStyle.Colorful;
+            this.swEnableGuitarKey.TabIndex = 32;
+            this.swEnableGuitarKey.Text = "uiSwitch1";
+            this.swEnableGuitarKey.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.swEnableGuitarKey.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.swEnableGuitarKey_ValueChanged);
             // 
             // uiLine3
             // 
@@ -250,12 +254,12 @@
             // 
             // uiPanel2
             // 
-            this.uiPanel2.Controls.Add(this.uiSymbolButton1);
-            this.uiPanel2.Controls.Add(this.uiSwitch3);
+            this.uiPanel2.Controls.Add(this.btnHotkeySetting);
+            this.uiPanel2.Controls.Add(this.swEnableBackgroundPlay);
             this.uiPanel2.Controls.Add(this.uiSymbolLabel6);
-            this.uiPanel2.Controls.Add(this.uiSymbolButton2);
+            this.uiPanel2.Controls.Add(this.btnKeybinding);
             this.uiPanel2.Controls.Add(this.uiSymbolLabel3);
-            this.uiPanel2.Controls.Add(this.uiSwitch1);
+            this.uiPanel2.Controls.Add(this.swEnableGuitarKey);
             this.uiPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.uiPanel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiPanel2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
@@ -273,42 +277,43 @@
             this.uiPanel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.uiPanel2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiSymbolButton1
+            // btnHotkeySetting
             // 
-            this.uiSymbolButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiSymbolButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton1.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton1.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton1.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton1.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton1.Location = new System.Drawing.Point(31, 38);
-            this.uiSymbolButton1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolButton1.Name = "uiSymbolButton1";
-            this.uiSymbolButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton1.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton1.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton1.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton1.Size = new System.Drawing.Size(137, 32);
-            this.uiSymbolButton1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolButton1.Symbol = 361648;
-            this.uiSymbolButton1.TabIndex = 39;
-            this.uiSymbolButton1.Text = "快捷键　设置";
-            this.uiSymbolButton1.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnHotkeySetting.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnHotkeySetting.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnHotkeySetting.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnHotkeySetting.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnHotkeySetting.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnHotkeySetting.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnHotkeySetting.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnHotkeySetting.Location = new System.Drawing.Point(31, 38);
+            this.btnHotkeySetting.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnHotkeySetting.Name = "btnHotkeySetting";
+            this.btnHotkeySetting.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnHotkeySetting.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnHotkeySetting.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnHotkeySetting.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnHotkeySetting.Size = new System.Drawing.Size(137, 32);
+            this.btnHotkeySetting.Style = Sunny.UI.UIStyle.Colorful;
+            this.btnHotkeySetting.Symbol = 361648;
+            this.btnHotkeySetting.TabIndex = 39;
+            this.btnHotkeySetting.Text = "快捷键　设置";
+            this.btnHotkeySetting.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnHotkeySetting.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiSwitch3
+            // swEnableBackgroundPlay
             // 
-            this.uiSwitch3.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSwitch3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSwitch3.Location = new System.Drawing.Point(379, 36);
-            this.uiSwitch3.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSwitch3.Name = "uiSwitch3";
-            this.uiSwitch3.Size = new System.Drawing.Size(70, 25);
-            this.uiSwitch3.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSwitch3.TabIndex = 38;
-            this.uiSwitch3.Text = "uiSwitch3";
-            this.uiSwitch3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.swEnableBackgroundPlay.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.swEnableBackgroundPlay.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.swEnableBackgroundPlay.Location = new System.Drawing.Point(379, 36);
+            this.swEnableBackgroundPlay.MinimumSize = new System.Drawing.Size(1, 1);
+            this.swEnableBackgroundPlay.Name = "swEnableBackgroundPlay";
+            this.swEnableBackgroundPlay.Size = new System.Drawing.Size(70, 25);
+            this.swEnableBackgroundPlay.Style = Sunny.UI.UIStyle.Colorful;
+            this.swEnableBackgroundPlay.TabIndex = 38;
+            this.swEnableBackgroundPlay.Text = "uiSwitch3";
+            this.swEnableBackgroundPlay.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.swEnableBackgroundPlay.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.swEnableBackgroundPlay_ValueChanged);
             // 
             // uiSymbolLabel6
             // 
@@ -326,30 +331,30 @@
             this.uiSymbolLabel6.Text = "启用后台演奏";
             this.uiSymbolLabel6.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiSymbolButton2
+            // btnKeybinding
             // 
-            this.uiSymbolButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiSymbolButton2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton2.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton2.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton2.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton2.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton2.Location = new System.Drawing.Point(31, 0);
-            this.uiSymbolButton2.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolButton2.Name = "uiSymbolButton2";
-            this.uiSymbolButton2.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton2.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton2.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton2.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton2.Size = new System.Drawing.Size(137, 32);
-            this.uiSymbolButton2.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolButton2.Symbol = 361724;
-            this.uiSymbolButton2.TabIndex = 36;
-            this.uiSymbolButton2.Text = "演奏键位设置";
-            this.uiSymbolButton2.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.uiSymbolButton2.Click += new System.EventHandler(this.uiSymbolButton2_Click);
+            this.btnKeybinding.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnKeybinding.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnKeybinding.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnKeybinding.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnKeybinding.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnKeybinding.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnKeybinding.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnKeybinding.Location = new System.Drawing.Point(31, 0);
+            this.btnKeybinding.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnKeybinding.Name = "btnKeybinding";
+            this.btnKeybinding.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnKeybinding.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnKeybinding.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnKeybinding.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnKeybinding.Size = new System.Drawing.Size(137, 32);
+            this.btnKeybinding.Style = Sunny.UI.UIStyle.Colorful;
+            this.btnKeybinding.Symbol = 361724;
+            this.btnKeybinding.TabIndex = 36;
+            this.btnKeybinding.Text = "演奏键位设置";
+            this.btnKeybinding.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnKeybinding.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnKeybinding.Click += new System.EventHandler(this.uiSymbolButton2_Click);
             // 
             // uiSymbolLabel2
             // 
@@ -367,7 +372,6 @@
             this.uiSymbolLabel2.Text = "和弦最小间隔";
             this.uiToolTip1.SetToolTip(this.uiSymbolLabel2, "和弦改成琶音时的两音间隔\r\n在乐谱解析关闭时无效\r\n数值越小，和弦感越强\r\n小于50时对演奏理论无影响");
             this.uiSymbolLabel2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.uiSymbolLabel2.Click += new System.EventHandler(this.uiSymbolLabel2_Click);
             // 
             // uiSymbolLabel1
             // 
@@ -389,10 +393,10 @@
             // uiPanel1
             // 
             this.uiPanel1.Controls.Add(this.uiLinkLabel1);
-            this.uiPanel1.Controls.Add(this.uiIntegerUpDown1);
+            this.uiPanel1.Controls.Add(this.updIntervalMinMs);
             this.uiPanel1.Controls.Add(this.uiSymbolLabel4);
-            this.uiPanel1.Controls.Add(this.uiSwitch2);
-            this.uiPanel1.Controls.Add(this.uiIntegerUpDown2);
+            this.uiPanel1.Controls.Add(this.swEnableAnalyze);
+            this.uiPanel1.Controls.Add(this.updChordMinMs);
             this.uiPanel1.Controls.Add(this.uiSymbolLabel2);
             this.uiPanel1.Controls.Add(this.uiSymbolLabel1);
             this.uiPanel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -428,27 +432,33 @@
             this.uiLinkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.uiLinkLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiIntegerUpDown1
+            // updIntervalMinMs
             // 
-            this.uiIntegerUpDown1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiIntegerUpDown1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiIntegerUpDown1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiIntegerUpDown1.Location = new System.Drawing.Point(160, 71);
-            this.uiIntegerUpDown1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiIntegerUpDown1.Maximum = 500;
-            this.uiIntegerUpDown1.Minimum = -500;
-            this.uiIntegerUpDown1.MinimumSize = new System.Drawing.Size(100, 0);
-            this.uiIntegerUpDown1.Name = "uiIntegerUpDown1";
-            this.uiIntegerUpDown1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiIntegerUpDown1.ShowText = false;
-            this.uiIntegerUpDown1.Size = new System.Drawing.Size(100, 25);
-            this.uiIntegerUpDown1.Step = 10;
-            this.uiIntegerUpDown1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiIntegerUpDown1.TabIndex = 31;
-            this.uiIntegerUpDown1.Text = "uiIntegerUpDown2";
-            this.uiIntegerUpDown1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.uiToolTip1.SetToolTip(this.uiIntegerUpDown1, "任意两音符间的输出间隔\r\n帧率高，配置强可以适当调小\r\n帧率低，配置差可以适当调高\r\n数值小于50时对演奏无影响，仅为让游戏能够采集到输入");
-            this.uiIntegerUpDown1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.updIntervalMinMs.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.updIntervalMinMs.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.updIntervalMinMs.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.updIntervalMinMs.HasMaximum = true;
+            this.updIntervalMinMs.HasMinimum = true;
+            this.updIntervalMinMs.Location = new System.Drawing.Point(160, 71);
+            this.updIntervalMinMs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.updIntervalMinMs.Maximum = 255;
+            this.updIntervalMinMs.MaximumEnabled = true;
+            this.updIntervalMinMs.Minimum = 10;
+            this.updIntervalMinMs.MinimumEnabled = true;
+            this.updIntervalMinMs.MinimumSize = new System.Drawing.Size(100, 0);
+            this.updIntervalMinMs.Name = "updIntervalMinMs";
+            this.updIntervalMinMs.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.updIntervalMinMs.ShowText = false;
+            this.updIntervalMinMs.Size = new System.Drawing.Size(100, 25);
+            this.updIntervalMinMs.Step = 5;
+            this.updIntervalMinMs.Style = Sunny.UI.UIStyle.Colorful;
+            this.updIntervalMinMs.TabIndex = 31;
+            this.updIntervalMinMs.Text = "uiIntegerUpDown2";
+            this.updIntervalMinMs.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.uiToolTip1.SetToolTip(this.updIntervalMinMs, "任意两音符间的输出间隔\r\n帧率高，配置强可以适当调小\r\n帧率低，配置差可以适当调高\r\n数值小于50时对演奏无影响，仅为让游戏能够采集到输入");
+            this.updIntervalMinMs.Value = 50;
+            this.updIntervalMinMs.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.updIntervalMinMs.ValueChanged += new Sunny.UI.UIIntegerUpDown.OnValueChanged(this.updIntervalMinMs_ValueChanged);
             // 
             // uiSymbolLabel4
             // 
@@ -468,42 +478,49 @@
         "3.对于单个音符连点的情况，进行特殊处理以适应游戏机制\r\n关掉解析后将原封不动的演奏midi内容，可能造成和弦出错，漏音情况。");
             this.uiSymbolLabel4.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiSwitch2
+            // swEnableAnalyze
             // 
-            this.uiSwitch2.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSwitch2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSwitch2.Location = new System.Drawing.Point(160, 3);
-            this.uiSwitch2.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSwitch2.Name = "uiSwitch2";
-            this.uiSwitch2.Size = new System.Drawing.Size(70, 25);
-            this.uiSwitch2.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSwitch2.TabIndex = 32;
-            this.uiSwitch2.Text = "uiSwitch1";
-            this.uiToolTip1.SetToolTip(this.uiSwitch2, "乐谱解析会在演奏前预处理MIdi文件，主要功能为\r\n1. 清除掉小于7ms的音符，这类音符一般视作软件或转换过程中产生的杂音\r\n2. 将所有和弦拆分成向上琶音\r\n" +
+            this.swEnableAnalyze.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.swEnableAnalyze.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.swEnableAnalyze.Location = new System.Drawing.Point(160, 3);
+            this.swEnableAnalyze.MinimumSize = new System.Drawing.Size(1, 1);
+            this.swEnableAnalyze.Name = "swEnableAnalyze";
+            this.swEnableAnalyze.Size = new System.Drawing.Size(70, 25);
+            this.swEnableAnalyze.Style = Sunny.UI.UIStyle.Colorful;
+            this.swEnableAnalyze.TabIndex = 32;
+            this.swEnableAnalyze.Text = "uiSwitch1";
+            this.uiToolTip1.SetToolTip(this.swEnableAnalyze, "乐谱解析会在演奏前预处理MIdi文件，主要功能为\r\n1. 清除掉小于7ms的音符，这类音符一般视作软件或转换过程中产生的杂音\r\n2. 将所有和弦拆分成向上琶音\r\n" +
         "3.对于单个音符连点的情况，进行特殊处理以适应游戏机制\r\n关掉解析后将原封不动的演奏midi内容，可能造成和弦出错，漏音情况。");
-            this.uiSwitch2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.swEnableAnalyze.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.swEnableAnalyze.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.swEnableAnalyze_ValueChanged);
             // 
-            // uiIntegerUpDown2
+            // updChordMinMs
             // 
-            this.uiIntegerUpDown2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiIntegerUpDown2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiIntegerUpDown2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiIntegerUpDown2.Location = new System.Drawing.Point(160, 36);
-            this.uiIntegerUpDown2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiIntegerUpDown2.Maximum = 500;
-            this.uiIntegerUpDown2.Minimum = -500;
-            this.uiIntegerUpDown2.MinimumSize = new System.Drawing.Size(100, 0);
-            this.uiIntegerUpDown2.Name = "uiIntegerUpDown2";
-            this.uiIntegerUpDown2.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiIntegerUpDown2.ShowText = false;
-            this.uiIntegerUpDown2.Size = new System.Drawing.Size(100, 25);
-            this.uiIntegerUpDown2.Step = 10;
-            this.uiIntegerUpDown2.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiIntegerUpDown2.TabIndex = 31;
-            this.uiIntegerUpDown2.Text = "uiIntegerUpDown2";
-            this.uiIntegerUpDown2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.uiToolTip1.SetToolTip(this.uiIntegerUpDown2, "和弦改成琶音时的两音间隔\r\n在乐谱解析关闭时无效\r\n数值越小，和弦感越强\r\n小于50时对演奏理论无影响");
-            this.uiIntegerUpDown2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.updChordMinMs.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.updChordMinMs.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.updChordMinMs.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.updChordMinMs.HasMaximum = true;
+            this.updChordMinMs.HasMinimum = true;
+            this.updChordMinMs.Location = new System.Drawing.Point(160, 36);
+            this.updChordMinMs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.updChordMinMs.Maximum = 255;
+            this.updChordMinMs.MaximumEnabled = true;
+            this.updChordMinMs.Minimum = 10;
+            this.updChordMinMs.MinimumEnabled = true;
+            this.updChordMinMs.MinimumSize = new System.Drawing.Size(100, 0);
+            this.updChordMinMs.Name = "updChordMinMs";
+            this.updChordMinMs.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.updChordMinMs.ShowText = false;
+            this.updChordMinMs.Size = new System.Drawing.Size(100, 25);
+            this.updChordMinMs.Step = 5;
+            this.updChordMinMs.Style = Sunny.UI.UIStyle.Colorful;
+            this.updChordMinMs.TabIndex = 31;
+            this.updChordMinMs.Text = "uiIntegerUpDown2";
+            this.updChordMinMs.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.uiToolTip1.SetToolTip(this.updChordMinMs, "和弦改成琶音时的两音间隔\r\n在乐谱解析关闭时无效\r\n数值越小，和弦感越强\r\n小于50时对演奏理论无影响");
+            this.updChordMinMs.Value = 50;
+            this.updChordMinMs.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.updChordMinMs.ValueChanged += new Sunny.UI.UIIntegerUpDown.OnValueChanged(this.updChordMinMs_ValueChanged);
             // 
             // uiLine1
             // 
@@ -531,7 +548,6 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(510, 350);
-            this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
             this.Controls.Add(this.uiPanel3);
             this.Controls.Add(this.uiLine3);
             this.Controls.Add(this.uiPanel1);
@@ -554,7 +570,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private Sunny.UI.UIPanel uiPanel3;
         private Sunny.UI.UISymbolLabel uiSymbolLabel3;
-        private Sunny.UI.UISwitch uiSwitch1;
+        private Sunny.UI.UISwitch swEnableGuitarKey;
         private Sunny.UI.UILine uiLine3;
         private Sunny.UI.UILine uiLine2;
         private Sunny.UI.UIPanel uiPanel2;
@@ -562,20 +578,20 @@
         private Sunny.UI.UISymbolLabel uiSymbolLabel1;
         private Sunny.UI.UIPanel uiPanel1;
         private Sunny.UI.UILine uiLine1;
-        private Sunny.UI.UISymbolButton uiSymbolButton2;
+        private Sunny.UI.UISymbolButton btnKeybinding;
         private Sunny.UI.UIToolTip uiToolTip1;
-        private Sunny.UI.UIIntegerUpDown uiIntegerUpDown2;
-        private Sunny.UI.UIIntegerUpDown uiIntegerUpDown1;
+        private Sunny.UI.UIIntegerUpDown updChordMinMs;
+        private Sunny.UI.UIIntegerUpDown updIntervalMinMs;
         private Sunny.UI.UISymbolLabel uiSymbolLabel4;
-        private Sunny.UI.UISwitch uiSwitch2;
-        private Sunny.UI.UISwitch uiSwitch3;
+        private Sunny.UI.UISwitch swEnableAnalyze;
+        private Sunny.UI.UISwitch swEnableBackgroundPlay;
         private Sunny.UI.UISymbolLabel uiSymbolLabel6;
         private Sunny.UI.UILinkLabel uiLinkLabel1;
-        private Sunny.UI.UISwitch uiSwitch4;
+        private Sunny.UI.UISwitch swUsingPcap;
         private Sunny.UI.UISymbolLabel uiSymbolLabel5;
-        private Sunny.UI.UISymbolButton uiSymbolButton1;
-        private Sunny.UI.UITextBox uiTextBox1;
+        private Sunny.UI.UISymbolButton btnHotkeySetting;
+        private Sunny.UI.UITextBox tbNTPServerAddr;
         private Sunny.UI.UISymbolLabel uiSymbolLabel7;
-        private Sunny.UI.UIButton uiButton1;
+        private Sunny.UI.UIButton btnAbout;
     }
 }

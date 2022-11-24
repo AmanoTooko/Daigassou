@@ -31,7 +31,7 @@ namespace Daigassou.Forms
             InitializeComponent();
             //uiTabControl1.TabPages[0].Controls.Add(new PlayForm());
             var a = new PlayPage();
-            
+            UIStyles.InitColorful(Color.FromArgb(255, 141, 155), Color.White);
             AddPage(new PlayPage(), (int)PageID.SoloPlayPage);
             AddPage(new MuiltiPlayForm(), (int) PageID.MultiPlayPage);
             AddPage(new SettingPage(), (int) PageID.SettingPage);
@@ -39,7 +39,7 @@ namespace Daigassou.Forms
             AddPage(new MidiPreviewPage(), (int)PageID.PreviewPlayPage);
 
 
-            UIStyles.InitColorful(Color.FromArgb(255, 141, 155), Color.White);
+            
             uiNavMenu1.SetNodePageIndex(uiNavMenu1.Nodes[0], (int)PageID.SoloPlayPage);
             uiNavMenu1.SetNodePageIndex(uiNavMenu1.Nodes[1], (int)PageID.MultiPlayPage);
             uiNavMenu1.SetNodePageIndex(uiNavMenu1.Nodes[2], (int)PageID.DevicePlayPage);

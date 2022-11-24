@@ -81,7 +81,7 @@ namespace Daigassou.Forms
             }
             else
             {
-                keyConfig[index + 108] = (int)e.KeyCode;
+                keyConfig[index -37 + 108] = (int)e.KeyCode;
             }
             
 
@@ -103,7 +103,7 @@ namespace Daigassou.Forms
                 }
                 else
                 {
-                    keyBoxes[keypair.Key - 108].Text = ProcessKeyController.GetKeyChar((Keys)keypair.Value).ToString();
+                    keyBoxes[keypair.Key - 108+37].Text = ProcessKeyController.GetKeyChar((Keys)keypair.Value).ToString();
                 }
                 
             }
@@ -115,11 +115,16 @@ namespace Daigassou.Forms
         {
 
             ProcessKeyController.SaveKeyConfig(keyConfig);
+            Close();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
             ProcessKeyController.ResetKeyConfig();
+            foreach (var uiTextBox in keyBoxes)
+            {
+                uiTextBox.Text = "";
+            }
             loadKeyconfig();
         }
 
