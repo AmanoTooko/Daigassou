@@ -37,14 +37,13 @@
             this.btnConnect = new Sunny.UI.UISymbolButton();
             this.uiPanel3 = new Sunny.UI.UIPanel();
             this.lblMidiKey = new Sunny.UI.UILabel();
-            this.uiSwitch1 = new Sunny.UI.UISwitch();
-            this.uiSymbolLabel1 = new Sunny.UI.UISymbolLabel();
             this.tbMidiKey = new Sunny.UI.UITrackBar();
             this.uiPanel1 = new Sunny.UI.UIPanel();
             this.uiLight1 = new Sunny.UI.UILight();
             this.tbKeyTest = new Sunny.UI.UITextBox();
             this.cbInputDevice = new Sunny.UI.UIComboBox();
             this.uiToolTip1 = new Sunny.UI.UIToolTip(this.components);
+            this.uiLabel1 = new Sunny.UI.UILabel();
             this.uiPanel3.SuspendLayout();
             this.uiPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -155,9 +154,8 @@
             // 
             // uiPanel3
             // 
+            this.uiPanel3.Controls.Add(this.uiLabel1);
             this.uiPanel3.Controls.Add(this.lblMidiKey);
-            this.uiPanel3.Controls.Add(this.uiSwitch1);
-            this.uiPanel3.Controls.Add(this.uiSymbolLabel1);
             this.uiPanel3.Controls.Add(this.tbMidiKey);
             this.uiPanel3.Controls.Add(this.uiLinkLabel1);
             this.uiPanel3.Controls.Add(this.uiSymbolLabel5);
@@ -187,38 +185,9 @@
             this.lblMidiKey.Size = new System.Drawing.Size(138, 17);
             this.lblMidiKey.Style = Sunny.UI.UIStyle.Colorful;
             this.lblMidiKey.TabIndex = 39;
-            this.lblMidiKey.Text = "键盘起始Key +12";
+            this.lblMidiKey.Text = "键盘起始Key +48";
             this.lblMidiKey.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblMidiKey.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // uiSwitch1
-            // 
-            this.uiSwitch1.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSwitch1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSwitch1.Location = new System.Drawing.Point(134, 57);
-            this.uiSwitch1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSwitch1.Name = "uiSwitch1";
-            this.uiSwitch1.Size = new System.Drawing.Size(75, 29);
-            this.uiSwitch1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSwitch1.TabIndex = 38;
-            this.uiSwitch1.Text = "uiSwitch1";
-            this.uiSwitch1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // uiSymbolLabel1
-            // 
-            this.uiSymbolLabel1.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel1.Location = new System.Drawing.Point(12, 57);
-            this.uiSymbolLabel1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolLabel1.Name = "uiSymbolLabel1";
-            this.uiSymbolLabel1.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.uiSymbolLabel1.Size = new System.Drawing.Size(105, 35);
-            this.uiSymbolLabel1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolLabel1.Symbol = 362263;
-            this.uiSymbolLabel1.SymbolOffset = new System.Drawing.Point(4, 0);
-            this.uiSymbolLabel1.SymbolSize = 26;
-            this.uiSymbolLabel1.TabIndex = 37;
-            this.uiSymbolLabel1.Text = "后台按键";
-            this.uiSymbolLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // tbMidiKey
             // 
@@ -233,7 +202,7 @@
             this.tbMidiKey.Size = new System.Drawing.Size(345, 29);
             this.tbMidiKey.Style = Sunny.UI.UIStyle.Colorful;
             this.tbMidiKey.TabIndex = 36;
-            this.tbMidiKey.Value = 1;
+            this.tbMidiKey.Value = 4;
             this.tbMidiKey.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.tbMidiKey.ValueChanged += new System.EventHandler(this.tbMidiKey_ValueChanged);
             // 
@@ -290,6 +259,7 @@
             this.tbKeyTest.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbKeyTest.MinimumSize = new System.Drawing.Size(1, 16);
             this.tbKeyTest.Name = "tbKeyTest";
+            this.tbKeyTest.ReadOnly = true;
             this.tbKeyTest.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.tbKeyTest.ScrollBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.tbKeyTest.ShowText = false;
@@ -329,6 +299,21 @@
             this.uiToolTip1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(239)))));
             this.uiToolTip1.OwnerDraw = true;
             // 
+            // uiLabel1
+            // 
+            this.uiLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiLabel1.Location = new System.Drawing.Point(20, 72);
+            this.uiLabel1.Name = "uiLabel1";
+            this.uiLabel1.Size = new System.Drawing.Size(439, 93);
+            this.uiLabel1.Style = Sunny.UI.UIStyle.Colorful;
+            this.uiLabel1.TabIndex = 40;
+            this.uiLabel1.Text = "*程序默认会将三个八度的Midi键盘按键转成游戏按键\r\n调试方法：调整起始范围，间歇按下Midi键盘上欲使用范围的最低音\r\n               当提示修" +
+    "正后Key = 48的时候，调试完成\r\n注意事项：游戏按键到发音自带200ms左右延迟，目前无法解决。\r\n               *本地发声功能预计春分实" +
+    "装";
+            this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uiLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
             // MidiDevicePage
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -363,8 +348,7 @@
         private Sunny.UI.UIToolTip uiToolTip1;
         private Sunny.UI.UITrackBar tbMidiKey;
         private Sunny.UI.UILight uiLight1;
-        private Sunny.UI.UISwitch uiSwitch1;
-        private Sunny.UI.UISymbolLabel uiSymbolLabel1;
         private Sunny.UI.UILabel lblMidiKey;
+        private Sunny.UI.UILabel uiLabel1;
     }
 }

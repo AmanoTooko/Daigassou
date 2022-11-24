@@ -12,6 +12,8 @@ namespace DaigassouDX.Controller
     {
         public delegate void Playback_Finished_Notice();
 
+        private readonly object playLock = new object();
+
         private int _offset;
         private int _pitch;
         private double _speed;
@@ -19,7 +21,6 @@ namespace DaigassouDX.Controller
         public ProcessKeyController keyPlayer;
         private Playback playback;
         public Playback_Finished_Notice Playback_Finished_Notification;
-        private readonly object playLock = new object();
         private Task playtask;
         public Process Process;
 
@@ -55,13 +56,14 @@ namespace DaigassouDX.Controller
 
         public string GetProcess()
         {
-            
-            return (int)((MetricTimeSpan)playback.GetCurrentTime(TimeSpanType.Metric)).TotalMilliseconds + "//" + (int)((MetricTimeSpan)playback.GetDuration(TimeSpanType.Metric)).TotalMilliseconds;
+            return (int) ((MetricTimeSpan) playback.GetCurrentTime(TimeSpanType.Metric)).TotalMilliseconds + "//" +
+                   (int) ((MetricTimeSpan) playback.GetDuration(TimeSpanType.Metric)).TotalMilliseconds;
         }
+
         public void update11()
         {
-            
         }
+
         private void resetSetting()
         {
             _pitch = 0;
@@ -69,14 +71,9 @@ namespace DaigassouDX.Controller
             _speed = 0;
             isRunning = false;
             if (playback.OutputDevice == null)
-            {
                 keyPlayer.ReleaseAllKey();
-            }
             else
-            {
                 playback.OutputDevice.Dispose();
-            }
-            
         }
 
         public void SetPlayback(Playback pb)
@@ -86,13 +83,15 @@ namespace DaigassouDX.Controller
             playback.Finished += Playback_Finished;
             playback.EventPlayed += Playback_EventPlayed;
         }
-        public void SetPlaybackForPreview(Playback pb,OutputDevice output)
+
+        public void SetPlaybackForPreview(Playback pb, OutputDevice output)
         {
             playback = pb;
             playback.InterruptNotesOnStop = false;
-            playback.Finished += Playback_Finished; 
+            playback.Finished += Playback_Finished;
             playback.OutputDevice = output;
         }
+
         public bool CheckPlaybackValid()
         {
             if (playback == null) return false;
@@ -134,6 +133,7 @@ namespace DaigassouDX.Controller
             lock (playLock)
             {
                 playback?.Stop();
+                (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
                 playback?.MoveToStart();
                 resetSetting();
             }
@@ -143,6 +143,7 @@ namespace DaigassouDX.Controller
         public void PausePlay()
         {
             playback.Stop();
+            (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
         }
 
         public void SetPreviewOffset(int offset)
@@ -152,20 +153,22 @@ namespace DaigassouDX.Controller
                 if (offset > 0)
                 {
                     playback.Stop();
+                    (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
                     //off掉key
                     playback.MoveForward(new MetricTimeSpan(offset * 1000));
                     playback.Start();
                 }
                 else
                 {
-
                     playback.Stop();
+                    (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
                     //off掉key
-                    playback.MoveBack(new MetricTimeSpan(offset * -1000));
-                    playback.Start();
+                    playback?.MoveBack(new MetricTimeSpan(offset * -1000));
+                    playback?.Start();
                 }
             }
         }
+
         public void SetOffset(int offset)
         {
             if (isRunning)
@@ -173,18 +176,19 @@ namespace DaigassouDX.Controller
                 if (offset > 0)
                 {
                     playback.Stop();
+                    (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
                     //off掉key
                     playback.MoveForward(new MetricTimeSpan(offset * 1000));
                     playback.Start();
                 }
                 else
                 {
-
                     new Task(() =>
                     {
                         lock (playLock)
                         {
                             playback.Stop();
+                            (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
                             Thread.Sleep(0 - offset);
                             playback.Start();
                         }
@@ -192,6 +196,7 @@ namespace DaigassouDX.Controller
                 }
             }
         }
+
         public void SetPitch(int p)
         {
             if (p <= 24 && p >= -24) _pitch = p;

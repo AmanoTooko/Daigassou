@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Drawing;
 using Sunny.UI;
 
 namespace Daigassou.Forms
@@ -17,6 +9,7 @@ namespace Daigassou.Forms
         {
             InitializeComponent();
         }
+
         public override void Init()
         {
             base.Init();
@@ -28,7 +21,6 @@ namespace Daigassou.Forms
         public override void Final()
         {
             base.Final();
-
         }
 
         private void uiSwitch1_ValueChanged(object sender, bool value)

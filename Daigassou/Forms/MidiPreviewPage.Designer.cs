@@ -35,6 +35,7 @@
             this.lblTrackName = new Sunny.UI.UILabel();
             this.uiSymbolLabel2 = new Sunny.UI.UISymbolLabel();
             this.uiPanel1 = new Sunny.UI.UIPanel();
+            this.cbMidiDevice = new Sunny.UI.UIComboBox();
             this.uiLabel1 = new Sunny.UI.UILabel();
             this.uiSymbolLabel1 = new Sunny.UI.UISymbolLabel();
             this.swAll = new Sunny.UI.UISwitch();
@@ -46,7 +47,6 @@
             this.lblProcess = new Sunny.UI.UILabel();
             this.uiPanel2 = new Sunny.UI.UIPanel();
             this.uiLine1 = new Sunny.UI.UILine();
-            this.cbMidiDevice = new Sunny.UI.UIComboBox();
             this.uiToolTip1 = new Sunny.UI.UIToolTip(this.components);
             this.uiPanel1.SuspendLayout();
             this.uiPanel2.SuspendLayout();
@@ -157,6 +157,30 @@
             this.uiPanel1.Text = null;
             this.uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.uiPanel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
+            // cbMidiDevice
+            // 
+            this.cbMidiDevice.DataSource = null;
+            this.cbMidiDevice.FillColor = System.Drawing.Color.White;
+            this.cbMidiDevice.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.cbMidiDevice.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbMidiDevice.ItemHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(242)))), ((int)(((byte)(238)))));
+            this.cbMidiDevice.ItemRectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.cbMidiDevice.ItemSelectBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.cbMidiDevice.ItemSelectForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.cbMidiDevice.Location = new System.Drawing.Point(144, 0);
+            this.cbMidiDevice.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbMidiDevice.MinimumSize = new System.Drawing.Size(63, 0);
+            this.cbMidiDevice.Name = "cbMidiDevice";
+            this.cbMidiDevice.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            this.cbMidiDevice.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.cbMidiDevice.Size = new System.Drawing.Size(265, 34);
+            this.cbMidiDevice.Style = Sunny.UI.UIStyle.Colorful;
+            this.cbMidiDevice.TabIndex = 42;
+            this.cbMidiDevice.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cbMidiDevice.Watermark = "Midi输入设备";
+            this.cbMidiDevice.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.cbMidiDevice.SelectedIndexChanged += new System.EventHandler(this.cbMidiDevice_SelectedIndexChanged);
             // 
             // uiLabel1
             // 
@@ -274,7 +298,7 @@
             this.btnStop.Size = new System.Drawing.Size(35, 35);
             this.btnStop.Style = Sunny.UI.UIStyle.Colorful;
             this.btnStop.Symbol = 61517;
-            this.btnStop.SymbolOffset = new System.Drawing.Point(1, 1);
+            this.btnStop.SymbolOffset = new System.Drawing.Point(0, 1);
             this.btnStop.TabIndex = 38;
             this.btnStop.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnStop.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
@@ -371,30 +395,6 @@
             this.uiLine1.Text = "Midi乐谱信息";
             this.uiLine1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiLine1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // cbMidiDevice
-            // 
-            this.cbMidiDevice.DataSource = null;
-            this.cbMidiDevice.FillColor = System.Drawing.Color.White;
-            this.cbMidiDevice.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.cbMidiDevice.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbMidiDevice.ItemHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(242)))), ((int)(((byte)(238)))));
-            this.cbMidiDevice.ItemRectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.cbMidiDevice.ItemSelectBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.cbMidiDevice.ItemSelectForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.cbMidiDevice.Location = new System.Drawing.Point(144, 0);
-            this.cbMidiDevice.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbMidiDevice.MinimumSize = new System.Drawing.Size(63, 0);
-            this.cbMidiDevice.Name = "cbMidiDevice";
-            this.cbMidiDevice.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            this.cbMidiDevice.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.cbMidiDevice.Size = new System.Drawing.Size(265, 34);
-            this.cbMidiDevice.Style = Sunny.UI.UIStyle.Colorful;
-            this.cbMidiDevice.TabIndex = 42;
-            this.cbMidiDevice.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cbMidiDevice.Watermark = "Midi输入设备";
-            this.cbMidiDevice.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.cbMidiDevice.SelectedIndexChanged += new System.EventHandler(this.cbMidiDevice_SelectedIndexChanged);
             // 
             // uiToolTip1
             // 
