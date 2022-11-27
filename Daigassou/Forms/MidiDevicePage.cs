@@ -12,11 +12,11 @@ namespace Daigassou.Forms
     public partial class MidiDevicePage : UIPage
     {
         private DevicesConnector Connector;
+
         public MidiDevicePage()
         {
             InitializeComponent();
             GetDevices();
-            
         }
 
         public override void Init()
@@ -50,6 +50,7 @@ namespace Daigassou.Forms
 
             base.WndProc(ref m);
         }
+
         private void tbMidiKey_ValueChanged(object sender, EventArgs e)
         {
             lblMidiKey.Text = $"键盘起始Key +{tbMidiKey.Value * 12}";
@@ -58,49 +59,36 @@ namespace Daigassou.Forms
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            if (uiLight1.State == UILightState.On )
+            if (uiLight1.State == UILightState.On)
             {
                 KeyboardUtilities.Disconnect();
                 KeyboardUtilities.eventHandler -= KeyboardUtilities_eventHandler;
                 uiLight1.State = UILightState.Off;
                 btnConnect.Text = "连接";
-                
-                if (Connector!=null)
+
+                if (Connector != null)
                 {
                     Connector?.Disconnect();
-                    foreach (var output in Connector.OutputDevices)
-                    {
-                        output.Dispose();
-                    }
+                    foreach (var output in Connector.OutputDevices) output.Dispose();
                 }
 
                 GetDevices();
-
-
-
             }
-            else 
+            else
+            if (KeyboardUtilities.Connect(cbInputDevice.SelectedIndex))
             {
-                if (KeyboardUtilities.Connect(cbInputDevice.SelectedIndex))
+                KeyboardUtilities.eventHandler += KeyboardUtilities_eventHandler;
+                uiLight1.State = UILightState.On;
+                btnConnect.Text = "断开";
+                if (uiSplit.Active)
                 {
-                    KeyboardUtilities.eventHandler += KeyboardUtilities_eventHandler;
-                    uiLight1.State = UILightState.On;
-                    btnConnect.Text = "断开";
-                    if (uiSplit.Active)
-                    {
-                        var selectedDevices = new List<int>();
-                        for (int i = 0; i < cbTVkeyboard.Nodes.Count; i++)
-                        {
-                            
-                            if (cbTVkeyboard.Nodes[i].Checked)
-                                selectedDevices.Add(cbTVkeyboard.Nodes[i].Index);
-                        }
-                        Connector = KeyboardUtilities.virtualConnector(selectedDevices.ToArray());
-                        Connector?.Connect();
-                    }
+                    var selectedDevices = new List<int>();
+                    for (var i = 0; i < cbTVkeyboard.Nodes.Count; i++)
+                        if (cbTVkeyboard.Nodes[i].Checked)
+                            selectedDevices.Add(cbTVkeyboard.Nodes[i].Index);
+                    Connector = KeyboardUtilities.virtualConnector(selectedDevices.ToArray());
+                    Connector?.Connect();
                 }
-                
-                
             }
         }
 
@@ -110,10 +98,8 @@ namespace Daigassou.Forms
             {
                 var ev = e.Event as NoteEvent;
                 Action actionDelegate = () =>
-                {
-                    tbKeyTest.Text =
-                        $"当前按键 原始Key={Convert.ToInt32(ev.NoteNumber)} 程序输入Key={Convert.ToInt32(ev.NoteNumber) + 48 - tbMidiKey.Value * 12}";
-                };
+                tbKeyTest.Text = $"当前按键 原始Key={Convert.ToInt32(ev.NoteNumber)} 程序输入Key={Convert.ToInt32(ev.NoteNumber) + 48 - tbMidiKey.Value * 12}";
+                ;
                 BeginInvoke(actionDelegate);
             }
         }
@@ -121,25 +107,15 @@ namespace Daigassou.Forms
         private void GetDevices()
         {
             cbInputDevice.DataSource = KeyboardUtilities.GetKeyboardList();
-            
-            foreach (var device in KeyboardUtilities.GetOutputDeviceList())
-            {
-                cbTVkeyboard.Nodes.Add(device);
-            }
-            
+
+            foreach (var device in KeyboardUtilities.GetOutputDeviceList()) cbTVkeyboard.Nodes.Add(device);
         }
 
         private void uiSplit_ValueChanged(object sender, bool value)
         {
-
-            if (!value && Connector!=null)
-            {
+            if (!value && Connector != null)
                 foreach (var output in Connector.OutputDevices)
-                {
                     output.Dispose();
-                }
-                
-            }
         }
     }
 }
