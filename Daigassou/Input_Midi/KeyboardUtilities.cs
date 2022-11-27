@@ -24,8 +24,23 @@ namespace Daigassou.Input_Midi
         private static CancellationTokenSource cts = new CancellationTokenSource();
         public static int offset;
         public static event EventHandler<MidiEventReceivedEventArgs> eventHandler;
-       // public static KeyController kc;
+        // public static KeyController kc;
 
+        public static DevicesConnector virtualConnector(int[] indexs)
+        {
+            IOutputDevice[] outputDevices = new IOutputDevice[indexs.Length];
+            
+            for (int i = 0; i < indexs.Length; i++)
+            {
+                var tmpDevice = OutputDevice.GetByIndex(indexs[i]);
+                outputDevices[i] = tmpDevice;
+
+            }
+
+            var dv = new DevicesConnector(wetMidiKeyboard, outputDevices);
+
+            return dv;
+        }
         public static bool Connect(int Index)
         {
             wetMidiKeyboard = InputDevice.GetByIndex(Index);
@@ -101,7 +116,17 @@ namespace Daigassou.Input_Midi
 
             return ret;
         }
+        public static List<string> GetOutputDeviceList()
+        {
+            var ret = new List<string>();
+            var index = 0;
+            foreach (var device in OutputDevice.GetAll())
+            {
+                ret.Add(device.Name + "|" + index++);
+            }
 
+            return ret;
+        }
 
         public static void NoteProcess(CancellationToken token)
         {
