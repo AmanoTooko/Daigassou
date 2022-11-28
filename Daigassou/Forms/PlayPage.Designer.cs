@@ -39,17 +39,17 @@
             this.uiSymbolLabel2 = new Sunny.UI.UISymbolLabel();
             this.uiSymbolLabel3 = new Sunny.UI.UISymbolLabel();
             this.tbKey = new Sunny.UI.UITrackBar();
-            this.uiTrackBar3 = new Sunny.UI.UITrackBar();
+            this.tbMidiProcess = new Sunny.UI.UITrackBar();
             this.btnConfirmSpeed = new Sunny.UI.UISymbolButton();
             this.uiPanel2 = new Sunny.UI.UIPanel();
+            this.btnBackward = new Sunny.UI.UISymbolButton();
+            this.btnStart = new Sunny.UI.UISymbolButton();
+            this.btnStop = new Sunny.UI.UISymbolButton();
+            this.btnForward = new Sunny.UI.UISymbolButton();
+            this.lblProcess = new Sunny.UI.UILabel();
             this.lblKey = new Sunny.UI.UILabel();
             this.lblSpeed = new Sunny.UI.UILabel();
             this.btnConfirmKey = new Sunny.UI.UISymbolButton();
-            this.uiSymbolButton7 = new Sunny.UI.UISymbolButton();
-            this.uiSymbolButton6 = new Sunny.UI.UISymbolButton();
-            this.uiSymbolButton5 = new Sunny.UI.UISymbolButton();
-            this.uiSymbolButton4 = new Sunny.UI.UISymbolButton();
-            this.uiLabel3 = new Sunny.UI.UILabel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.uiPanel1.SuspendLayout();
             this.uiPanel2.SuspendLayout();
@@ -270,25 +270,26 @@
             this.tbKey.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.tbKey.ValueChanged += new System.EventHandler(this.tbKey_ValueChanged);
             // 
-            // uiTrackBar3
+            // tbMidiProcess
             // 
-            this.uiTrackBar3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiTrackBar3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiTrackBar3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiTrackBar3.Location = new System.Drawing.Point(13, 102);
-            this.uiTrackBar3.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiTrackBar3.Name = "uiTrackBar3";
-            this.uiTrackBar3.ReadOnly = true;
-            this.uiTrackBar3.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiTrackBar3.Size = new System.Drawing.Size(456, 29);
-            this.uiTrackBar3.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiTrackBar3.TabIndex = 13;
-            this.uiTrackBar3.Text = "uiTrackBar3";
-            this.uiTrackBar3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.tbMidiProcess.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.tbMidiProcess.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tbMidiProcess.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.tbMidiProcess.Location = new System.Drawing.Point(13, 102);
+            this.tbMidiProcess.MinimumSize = new System.Drawing.Size(1, 1);
+            this.tbMidiProcess.Name = "tbMidiProcess";
+            this.tbMidiProcess.ReadOnly = true;
+            this.tbMidiProcess.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.tbMidiProcess.Size = new System.Drawing.Size(456, 29);
+            this.tbMidiProcess.Style = Sunny.UI.UIStyle.Colorful;
+            this.tbMidiProcess.TabIndex = 13;
+            this.tbMidiProcess.Text = "uiTrackBar3";
+            this.tbMidiProcess.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // btnConfirmSpeed
             // 
             this.btnConfirmSpeed.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnConfirmSpeed.Enabled = false;
             this.btnConfirmSpeed.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.btnConfirmSpeed.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.btnConfirmSpeed.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
@@ -308,23 +309,24 @@
             this.btnConfirmSpeed.TabIndex = 20;
             this.btnConfirmSpeed.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnConfirmSpeed.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnConfirmSpeed.Click += new System.EventHandler(this.btnConfirmSpeed_Click);
             // 
             // uiPanel2
             // 
+            this.uiPanel2.Controls.Add(this.btnBackward);
+            this.uiPanel2.Controls.Add(this.btnStart);
+            this.uiPanel2.Controls.Add(this.btnStop);
+            this.uiPanel2.Controls.Add(this.btnForward);
+            this.uiPanel2.Controls.Add(this.lblProcess);
             this.uiPanel2.Controls.Add(this.lblKey);
             this.uiPanel2.Controls.Add(this.lblSpeed);
             this.uiPanel2.Controls.Add(this.btnConfirmKey);
             this.uiPanel2.Controls.Add(this.uiSymbolLabel2);
             this.uiPanel2.Controls.Add(this.btnConfirmSpeed);
             this.uiPanel2.Controls.Add(this.tbSpeed);
-            this.uiPanel2.Controls.Add(this.uiSymbolButton7);
             this.uiPanel2.Controls.Add(this.uiSymbolLabel3);
-            this.uiPanel2.Controls.Add(this.uiSymbolButton6);
             this.uiPanel2.Controls.Add(this.tbKey);
-            this.uiPanel2.Controls.Add(this.uiSymbolButton5);
-            this.uiPanel2.Controls.Add(this.uiTrackBar3);
-            this.uiPanel2.Controls.Add(this.uiSymbolButton4);
-            this.uiPanel2.Controls.Add(this.uiLabel3);
+            this.uiPanel2.Controls.Add(this.tbMidiProcess);
             this.uiPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiPanel2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
@@ -342,6 +344,123 @@
             this.uiPanel2.Text = null;
             this.uiPanel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.uiPanel2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
+            // btnBackward
+            // 
+            this.btnBackward.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBackward.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnBackward.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnBackward.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnBackward.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnBackward.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnBackward.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnBackward.Location = new System.Drawing.Point(168, 137);
+            this.btnBackward.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnBackward.Name = "btnBackward";
+            this.btnBackward.Radius = 35;
+            this.btnBackward.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnBackward.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnBackward.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnBackward.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnBackward.Size = new System.Drawing.Size(35, 35);
+            this.btnBackward.Style = Sunny.UI.UIStyle.Colorful;
+            this.btnBackward.Symbol = 61514;
+            this.btnBackward.SymbolOffset = new System.Drawing.Point(-2, 0);
+            this.btnBackward.TabIndex = 45;
+            this.btnBackward.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnBackward.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnBackward.Click += new System.EventHandler(this.btnBackward_Click);
+            // 
+            // btnStart
+            // 
+            this.btnStart.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStart.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnStart.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnStart.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnStart.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnStart.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnStart.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnStart.Location = new System.Drawing.Point(211, 137);
+            this.btnStart.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Radius = 35;
+            this.btnStart.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnStart.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnStart.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnStart.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnStart.Size = new System.Drawing.Size(35, 35);
+            this.btnStart.Style = Sunny.UI.UIStyle.Colorful;
+            this.btnStart.Symbol = 61515;
+            this.btnStart.SymbolOffset = new System.Drawing.Point(2, 1);
+            this.btnStart.TabIndex = 44;
+            this.btnStart.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnStart.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStop.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnStop.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnStop.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnStop.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnStop.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnStop.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnStop.Location = new System.Drawing.Point(254, 137);
+            this.btnStop.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Radius = 35;
+            this.btnStop.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnStop.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnStop.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnStop.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnStop.Size = new System.Drawing.Size(35, 35);
+            this.btnStop.Style = Sunny.UI.UIStyle.Colorful;
+            this.btnStop.Symbol = 61517;
+            this.btnStop.SymbolOffset = new System.Drawing.Point(0, 1);
+            this.btnStop.TabIndex = 43;
+            this.btnStop.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnStop.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnForward
+            // 
+            this.btnForward.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnForward.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnForward.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnForward.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnForward.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnForward.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnForward.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnForward.Location = new System.Drawing.Point(297, 137);
+            this.btnForward.MinimumSize = new System.Drawing.Size(1, 1);
+            this.btnForward.Name = "btnForward";
+            this.btnForward.Radius = 35;
+            this.btnForward.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.btnForward.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
+            this.btnForward.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnForward.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
+            this.btnForward.Size = new System.Drawing.Size(35, 35);
+            this.btnForward.Style = Sunny.UI.UIStyle.Colorful;
+            this.btnForward.Symbol = 61518;
+            this.btnForward.SymbolOffset = new System.Drawing.Point(2, 0);
+            this.btnForward.TabIndex = 42;
+            this.btnForward.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnForward.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnForward.Click += new System.EventHandler(this.btnForward_Click);
+            // 
+            // lblProcess
+            // 
+            this.lblProcess.BackColor = System.Drawing.Color.Transparent;
+            this.lblProcess.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblProcess.Location = new System.Drawing.Point(338, 125);
+            this.lblProcess.Name = "lblProcess";
+            this.lblProcess.Size = new System.Drawing.Size(172, 21);
+            this.lblProcess.Style = Sunny.UI.UIStyle.Colorful;
+            this.lblProcess.TabIndex = 46;
+            this.lblProcess.Text = "停止播放 00:00/00:00";
+            this.lblProcess.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblProcess.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // lblKey
             // 
@@ -372,6 +491,7 @@
             // btnConfirmKey
             // 
             this.btnConfirmKey.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConfirmKey.Enabled = false;
             this.btnConfirmKey.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.btnConfirmKey.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.btnConfirmKey.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
@@ -391,119 +511,7 @@
             this.btnConfirmKey.TabIndex = 21;
             this.btnConfirmKey.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnConfirmKey.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // uiSymbolButton7
-            // 
-            this.uiSymbolButton7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiSymbolButton7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton7.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton7.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton7.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton7.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton7.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton7.Location = new System.Drawing.Point(168, 137);
-            this.uiSymbolButton7.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolButton7.Name = "uiSymbolButton7";
-            this.uiSymbolButton7.Radius = 35;
-            this.uiSymbolButton7.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton7.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton7.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton7.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton7.Size = new System.Drawing.Size(35, 35);
-            this.uiSymbolButton7.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolButton7.Symbol = 61514;
-            this.uiSymbolButton7.SymbolOffset = new System.Drawing.Point(-2, 0);
-            this.uiSymbolButton7.TabIndex = 19;
-            this.uiSymbolButton7.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton7.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // uiSymbolButton6
-            // 
-            this.uiSymbolButton6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiSymbolButton6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton6.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton6.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton6.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton6.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton6.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton6.Location = new System.Drawing.Point(211, 137);
-            this.uiSymbolButton6.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolButton6.Name = "uiSymbolButton6";
-            this.uiSymbolButton6.Radius = 35;
-            this.uiSymbolButton6.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton6.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton6.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton6.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton6.Size = new System.Drawing.Size(35, 35);
-            this.uiSymbolButton6.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolButton6.Symbol = 61515;
-            this.uiSymbolButton6.SymbolOffset = new System.Drawing.Point(2, 1);
-            this.uiSymbolButton6.TabIndex = 18;
-            this.uiSymbolButton6.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton6.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // uiSymbolButton5
-            // 
-            this.uiSymbolButton5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiSymbolButton5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton5.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton5.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton5.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton5.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton5.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton5.Location = new System.Drawing.Point(254, 137);
-            this.uiSymbolButton5.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolButton5.Name = "uiSymbolButton5";
-            this.uiSymbolButton5.Radius = 35;
-            this.uiSymbolButton5.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton5.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton5.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton5.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton5.Size = new System.Drawing.Size(35, 35);
-            this.uiSymbolButton5.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolButton5.Symbol = 61517;
-            this.uiSymbolButton5.SymbolOffset = new System.Drawing.Point(1, 1);
-            this.uiSymbolButton5.TabIndex = 17;
-            this.uiSymbolButton5.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton5.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // uiSymbolButton4
-            // 
-            this.uiSymbolButton4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiSymbolButton4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton4.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton4.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton4.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton4.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton4.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton4.Location = new System.Drawing.Point(297, 137);
-            this.uiSymbolButton4.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolButton4.Name = "uiSymbolButton4";
-            this.uiSymbolButton4.Radius = 35;
-            this.uiSymbolButton4.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSymbolButton4.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
-            this.uiSymbolButton4.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton4.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton4.Size = new System.Drawing.Size(35, 35);
-            this.uiSymbolButton4.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolButton4.Symbol = 61518;
-            this.uiSymbolButton4.SymbolOffset = new System.Drawing.Point(2, 0);
-            this.uiSymbolButton4.TabIndex = 16;
-            this.uiSymbolButton4.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton4.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // uiLabel3
-            // 
-            this.uiLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.uiLabel3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLabel3.Location = new System.Drawing.Point(338, 134);
-            this.uiLabel3.Name = "uiLabel3";
-            this.uiLabel3.Size = new System.Drawing.Size(172, 21);
-            this.uiLabel3.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiLabel3.TabIndex = 24;
-            this.uiLabel3.Text = "正在播放 00:00/18:26";
-            this.uiLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiLabel3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnConfirmKey.Click += new System.EventHandler(this.btnConfirmKey_Click);
             // 
             // openFileDialog1
             // 
@@ -515,7 +523,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(510, 350);
-            this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
             this.Controls.Add(this.uiPanel2);
             this.Controls.Add(this.uiLine2);
             this.Controls.Add(this.uiPanel1);
@@ -541,19 +548,19 @@
         private Sunny.UI.UISymbolLabel uiSymbolLabel2;
         private Sunny.UI.UISymbolLabel uiSymbolLabel3;
         private Sunny.UI.UITrackBar tbKey;
-        private Sunny.UI.UITrackBar uiTrackBar3;
+        private Sunny.UI.UITrackBar tbMidiProcess;
         private Sunny.UI.UISymbolButton btnConfirmSpeed;
         private Sunny.UI.UIPanel uiPanel2;
         private Sunny.UI.UISymbolButton btnConfirmKey;
-        private Sunny.UI.UISymbolButton uiSymbolButton6;
-        private Sunny.UI.UISymbolButton uiSymbolButton5;
-        private Sunny.UI.UISymbolButton uiSymbolButton4;
-        private Sunny.UI.UISymbolButton uiSymbolButton7;
         private Sunny.UI.UISymbolButton btnOpenFile;
         private Sunny.UI.UISymbolLabel uiSymbolLabel1;
         private Sunny.UI.UILabel lblSpeed;
         private Sunny.UI.UILabel lblKey;
-        private Sunny.UI.UILabel uiLabel3;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private Sunny.UI.UISymbolButton btnBackward;
+        private Sunny.UI.UISymbolButton btnStart;
+        private Sunny.UI.UISymbolButton btnStop;
+        private Sunny.UI.UISymbolButton btnForward;
+        private Sunny.UI.UILabel lblProcess;
     }
 }

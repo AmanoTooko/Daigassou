@@ -1,5 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Daigassou.Utils;
 using Sunny.UI;
 
 namespace Daigassou.Forms
@@ -41,6 +44,60 @@ namespace Daigassou.Forms
         {
             //this.SendParamToPage(1002, "123");
             SelectPage(pageIndex);
+        }
+
+        private void MainFormEx_ReceiveParams(object sender, UIPageParamsArgs e)
+        {
+            UConsole.WriteConsole(e);
+            this.Text = $"大合奏!!Ex - {Instrument.InstrumentName[Convert.ToInt32((e.Value as CommObject).payload)]}";
+        }
+        const int WM_COPYDATA = 0x004A;
+
+        public struct COPYDATASTRUCT
+
+        {
+
+            public IntPtr dwData;
+
+            public int cData;
+
+            [MarshalAs(UnmanagedType.LPStr)]
+
+            public string lpData;
+
+        }
+        protected override void WndProc(ref Message m)
+
+        {
+
+            switch (m.Msg)
+
+            {
+
+                case WM_COPYDATA:
+
+                    COPYDATASTRUCT cdata = new COPYDATASTRUCT();
+
+                    Type mytype = cdata.GetType();
+
+                    cdata = (COPYDATASTRUCT)m.GetLParam(mytype);
+
+                    SendParamToPage((int)PageID.SoloPlayPage,
+                        new CommObject() {eventId = eventCata.MIDI_FILE_NAME_CROSS,payload= cdata.lpData });
+
+
+
+
+                    break;
+
+                default:
+
+                    base.WndProc(ref m);
+
+                    break;
+
+            }
+
         }
     }
 }

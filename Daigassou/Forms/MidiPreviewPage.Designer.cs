@@ -91,7 +91,7 @@
             this.lblScoreName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblScoreName.Location = new System.Drawing.Point(12, 3);
             this.lblScoreName.Name = "lblScoreName";
-            this.lblScoreName.Size = new System.Drawing.Size(349, 17);
+            this.lblScoreName.Size = new System.Drawing.Size(486, 18);
             this.lblScoreName.Style = Sunny.UI.UIStyle.Colorful;
             this.lblScoreName.TabIndex = 24;
             this.lblScoreName.Text = "乐谱名：妹有乐谱";
@@ -104,7 +104,7 @@
             this.lblTrackName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblTrackName.Location = new System.Drawing.Point(12, 21);
             this.lblTrackName.Name = "lblTrackName";
-            this.lblTrackName.Size = new System.Drawing.Size(349, 26);
+            this.lblTrackName.Size = new System.Drawing.Size(486, 20);
             this.lblTrackName.Style = Sunny.UI.UIStyle.Colorful;
             this.lblTrackName.TabIndex = 25;
             this.lblTrackName.Text = "轨道名：妹有轨道";
@@ -406,6 +406,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(510, 350);
+            this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
             this.Controls.Add(this.uiPanel1);
             this.Controls.Add(this.uiLine2);
             this.Controls.Add(this.uiPanel2);

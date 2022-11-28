@@ -36,6 +36,9 @@
             this.uiSymbolLabel5 = new Sunny.UI.UISymbolLabel();
             this.btnConnect = new Sunny.UI.UISymbolButton();
             this.uiPanel3 = new Sunny.UI.UIPanel();
+            this.cbTVkeyboard = new Sunny.UI.UIComboTreeView();
+            this.uiSplit = new Sunny.UI.UISwitch();
+            this.uiSymbolLabel1 = new Sunny.UI.UISymbolLabel();
             this.uiLabel1 = new Sunny.UI.UILabel();
             this.lblMidiKey = new Sunny.UI.UILabel();
             this.tbMidiKey = new Sunny.UI.UITrackBar();
@@ -44,9 +47,6 @@
             this.tbKeyTest = new Sunny.UI.UITextBox();
             this.cbInputDevice = new Sunny.UI.UIComboBox();
             this.uiToolTip1 = new Sunny.UI.UIToolTip(this.components);
-            this.uiSymbolLabel1 = new Sunny.UI.UISymbolLabel();
-            this.uiSplit = new Sunny.UI.UISwitch();
-            this.cbTVkeyboard = new Sunny.UI.UIComboTreeView();
             this.uiPanel3.SuspendLayout();
             this.uiPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -181,6 +181,56 @@
             this.uiPanel3.Text = null;
             this.uiPanel3.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.uiPanel3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
+            // cbTVkeyboard
+            // 
+            this.cbTVkeyboard.CheckBoxes = true;
+            this.cbTVkeyboard.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
+            this.cbTVkeyboard.FillColor = System.Drawing.Color.White;
+            this.cbTVkeyboard.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.cbTVkeyboard.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbTVkeyboard.Location = new System.Drawing.Point(134, 47);
+            this.cbTVkeyboard.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbTVkeyboard.MinimumSize = new System.Drawing.Size(63, 0);
+            this.cbTVkeyboard.Name = "cbTVkeyboard";
+            this.cbTVkeyboard.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            this.cbTVkeyboard.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.cbTVkeyboard.Size = new System.Drawing.Size(254, 29);
+            this.cbTVkeyboard.Style = Sunny.UI.UIStyle.Colorful;
+            this.cbTVkeyboard.TabIndex = 43;
+            this.cbTVkeyboard.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cbTVkeyboard.Watermark = "下拉选择链接的输出设备";
+            this.cbTVkeyboard.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
+            // uiSplit
+            // 
+            this.uiSplit.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.uiSplit.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSplit.Location = new System.Drawing.Point(395, 51);
+            this.uiSplit.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiSplit.Name = "uiSplit";
+            this.uiSplit.Size = new System.Drawing.Size(75, 25);
+            this.uiSplit.Style = Sunny.UI.UIStyle.Colorful;
+            this.uiSplit.TabIndex = 42;
+            this.uiSplit.Text = "uiSwitch1";
+            this.uiSplit.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.uiSplit.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.uiSplit_ValueChanged);
+            // 
+            // uiSymbolLabel1
+            // 
+            this.uiSymbolLabel1.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolLabel1.Location = new System.Drawing.Point(12, 44);
+            this.uiSymbolLabel1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiSymbolLabel1.Name = "uiSymbolLabel1";
+            this.uiSymbolLabel1.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.uiSymbolLabel1.Size = new System.Drawing.Size(105, 35);
+            this.uiSymbolLabel1.Style = Sunny.UI.UIStyle.Colorful;
+            this.uiSymbolLabel1.Symbol = 361633;
+            this.uiSymbolLabel1.SymbolOffset = new System.Drawing.Point(4, 0);
+            this.uiSymbolLabel1.SymbolSize = 26;
+            this.uiSymbolLabel1.TabIndex = 41;
+            this.uiSymbolLabel1.Text = "键盘链接";
+            this.uiSymbolLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // uiLabel1
             // 
@@ -320,60 +370,11 @@
             this.uiToolTip1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(239)))));
             this.uiToolTip1.OwnerDraw = true;
             // 
-            // uiSymbolLabel1
-            // 
-            this.uiSymbolLabel1.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel1.Location = new System.Drawing.Point(12, 44);
-            this.uiSymbolLabel1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolLabel1.Name = "uiSymbolLabel1";
-            this.uiSymbolLabel1.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.uiSymbolLabel1.Size = new System.Drawing.Size(105, 35);
-            this.uiSymbolLabel1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolLabel1.Symbol = 361633;
-            this.uiSymbolLabel1.SymbolOffset = new System.Drawing.Point(4, 0);
-            this.uiSymbolLabel1.SymbolSize = 26;
-            this.uiSymbolLabel1.TabIndex = 41;
-            this.uiSymbolLabel1.Text = "键盘链接";
-            this.uiSymbolLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // uiSplit
-            // 
-            this.uiSplit.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSplit.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSplit.Location = new System.Drawing.Point(395, 51);
-            this.uiSplit.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSplit.Name = "uiSplit";
-            this.uiSplit.Size = new System.Drawing.Size(75, 25);
-            this.uiSplit.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSplit.TabIndex = 42;
-            this.uiSplit.Text = "uiSwitch1";
-            this.uiSplit.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.uiSplit.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.uiSplit_ValueChanged);
-            // 
-            // cbTVkeyboard
-            // 
-            this.cbTVkeyboard.CheckBoxes = true;
-            this.cbTVkeyboard.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
-            this.cbTVkeyboard.FillColor = System.Drawing.Color.White;
-            this.cbTVkeyboard.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.cbTVkeyboard.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbTVkeyboard.Location = new System.Drawing.Point(134, 47);
-            this.cbTVkeyboard.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbTVkeyboard.MinimumSize = new System.Drawing.Size(63, 0);
-            this.cbTVkeyboard.Name = "cbTVkeyboard";
-            this.cbTVkeyboard.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            this.cbTVkeyboard.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.cbTVkeyboard.Size = new System.Drawing.Size(254, 29);
-            this.cbTVkeyboard.Style = Sunny.UI.UIStyle.Colorful;
-            this.cbTVkeyboard.TabIndex = 43;
-            this.cbTVkeyboard.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cbTVkeyboard.Watermark = "下拉选择链接的输出设备";
-            this.cbTVkeyboard.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
             // MidiDevicePage
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(510, 350);
+            this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
             this.Controls.Add(this.uiPanel3);
             this.Controls.Add(this.uiLine2);
             this.Controls.Add(this.uiPanel1);
@@ -382,6 +383,8 @@
             this.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.Style = Sunny.UI.UIStyle.Colorful;
             this.Text = "MidiPreviewPage";
+            this.Load += new System.EventHandler(this.MidiDevicePage_Load);
+            this.Enter += new System.EventHandler(this.MidiDevicePage_Enter);
             this.uiPanel3.ResumeLayout(false);
             this.uiPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

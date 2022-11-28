@@ -85,13 +85,13 @@ namespace Daigassou.Forms
                 var processList = Utils.Utils.GetProcesses();
                 if (processList.Count == 0)
                 {
-                    UIMessageTip.ShowError("未检测到游戏进程，后台演奏关闭");
+                    UIMessageTip.ShowError("未检测到游戏进程，后台演奏关闭", 2000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                     swEnableBackgroundPlay.Active = false;
                 }
                 else if (processList.Count == 1)
                 {
                     ProcessKeyController.GetInstance().Process = processList[0];
-                    UIMessageTip.ShowOk($"已检测到后台进程，绑定至Pid={ProcessKeyController.GetInstance().Process.Id}");
+                    UIMessageTip.ShowOk($"已检测到后台进程，绑定至Pid={ProcessKeyController.GetInstance().Process.Id}", 2000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                 }
                 else
                 {
@@ -107,7 +107,7 @@ namespace Daigassou.Forms
                     if (this.ShowSelectDialog(ref index, processIndex, "绑定后台进程", "请观察游戏窗口标题栏，数字即为PID，选定后标题会恢复。"))
                     {
                         ProcessKeyController.GetInstance().Process = processList[index];
-                        UIMessageTip.ShowOk($"已绑定至Pid={ProcessKeyController.GetInstance().Process.Id}");
+                        UIMessageTip.ShowOk($"已绑定至Pid={ProcessKeyController.GetInstance().Process.Id}", 2000);
                         foreach (var process in processList) Utils.Utils.SetGameTitle(process.MainWindowHandle, false);
                     }
                     else

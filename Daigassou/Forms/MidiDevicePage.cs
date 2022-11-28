@@ -31,7 +31,7 @@ namespace Daigassou.Forms
             base.Final();
         }
 
-        protected override void WndProc(ref Message m)
+        protected override void DefWndProc(ref Message m)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace Daigassou.Forms
             {
             }
 
-            base.WndProc(ref m);
+            base.DefWndProc(ref m);
         }
 
         private void tbMidiKey_ValueChanged(object sender, EventArgs e)
@@ -116,6 +116,16 @@ namespace Daigassou.Forms
             if (!value && Connector != null)
                 foreach (var output in Connector.OutputDevices)
                     output.Dispose();
+        }
+
+        private void MidiDevicePage_Load(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void MidiDevicePage_Enter(object sender, EventArgs e)
+        {
+            GetDevices();
         }
     }
 }

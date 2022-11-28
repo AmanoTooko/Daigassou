@@ -167,7 +167,7 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(159, 20);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(128, 21);
             this.toolStripStatusLabel1.Text = "一些文字非常多的文字";
             // 
             // toolStripSplitButton1
@@ -177,7 +177,7 @@
             this.toolStripSplitButton1.Image = global::Daigassou.Properties.Resources.s1;
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(39, 24);
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(36, 24);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             // 
             // MainFormEx
@@ -198,6 +198,7 @@
             this.TitleColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.TitleFont = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
+            this.ReceiveParams += new Sunny.UI.OnReceiveParams(this.MainFormEx_ReceiveParams);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
