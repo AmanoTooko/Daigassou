@@ -15,12 +15,13 @@ namespace Daigassou.Controller
     {
         public enum playmode
         {
-            TIMER_START = 1, //text= player name;param=start time
-            STOP = 2, // text=player name;
-            PAUSE = 4,
-            OFFSET_CHANGE = 8, //param = offset(ms);
-            CONFIRM_START = 16, //no param
-            INSTRUAMENT_CHANGE = 32 //param=instrument code no text
+            COUNDOWN_TIMER_START = 1, //text= player name;param=start time
+            ENSEMBLE_TIMER_START = 2, //text= player name;param=start time
+            STOP = 4, // text=player name;
+            PAUSE = 8,
+            OFFSET_CHANGE = 16, //param = offset(ms);
+            CONFIRM_START = 32, //no param
+            INSTRUAMENT_CHANGE = 64 //param=instrument code no text
         }
 
         private readonly playmode mode;
@@ -50,37 +51,35 @@ namespace Daigassou.Controller
         }
     }
 
-    public class NetworkParser
+    public class NetworkParser 
     {
-        //public static uint countDownPacket = 794;//0x01D6;//106; size=80 POS=0X26
-        //public static uint ensembleStopPacket = 140;//0x0104;//1B8; size=48;
-        //public static uint partyStopPacket = 245;//0x012E;// 2B3;size=48;
-        //public static uint ensembleStartPacket = 176;//0x03CA;// 233; size=88 0x32=bpm
-        //public static uint ensemblePacket = 807;//0x0240;// 213;
-        //public static uint ensembleConfirmPacket = 696;//0x01E3;//2EB size=56,0x32=bpm
-        //public static uint instruSendingPacket = 785;//0x033D;//354 size=64
-
+        //public static uint countDownPacket =  size=80 POS=0X26
+        //public static uint ensembleStopPacket = size=48;
+        //public static uint partyStopPacket = size=48; 0x22 = MARK
+        //public static uint ensembleStartPacket = size=88 0x32=bpm
+        //public static uint ensemblePacket = size=1064
+        //public static uint ensembleConfirmPacket = size=56,0x32=bpm
+        //public static uint instruSendingPacket = size=64,instruPOS=0x24
 
         public static Dictionary<string, ushort> opcodeDict = new Dictionary<string, ushort>()
         {
-            {"countDownPacket", 0x360},
-            {"ensembleStopPacket",0x304 },
-            {"partyStopPacket", 0x02d1},
-            {"ensembleStartPacket", 0X2AE},
+            {"countDownPacket", 0x0240},
+            {"ensembleStopPacket", 0x0102},
+            {"partyStopPacket", 0x0079},
+            {"ensembleStartPacket", 0x023C},
             {"ensemblePacket", 0x25c},
-            {"ensembleConfirmPacket", 0x1A9},
-            {"InstruSendingPacket", 0x1BA}
+            {"ensembleConfirmPacket", 0x03a6},
+            {"InstruSendingPacket", 0x00b1}
         };
 
         public bool ensembleProcessFlag = true;
+        public bool isUsingEnsembleAssist = false;
         private FFXIVNetworkMonitor monitor = new FFXIVNetworkMonitor();
         public Process process;
         public event EventHandler<PlayEvent> Play;
 
         public bool StartNetworkMonitor()
         {
-            Stopwatch sw= new Stopwatch();
-            sw.Start();
             try
             {
                 monitor.MessageReceivedEventHandler = (
@@ -94,15 +93,12 @@ namespace Daigassou.Controller
                     long epoch,
                     byte[] message
                 ) => MessageSent(connection, epoch, message);
-                Debug.WriteLine($"sw time {sw.ElapsedMilliseconds}ms");
-                monitor.MonitorType = NetworkMonitorType.WinPCap; //TODO: Fix here to setting
+                monitor.MonitorType = Properties.Settings.Default.isUsingWinPCap? NetworkMonitorType.WinPCap: NetworkMonitorType.RawSocket; 
                 monitor.ProcessIDList.Add((uint) process.Id);
                 monitor.OodleImplementation = OodleImplementation.Ffxiv;
                 monitor.OodlePath = process.MainModule.FileName;
-                RegisterToFirewall();//todo:performance flame point. only need once 
-                Debug.WriteLine($"sw time {sw.ElapsedMilliseconds}ms");
+                RegisterToFirewall();//todo:performance flame point?. only need once 
                 monitor.Start();
-                Debug.WriteLine($"sw time {sw.ElapsedMilliseconds}ms");
             }
             catch (Exception)
             {
@@ -133,7 +129,7 @@ namespace Daigassou.Controller
 
 
             ushort opCode = res.header.MessageType;
-            if (opCode == opcodeDict["InstruSendingPacket"]) //小队倒计时
+            if (opCode == opcodeDict["InstruSendingPacket"] && res.data[32]==0x1c) //当前乐器
             {
                 var instruCode = res.data[36];
                 if (instruCode <= 28)
@@ -150,54 +146,62 @@ namespace Daigassou.Controller
 
             ushort opCode = res.header.MessageType;
 
-            if (opCode == opcodeDict["countDownPacket"]) //小队倒计时
+            if (isUsingEnsembleAssist)
             {
-                var countDownTime = res.data[38];
-                var unixTime = BitConverter.ToUInt32(res.data, 24);
-                var nameBytes = new byte[18];
-                Array.Copy(res.data, 43, nameBytes, 0, 18);
-                var name = Encoding.UTF8.GetString(nameBytes) ?? "";
+                if (opCode == opcodeDict["ensembleStartPacket"] ) //ensemble start
+                {
+                    var unixTime = BitConverter.ToUInt32(res.data, 24);
+                    //ParameterController.GetInstance().isEnsembleSync = true;
+                    Play?.Invoke(
+                        this,
+                        new PlayEvent(
+                            PlayEvent.playmode.ENSEMBLE_TIMER_START,
+                            3000,
+                            " "
+                        )
+                    );
+                }
 
-                Play?.Invoke(
-                    this,
-                    new PlayEvent(PlayEvent.playmode.TIMER_START, Convert.ToInt32(unixTime + countDownTime), name)
-                );
+
+                if (opCode == opcodeDict["ensembleConfirmPacket"] )
+                {
+                    if (BitConverter.ToUInt32(res.data, 40) != res.header.ActorID)//confirm packet also send to sender itself
+                        Play?.Invoke(this, new PlayEvent(PlayEvent.playmode.CONFIRM_START, 0, " "));
+                }
+                if (opCode == opcodeDict["ensembleStopPacket"])
+                     //Stop
+                {
+                    Play?.Invoke(this, new PlayEvent(PlayEvent.playmode.STOP, 0, " "));
+                }
+            }
+            else
+            {
+                if (opCode == opcodeDict["countDownPacket"]) //小队倒计时
+                {
+                    var countDownTime = res.data[38];
+                    var unixTime = BitConverter.ToUInt32(res.data, 24);
+                    var nameBytes = new byte[18];
+                    Array.Copy(res.data, 43, nameBytes, 0, 18);
+                    var name = Encoding.UTF8.GetString(nameBytes) ?? "";
+
+                    Play?.Invoke(
+                        this,
+                        new PlayEvent(PlayEvent.playmode.COUNDOWN_TIMER_START, countDownTime*1000, name)
+                    );
+                }
+
+                if (
+                    opCode == opcodeDict["partyStopPacket"]
+                     )
+                 //Stop
+                {
+                    Play?.Invoke(this, new PlayEvent(PlayEvent.playmode.STOP, 0, " "));
+                }
+
             }
 
-            if (
-                opCode == opcodeDict["partyStopPacket"]
-                || (opCode == opcodeDict["ensembleStopPacket"] && ensembleProcessFlag)
-            ) //Stop
-            {
-                Play?.Invoke(this, new PlayEvent(PlayEvent.playmode.STOP, 0, " "));
-            }
 
-            if (opCode == opcodeDict["ensembleStartPacket"] && ensembleProcessFlag) //ensemble start
-            {
-                var unixTime = BitConverter.ToUInt32(res.data, 24);
-                //ParameterController.GetInstance().isEnsembleSync = true;
-                Play?.Invoke(
-                    this,
-                    new PlayEvent(
-                        PlayEvent.playmode.TIMER_START,
-                        Convert.ToInt32(unixTime + 5),
-                        " "
-                    )
-                );
-            }
 
-            if (opCode == opcodeDict["ensemblePacket"] && ensembleProcessFlag) //ensemble mode
-            {
-                //if (ParameterController.GetInstance().isEnsembleSync)
-                //    ParameterController.GetInstance().AnalyzeEnsembleNotes(message);
-                //ParameterController.GetInstance().isEnsembleSync = false;
-            }
-
-            if (opCode == opcodeDict["ensembleConfirmPacket"] && ensembleProcessFlag)
-            {
-                if (BitConverter.ToUInt32(res.data, 40) != res.header.ActorID)//confirm packet also send to sender itself
-                    Play?.Invoke(this, new PlayEvent(PlayEvent.playmode.CONFIRM_START, 0, " "));
-            }
         }
 
         public void StopNetworkMonitor()

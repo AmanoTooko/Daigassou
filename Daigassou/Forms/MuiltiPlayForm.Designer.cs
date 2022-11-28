@@ -30,25 +30,26 @@
         {
             this.uiLine1 = new Sunny.UI.UILine();
             this.uiPanel1 = new Sunny.UI.UIPanel();
+            this.uiLinkLabel1 = new Sunny.UI.UILinkLabel();
             this.uiDatetimePicker1 = new Sunny.UI.UIDatetimePicker();
             this.uiSymbolLabel2 = new Sunny.UI.UISymbolLabel();
             this.uiSymbolButton1 = new Sunny.UI.UISymbolButton();
             this.uiSymbolLabel1 = new Sunny.UI.UISymbolLabel();
             this.uiIntegerUpDown1 = new Sunny.UI.UIIntegerUpDown();
             this.uiPanel2 = new Sunny.UI.UIPanel();
-            this.lblKey = new Sunny.UI.UILabel();
-            this.uiLabel1 = new Sunny.UI.UILabel();
+            this.lblScoreName = new Sunny.UI.UILabel();
+            this.lblTrackName = new Sunny.UI.UILabel();
             this.uiLine2 = new Sunny.UI.UILine();
             this.uiLine3 = new Sunny.UI.UILine();
-            this.uiSwitch1 = new Sunny.UI.UISwitch();
+            this.swNetworkAnalyze = new Sunny.UI.UISwitch();
             this.uiSymbolLabel3 = new Sunny.UI.UISymbolLabel();
             this.uiPanel3 = new Sunny.UI.UIPanel();
             this.uiRadioButtonGroup1 = new Sunny.UI.UIRadioButtonGroup();
             this.radioBtnGA = new Sunny.UI.UIRadioButton();
             this.radioBtnCtd = new Sunny.UI.UIRadioButton();
             this.uiSymbolLabel5 = new Sunny.UI.UISymbolLabel();
-            this.uiLinkLabel1 = new Sunny.UI.UILinkLabel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.uiLabel1 = new Sunny.UI.UILabel();
             this.uiPanel1.SuspendLayout();
             this.uiPanel2.SuspendLayout();
             this.uiPanel3.SuspendLayout();
@@ -96,6 +97,22 @@
             this.uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.uiPanel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
+            // uiLinkLabel1
+            // 
+            this.uiLinkLabel1.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(155)))), ((int)(((byte)(40)))));
+            this.uiLinkLabel1.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiLinkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
+            this.uiLinkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.uiLinkLabel1.Location = new System.Drawing.Point(367, 44);
+            this.uiLinkLabel1.Name = "uiLinkLabel1";
+            this.uiLinkLabel1.Size = new System.Drawing.Size(100, 23);
+            this.uiLinkLabel1.Style = Sunny.UI.UIStyle.Colorful;
+            this.uiLinkLabel1.TabIndex = 35;
+            this.uiLinkLabel1.TabStop = true;
+            this.uiLinkLabel1.Text = "视频教程";
+            this.uiLinkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.uiLinkLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
             // uiDatetimePicker1
             // 
             this.uiDatetimePicker1.FillColor = System.Drawing.Color.White;
@@ -113,10 +130,9 @@
             this.uiDatetimePicker1.SymbolDropDown = 61555;
             this.uiDatetimePicker1.SymbolNormal = 61555;
             this.uiDatetimePicker1.TabIndex = 27;
-            this.uiDatetimePicker1.Text = "2022-11-10 00:23:18";
             this.uiDatetimePicker1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiDatetimePicker1.Value = new System.DateTime(2022, 11, 10, 0, 23, 18, 763);
-            this.uiDatetimePicker1.Watermark = "";
+            this.uiDatetimePicker1.Value = new System.DateTime(2022, 11, 28, 0, 0, 0, 0);
+            this.uiDatetimePicker1.Watermark = "合奏定时";
             this.uiDatetimePicker1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // uiSymbolLabel2
@@ -151,10 +167,10 @@
             this.uiSymbolButton1.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
             this.uiSymbolButton1.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.uiSymbolButton1.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
-            this.uiSymbolButton1.Size = new System.Drawing.Size(112, 29);
+            this.uiSymbolButton1.Size = new System.Drawing.Size(87, 29);
             this.uiSymbolButton1.Style = Sunny.UI.UIStyle.Colorful;
             this.uiSymbolButton1.TabIndex = 34;
-            this.uiSymbolButton1.Text = "1111";
+            this.uiSymbolButton1.Text = "定时";
             this.uiSymbolButton1.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiSymbolButton1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
@@ -197,8 +213,8 @@
             // 
             // uiPanel2
             // 
-            this.uiPanel2.Controls.Add(this.lblKey);
-            this.uiPanel2.Controls.Add(this.uiLabel1);
+            this.uiPanel2.Controls.Add(this.lblScoreName);
+            this.uiPanel2.Controls.Add(this.lblTrackName);
             this.uiPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.uiPanel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiPanel2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
@@ -216,31 +232,31 @@
             this.uiPanel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.uiPanel2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // lblKey
+            // lblScoreName
             // 
-            this.lblKey.BackColor = System.Drawing.Color.Transparent;
-            this.lblKey.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblKey.Location = new System.Drawing.Point(12, 3);
-            this.lblKey.Name = "lblKey";
-            this.lblKey.Size = new System.Drawing.Size(349, 17);
-            this.lblKey.Style = Sunny.UI.UIStyle.Colorful;
-            this.lblKey.TabIndex = 24;
-            this.lblKey.Text = "乐谱名：妹有乐谱";
-            this.lblKey.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblKey.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.lblScoreName.BackColor = System.Drawing.Color.Transparent;
+            this.lblScoreName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblScoreName.Location = new System.Drawing.Point(12, 3);
+            this.lblScoreName.Name = "lblScoreName";
+            this.lblScoreName.Size = new System.Drawing.Size(486, 18);
+            this.lblScoreName.Style = Sunny.UI.UIStyle.Colorful;
+            this.lblScoreName.TabIndex = 24;
+            this.lblScoreName.Text = "乐谱名：妹有乐谱";
+            this.lblScoreName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblScoreName.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiLabel1
+            // lblTrackName
             // 
-            this.uiLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLabel1.Location = new System.Drawing.Point(12, 21);
-            this.uiLabel1.Name = "uiLabel1";
-            this.uiLabel1.Size = new System.Drawing.Size(349, 26);
-            this.uiLabel1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiLabel1.TabIndex = 25;
-            this.uiLabel1.Text = "轨道名：妹有轨道";
-            this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.lblTrackName.BackColor = System.Drawing.Color.Transparent;
+            this.lblTrackName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblTrackName.Location = new System.Drawing.Point(12, 21);
+            this.lblTrackName.Name = "lblTrackName";
+            this.lblTrackName.Size = new System.Drawing.Size(486, 20);
+            this.lblTrackName.Style = Sunny.UI.UIStyle.Colorful;
+            this.lblTrackName.TabIndex = 25;
+            this.lblTrackName.Text = "轨道名：妹有轨道";
+            this.lblTrackName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblTrackName.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // uiLine2
             // 
@@ -274,19 +290,19 @@
             this.uiLine3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiLine3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiSwitch1
+            // swNetworkAnalyze
             // 
-            this.uiSwitch1.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSwitch1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSwitch1.Location = new System.Drawing.Point(135, 7);
-            this.uiSwitch1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSwitch1.Name = "uiSwitch1";
-            this.uiSwitch1.Size = new System.Drawing.Size(70, 25);
-            this.uiSwitch1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSwitch1.TabIndex = 32;
-            this.uiSwitch1.Text = "uiSwitch1";
-            this.uiSwitch1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.uiSwitch1.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.uiSwitch1_ValueChanged);
+            this.swNetworkAnalyze.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.swNetworkAnalyze.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.swNetworkAnalyze.Location = new System.Drawing.Point(135, 7);
+            this.swNetworkAnalyze.MinimumSize = new System.Drawing.Size(1, 1);
+            this.swNetworkAnalyze.Name = "swNetworkAnalyze";
+            this.swNetworkAnalyze.Size = new System.Drawing.Size(70, 25);
+            this.swNetworkAnalyze.Style = Sunny.UI.UIStyle.Colorful;
+            this.swNetworkAnalyze.TabIndex = 32;
+            this.swNetworkAnalyze.Text = "uiSwitch1";
+            this.swNetworkAnalyze.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.swNetworkAnalyze.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.uiSwitch1_ValueChanged);
             // 
             // uiSymbolLabel3
             // 
@@ -309,7 +325,8 @@
             this.uiPanel3.Controls.Add(this.uiRadioButtonGroup1);
             this.uiPanel3.Controls.Add(this.uiSymbolLabel5);
             this.uiPanel3.Controls.Add(this.uiSymbolLabel3);
-            this.uiPanel3.Controls.Add(this.uiSwitch1);
+            this.uiPanel3.Controls.Add(this.swNetworkAnalyze);
+            this.uiPanel3.Controls.Add(this.uiLabel1);
             this.uiPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiPanel3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiPanel3.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
@@ -366,6 +383,7 @@
             // 
             // radioBtnCtd
             // 
+            this.radioBtnCtd.Checked = true;
             this.radioBtnCtd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.radioBtnCtd.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.radioBtnCtd.Location = new System.Drawing.Point(0, 8);
@@ -395,31 +413,28 @@
             this.uiSymbolLabel5.Text = "合奏方式";
             this.uiSymbolLabel5.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // uiLinkLabel1
-            // 
-            this.uiLinkLabel1.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(155)))), ((int)(((byte)(40)))));
-            this.uiLinkLabel1.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLinkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
-            this.uiLinkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiLinkLabel1.Location = new System.Drawing.Point(367, 44);
-            this.uiLinkLabel1.Name = "uiLinkLabel1";
-            this.uiLinkLabel1.Size = new System.Drawing.Size(100, 23);
-            this.uiLinkLabel1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiLinkLabel1.TabIndex = 35;
-            this.uiLinkLabel1.TabStop = true;
-            this.uiLinkLabel1.Text = "视频教程";
-            this.uiLinkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.uiLinkLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // uiLabel1
+            // 
+            this.uiLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiLabel1.Location = new System.Drawing.Point(138, 62);
+            this.uiLabel1.Name = "uiLabel1";
+            this.uiLabel1.Size = new System.Drawing.Size(439, 93);
+            this.uiLabel1.Style = Sunny.UI.UIStyle.Colorful;
+            this.uiLabel1.TabIndex = 41;
+            this.uiLabel1.Text = "小队倒计时：会读取倒计时事件，在倒计时完成后开始演奏\r\n    当队伍进行【地面标记】时，演奏会自动停止。\r\n合奏助手：   读取小队的合奏助手开始事件，自动演奏" +
+    "\r\n    当合奏助手人为停止时，演奏会自动停止。";
+            this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uiLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // MuiltiPlayForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(510, 350);
-            this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
             this.Controls.Add(this.uiPanel3);
             this.Controls.Add(this.uiLine3);
             this.Controls.Add(this.uiPanel1);
@@ -430,6 +445,7 @@
             this.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.Style = Sunny.UI.UIStyle.Colorful;
             this.Text = "MuiltiPlayForm";
+            this.ReceiveParams += new Sunny.UI.OnReceiveParams(this.MuiltiPlayForm_ReceiveParams);
             this.uiPanel1.ResumeLayout(false);
             this.uiPanel2.ResumeLayout(false);
             this.uiPanel3.ResumeLayout(false);
@@ -441,15 +457,15 @@
         #endregion
 
         private Sunny.UI.UILine uiLine1;
-        private Sunny.UI.UILabel lblKey;
-        private Sunny.UI.UILabel uiLabel1;
+        private Sunny.UI.UILabel lblScoreName;
+        private Sunny.UI.UILabel lblTrackName;
         private Sunny.UI.UILine uiLine2;
         private Sunny.UI.UIDatetimePicker uiDatetimePicker1;
         private Sunny.UI.UISymbolLabel uiSymbolLabel2;
         private Sunny.UI.UISymbolLabel uiSymbolLabel1;
         private Sunny.UI.UIIntegerUpDown uiIntegerUpDown1;
         private Sunny.UI.UILine uiLine3;
-        private Sunny.UI.UISwitch uiSwitch1;
+        private Sunny.UI.UISwitch swNetworkAnalyze;
         private Sunny.UI.UISymbolLabel uiSymbolLabel3;
         private Sunny.UI.UISymbolButton uiSymbolButton1;
         private Sunny.UI.UIPanel uiPanel1;
@@ -461,5 +477,6 @@
         private Sunny.UI.UISymbolLabel uiSymbolLabel5;
         private Sunny.UI.UILinkLabel uiLinkLabel1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private Sunny.UI.UILabel uiLabel1;
     }
 }
