@@ -57,7 +57,7 @@
             this.uiLinkLabel1.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiLinkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
             this.uiLinkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiLinkLabel1.Location = new System.Drawing.Point(398, 165);
+            this.uiLinkLabel1.Location = new System.Drawing.Point(403, 165);
             this.uiLinkLabel1.Name = "uiLinkLabel1";
             this.uiLinkLabel1.Size = new System.Drawing.Size(100, 23);
             this.uiLinkLabel1.Style = Sunny.UI.UIStyle.Colorful;
@@ -66,11 +66,12 @@
             this.uiLinkLabel1.Text = "视频教程";
             this.uiLinkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.uiLinkLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.uiLinkLabel1.Click += new System.EventHandler(this.uiLinkLabel1_Click);
             // 
             // uiSymbolLabel3
             // 
             this.uiSymbolLabel3.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel3.Location = new System.Drawing.Point(9, 50);
+            this.uiSymbolLabel3.Location = new System.Drawing.Point(14, 50);
             this.uiSymbolLabel3.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel3.Name = "uiSymbolLabel3";
             this.uiSymbolLabel3.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
@@ -118,7 +119,7 @@
             // uiSymbolLabel5
             // 
             this.uiSymbolLabel5.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel5.Location = new System.Drawing.Point(12, -1);
+            this.uiSymbolLabel5.Location = new System.Drawing.Point(17, -1);
             this.uiSymbolLabel5.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel5.Name = "uiSymbolLabel5";
             this.uiSymbolLabel5.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
@@ -140,7 +141,7 @@
             this.btnConnect.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.btnConnect.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.btnConnect.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnConnect.Location = new System.Drawing.Point(395, 6);
+            this.btnConnect.Location = new System.Drawing.Point(400, 6);
             this.btnConnect.MinimumSize = new System.Drawing.Size(1, 1);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
@@ -189,7 +190,7 @@
             this.cbTVkeyboard.FillColor = System.Drawing.Color.White;
             this.cbTVkeyboard.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.cbTVkeyboard.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbTVkeyboard.Location = new System.Drawing.Point(134, 47);
+            this.cbTVkeyboard.Location = new System.Drawing.Point(139, 47);
             this.cbTVkeyboard.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbTVkeyboard.MinimumSize = new System.Drawing.Size(63, 0);
             this.cbTVkeyboard.Name = "cbTVkeyboard";
@@ -206,7 +207,7 @@
             // 
             this.uiSplit.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.uiSplit.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSplit.Location = new System.Drawing.Point(395, 51);
+            this.uiSplit.Location = new System.Drawing.Point(400, 51);
             this.uiSplit.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSplit.Name = "uiSplit";
             this.uiSplit.Size = new System.Drawing.Size(75, 25);
@@ -219,7 +220,7 @@
             // uiSymbolLabel1
             // 
             this.uiSymbolLabel1.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel1.Location = new System.Drawing.Point(12, 44);
+            this.uiSymbolLabel1.Location = new System.Drawing.Point(17, 44);
             this.uiSymbolLabel1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel1.Name = "uiSymbolLabel1";
             this.uiSymbolLabel1.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
@@ -236,7 +237,7 @@
             // 
             this.uiLabel1.BackColor = System.Drawing.Color.Transparent;
             this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLabel1.Location = new System.Drawing.Point(20, 95);
+            this.uiLabel1.Location = new System.Drawing.Point(25, 95);
             this.uiLabel1.Name = "uiLabel1";
             this.uiLabel1.Size = new System.Drawing.Size(439, 93);
             this.uiLabel1.Style = Sunny.UI.UIStyle.Colorful;
@@ -251,7 +252,7 @@
             // 
             this.lblMidiKey.BackColor = System.Drawing.Color.Transparent;
             this.lblMidiKey.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblMidiKey.Location = new System.Drawing.Point(223, 25);
+            this.lblMidiKey.Location = new System.Drawing.Point(228, 25);
             this.lblMidiKey.Name = "lblMidiKey";
             this.lblMidiKey.Size = new System.Drawing.Size(138, 17);
             this.lblMidiKey.Style = Sunny.UI.UIStyle.Colorful;
@@ -265,7 +266,7 @@
             this.tbMidiKey.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.tbMidiKey.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tbMidiKey.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.tbMidiKey.Location = new System.Drawing.Point(134, -1);
+            this.tbMidiKey.Location = new System.Drawing.Point(139, -1);
             this.tbMidiKey.Maximum = 7;
             this.tbMidiKey.MinimumSize = new System.Drawing.Size(1, 1);
             this.tbMidiKey.Name = "tbMidiKey";
@@ -304,7 +305,7 @@
             // uiLight1
             // 
             this.uiLight1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLight1.Location = new System.Drawing.Point(23, 9);
+            this.uiLight1.Location = new System.Drawing.Point(28, 9);
             this.uiLight1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiLight1.Name = "uiLight1";
             this.uiLight1.Radius = 25;
@@ -326,7 +327,7 @@
             this.tbKeyTest.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tbKeyTest.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.tbKeyTest.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbKeyTest.Location = new System.Drawing.Point(134, 47);
+            this.tbKeyTest.Location = new System.Drawing.Point(139, 47);
             this.tbKeyTest.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbKeyTest.MinimumSize = new System.Drawing.Size(1, 16);
             this.tbKeyTest.Name = "tbKeyTest";
@@ -351,7 +352,7 @@
             this.cbInputDevice.ItemRectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.cbInputDevice.ItemSelectBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.cbInputDevice.ItemSelectForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.cbInputDevice.Location = new System.Drawing.Point(58, 6);
+            this.cbInputDevice.Location = new System.Drawing.Point(63, 6);
             this.cbInputDevice.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbInputDevice.MinimumSize = new System.Drawing.Size(63, 0);
             this.cbInputDevice.Name = "cbInputDevice";
@@ -374,7 +375,6 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(510, 350);
-            this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
             this.Controls.Add(this.uiPanel3);
             this.Controls.Add(this.uiLine2);
             this.Controls.Add(this.uiPanel1);

@@ -59,6 +59,7 @@ namespace Daigassou.Forms
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
+            
             if (uiLight1.State == UILightState.On)
             {
                 KeyboardUtilities.Disconnect();
@@ -106,8 +107,9 @@ namespace Daigassou.Forms
 
         private void GetDevices()
         {
+            cbInputDevice.Clear();
             cbInputDevice.DataSource = KeyboardUtilities.GetKeyboardList();
-
+            cbTVkeyboard.Nodes.Clear();
             foreach (var device in KeyboardUtilities.GetOutputDeviceList()) cbTVkeyboard.Nodes.Add(device);
         }
 
@@ -126,6 +128,11 @@ namespace Daigassou.Forms
         private void MidiDevicePage_Enter(object sender, EventArgs e)
         {
             GetDevices();
+        }
+
+        private void uiLinkLabel1_Click(object sender, EventArgs e)
+        {
+            SendParamToFrame(333);
         }
     }
 }

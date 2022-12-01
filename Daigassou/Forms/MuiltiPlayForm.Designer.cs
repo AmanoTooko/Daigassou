@@ -48,8 +48,8 @@
             this.radioBtnGA = new Sunny.UI.UIRadioButton();
             this.radioBtnCtd = new Sunny.UI.UIRadioButton();
             this.uiSymbolLabel5 = new Sunny.UI.UISymbolLabel();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.uiLabel1 = new Sunny.UI.UILabel();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.uiPanel1.SuspendLayout();
             this.uiPanel2.SuspendLayout();
             this.uiPanel3.SuspendLayout();
@@ -103,7 +103,7 @@
             this.uiLinkLabel1.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiLinkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
             this.uiLinkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiLinkLabel1.Location = new System.Drawing.Point(367, 44);
+            this.uiLinkLabel1.Location = new System.Drawing.Point(372, 44);
             this.uiLinkLabel1.Name = "uiLinkLabel1";
             this.uiLinkLabel1.Size = new System.Drawing.Size(100, 23);
             this.uiLinkLabel1.Style = Sunny.UI.UIStyle.Colorful;
@@ -118,7 +118,7 @@
             this.uiDatetimePicker1.FillColor = System.Drawing.Color.White;
             this.uiDatetimePicker1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiDatetimePicker1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiDatetimePicker1.Location = new System.Drawing.Point(135, 3);
+            this.uiDatetimePicker1.Location = new System.Drawing.Point(140, 3);
             this.uiDatetimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiDatetimePicker1.MaxLength = 19;
             this.uiDatetimePicker1.MinimumSize = new System.Drawing.Size(63, 0);
@@ -130,6 +130,7 @@
             this.uiDatetimePicker1.SymbolDropDown = 61555;
             this.uiDatetimePicker1.SymbolNormal = 61555;
             this.uiDatetimePicker1.TabIndex = 27;
+            this.uiDatetimePicker1.Text = "2022-11-28 00:00:00";
             this.uiDatetimePicker1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiDatetimePicker1.Value = new System.DateTime(2022, 11, 28, 0, 0, 0, 0);
             this.uiDatetimePicker1.Watermark = "合奏定时";
@@ -138,7 +139,7 @@
             // uiSymbolLabel2
             // 
             this.uiSymbolLabel2.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel2.Location = new System.Drawing.Point(12, 0);
+            this.uiSymbolLabel2.Location = new System.Drawing.Point(17, 0);
             this.uiSymbolLabel2.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel2.Name = "uiSymbolLabel2";
             this.uiSymbolLabel2.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
@@ -160,7 +161,7 @@
             this.uiSymbolButton1.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.uiSymbolButton1.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.uiSymbolButton1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolButton1.Location = new System.Drawing.Point(367, 3);
+            this.uiSymbolButton1.Location = new System.Drawing.Point(372, 3);
             this.uiSymbolButton1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolButton1.Name = "uiSymbolButton1";
             this.uiSymbolButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
@@ -178,7 +179,7 @@
             // uiSymbolLabel1
             // 
             this.uiSymbolLabel1.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel1.Location = new System.Drawing.Point(12, 35);
+            this.uiSymbolLabel1.Location = new System.Drawing.Point(17, 35);
             this.uiSymbolLabel1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel1.Name = "uiSymbolLabel1";
             this.uiSymbolLabel1.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
@@ -196,7 +197,7 @@
             this.uiIntegerUpDown1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiIntegerUpDown1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiIntegerUpDown1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiIntegerUpDown1.Location = new System.Drawing.Point(135, 41);
+            this.uiIntegerUpDown1.Location = new System.Drawing.Point(140, 41);
             this.uiIntegerUpDown1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiIntegerUpDown1.Maximum = 500;
             this.uiIntegerUpDown1.Minimum = -500;
@@ -237,7 +238,7 @@
             // 
             this.lblScoreName.BackColor = System.Drawing.Color.Transparent;
             this.lblScoreName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblScoreName.Location = new System.Drawing.Point(12, 3);
+            this.lblScoreName.Location = new System.Drawing.Point(17, 3);
             this.lblScoreName.Name = "lblScoreName";
             this.lblScoreName.Size = new System.Drawing.Size(486, 18);
             this.lblScoreName.Style = Sunny.UI.UIStyle.Colorful;
@@ -250,7 +251,7 @@
             // 
             this.lblTrackName.BackColor = System.Drawing.Color.Transparent;
             this.lblTrackName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblTrackName.Location = new System.Drawing.Point(12, 21);
+            this.lblTrackName.Location = new System.Drawing.Point(17, 21);
             this.lblTrackName.Name = "lblTrackName";
             this.lblTrackName.Size = new System.Drawing.Size(486, 20);
             this.lblTrackName.Style = Sunny.UI.UIStyle.Colorful;
@@ -295,7 +296,7 @@
             // 
             this.swNetworkAnalyze.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.swNetworkAnalyze.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.swNetworkAnalyze.Location = new System.Drawing.Point(135, 7);
+            this.swNetworkAnalyze.Location = new System.Drawing.Point(140, 7);
             this.swNetworkAnalyze.MinimumSize = new System.Drawing.Size(1, 1);
             this.swNetworkAnalyze.Name = "swNetworkAnalyze";
             this.swNetworkAnalyze.Size = new System.Drawing.Size(70, 25);
@@ -309,7 +310,7 @@
             // uiSymbolLabel3
             // 
             this.uiSymbolLabel3.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel3.Location = new System.Drawing.Point(12, 3);
+            this.uiSymbolLabel3.Location = new System.Drawing.Point(17, 3);
             this.uiSymbolLabel3.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel3.Name = "uiSymbolLabel3";
             this.uiSymbolLabel3.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
@@ -353,7 +354,7 @@
             this.uiRadioButtonGroup1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiRadioButtonGroup1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiRadioButtonGroup1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiRadioButtonGroup1.Location = new System.Drawing.Point(135, 36);
+            this.uiRadioButtonGroup1.Location = new System.Drawing.Point(140, 36);
             this.uiRadioButtonGroup1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiRadioButtonGroup1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiRadioButtonGroup1.Name = "uiRadioButtonGroup1";
@@ -372,7 +373,7 @@
             // 
             this.radioBtnGA.Cursor = System.Windows.Forms.Cursors.Hand;
             this.radioBtnGA.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.radioBtnGA.Location = new System.Drawing.Point(123, 8);
+            this.radioBtnGA.Location = new System.Drawing.Point(128, 8);
             this.radioBtnGA.MinimumSize = new System.Drawing.Size(1, 1);
             this.radioBtnGA.Name = "radioBtnGA";
             this.radioBtnGA.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
@@ -388,7 +389,7 @@
             this.radioBtnCtd.Checked = true;
             this.radioBtnCtd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.radioBtnCtd.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.radioBtnCtd.Location = new System.Drawing.Point(0, 8);
+            this.radioBtnCtd.Location = new System.Drawing.Point(5, 8);
             this.radioBtnCtd.MinimumSize = new System.Drawing.Size(1, 1);
             this.radioBtnCtd.Name = "radioBtnCtd";
             this.radioBtnCtd.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
@@ -402,7 +403,7 @@
             // uiSymbolLabel5
             // 
             this.uiSymbolLabel5.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel5.Location = new System.Drawing.Point(12, 41);
+            this.uiSymbolLabel5.Location = new System.Drawing.Point(17, 41);
             this.uiSymbolLabel5.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel5.Name = "uiSymbolLabel5";
             this.uiSymbolLabel5.Padding = new System.Windows.Forms.Padding(28, 0, 0, 0);
@@ -414,15 +415,11 @@
             this.uiSymbolLabel5.Text = "合奏方式";
             this.uiSymbolLabel5.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
             // uiLabel1
             // 
             this.uiLabel1.BackColor = System.Drawing.Color.Transparent;
             this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLabel1.Location = new System.Drawing.Point(138, 62);
+            this.uiLabel1.Location = new System.Drawing.Point(143, 62);
             this.uiLabel1.Name = "uiLabel1";
             this.uiLabel1.Size = new System.Drawing.Size(439, 93);
             this.uiLabel1.Style = Sunny.UI.UIStyle.Colorful;
@@ -431,6 +428,10 @@
     "\r\n    当合奏助手人为停止时，演奏会自动停止。";
             this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // MuiltiPlayForm
             // 

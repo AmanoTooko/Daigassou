@@ -58,7 +58,7 @@
             this.uiLinkLabel1.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiLinkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
             this.uiLinkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiLinkLabel1.Location = new System.Drawing.Point(358, 48);
+            this.uiLinkLabel1.Location = new System.Drawing.Point(363, 48);
             this.uiLinkLabel1.Name = "uiLinkLabel1";
             this.uiLinkLabel1.Size = new System.Drawing.Size(140, 23);
             this.uiLinkLabel1.Style = Sunny.UI.UIStyle.Colorful;
@@ -89,7 +89,7 @@
             // 
             this.lblScoreName.BackColor = System.Drawing.Color.Transparent;
             this.lblScoreName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblScoreName.Location = new System.Drawing.Point(12, 3);
+            this.lblScoreName.Location = new System.Drawing.Point(17, 3);
             this.lblScoreName.Name = "lblScoreName";
             this.lblScoreName.Size = new System.Drawing.Size(486, 18);
             this.lblScoreName.Style = Sunny.UI.UIStyle.Colorful;
@@ -102,7 +102,7 @@
             // 
             this.lblTrackName.BackColor = System.Drawing.Color.Transparent;
             this.lblTrackName.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblTrackName.Location = new System.Drawing.Point(12, 21);
+            this.lblTrackName.Location = new System.Drawing.Point(17, 21);
             this.lblTrackName.Name = "lblTrackName";
             this.lblTrackName.Size = new System.Drawing.Size(486, 20);
             this.lblTrackName.Style = Sunny.UI.UIStyle.Colorful;
@@ -114,7 +114,7 @@
             // uiSymbolLabel2
             // 
             this.uiSymbolLabel2.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel2.Location = new System.Drawing.Point(12, 0);
+            this.uiSymbolLabel2.Location = new System.Drawing.Point(17, 0);
             this.uiSymbolLabel2.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel2.Name = "uiSymbolLabel2";
             this.uiSymbolLabel2.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
@@ -168,7 +168,7 @@
             this.cbMidiDevice.ItemRectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.cbMidiDevice.ItemSelectBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.cbMidiDevice.ItemSelectForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.cbMidiDevice.Location = new System.Drawing.Point(144, 0);
+            this.cbMidiDevice.Location = new System.Drawing.Point(149, 0);
             this.cbMidiDevice.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbMidiDevice.MinimumSize = new System.Drawing.Size(63, 0);
             this.cbMidiDevice.Name = "cbMidiDevice";
@@ -185,7 +185,7 @@
             // uiLabel1
             // 
             this.uiLabel1.Font = new System.Drawing.Font("微软雅黑", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiLabel1.Location = new System.Drawing.Point(12, 215);
+            this.uiLabel1.Location = new System.Drawing.Point(17, 215);
             this.uiLabel1.Name = "uiLabel1";
             this.uiLabel1.Size = new System.Drawing.Size(426, 23);
             this.uiLabel1.Style = Sunny.UI.UIStyle.Colorful;
@@ -197,7 +197,7 @@
             // uiSymbolLabel1
             // 
             this.uiSymbolLabel1.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel1.Location = new System.Drawing.Point(17, 40);
+            this.uiSymbolLabel1.Location = new System.Drawing.Point(22, 40);
             this.uiSymbolLabel1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel1.Name = "uiSymbolLabel1";
             this.uiSymbolLabel1.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
@@ -215,7 +215,7 @@
             // 
             this.swAll.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.swAll.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.swAll.Location = new System.Drawing.Point(145, 42);
+            this.swAll.Location = new System.Drawing.Point(150, 42);
             this.swAll.MinimumSize = new System.Drawing.Size(1, 1);
             this.swAll.Name = "swAll";
             this.swAll.Size = new System.Drawing.Size(75, 29);
@@ -235,7 +235,7 @@
             this.btnBackward.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.btnBackward.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.btnBackward.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnBackward.Location = new System.Drawing.Point(171, 142);
+            this.btnBackward.Location = new System.Drawing.Point(176, 142);
             this.btnBackward.MinimumSize = new System.Drawing.Size(1, 1);
             this.btnBackward.Name = "btnBackward";
             this.btnBackward.Radius = 35;
@@ -261,7 +261,7 @@
             this.btnStart.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.btnStart.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.btnStart.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnStart.Location = new System.Drawing.Point(214, 142);
+            this.btnStart.Location = new System.Drawing.Point(219, 142);
             this.btnStart.MinimumSize = new System.Drawing.Size(1, 1);
             this.btnStart.Name = "btnStart";
             this.btnStart.Radius = 35;
@@ -287,7 +287,7 @@
             this.btnStop.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.btnStop.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.btnStop.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnStop.Location = new System.Drawing.Point(257, 142);
+            this.btnStop.Location = new System.Drawing.Point(262, 142);
             this.btnStop.MinimumSize = new System.Drawing.Size(1, 1);
             this.btnStop.Name = "btnStop";
             this.btnStop.Radius = 35;
@@ -309,7 +309,7 @@
             this.tbMidiProcess.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.tbMidiProcess.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tbMidiProcess.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.tbMidiProcess.Location = new System.Drawing.Point(16, 107);
+            this.tbMidiProcess.Location = new System.Drawing.Point(21, 107);
             this.tbMidiProcess.MinimumSize = new System.Drawing.Size(1, 1);
             this.tbMidiProcess.Name = "tbMidiProcess";
             this.tbMidiProcess.ReadOnly = true;
@@ -329,7 +329,7 @@
             this.btnForward.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.btnForward.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(152)))), ((int)(((byte)(138)))));
             this.btnForward.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnForward.Location = new System.Drawing.Point(300, 142);
+            this.btnForward.Location = new System.Drawing.Point(305, 142);
             this.btnForward.MinimumSize = new System.Drawing.Size(1, 1);
             this.btnForward.Name = "btnForward";
             this.btnForward.Radius = 35;
@@ -350,7 +350,7 @@
             // 
             this.lblProcess.BackColor = System.Drawing.Color.Transparent;
             this.lblProcess.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblProcess.Location = new System.Drawing.Point(341, 139);
+            this.lblProcess.Location = new System.Drawing.Point(346, 139);
             this.lblProcess.Name = "lblProcess";
             this.lblProcess.Size = new System.Drawing.Size(172, 21);
             this.lblProcess.Style = Sunny.UI.UIStyle.Colorful;
@@ -406,7 +406,6 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(510, 350);
-            this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
             this.Controls.Add(this.uiPanel1);
             this.Controls.Add(this.uiLine2);
             this.Controls.Add(this.uiPanel2);

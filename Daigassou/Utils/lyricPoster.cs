@@ -50,7 +50,7 @@ namespace Daigassou.Utils
                 httpWebRequest.Method = "POST";
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
-                    streamWriter.Write($"/s ♪ {text} ♪");
+                    streamWriter.Write($"{suffix} ♪ {text} ♪");
                     streamWriter.Flush();
                     streamWriter.Close();
                 }
@@ -67,24 +67,25 @@ namespace Daigassou.Utils
 
             try
             {
-                if (File.Exists(path)&& IsLrcEnable)
+                if (File.Exists(path.Replace(".mid",".lrc"))&& IsLrcEnable)
+                    
                 {
                     lyric = AnalyzeLrc(path);
                     LrcThread = new Thread(
                             () => {RunningLrc(lyric, startOffset);}
                             );
-                    Log.overlayLog("【歌词播放】歌词导入成功，开始播放");
+                    //Log.overlayLog("【歌词播放】歌词导入成功，开始播放");
                     LrcThread.Start();
                 }
                 else
                 {
-                    Log.overlayLog("【歌词播放】找不到lrc文件");
+                    //Log.overlayLog("【歌词播放】找不到lrc文件");
                     return;
                 }
             }
             catch (Exception)
             {
-                Log.overlayLog("【歌词播放】解析出错");
+                //Log.overlayLog("【歌词播放】解析出错");
                 throw;
             }
 
@@ -109,7 +110,7 @@ namespace Daigassou.Utils
                     double num1 = (double)startOffset + text.startTimeMs;
                     while (true)
                     {
-                        if ((double)ParameterController.GetInstance().Offset + num1 > (double)stopwatch.ElapsedMilliseconds)
+                        if (num1 > (double)stopwatch.ElapsedMilliseconds)
                             Thread.Sleep(1);
                         else
                             break;
@@ -118,9 +119,7 @@ namespace Daigassou.Utils
 
                 }
             }
-
-            
-
+        
         }
     }
 

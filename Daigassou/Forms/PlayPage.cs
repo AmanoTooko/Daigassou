@@ -247,6 +247,7 @@ namespace Daigassou.Forms
                 : 0.5 + tbSpeed.Value / 100.0);
             midiPlayController.SetPitch(tbKey.Value);
             midiPlayController.StartPlay(offset);
+            lyricPoster.LrcStart(tbFilename.Text, offset);
             btnStart.Symbol = 61516;
             btnStart.SymbolOffset = new Point(0, 1);
 

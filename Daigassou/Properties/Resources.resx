@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="s2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\s2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="kb1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kb1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="c_about" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c_about.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -127,67 +127,70 @@
   <data name="keybindingBGimg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\keybindingBGimg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="c_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\c_play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="kb0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kb0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="a0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\a0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="key22" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\key22(2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btn2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btn2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="key22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\key22(2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ka1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ka1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-idea-window-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-idea-window-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="kb1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\kb1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="c_play_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\c_play_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="about" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\about.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ka0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ka0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="btn1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\btn1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="s1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\s1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="a1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\a1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="s2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\s2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-idea-window-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-idea-window-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="c_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c_pause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="c_stop_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\c_stop_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="a0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\a0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="c_pause_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\c_pause_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="c_play_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c_play_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="c_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\c_stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="keyBindingBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EX\keyBindingBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="about2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\about2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ka0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ka0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="c_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c_play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="btn3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btn3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="btn1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="c_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c_stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="about" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\about.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="c_pause_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c_pause_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-advertisement-page-90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-advertisement-page-90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="a1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\a1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="about2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\about2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="c_stop_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c_stop_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

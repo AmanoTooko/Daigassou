@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 using Daigassou.Properties;
+using Daigassou.Utils;
 using DaigassouDX.Controller;
 using Sunny.UI;
 
@@ -139,6 +141,29 @@ namespace Daigassou.Forms
         private void btnHotkeySetting_Click(object sender, EventArgs e)
         {
             new HotKeyBindingForm().ShowDialog();
+        }
+
+        private void uiLine2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uiLine2_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button==MouseButtons.Middle)
+            {
+                uiPanel4.Visible = true;
+            }
+        }
+
+        private void uiIntegerUpDown1_ValueChanged(object sender, int value)
+        {
+            lyricPoster.port = (uint) value;
+        }
+
+        private void uiSwitch1_ValueChanged(object sender, bool value)
+        {
+            lyricPoster.IsLrcEnable = value;
         }
     }
 }

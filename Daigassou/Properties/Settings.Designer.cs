@@ -12,7 +12,7 @@ namespace Daigassou.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.3.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -60,12 +60,12 @@ namespace Daigassou.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsEightKeyLayout {
+        public bool isUsingGuitarKey {
             get {
-                return ((bool)(this["IsEightKeyLayout"]));
+                return ((bool)(this["isUsingGuitarKey"]));
             }
             set {
-                this["IsEightKeyLayout"] = value;
+                this["isUsingGuitarKey"] = value;
             }
         }
         
@@ -130,9 +130,7 @@ namespace Daigassou.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[{\"Name\":\"Start\",\"Key\":121,\"Modifiers\":2,\"Enabled\":true},{\"Name\":\"Stop\",\"Key\":122" +
-            ",\"Modifiers\":2,\"Enabled\":true},{\"Name\":\"PitchUp\",\"Key\":119,\"Modifiers\":2,\"Enable" +
-            "d\":true},{\"Name\":\"PitchDown\",\"Key\":120,\"Modifiers\":2,\"Enabled\":true}]")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string HotKeyBinding {
             get {
                 return ((string)(this["HotKeyBinding"]));
@@ -163,6 +161,42 @@ namespace Daigassou.Properties {
             }
             set {
                 this["isUsingAnalysis"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string KeyBinding {
+            get {
+                return ((string)(this["KeyBinding"]));
+            }
+            set {
+                this["KeyBinding"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isBackgroundKey {
+            get {
+                return ((bool)(this["isBackgroundKey"]));
+            }
+            set {
+                this["isBackgroundKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int keyboardOffset {
+            get {
+                return ((int)(this["keyboardOffset"]));
+            }
+            set {
+                this["keyboardOffset"] = value;
             }
         }
     }

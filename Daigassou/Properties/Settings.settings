@@ -11,7 +11,7 @@
     <Setting Name="CtrlKeyBinding" Type="System.Collections.ArrayList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="IsEightKeyLayout" Type="System.Boolean" Scope="User">
+    <Setting Name="isUsingGuitarKey" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="KeyBinding37" Type="System.Collections.ArrayList" Scope="User">
@@ -30,13 +30,22 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="HotKeyBinding" Type="System.String" Scope="User">
-      <Value Profile="(Default)">[{"Name":"Start","Key":121,"Modifiers":2,"Enabled":true},{"Name":"Stop","Key":122,"Modifiers":2,"Enabled":true},{"Name":"PitchUp","Key":119,"Modifiers":2,"Enabled":true},{"Name":"PitchDown","Key":120,"Modifiers":2,"Enabled":true}]</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="isUsingWinPCap" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="isUsingAnalysis" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="KeyBinding" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="isBackgroundKey" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="keyboardOffset" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>
