@@ -39,6 +39,7 @@ namespace Daigassou.Forms
             swEnableAnalyze.Active = Settings.Default.isUsingAnalysis;
             swEnableBackgroundPlay.Active = Settings.Default.isBackgroundKey;
             tbNTPServerAddr.Text = Settings.Default.NtpServer;
+            ProcessKeyController.LoadKeyConfig();
         }
 
         private void uiSymbolButton2_Click(object sender, EventArgs e)
@@ -133,6 +134,11 @@ namespace Daigassou.Forms
         {
             Settings.Default.MinEventMs = (uint) value;
             Settings.Default.Save();
+        }
+
+        private void btnHotkeySetting_Click(object sender, EventArgs e)
+        {
+            new HotKeyBindingForm().ShowDialog();
         }
     }
 }

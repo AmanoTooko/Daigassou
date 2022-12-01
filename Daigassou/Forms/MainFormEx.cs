@@ -1,9 +1,17 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Daigassou.Utils;
 using Sunny.UI;
+
+using Newtonsoft.Json.Linq;
+
+using BondTech.HotkeyManagement.Win;
+using Melanchall.DryWetMidi.Interaction;
+using WK.Libraries.HotkeyListenerNS;
+using HotkeyEventArgs = NHotkey.HotkeyEventArgs;
 
 namespace Daigassou.Forms
 {
@@ -30,16 +38,46 @@ namespace Daigassou.Forms
             AddPage(new SettingPage(), (int) PageID.SettingPage);
             AddPage(new MidiDevicePage(), (int) PageID.DevicePlayPage);
             AddPage(new MidiPreviewPage(), (int) PageID.PreviewPlayPage);
-
+           
 
             uiNavMenu1.SetNodePageIndex(uiNavMenu1.Nodes[0], (int) PageID.SoloPlayPage);
             uiNavMenu1.SetNodePageIndex(uiNavMenu1.Nodes[1], (int) PageID.MultiPlayPage);
             uiNavMenu1.SetNodePageIndex(uiNavMenu1.Nodes[2], (int) PageID.DevicePlayPage);
             uiNavMenu1.SetNodePageIndex(uiNavMenu1.Nodes[3], (int) PageID.SettingPage);
             uiNavMenu1.SetNodePageIndex(uiNavMenu1.Nodes[4], (int) PageID.PreviewPlayPage);
-            //uiNavMenu1.SetNodePageIndex(uiNavMenu1.Nodes[1], (int)PageID.MultiPlayPage);
-        }
 
+            Utils.Utils.TimeSync();
+            toolStripStatusLabel1.Text = "当前版本： "+System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+            
+            
+
+        }
+        
+        private void HotkeyUtils_HotKeyPressed(object sender, HotkeyEventArgs e)
+        {
+            switch (e.Name)
+            {
+                case "Start":
+                    Utils.Utils.SendMessageToAll(eventCata.MIDI_CONTROL_START_KEY,"");
+                    SendParamToPage((int)PageID.SoloPlayPage, new CommObject() { eventId = eventCata.MIDI_CONTROL_START_KEY, payload = 1000 });
+                    break;
+                case "Stop":
+                    Utils.Utils.SendMessageToAll(eventCata.MIDI_CONTROL_STOP, "");
+                    SendParamToPage((int)PageID.SoloPlayPage, new CommObject() { eventId = eventCata.MIDI_CONTROL_STOP, payload = null });
+                    break;
+                case "PitchUp":
+                    Utils.Utils.SendMessageToAll(eventCata.MIDI_CONTROL_PITCHUP, "");
+                    SendParamToPage((int)PageID.SoloPlayPage, new CommObject() { eventId = eventCata.MIDI_CONTROL_PITCHUP, payload = null });
+                    break;
+                case "PitchDown":
+                    Utils.Utils.SendMessageToAll(eventCata.MIDI_CONTROL_PITCHDOWN, "");
+                    SendParamToPage((int)PageID.SoloPlayPage, new CommObject() { eventId = eventCata.MIDI_CONTROL_PITCHDOWN, payload = null });
+                    break;
+
+            }
+            
+        }
         private void uiNavMenu1_MenuItemClick(TreeNode node, NavMenuItem item, int pageIndex)
         {
             //this.SendParamToPage(1002, "123");
@@ -48,24 +86,14 @@ namespace Daigassou.Forms
 
         private void MainFormEx_ReceiveParams(object sender, UIPageParamsArgs e)
         {
+          
             UConsole.WriteConsole(e);
             this.Text = $"大合奏!!Ex - {Instrument.InstrumentName[Convert.ToInt32((e.Value as CommObject).payload)]}";
         }
+
+
         const int WM_COPYDATA = 0x004A;
 
-        public struct COPYDATASTRUCT
-
-        {
-
-            public IntPtr dwData;
-
-            public int cData;
-
-            [MarshalAs(UnmanagedType.LPStr)]
-
-            public string lpData;
-
-        }
         protected override void WndProc(ref Message m)
 
         {
@@ -76,11 +104,11 @@ namespace Daigassou.Forms
 
                 case WM_COPYDATA:
 
-                    COPYDATASTRUCT cdata = new COPYDATASTRUCT();
+                    Utils.Utils.COPYDATASTRUCT cdata = new Utils.Utils.COPYDATASTRUCT();
 
                     Type mytype = cdata.GetType();
 
-                    cdata = (COPYDATASTRUCT)m.GetLParam(mytype);
+                    cdata = (Utils.Utils.COPYDATASTRUCT)m.GetLParam(mytype);
 
                     SendParamToPage((int)PageID.SoloPlayPage,
                         new CommObject() {eventId = eventCata.MIDI_FILE_NAME_CROSS,payload= cdata.lpData });
@@ -89,14 +117,26 @@ namespace Daigassou.Forms
 
 
                     break;
-
+                case 0x3378:
+                    var result = (eventCata) m.WParam.ToInt32();
+                    SendParamToPage((int)PageID.SoloPlayPage, new CommObject() {eventId = result, payload = null});
+                    break;
                 default:
-
+                    
                     base.WndProc(ref m);
 
                     break;
 
             }
+
+        }
+
+        private void MainFormEx_Load(object sender, EventArgs e)
+        {
+
+                HotkeyUtils.GetInstance(this).InitHotKey();
+                HotkeyUtils.GetInstance(this).HotKeyHandler += HotkeyUtils_HotKeyPressed;
+         
 
         }
     }

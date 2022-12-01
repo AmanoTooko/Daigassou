@@ -98,7 +98,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label5.Location = new System.Drawing.Point(239, 328);
+            this.label5.Location = new System.Drawing.Point(80, 313);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(104, 34);
             this.label5.TabIndex = 6;
@@ -126,11 +126,8 @@
             this.Padding = new System.Windows.Forms.Padding(0, 29, 0, 0);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-           
             this.Text = "关于[大合奏！]";
-  
             this.TopMost = true;
-
             this.Load += new System.EventHandler(this.AboutForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

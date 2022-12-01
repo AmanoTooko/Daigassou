@@ -199,6 +199,7 @@
             this.TitleFont = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 800, 450);
             this.ReceiveParams += new Sunny.UI.OnReceiveParams(this.MainFormEx_ReceiveParams);
+            this.Load += new System.EventHandler(this.MainFormEx_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);

@@ -14,8 +14,7 @@ namespace Daigassou.Controller
     public class MidiFileParser
     {
         private readonly bool autoChord;
-        private readonly uint MIN_DELAY_TIME_MS_CHORD;
-        private readonly uint MIN_DELAY_TIME_MS_EVENT;
+
         private readonly List<TimedObjectsManager<Note>> tracks;
         public int Index;
         private MidiFile midi;
@@ -30,9 +29,7 @@ namespace Daigassou.Controller
         {
             tracks = new List<TimedObjectsManager<Note>>();
             Bpm = 80;
-            MIN_DELAY_TIME_MS_EVENT = Properties.Settings.Default.MinChordMs;
-            MIN_DELAY_TIME_MS_CHORD = Properties.Settings.Default.MinChordMs;
-            autoChord = true;//.Settings.Default.isAutoChord;
+            autoChord = true; //.Settings.Default.isAutoChord;
         }
 
         public int Bpm { get; set; }
@@ -94,16 +91,16 @@ namespace Daigassou.Controller
                         trunks.Add(track);
                     }
 
-                  
+
 
                 for (var i = 0; i < trunks.Count; i++)
                 {
-                    var name = "Untitled";
+                    var name = "未命名轨道";
                     foreach (var trunkEvent in trunks[i].Events)
                         if (trunkEvent is SequenceTrackNameEvent)
                         {
                             var e = trunkEvent as SequenceTrackNameEvent;
-                            name = e.Text;
+                            name = e.Text == "" ? "未命名轨道" : e.Text;
                             break;
                         }
 
@@ -143,7 +140,7 @@ namespace Daigassou.Controller
                     if (chord.Notes.Count() > 1)
                     {
                         var count = 0;
-                        if (autoChord)
+                        if (Properties.Settings.Default.AutoChord)
                         {
                             var autoTick = chord.Length / (chord.Notes.Count() + 1);
                             foreach (var note in chord.Notes.OrderBy(x => x.NoteNumber))
@@ -156,7 +153,8 @@ namespace Daigassou.Controller
                         else
                         {
                             var lenoffset =
-                                LengthConverter.ConvertFrom(new MetricTimeSpan(MIN_DELAY_TIME_MS_CHORD * 1000),
+                                LengthConverter.ConvertFrom(
+                                    new MetricTimeSpan(Properties.Settings.Default.MinChordMs * 1000),
                                     chord.Time, Tmap);
                             var startTime = chord.Time - lenoffset * (chord.Notes.Count() - 1) / 2 < 0
                                 ? 0
@@ -189,19 +187,21 @@ namespace Daigassou.Controller
 
                     if (lastNote != null &&
                         lastNoteStartTime.TotalMicroseconds + lastNoteLength.TotalMicroseconds +
-                        MIN_DELAY_TIME_MS_EVENT * 1000 > currentNoteLength.TotalMicroseconds)
+                        Properties.Settings.Default.MinEventMs * 1000 > currentNoteLength.TotalMicroseconds)
                     {
-                        var minTick = LengthConverter.ConvertFrom(new MetricTimeSpan(MIN_DELAY_TIME_MS_EVENT * 1000),
+                        var minTick = LengthConverter.ConvertFrom(
+                            new MetricTimeSpan(Properties.Settings.Default.MinEventMs * 1000),
                             lastNote.Time, Tmap);
-                        if (lastNoteLength.TotalMicroseconds < MIN_DELAY_TIME_MS_EVENT * 1000 ||
+                        if (lastNoteLength.TotalMicroseconds < Properties.Settings.Default.MinEventMs * 1000 ||
                             note.Time - lastNote.Time <= minTick)
                         {
                             ///  ===       =>     ===
                             ///======   =>   ={}
                             lastNote.Length =
-                                LengthConverter.ConvertFrom(new MetricTimeSpan(MIN_DELAY_TIME_MS_EVENT * 1000),
+                                LengthConverter.ConvertFrom(
+                                    new MetricTimeSpan(Properties.Settings.Default.MinEventMs * 1000),
                                     lastNote.Time, Tmap);
-                            
+
                         }
                         else
                         {
@@ -212,7 +212,7 @@ namespace Daigassou.Controller
                             var noteSpan = note.TimeAs(TimeSpanType.Metric, Tmap)
                                 .Subtract(lastNoteStartTime, TimeSpanMode.TimeTime);
                             lastNote.Length = LengthConverter.ConvertFrom(
-                                noteSpan.Subtract(new MetricTimeSpan(MIN_DELAY_TIME_MS_EVENT * 1000),
+                                noteSpan.Subtract(new MetricTimeSpan(Properties.Settings.Default.MinEventMs * 1000),
                                     TimeSpanMode.LengthLength), lastNote.Time, Tmap);
                         }
                     }
@@ -253,47 +253,6 @@ namespace Daigassou.Controller
                     new WritingSettings {TextEncoding = Encoding.Default});
         }
 
-        public Queue<KeyPlayList> ArrangeKeyPlays(double speed)
-        {
-            var trunkEvents = trunks.ElementAt(Index).Events;
-
-            var ticksPerQuarterNote = Convert.ToInt64(midi.TimeDivision.ToString()
-                .TrimEnd(" ticks/qnote".ToCharArray()));
-
-            var nowTimeMs = 0.0;
-            var retKeyPlayLists = new Queue<KeyPlayList>();
-            PreProcessNoise();
-            PreProcessSpeed(speed);
-            PreProcessChord();
-            PreProcessEvents();
-            using (var timedEvent = trunkEvents.ManageTimedEvents())
-            {
-                foreach (var ev in timedEvent.Objects)
-                    switch (ev.Event)
-                    {
-                        case NoteOnEvent @event:
-                        {
-                            var noteNumber = (int) @event.NoteNumber;
-                            nowTimeMs = (ev.TimeAs(TimeSpanType.Metric, Tmap) as MetricTimeSpan).TotalMicroseconds /
-                                        1000.0;
-                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOn,
-                                noteNumber, nowTimeMs));
-                        }
-                            break;
-                        case NoteOffEvent @event:
-                        {
-                            var noteNumber = (int) @event.NoteNumber;
-                            nowTimeMs = (ev.TimeAs(TimeSpanType.Metric, Tmap) as MetricTimeSpan).TotalMicroseconds /
-                                        1000.0;
-                            retKeyPlayLists.Enqueue(new KeyPlayList(KeyPlayList.NoteEvent.NoteOff,
-                                noteNumber, nowTimeMs));
-                        }
-                            break;
-                    }
-            }
-
-            return retKeyPlayLists;
-        }
 
         public Playback GetPlayback()
         {
@@ -326,110 +285,7 @@ namespace Daigassou.Controller
             return playback;
         }
 
-        public void PreProcessSpeed(double speed)
-        {
-            using (var eventsManager = trunks.ElementAt(Index).Events.ManageTimedEvents())
-            {
-                foreach (var @event in eventsManager.Objects) @event.Time = (long) (@event.Time * speed);
-            }
-        }
 
-        //public void PreProcessTempoMap()
-        //{
-        //    foreach (var trackChunk in trunks)
-        //        using (var eventsManager = trackChunk.Events.ManageTimedEvents())
-        //        {
-        //            foreach (var tmpChange in Tmap.GetTempoChanges())
-        //            {
-        //                var ev = new SetTempoEvent(tmpChange.Value.MicrosecondsPerQuarterNote);
-        //                eventsManager.Events.AddEvent(ev, tmpChange.Time);
-        //            }
-        //        }
-        //}
-
-        //public int GetBpm()
-        //{
-        //    var bpm = (int)Tmap.Tempo.AtTime(0).BeatsPerMinute;
-        //    return bpm;
-        //}
-
-        #region MidiFilePlayBack
-
-        public int PlaybackPause()
-        {
-            if (playback == null) return -1;
-
-            if (!playback.IsRunning) return -2;
-            playback.Stop();
-            return 0;
-        }
-
-        //public int PlaybackStart(int BPM, EventHandler playbackFinishHandler)
-        //{
-        //    if (midi == null) return -1;
-
-        //    if (OutputDevice.GetDevicesCount() == 0) return -2;
-        //    if (outputDevice == null && (outputDevice = OutputDevice.GetByName("Microsoft GS Wavetable Synth")) == null)
-        //        outputDevice = OutputDevice.GetAll().ElementAt(0);
-        //    if (playback == null)
-        //        playback = new Playback(trunks.ElementAt(Index).Events, midi.GetTempoMap(), outputDevice);
-        //    playback.Speed = (double)BPM / GetBpm();
-        //    playback.InterruptNotesOnStop = true;
-        //    playback.Start();
-        //    playback.Finished += playbackFinishHandler;
-
-        //    return 0;
-        //}
-
-
-        //public int PlaybackPercentGet()
-        //{
-        //    if (playback.IsRunning)
-        //    {
-        //        var cur = (MidiTimeSpan)playback.GetCurrentTime(TimeSpanType.Midi);
-        //        var dur = (MidiTimeSpan)playback.GetDuration(TimeSpanType.Midi);
-
-        //        return (int)(cur.TimeSpan * 100 / dur.TimeSpan);
-        //    }
-        //    return 0;
-        //}
-        //public void PlaybackPercentSet(int process)
-        //{
-        //    if (playback.IsRunning)
-        //    {
-        //        MidiTimeSpan dur = (MidiTimeSpan)playback.GetDuration(TimeSpanType.Midi);
-
-        //        var tar = new MidiTimeSpan(dur.TimeSpan * process / 100);
-        //        playback.MoveToTime(tar);
-
-        //    }
-        //}
-        //public string PlaybackInfo()
-        //{
-        //    var ret = "";
-        //    var expression = @"\d*:(?<time>.+):\d+";
-        //    if (playback.IsRunning)
-        //    {
-        //        var cur = playback.GetCurrentTime(TimeSpanType.Metric);
-        //        var dur = playback.GetDuration(TimeSpanType.Metric);
-
-        //        ret = Regex.Match(cur.ToString(), expression).Groups["time"].Value + "/" +
-        //              Regex.Match(dur.ToString(), expression).Groups["time"].Value;
-        //    }
-        //    return ret;
-        //}
-
-        //public int PlaybackRestart()
-        //{
-        //    if (midi == null) return -1;
-        //    if (playback == null) return -2;
-
-        //    playback.Stop();
-        //    playback.Dispose();
-        //    playback = null;
-        //    return 0;
-        //}
-
-        #endregion
     }
+
 }

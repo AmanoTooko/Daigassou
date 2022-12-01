@@ -141,5 +141,20 @@ namespace Daigassou.Forms
                     break;
             }
         }
+
+        private void uiSymbolButton1_Click(object sender, EventArgs e)
+        {
+            var time = uiDatetimePicker1.Value - DateTime.Now;
+            if (time.TotalMilliseconds>0)
+            {
+                SendParamToPage((int)PageID.SoloPlayPage,
+                    new CommObject() { eventId = eventCata.MIDI_CONTROL_START_TIMER, payload = (int)time.TotalMilliseconds });
+            }
+            else
+            {
+                UIMessageTip.ShowError("合奏错误：定时的演奏时间已过");
+            }
+            
+        }
     }
 }

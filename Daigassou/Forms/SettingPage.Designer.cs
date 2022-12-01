@@ -300,6 +300,7 @@
             this.btnHotkeySetting.Text = "快捷键　设置";
             this.btnHotkeySetting.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnHotkeySetting.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.btnHotkeySetting.Click += new System.EventHandler(this.btnHotkeySetting_Click);
             // 
             // swEnableBackgroundPlay
             // 

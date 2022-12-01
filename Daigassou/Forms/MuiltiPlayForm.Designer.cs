@@ -144,8 +144,8 @@
             this.uiSymbolLabel2.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.uiSymbolLabel2.Size = new System.Drawing.Size(105, 35);
             this.uiSymbolLabel2.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolLabel2.Symbol = 363244;
-            this.uiSymbolLabel2.SymbolOffset = new System.Drawing.Point(4, 0);
+            this.uiSymbolLabel2.Symbol = 361463;
+            this.uiSymbolLabel2.SymbolOffset = new System.Drawing.Point(2, 2);
             this.uiSymbolLabel2.SymbolSize = 26;
             this.uiSymbolLabel2.TabIndex = 28;
             this.uiSymbolLabel2.Text = "定时演奏";
@@ -173,6 +173,7 @@
             this.uiSymbolButton1.Text = "定时";
             this.uiSymbolButton1.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiSymbolButton1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.uiSymbolButton1.Click += new System.EventHandler(this.uiSymbolButton1_Click);
             // 
             // uiSymbolLabel1
             // 
@@ -300,7 +301,8 @@
             this.swNetworkAnalyze.Size = new System.Drawing.Size(70, 25);
             this.swNetworkAnalyze.Style = Sunny.UI.UIStyle.Colorful;
             this.swNetworkAnalyze.TabIndex = 32;
-            this.swNetworkAnalyze.Text = "uiSwitch1";
+            this.swNetworkAnalyze.Text = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" +
+    "";
             this.swNetworkAnalyze.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.swNetworkAnalyze.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.uiSwitch1_ValueChanged);
             // 
@@ -313,7 +315,7 @@
             this.uiSymbolLabel3.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.uiSymbolLabel3.Size = new System.Drawing.Size(105, 35);
             this.uiSymbolLabel3.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolLabel3.Symbol = 363244;
+            this.uiSymbolLabel3.Symbol = 62004;
             this.uiSymbolLabel3.SymbolOffset = new System.Drawing.Point(4, 0);
             this.uiSymbolLabel3.SymbolSize = 26;
             this.uiSymbolLabel3.TabIndex = 33;
@@ -403,12 +405,11 @@
             this.uiSymbolLabel5.Location = new System.Drawing.Point(12, 41);
             this.uiSymbolLabel5.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel5.Name = "uiSymbolLabel5";
-            this.uiSymbolLabel5.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.uiSymbolLabel5.Padding = new System.Windows.Forms.Padding(28, 0, 0, 0);
             this.uiSymbolLabel5.Size = new System.Drawing.Size(105, 35);
             this.uiSymbolLabel5.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolLabel5.Symbol = 363244;
-            this.uiSymbolLabel5.SymbolOffset = new System.Drawing.Point(4, 0);
-            this.uiSymbolLabel5.SymbolSize = 26;
+            this.uiSymbolLabel5.Symbol = 361920;
+            this.uiSymbolLabel5.SymbolOffset = new System.Drawing.Point(2, 0);
             this.uiSymbolLabel5.TabIndex = 33;
             this.uiSymbolLabel5.Text = "合奏方式";
             this.uiSymbolLabel5.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
