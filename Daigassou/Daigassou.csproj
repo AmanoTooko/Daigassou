@@ -15,6 +15,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -27,7 +28,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -93,17 +93,17 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="alsa-sharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\managed-midi.1.9.14\lib\net45\alsa-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Commons.Music.Midi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\managed-midi.1.9.14\lib\net45\Commons.Music.Midi.dll</HintPath>
+    <Reference Include="AutoUpdater.NET, Version=1.7.6.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autoupdater.NET.Official.1.7.6\lib\net45\AutoUpdater.NET.dll</HintPath>
     </Reference>
     <Reference Include="Costura, Version=3.1.4.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.3.1.4\lib\net46\Costura.dll</HintPath>
     </Reference>
     <Reference Include="HotkeyControl">
       <HintPath>..\HotkeyControl\bin\Debug\HotkeyControl.dll</HintPath>
+    </Reference>
+    <Reference Include="HotkeyListener, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotkeyListener.1.9.0\lib\net40\HotkeyListener.dll</HintPath>
     </Reference>
     <Reference Include="HotkeyManagement, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HotkeyManagement.WinForms.1.7.0\lib\HotkeyManagement.dll</HintPath>
@@ -124,24 +124,31 @@
     <Reference Include="Melanchall.DryWetMidi, Version=6.1.3.0, Culture=neutral, PublicKeyToken=83d0ffad275219ad, processorArchitecture=MSIL">
       <HintPath>..\packages\Melanchall.DryWetMidi.6.1.3\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.1418.22, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.1418.22\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.1418.22, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.1418.22\lib\net45\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.1418.22, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.1418.22\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="mml2mididotnet">
       <HintPath>Reference\mml2mididotnet.dll</HintPath>
     </Reference>
-    <Reference Include="mugene, Version=1.0.7217.4744, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\mugene.1.2.5\lib\net45\mugene.exe</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="mugenelib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\mugene.1.2.5\lib\net45\mugenelib.dll</HintPath>
+    <Reference Include="NHotkey, Version=2.0.0.0, Culture=neutral, PublicKeyToken=a76ffb086700b11c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHotkey.2.1.0\lib\net45\NHotkey.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="NHotkey.WindowsForms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=a76ffb086700b11c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHotkey.WindowsForms.2.1.0\lib\net45\NHotkey.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="OverlayPlugin.Common">
       <HintPath>Reference\OverlayPlugin.Common.dll</HintPath>
     </Reference>
-    <Reference Include="PagedControl, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PagedControl.2.2.0\lib\net35\PagedControl.dll</HintPath>
-    </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="SunnyUI, Version=3.2.8.1, Culture=neutral, PublicKeyToken=27d7d2e821d97aeb, processorArchitecture=MSIL">
       <HintPath>..\packages\SunnyUI.3.2.8.1\lib\net472\SunnyUI.dll</HintPath>
     </Reference>
@@ -153,7 +160,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -179,18 +188,11 @@
     <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CommonUtilities.cs" />
-    <Compile Include="Forms\ConfigForm.cs">
+    <Compile Include="Forms\HotKeyBindingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ConfigForm.Designer.cs">
-      <DependentUpon>ConfigForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\KeyBindForm13Key.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\KeyBindForm13Key.Designer.cs">
-      <DependentUpon>KeyBindForm13Key.cs</DependentUpon>
+    <Compile Include="Forms\HotKeyBindingForm.Designer.cs">
+      <DependentUpon>HotKeyBindingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\KeyBindingForm.cs">
       <SubType>Form</SubType>
@@ -222,12 +224,6 @@
     <Compile Include="Forms\MuiltiPlayForm.Designer.cs">
       <DependentUpon>MuiltiPlayForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\PidSelect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\PidSelect.Designer.cs">
-      <DependentUpon>PidSelect.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\PlayPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -240,68 +236,26 @@
     <Compile Include="Forms\SettingPage.Designer.cs">
       <DependentUpon>SettingPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SongSelect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SongSelect.Designer.cs">
-      <DependentUpon>SongSelect.cs</DependentUpon>
-    </Compile>
     <Compile Include="Input_Midi\KeyboardUtilities.cs" />
-    <Compile Include="Forms\KeyBindForm37Key.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\KeyBindForm37Key.Designer.cs">
-      <DependentUpon>KeyBindForm37Key.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Input_Midi\MidiFileParser.cs" />
-    <Compile Include="Input_Midi\MidiPlayController.cs" />
+    <Compile Include="Network\MidiPlayController.cs" />
     <Compile Include="Utils\Instrument.cs" />
     <Compile Include="Network\NetworkParser.cs" />
     <Compile Include="NtpClient.cs" />
-    <Compile Include="Output_Key\BackgroundKey.cs" />
-    <Compile Include="Output_Key\KeyBinding.cs" />
-    <Compile Include="Output_Key\KeyController.cs" />
-    <Compile Include="Input_Midi\MidiToKey.cs" />
-    <Compile Include="ProcessHelper.cs" />
-    <Compile Include="ProcessKeyController.cs" />
+    <Compile Include="Output_Key\ProcessKeyController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Utils\FFProcess.cs" />
-    <Compile Include="Utils\KeyplayClass.cs" />
-    <Compile Include="Utils\LogForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Utils\LogForm.Designer.cs">
-      <DependentUpon>LogForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utils\lyricPoster.cs" />
-    <Compile Include="Utils\MmlMidiConventer.cs" />
     <Compile Include="Utils\NetMidiDownload.cs" />
-    <Compile Include="Utils\ParameterController.cs" />
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ConfigForm.resx">
-      <DependentUpon>ConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\KeyBindForm13Key.resx">
-      <DependentUpon>KeyBindForm13Key.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\KeyBindForm37Key.resx">
-      <DependentUpon>KeyBindForm37Key.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\HotKeyBindingForm.resx">
+      <DependentUpon>HotKeyBindingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\KeyBindingForm.resx">
       <DependentUpon>KeyBindingForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainFormEx.resx">
       <DependentUpon>MainFormEx.cs</DependentUpon>
@@ -315,26 +269,20 @@
     <EmbeddedResource Include="Forms\MuiltiPlayForm.resx">
       <DependentUpon>MuiltiPlayForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PidSelect.resx">
-      <DependentUpon>PidSelect.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\PlayPage.resx">
       <DependentUpon>PlayPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingPage.resx">
       <DependentUpon>SettingPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SongSelect.resx">
-      <DependentUpon>SongSelect.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Utils\LogForm.resx">
-      <DependentUpon>LogForm.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -355,12 +303,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="[大合奏!!Ex]FeatureList.md" />
     <None Include="[大合奏]使用教程.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\key22%282%29.png" />
@@ -390,9 +334,12 @@
     <None Include="Resources\c_about.png" />
     <None Include="Resources\icons8-idea-window-100.png" />
     <None Include="Resources\icons8-advertisement-page-90.png" />
-    <None Include="Resources\EX\PNA2KM]%29BJ1SK%4065UPJ}J55.png" />
     <None Include="Resources\EX\keyBindingBackground.png" />
-    <None Include="Resources\EX\PNA2KM]%29BJ1SK%4065UPJ}J55 %282%29.png" />
+    <EmbeddedResource Include="costura64\Melanchall_DryWetMidi_Native64.dll" />
+    <EmbeddedResource Include="costura64\Microsoft.Web.WebView2.Core.dll" />
+    <EmbeddedResource Include="costura64\Microsoft.Web.WebView2.WinForms.dll" />
+    <EmbeddedResource Include="costura64\Microsoft.Web.WebView2.Wpf.dll" />
+    <EmbeddedResource Include="costura64\WebView2Loader.dll" />
     <Content Include="Resources\ico_128.ico" />
     <None Include="Resources\keybindingBGimg.png" />
   </ItemGroup>
@@ -419,7 +366,9 @@
     <Error Condition="!Exists('..\packages\Costura.Fody.3.1.4\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.1.4\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.3.1.4\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.1.4\build\Costura.Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Melanchall.DryWetMidi.6.1.3\build\Melanchall.DryWetMidi.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Melanchall.DryWetMidi.6.1.3\build\Melanchall.DryWetMidi.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.1.0.1418.22\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.1.0.1418.22\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
   <Import Project="..\packages\Costura.Fody.3.1.4\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.3.1.4\build\Costura.Fody.targets')" />
   <Import Project="..\packages\Melanchall.DryWetMidi.6.1.3\build\Melanchall.DryWetMidi.targets" Condition="Exists('..\packages\Melanchall.DryWetMidi.6.1.3\build\Melanchall.DryWetMidi.targets')" />
+  <Import Project="..\packages\Microsoft.Web.WebView2.1.0.1418.22\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.1418.22\build\Microsoft.Web.WebView2.targets')" />
 </Project>

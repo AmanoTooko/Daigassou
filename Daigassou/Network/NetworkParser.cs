@@ -206,6 +206,10 @@ namespace Daigassou.Controller
 
         public void StopNetworkMonitor()
         {
+            if (monitor.ProcessID==0)
+            {
+                return;
+            }
             monitor?.Stop();
         }
 

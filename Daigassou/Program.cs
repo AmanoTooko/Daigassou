@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using BondTech.HotkeyManagement.Win;
+using Daigassou.Forms;
 
 namespace Daigassou
 {
@@ -29,7 +30,7 @@ namespace Daigassou
                 #region 应用程序的主入口点
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm());
+                Application.Run(new MainFormEx());
                 #endregion
             }
             catch (Exception ex)

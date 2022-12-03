@@ -71,7 +71,7 @@ namespace Daigassou.Input_Midi
 
         private static void MidiKeyboard_EventReceived(object sender, MidiEventReceivedEventArgs e)
         {
-            Log.overlayLog($"收到Note@{DateTime.Now.ToString("HH: mm:ss.fff")} ");
+          
             eventHandler?.Invoke(sender, e);
 
             switch (e.Event)
@@ -169,7 +169,7 @@ namespace Daigassou.Input_Midi
                 var pitch = Convert.ToInt32(msg.NoteNumber + offset);
 
 
-                Log.Debug($"msg  {msg.NoteNumber} on at time {DateTime.Now:O}");
+                
                 if (pitch <= 84 && pitch >= 48)
                 {
                     ProcessKeyController.GetInstance().PressKeyBoardByPitch(pitch);
@@ -183,7 +183,7 @@ namespace Daigassou.Input_Midi
             lock (NoteOfflock)
             {
                 var pitch = Convert.ToInt32(msg.NoteNumber + offset);
-                Log.Debug($"msg  {msg.NoteNumber} off at time {DateTime.Now:O}");
+               
                 if (pitch <= 84 && pitch >= 48)
                     ProcessKeyController.GetInstance().ReleaseKeyBoardByPitch(pitch);
             }

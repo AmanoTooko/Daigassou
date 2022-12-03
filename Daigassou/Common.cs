@@ -7,6 +7,8 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using AutoUpdaterDotNET;
+using Daigassou.Controller;
 using Daigassou.Forms;
 using Daigassou.Properties;
 using Newtonsoft.Json;
@@ -100,7 +102,7 @@ namespace Daigassou.Utils
                 var offset = new NtpClient(Settings.Default.NtpServer).GetOffset(out error);
                 
                 // TODO: error handler
-                if (CommonUtilities.SetSystemDateTime.SetLocalTimeByStr(
+                if (SetSystemDateTime.SetLocalTimeByStr(
                         DateTime.Now.AddMilliseconds(offset.TotalMilliseconds * -0.5))) ;
 
             }
@@ -148,7 +150,42 @@ namespace Daigassou.Utils
             }
         }
 
+        public static void CheckForUpdate()
+        {
+            AutoUpdater.ParseUpdateInfoEvent += AutoUpdaterOnParseUpdateInfoEvent;
+            AutoUpdater.Start("https://up.xiv.pub/version.json");
+        }
+       
 
+        private static void AutoUpdaterOnParseUpdateInfoEvent(ParseUpdateInfoEventArgs args)
+        {
+            dynamic json = JsonConvert.DeserializeObject(args.RemoteData);
+            NetworkParser.opcodeDict["countDownPacket"]=json.opcode.countDownPacket;
+            NetworkParser.opcodeDict["ensembleStopPacket"] = json.opcode.ensembleStopPacket;
+            NetworkParser.opcodeDict["partyStopPacket"] = json.opcode.partyStopPacket;
+            NetworkParser.opcodeDict["ensembleStartPacket"] = json.opcode.ensembleStartPacket;
+            NetworkParser.opcodeDict["InstruSendingPacket"] = json.opcode.InstruSendingPacket;
+
+            args.UpdateInfo = new UpdateInfoEventArgs
+            {
+                CurrentVersion = json.version,
+                ChangelogURL = json.changelog,
+                DownloadURL = json.url,
+                Mandatory = new Mandatory
+                {
+                    Value = json.mandatory.value,
+                    UpdateMode = json.mandatory.mode,
+                    MinimumVersion = json.mandatory.minVersion
+                },
+                CheckSum = new CheckSum
+                {
+                    Value = json.checksum.value,
+                    HashingAlgorithm = json.checksum.hashingAlgorithm
+                }
+            
+            };
+            
+        }
     }
 
     public class HotkeyWrapper

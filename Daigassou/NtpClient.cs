@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
@@ -57,7 +58,7 @@ namespace Daigassou
 
                 errorMilliseconds = fractPart * 1000 / 0x10000L;
                 offset = localReceiveTime - transmitTime - (receiveTime - localTransmitTime); //((T4-T3)-(T2-T1))/2
-                CommonUtilities.WriteLog($"localTransmitTime={localTransmitTime.ToString("O")}\r\n " +
+                Debug.WriteLine($"localTransmitTime={localTransmitTime.ToString("O")}\r\n " +
                                          $"localReceiveTime = {localReceiveTime.ToString("O")}\r\n " +
                                          $"serverReceiveTime={receiveTime.ToString("O")}\r\n" +
                                          $"serverTransmitTime={transmitTime.ToString("O")}\r\n" +
@@ -66,7 +67,7 @@ namespace Daigassou
             }
             catch (Exception e)
             {
-                CommonUtilities.WriteLog(e.Message);
+                Debug.WriteLine(e.Message);
                 MessageBox.Show("同步失败\r\n" + e.Message);
                 throw e;
 

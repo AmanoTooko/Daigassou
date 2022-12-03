@@ -70,7 +70,7 @@ namespace Daigassou.Utils
                 if (File.Exists(path.Replace(".mid",".lrc"))&& IsLrcEnable)
                     
                 {
-                    lyric = AnalyzeLrc(path);
+                    lyric = AnalyzeLrc(path.Replace(".mid", ".lrc"));
                     LrcThread = new Thread(
                             () => {RunningLrc(lyric, startOffset);}
                             );
