@@ -13,7 +13,6 @@ namespace DaigassouDX.Controller
         public delegate void Playback_Finished_Notice();
 
         private readonly object playLock = new object();
-
         private int _offset;
         private int _pitch;
         private double _speed;
@@ -23,6 +22,11 @@ namespace DaigassouDX.Controller
         public Playback_Finished_Notice Playback_Finished_Notification;
         private Task playtask;
         public Process Process;
+
+        public MidiPlayController()
+        {
+            keyPlayer = ProcessKeyController.GetInstance();
+        }
 
         public int Pitch
         {
@@ -56,24 +60,24 @@ namespace DaigassouDX.Controller
 
         public string GetProcess()
         {
-            return (int) ((MetricTimeSpan) playback.GetCurrentTime(TimeSpanType.Metric)).TotalMilliseconds + "//" +
-                   (int) ((MetricTimeSpan) playback.GetDuration(TimeSpanType.Metric)).TotalMilliseconds;
-        }
-
-        public void update11()
-        {
+            var totalMilliseconds =
+                (int) ((MetricTimeSpan) playback.GetCurrentTime(TimeSpanType.Metric)).TotalMilliseconds;
+            var str1 = totalMilliseconds.ToString();
+            totalMilliseconds = (int) ((MetricTimeSpan) playback.GetDuration(TimeSpanType.Metric)).TotalMilliseconds;
+            var str2 = totalMilliseconds.ToString();
+            return str1 + "//" + str2;
         }
 
         private void resetSetting()
         {
             _pitch = 0;
             _offset = 0;
-            _speed = 0;
+            _speed = 0.0;
             isRunning = false;
-            if (playback.OutputDevice == null)
+            if (playback?.OutputDevice == null)
                 keyPlayer.ReleaseAllKey();
             else
-                playback.OutputDevice.Dispose();
+                playback?.OutputDevice.Dispose();
         }
 
         public void SetPlayback(Playback pb)
@@ -94,37 +98,44 @@ namespace DaigassouDX.Controller
 
         public bool CheckPlaybackValid()
         {
-            if (playback == null) return false;
-            return true;
+            return playback == null;
         }
 
         private void Playback_Finished(object sender, EventArgs e)
         {
             resetSetting();
-            if (Playback_Finished_Notification != null) Playback_Finished_Notification();
+            if (Playback_Finished_Notification == null)
+                return;
+            Playback_Finished_Notification();
         }
 
         public void SetSpeed(double speed)
         {
-            playback.Speed = speed;
+            if (playback == null)
+                return;
+            if (playback.IsRunning)
+            {
+                playback.Stop();
+                playback.Speed = speed;
+                playback.Start();
+            }
+            else
+            {
+                playback.Speed = speed;
+            }
         }
 
-
-        /// 功能清单
-        /// 1. 播放 O 暂停 O 断点播 三角（合奏有可能无法保证同步） 
-        /// 2. 任意点开始播放O / 跳转O /进度条拖放 O note on持续问题已解决
-        /// 3. 属性控制：延迟调整 通过move位置 三角 move后静音？ 音调O 速度O
-        /// 4. Midi键盘输入统一 三角，但可以重新开一个
         public async void StartPlay(int startOffset)
         {
             isRunning = true;
-            if (playback != null)
+            if (playback == null)
+                return;
+            await Task.Delay(startOffset);
+            lock (playLock)
             {
-                await Task.Delay(startOffset);
-                lock (playLock)
-                {
-                    if (isRunning) playback.Start();
-                }
+                if (!isRunning)
+                    return;
+                playback.Start();
             }
         }
 
@@ -139,79 +150,74 @@ namespace DaigassouDX.Controller
             }
         }
 
-
         public void PausePlay()
         {
-            playback.Stop();
+            playback?.Stop();
             (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
         }
 
         public void SetPreviewOffset(int offset)
         {
-            if (isRunning)
+            if (!isRunning || playback == null)
+                return;
+            if (offset > 0)
             {
-                if (offset > 0)
-                {
-                    playback.Stop();
-                    (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
-                    //off掉key
-                    playback.MoveForward(new MetricTimeSpan(offset * 1000));
-                    playback.Start();
-                }
-                else
-                {
-                    playback.Stop();
-                    (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
-                    //off掉key
-                    playback?.MoveBack(new MetricTimeSpan(offset * -1000));
-                    playback?.Start();
-                }
+                playback.Stop();
+                (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
+                playback.MoveForward(new MetricTimeSpan(offset * 1000));
+                playback.Start();
+            }
+            else
+            {
+                playback.Stop();
+                (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
+                playback?.MoveBack(new MetricTimeSpan(offset * -1000));
+                playback?.Start();
             }
         }
 
         public void SetOffset(int offset)
         {
-            if (isRunning)
+            if (!isRunning || playback == null)
+                return;
+            if (offset > 0)
             {
-                if (offset > 0)
+                playback.Stop();
+                (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
+                playback.MoveForward(new MetricTimeSpan(offset * 1000));
+                playback.Start();
+            }
+            else
+            {
+                new Task(() =>
                 {
-                    playback.Stop();
-                    (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
-                    //off掉key
-                    playback.MoveForward(new MetricTimeSpan(offset * 1000));
-                    playback.Start();
-                }
-                else
-                {
-                    new Task(() =>
+                    lock (playLock)
                     {
-                        lock (playLock)
-                        {
-                            playback.Stop();
-                            (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
-                            Thread.Sleep(0 - offset);
-                            playback.Start();
-                        }
-                    }).Start();
-                }
+                        playback.Stop();
+                        (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
+                        Thread.Sleep(-offset);
+                        playback.Start();
+                    }
+                }).Start();
             }
         }
 
         public void SetPitch(int p)
         {
-            if (p <= 24 && p >= -24) _pitch = p;
+            if (p > 24 || p < -24)
+                return;
+            _pitch = p;
         }
-
 
         private void Playback_EventPlayed(object sender, MidiEventPlayedEventArgs e)
         {
             switch (e.Event.EventType)
             {
                 case MidiEventType.NoteOff:
-                    keyPlayer.ReleaseKeyBoardByPitch(((NoteOffEvent) e.Event).NoteNumber + _pitch);
+                    keyPlayer.ReleaseKeyBoardByPitch((byte) ((NoteEvent) e.Event).NoteNumber + _pitch);
                     break;
                 case MidiEventType.NoteOn:
-                    keyPlayer.PressKeyBoardByPitch(((NoteOnEvent) e.Event).NoteNumber + _pitch);
+                    keyPlayer.PressKeyBoardByPitch((byte) ((NoteEvent) e.Event).NoteNumber + _pitch);
                     break;
             }
         }
