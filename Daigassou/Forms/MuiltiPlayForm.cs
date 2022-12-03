@@ -12,11 +12,12 @@ namespace Daigassou.Forms
 {
     public partial class MuiltiPlayForm : UIPage
     {
-        NetworkParser networkParser;
+        private readonly NetworkParser networkParser;
+
         public MuiltiPlayForm()
         {
             InitializeComponent();
-            uiDatetimePicker1.Value=DateTime.Now;
+            uiDatetimePicker1.Value = DateTime.Now;
             networkParser = new NetworkParser();
         }
 
@@ -49,23 +50,27 @@ namespace Daigassou.Forms
             Settings.Default.Save();
             if (value)
             {
-                if (ProcessKeyController.GetInstance().Process!=null)
+                if (ProcessKeyController.GetInstance().Process != null)
                 {
                     startNetworkParser(ProcessKeyController.GetInstance().Process);
-                    
-                    UIMessageTip.ShowOk($"检测到后台演奏，自动绑定至Pid={ProcessKeyController.GetInstance().Process.Id}",2000,true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)) );
+
+                    UIMessageTip.ShowOk($"检测到后台演奏，自动绑定至Pid={ProcessKeyController.GetInstance().Process.Id}", 2000, true,
+                        PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                     return;
                 }
+
                 var processList = Utils.Utils.GetProcesses();
                 if (processList.Count == 0)
                 {
-                    UIMessageTip.ShowError("未检测到游戏进程，无法使用网络合奏", 2000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
+                    UIMessageTip.ShowError("未检测到游戏进程，无法使用网络合奏", 2000, true,
+                        PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                     swNetworkAnalyze.Active = false;
                 }
                 else if (processList.Count == 1)
                 {
                     startNetworkParser(processList[0]);
-                    UIMessageTip.ShowOk($"已检测到游戏进程，自动绑定至Pid={ProcessKeyController.GetInstance().Process.Id}", 2000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
+                    UIMessageTip.ShowOk($"已检测到游戏进程，自动绑定至Pid={ProcessKeyController.GetInstance().Process.Id}", 2000,
+                        true, PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                 }
                 else
                 {
@@ -82,7 +87,8 @@ namespace Daigassou.Forms
                     {
                         startNetworkParser(processList[index]);
 
-                        UIMessageTip.ShowOk($"已绑定至Pid={ProcessKeyController.GetInstance().Process.Id}", 2000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
+                        UIMessageTip.ShowOk($"已绑定至Pid={ProcessKeyController.GetInstance().Process.Id}", 2000, true,
+                            PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                         foreach (var process in processList) Utils.Utils.SetGameTitle(process.MainWindowHandle, false);
                     }
                     else
@@ -96,31 +102,28 @@ namespace Daigassou.Forms
             {
                 networkParser.StopNetworkMonitor();
             }
-
-
         }
 
         private void NetworkParser_Play(object sender, PlayEvent e)
         {
-
             switch (e.Mode)
             {
                 case PlayEvent.playmode.COUNDOWN_TIMER_START:
                     SendParamToPage((int) PageID.SoloPlayPage,
-                        new CommObject() {eventId = eventCata.MIDI_CONTROL_START_COUNTDOWN, payload = e.Param});
+                        new CommObject {eventId = eventCata.MIDI_CONTROL_START_COUNTDOWN, payload = e.Param});
                     break;
                 case PlayEvent.playmode.ENSEMBLE_TIMER_START:
                     SendParamToPage((int) PageID.SoloPlayPage,
-                        new CommObject() {eventId = eventCata.MIDI_CONTROL_START_ENSEMBLE, payload = e.Param});
+                        new CommObject {eventId = eventCata.MIDI_CONTROL_START_ENSEMBLE, payload = e.Param});
                     break;
 
                 case PlayEvent.playmode.STOP:
-                    SendParamToPage((int)PageID.SoloPlayPage,
-                        new CommObject() { eventId = eventCata.MIDI_CONTROL_STOP, payload = e.Param });
+                    SendParamToPage((int) PageID.SoloPlayPage,
+                        new CommObject {eventId = eventCata.MIDI_CONTROL_STOP, payload = e.Param});
                     break;
                 case PlayEvent.playmode.INSTRUAMENT_CHANGE:
-                    SendParamToPage((int)PageID.SoloPlayPage,
-                        new CommObject() { eventId = eventCata.MIDI_CONTROL_INSTRUCODE, payload = e.Param });
+                    SendParamToPage((int) PageID.SoloPlayPage,
+                        new CommObject {eventId = eventCata.MIDI_CONTROL_INSTRUCODE, payload = e.Param});
                     break;
             }
         }
@@ -131,7 +134,7 @@ namespace Daigassou.Forms
             switch (recvEvent.eventId)
             {
                 case eventCata.MIDI_FILE_NAME:
-                    
+
                     lblScoreName.Text = $"乐谱名：{recvEvent.payload.ToString().Split('\\').Last()}";
                     break;
                 case eventCata.TRACK_FILE_NAME:
@@ -145,16 +148,12 @@ namespace Daigassou.Forms
         private void uiSymbolButton1_Click(object sender, EventArgs e)
         {
             var time = uiDatetimePicker1.Value - DateTime.Now;
-            if (time.TotalMilliseconds>0)
-            {
-                SendParamToPage((int)PageID.SoloPlayPage,
-                    new CommObject() { eventId = eventCata.MIDI_CONTROL_START_TIMER, payload = (int)time.TotalMilliseconds });
-            }
+            if (time.TotalMilliseconds > 0)
+                SendParamToPage((int) PageID.SoloPlayPage,
+                    new CommObject
+                        {eventId = eventCata.MIDI_CONTROL_START_TIMER, payload = (int) time.TotalMilliseconds});
             else
-            {
                 UIMessageTip.ShowError("合奏错误：定时的演奏时间已过");
-            }
-            
         }
     }
 }

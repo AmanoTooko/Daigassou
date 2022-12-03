@@ -47,6 +47,7 @@ namespace Daigassou.Forms
             uiNavMenu1.SetNodePageIndex(uiNavMenu1.Nodes[4], (int) PageID.PreviewPlayPage);
 
             Utils.Utils.TimeSync();
+            Utils.Utils.CheckForUpdate();
             toolStripStatusLabel1.Text = "当前版本： "+System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             
@@ -118,7 +119,7 @@ namespace Daigassou.Forms
 
                     break;
                 case 0x3378:
-                    var result = (eventCata) m.WParam.ToInt32();
+                    var result = (eventCata) m.LParam.ToInt32();
                     SendParamToPage((int)PageID.SoloPlayPage, new CommObject() {eventId = result, payload = null});
                     break;
                 default:

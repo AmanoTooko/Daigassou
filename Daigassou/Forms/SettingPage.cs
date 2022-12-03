@@ -88,13 +88,15 @@ namespace Daigassou.Forms
                 var processList = Utils.Utils.GetProcesses();
                 if (processList.Count == 0)
                 {
-                    UIMessageTip.ShowError("未检测到游戏进程，后台演奏关闭", 2000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
+                    UIMessageTip.ShowError("未检测到游戏进程，后台演奏关闭", 2000, true,
+                        PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                     swEnableBackgroundPlay.Active = false;
                 }
                 else if (processList.Count == 1)
                 {
                     ProcessKeyController.GetInstance().Process = processList[0];
-                    UIMessageTip.ShowOk($"已检测到后台进程，绑定至Pid={ProcessKeyController.GetInstance().Process.Id}", 2000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
+                    UIMessageTip.ShowOk($"已检测到后台进程，绑定至Pid={ProcessKeyController.GetInstance().Process.Id}", 2000, true,
+                        PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                 }
                 else
                 {
@@ -145,15 +147,11 @@ namespace Daigassou.Forms
 
         private void uiLine2_Click(object sender, EventArgs e)
         {
-
         }
 
-        private void uiLine2_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void uiLine2_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button==MouseButtons.Middle)
-            {
-                uiPanel4.Visible = true;
-            }
+            if (e.Button == MouseButtons.Middle) uiPanel4.Visible = true;
         }
 
         private void uiIntegerUpDown1_ValueChanged(object sender, int value)

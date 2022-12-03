@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Daigassou.Controller;
 using Daigassou.Utils;
@@ -12,11 +10,11 @@ namespace Daigassou.Forms
 {
     public partial class PlayPage : UIPage
     {
-        private readonly Timer playProcessTimer;
-        private Instrument instru;
-        private bool isRunning;
         private readonly MidiFileParser midiFileParser;
         private readonly MidiPlayController midiPlayController;
+        private readonly Timer playProcessTimer;
+        private readonly Instrument instru;
+        private bool isRunning;
 
 
         public PlayPage()
@@ -55,30 +53,35 @@ namespace Daigassou.Forms
 
         private void PlayForm_ReceiveParams(object sender, UIPageParamsArgs e)
         {
-            Action<UIPageParamsArgs> actionDelegate = (ex) => {
+            Action<UIPageParamsArgs> actionDelegate = ex =>
+            {
                 var comm = ex.Value as CommObject;
                 switch (comm.eventId)
                 {
                     case eventCata.MIDI_CONTROL_START_COUNTDOWN:
-                        UIMessageTip.ShowOk($"网络合奏：收到小队倒计时信号，将于{Convert.ToInt32(comm.payload) / 1000}秒后开始演奏。", 2000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
+                        UIMessageTip.ShowOk($"网络合奏：收到小队倒计时信号，将于{Convert.ToInt32(comm.payload) / 1000}秒后开始演奏。", 1000,
+                            true, PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                         btnStart_Click(sender, e);
                         break;
                     case eventCata.MIDI_CONTROL_START_TIMER:
-                        UIMessageTip.ShowOk($"合奏：收到时间设定信号，将于{Convert.ToInt32(comm.payload) / 1000}秒后开始演奏。", 2000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
+                        UIMessageTip.ShowOk($"合奏：收到时间设定信号，将于{Convert.ToInt32(comm.payload) / 1000}秒后开始演奏。", 1000, true,
+                            PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                         btnStart_Click(sender, e);
                         break;
                     case eventCata.MIDI_CONTROL_START_ENSEMBLE:
-                        UIMessageTip.ShowOk("网络合奏：收到合奏助手信号，将于3秒后开始演奏。", 2000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
+                        UIMessageTip.ShowOk("网络合奏：收到合奏助手信号，将于3秒后开始演奏。", 1000, true,
+                            PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                         btnStart_Click(sender, e);
                         break;
                     case eventCata.MIDI_CONTROL_START_KEY:
-                        UIMessageTip.ShowOk("收到快捷键信号，将于1秒后开始演奏。", 1000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
+                        UIMessageTip.ShowOk("收到快捷键信号，将于1秒后开始演奏。", 1000, true,
+                            PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                         comm.payload = 1000;
                         btnStart_Click(sender, e);
                         break;
                     case eventCata.MIDI_CONTROL_PITCHUP:
                         tbKey.Value++;
-                        btnConfirmKey_Click(sender,e);
+                        btnConfirmKey_Click(sender, e);
                         break;
                     case eventCata.MIDI_CONTROL_PITCHDOWN:
                         tbKey.Value--;
@@ -86,7 +89,8 @@ namespace Daigassou.Forms
                         break;
                     case eventCata.MIDI_CONTROL_STOP:
                         ResetPlay();
-                        UIMessageTip.ShowWarning("收到停止信号，已停止演奏。", 2000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
+                        UIMessageTip.ShowWarning("收到停止信号，已停止演奏。", 1000, true,
+                            PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
 
                         break;
                     case eventCata.MIDI_CONTROL_INSTRUCODE:
@@ -101,10 +105,7 @@ namespace Daigassou.Forms
 
                 Console.Write(e.Value);
             };
-            BeginInvoke(actionDelegate,e);
-
-          
-            
+            BeginInvoke(actionDelegate, e);
         }
 
         private void uiButton1_Click(object sender, EventArgs e)
@@ -132,10 +133,7 @@ namespace Daigassou.Forms
             {
                 //发送midi信息
                 LoadMidiFile();
-                Utils.Utils.SendMessageToAll(eventCata.MIDI_FILE_NAME_CROSS,openFileDialog1.FileName);
-
-
-
+                Utils.Utils.SendMessageToAll(eventCata.MIDI_FILE_NAME_CROSS, openFileDialog1.FileName);
             }
         }
 
@@ -159,10 +157,7 @@ namespace Daigassou.Forms
                 if (tempInstrument.AliasToCode(name))
                 {
                     trackNameList[i] = $"[{tempInstrument}]{name}";
-                    if (tempInstrument.IntruID == instru.IntruID)
-                    {
-                        tempIndex = i;
-                    }
+                    if (tempInstrument.IntruID == instru.IntruID) tempIndex = i;
                 }
             }
 
@@ -205,13 +200,15 @@ namespace Daigassou.Forms
                         StartPlay(1000);
                     }
                 }
-                    
-                
-                else 
+
+
+                else
+                {
                     midiPlayController.StartPlay(0);
+                }
 
-
-                
+                btnStart.Symbol = 61516;
+                btnStart.SymbolOffset = new Point(0, 1);
             }
             else
             {
@@ -237,7 +234,8 @@ namespace Daigassou.Forms
         {
             if (tbFilename.Text == "")
             {
-                UIMessageTip.ShowError("妹有选择Midi文件", 3000, true, this.PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
+                UIMessageTip.ShowError("妹有选择Midi文件", 3000, true,
+                    PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                 return;
             }
 
@@ -247,9 +245,8 @@ namespace Daigassou.Forms
                 : 0.5 + tbSpeed.Value / 100.0);
             midiPlayController.SetPitch(tbKey.Value);
             midiPlayController.StartPlay(offset);
-            lyricPoster.LrcStart(tbFilename.Text, offset);
-            btnStart.Symbol = 61516;
-            btnStart.SymbolOffset = new Point(0, 1);
+            lyricPoster.LrcStart(openFileDialog1.FileName, offset);
+
 
             midiPlayController.Playback_Finished_Notification += () => { ResetPlay(); };
             playProcessTimer.Start();
@@ -286,9 +283,5 @@ namespace Daigassou.Forms
         {
             midiPlayController.SetOffset(50);
         }
-
-
-
-
     }
 }
