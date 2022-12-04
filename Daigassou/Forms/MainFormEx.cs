@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -47,14 +49,40 @@ namespace Daigassou.Forms
             uiNavMenu1.SetNodePageIndex(uiNavMenu1.Nodes[4], (int) PageID.PreviewPlayPage);
 
             Utils.Utils.TimeSync();
-            Utils.Utils.CheckForUpdate();
+
+            checkFileNameChanged();
+            
+                Utils.Utils.CheckForUpdate();
+            
+            
             toolStripStatusLabel1.Text = "当前版本： "+System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             
             
 
         }
-        
+
+        private void checkFileNameChanged()
+        {
+            var targetName = Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule?.FileName),
+                "Daigassou.exe");
+
+            if (File.Exists(targetName) && Process.GetCurrentProcess().MainModule?.FileName != "Daigassou.exe")
+            {
+                var v = FileVersionInfo.GetVersionInfo(targetName).FileVersion;
+                if (v.ToString() != System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString())
+                {
+                    UIMessageDialog.ShowWarningDialog(this,"更新提示","因当前文件名被修改，更新后请打开Daigassou.exe！");
+                    
+                }
+
+                
+
+            }
+
+            
+        }
+
         private void HotkeyUtils_HotKeyPressed(object sender, HotkeyEventArgs e)
         {
             switch (e.Name)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using Daigassou.Input_Midi;
@@ -132,7 +133,7 @@ namespace Daigassou.Forms
 
         private void uiLinkLabel1_Click(object sender, EventArgs e)
         {
-            SendParamToFrame(333);
+            Process.Start("https://www.bilibili.com/video/BV1kG4y1R7sM/");
         }
     }
 }

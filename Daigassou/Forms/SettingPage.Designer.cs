@@ -48,6 +48,11 @@
             this.uiSymbolLabel2 = new Sunny.UI.UISymbolLabel();
             this.uiSymbolLabel1 = new Sunny.UI.UISymbolLabel();
             this.uiPanel1 = new Sunny.UI.UIPanel();
+            this.uiPanel4 = new Sunny.UI.UIPanel();
+            this.uiIntegerUpDown1 = new Sunny.UI.UIIntegerUpDown();
+            this.uiSymbolLabel9 = new Sunny.UI.UISymbolLabel();
+            this.uiSymbolLabel8 = new Sunny.UI.UISymbolLabel();
+            this.uiSwitch1 = new Sunny.UI.UISwitch();
             this.uiLinkLabel1 = new Sunny.UI.UILinkLabel();
             this.updIntervalMinMs = new Sunny.UI.UIIntegerUpDown();
             this.uiSymbolLabel4 = new Sunny.UI.UISymbolLabel();
@@ -55,11 +60,6 @@
             this.updChordMinMs = new Sunny.UI.UIIntegerUpDown();
             this.uiLine1 = new Sunny.UI.UILine();
             this.uiToolTip1 = new Sunny.UI.UIToolTip(this.components);
-            this.uiPanel4 = new Sunny.UI.UIPanel();
-            this.uiSymbolLabel8 = new Sunny.UI.UISymbolLabel();
-            this.uiSwitch1 = new Sunny.UI.UISwitch();
-            this.uiSymbolLabel9 = new Sunny.UI.UISymbolLabel();
-            this.uiIntegerUpDown1 = new Sunny.UI.UIIntegerUpDown();
             this.uiPanel3.SuspendLayout();
             this.uiPanel2.SuspendLayout();
             this.uiPanel1.SuspendLayout();
@@ -426,6 +426,103 @@
             this.uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.uiPanel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
+            // uiPanel4
+            // 
+            this.uiPanel4.Controls.Add(this.uiIntegerUpDown1);
+            this.uiPanel4.Controls.Add(this.uiSymbolLabel9);
+            this.uiPanel4.Controls.Add(this.uiSymbolLabel8);
+            this.uiPanel4.Controls.Add(this.uiSwitch1);
+            this.uiPanel4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.uiPanel4.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.uiPanel4.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiPanel4.Location = new System.Drawing.Point(277, 0);
+            this.uiPanel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel4.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiPanel4.Name = "uiPanel4";
+            this.uiPanel4.RadiusSides = Sunny.UI.UICornerRadiusSides.None;
+            this.uiPanel4.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.uiPanel4.Size = new System.Drawing.Size(209, 100);
+            this.uiPanel4.Style = Sunny.UI.UIStyle.Colorful;
+            this.uiPanel4.TabIndex = 37;
+            this.uiPanel4.Text = null;
+            this.uiPanel4.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.uiPanel4.Visible = false;
+            this.uiPanel4.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
+            // uiIntegerUpDown1
+            // 
+            this.uiIntegerUpDown1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.uiIntegerUpDown1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
+            this.uiIntegerUpDown1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiIntegerUpDown1.HasMaximum = true;
+            this.uiIntegerUpDown1.HasMinimum = true;
+            this.uiIntegerUpDown1.Location = new System.Drawing.Point(91, 46);
+            this.uiIntegerUpDown1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiIntegerUpDown1.Maximum = 65535;
+            this.uiIntegerUpDown1.MaximumEnabled = true;
+            this.uiIntegerUpDown1.Minimum = 1000;
+            this.uiIntegerUpDown1.MinimumEnabled = true;
+            this.uiIntegerUpDown1.MinimumSize = new System.Drawing.Size(100, 0);
+            this.uiIntegerUpDown1.Name = "uiIntegerUpDown1";
+            this.uiIntegerUpDown1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.uiIntegerUpDown1.ShowText = false;
+            this.uiIntegerUpDown1.Size = new System.Drawing.Size(112, 26);
+            this.uiIntegerUpDown1.Style = Sunny.UI.UIStyle.Colorful;
+            this.uiIntegerUpDown1.TabIndex = 32;
+            this.uiIntegerUpDown1.Text = "uiIntegerUpDown2";
+            this.uiIntegerUpDown1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.uiIntegerUpDown1.Value = 2345;
+            this.uiIntegerUpDown1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.uiIntegerUpDown1.ValueChanged += new Sunny.UI.UIIntegerUpDown.OnValueChanged(this.uiIntegerUpDown1_ValueChanged);
+            // 
+            // uiSymbolLabel9
+            // 
+            this.uiSymbolLabel9.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolLabel9.Location = new System.Drawing.Point(3, 43);
+            this.uiSymbolLabel9.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiSymbolLabel9.Name = "uiSymbolLabel9";
+            this.uiSymbolLabel9.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.uiSymbolLabel9.Size = new System.Drawing.Size(93, 35);
+            this.uiSymbolLabel9.Style = Sunny.UI.UIStyle.Colorful;
+            this.uiSymbolLabel9.Symbol = 362787;
+            this.uiSymbolLabel9.SymbolOffset = new System.Drawing.Point(4, 0);
+            this.uiSymbolLabel9.SymbolSize = 26;
+            this.uiSymbolLabel9.TabIndex = 40;
+            this.uiSymbolLabel9.Text = "端口号";
+            this.uiSymbolLabel9.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
+            // uiSymbolLabel8
+            // 
+            this.uiSymbolLabel8.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolLabel8.Location = new System.Drawing.Point(3, 6);
+            this.uiSymbolLabel8.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiSymbolLabel8.Name = "uiSymbolLabel8";
+            this.uiSymbolLabel8.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.uiSymbolLabel8.Size = new System.Drawing.Size(108, 35);
+            this.uiSymbolLabel8.Style = Sunny.UI.UIStyle.Colorful;
+            this.uiSymbolLabel8.Symbol = 362787;
+            this.uiSymbolLabel8.SymbolOffset = new System.Drawing.Point(4, 0);
+            this.uiSymbolLabel8.SymbolSize = 26;
+            this.uiSymbolLabel8.TabIndex = 39;
+            this.uiSymbolLabel8.Text = "启用歌词";
+            this.uiSymbolLabel8.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
+            // uiSwitch1
+            // 
+            this.uiSwitch1.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.uiSwitch1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSwitch1.Location = new System.Drawing.Point(128, 10);
+            this.uiSwitch1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiSwitch1.Name = "uiSwitch1";
+            this.uiSwitch1.Size = new System.Drawing.Size(70, 25);
+            this.uiSwitch1.Style = Sunny.UI.UIStyle.Colorful;
+            this.uiSwitch1.TabIndex = 38;
+            this.uiSwitch1.Text = "uiSwitch1";
+            this.uiToolTip1.SetToolTip(this.uiSwitch1, "歌词功能使用说明\r\n  1.需要lrc文件与midi同名且放置在同一目录下\r\n  2目前仅支持发送到说话频道\r\n  3.需要选择midi文件和轨道，建议制作一条仅" +
+        "有两个音的轨道\r\n  4.歌词开始时间=midi开始播放时间，暂时不需要调整延迟");
+            this.uiSwitch1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.uiSwitch1.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.uiSwitch1_ValueChanged);
+            // 
             // uiLinkLabel1
             // 
             this.uiLinkLabel1.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(155)))), ((int)(((byte)(40)))));
@@ -441,6 +538,7 @@
             this.uiLinkLabel1.Text = "视频教程";
             this.uiLinkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.uiLinkLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.uiLinkLabel1.Click += new System.EventHandler(this.uiLinkLabel1_Click);
             // 
             // updIntervalMinMs
             // 
@@ -554,106 +652,11 @@
             this.uiToolTip1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(239)))));
             this.uiToolTip1.OwnerDraw = true;
             // 
-            // uiPanel4
-            // 
-            this.uiPanel4.Controls.Add(this.uiIntegerUpDown1);
-            this.uiPanel4.Controls.Add(this.uiSymbolLabel9);
-            this.uiPanel4.Controls.Add(this.uiSymbolLabel8);
-            this.uiPanel4.Controls.Add(this.uiSwitch1);
-            this.uiPanel4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiPanel4.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiPanel4.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiPanel4.Location = new System.Drawing.Point(277, 0);
-            this.uiPanel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiPanel4.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiPanel4.Name = "uiPanel4";
-            this.uiPanel4.RadiusSides = Sunny.UI.UICornerRadiusSides.None;
-            this.uiPanel4.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiPanel4.Size = new System.Drawing.Size(209, 100);
-            this.uiPanel4.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiPanel4.TabIndex = 37;
-            this.uiPanel4.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.uiPanel4.Visible = false;
-            this.uiPanel4.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // uiSymbolLabel8
-            // 
-            this.uiSymbolLabel8.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel8.Location = new System.Drawing.Point(3, 6);
-            this.uiSymbolLabel8.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolLabel8.Name = "uiSymbolLabel8";
-            this.uiSymbolLabel8.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.uiSymbolLabel8.Size = new System.Drawing.Size(108, 35);
-            this.uiSymbolLabel8.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolLabel8.Symbol = 362787;
-            this.uiSymbolLabel8.SymbolOffset = new System.Drawing.Point(4, 0);
-            this.uiSymbolLabel8.SymbolSize = 26;
-            this.uiSymbolLabel8.TabIndex = 39;
-            this.uiSymbolLabel8.Text = "启用歌词";
-            this.uiSymbolLabel8.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // uiSwitch1
-            // 
-            this.uiSwitch1.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiSwitch1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSwitch1.Location = new System.Drawing.Point(128, 10);
-            this.uiSwitch1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSwitch1.Name = "uiSwitch1";
-            this.uiSwitch1.Size = new System.Drawing.Size(70, 25);
-            this.uiSwitch1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSwitch1.TabIndex = 38;
-            this.uiSwitch1.Text = "uiSwitch1";
-            this.uiToolTip1.SetToolTip(this.uiSwitch1, "歌词功能使用说明\r\n  1.需要lrc文件与midi同名且放置在同一目录下\r\n  2目前仅支持发送到说话频道\r\n  3.需要选择midi文件和轨道，建议制作一条仅" +
-        "有两个音的轨道\r\n  4.歌词开始时间=midi开始播放时间，暂时不需要调整延迟");
-            this.uiSwitch1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.uiSwitch1.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.uiSwitch1_ValueChanged);
-            // 
-            // uiSymbolLabel9
-            // 
-            this.uiSymbolLabel9.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiSymbolLabel9.Location = new System.Drawing.Point(3, 43);
-            this.uiSymbolLabel9.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiSymbolLabel9.Name = "uiSymbolLabel9";
-            this.uiSymbolLabel9.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.uiSymbolLabel9.Size = new System.Drawing.Size(93, 35);
-            this.uiSymbolLabel9.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiSymbolLabel9.Symbol = 362787;
-            this.uiSymbolLabel9.SymbolOffset = new System.Drawing.Point(4, 0);
-            this.uiSymbolLabel9.SymbolSize = 26;
-            this.uiSymbolLabel9.TabIndex = 40;
-            this.uiSymbolLabel9.Text = "端口号";
-            this.uiSymbolLabel9.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // uiIntegerUpDown1
-            // 
-            this.uiIntegerUpDown1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiIntegerUpDown1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
-            this.uiIntegerUpDown1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiIntegerUpDown1.HasMaximum = true;
-            this.uiIntegerUpDown1.HasMinimum = true;
-            this.uiIntegerUpDown1.Location = new System.Drawing.Point(91, 46);
-            this.uiIntegerUpDown1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiIntegerUpDown1.Maximum = 65535;
-            this.uiIntegerUpDown1.MaximumEnabled = true;
-            this.uiIntegerUpDown1.Minimum = 1000;
-            this.uiIntegerUpDown1.MinimumEnabled = true;
-            this.uiIntegerUpDown1.MinimumSize = new System.Drawing.Size(100, 0);
-            this.uiIntegerUpDown1.Name = "uiIntegerUpDown1";
-            this.uiIntegerUpDown1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
-            this.uiIntegerUpDown1.ShowText = false;
-            this.uiIntegerUpDown1.Size = new System.Drawing.Size(112, 26);
-            this.uiIntegerUpDown1.Style = Sunny.UI.UIStyle.Colorful;
-            this.uiIntegerUpDown1.TabIndex = 32;
-            this.uiIntegerUpDown1.Text = "uiIntegerUpDown2";
-            this.uiIntegerUpDown1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.uiIntegerUpDown1.Value = 2345;
-            this.uiIntegerUpDown1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            this.uiIntegerUpDown1.ValueChanged += new Sunny.UI.UIIntegerUpDown.OnValueChanged(this.uiIntegerUpDown1_ValueChanged);
-            // 
             // SettingPage
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(510, 350);
+            this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
             this.Controls.Add(this.uiPanel3);
             this.Controls.Add(this.uiLine3);
             this.Controls.Add(this.uiPanel1);

@@ -112,6 +112,7 @@
             this.uiLinkLabel1.Text = "视频教程";
             this.uiLinkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.uiLinkLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.uiLinkLabel1.Click += new System.EventHandler(this.uiLinkLabel1_Click);
             // 
             // uiDatetimePicker1
             // 

@@ -163,5 +163,10 @@ namespace Daigassou.Forms
         {
             uiDatetimePicker1.Value = DateTime.Now;
         }
+
+        private void uiLinkLabel1_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.bilibili.com/video/BV11K411X7xC/");
+        }
     }
 }

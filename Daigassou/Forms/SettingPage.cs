@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using Daigassou.Properties;
@@ -162,6 +163,11 @@ namespace Daigassou.Forms
         private void uiSwitch1_ValueChanged(object sender, bool value)
         {
             lyricPoster.IsLrcEnable = value;
+        }
+
+        private void uiLinkLabel1_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.bilibili.com/video/BV1w44y1S7D9");
         }
     }
 }

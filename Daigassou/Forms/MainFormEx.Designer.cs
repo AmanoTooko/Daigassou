@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFormEx));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("独奏", 0, 1);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("合奏", 2, 3);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("外接", 4, 5);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("设置", 6, 7);
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("试听", 8, 9);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("独奏", 0, 1);
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("合奏", 2, 3);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("外接", 4, 5);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("设置", 6, 7);
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("试听", 8, 9);
             this.uiStyleManager1 = new Sunny.UI.UIStyleManager(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.uiNavMenu1 = new Sunny.UI.UINavMenu();
@@ -83,32 +83,32 @@
             this.uiNavMenu1.Margin = new System.Windows.Forms.Padding(0);
             this.uiNavMenu1.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
             this.uiNavMenu1.Name = "uiNavMenu1";
-            treeNode1.ImageIndex = 0;
-            treeNode1.Name = "节点0";
-            treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "独奏";
-            treeNode2.ImageIndex = 2;
-            treeNode2.Name = "节点1";
-            treeNode2.SelectedImageIndex = 3;
-            treeNode2.Text = "合奏";
-            treeNode3.ImageIndex = 4;
-            treeNode3.Name = "节点2";
-            treeNode3.SelectedImageIndex = 5;
-            treeNode3.Text = "外接";
-            treeNode4.ImageIndex = 6;
-            treeNode4.Name = "节点3";
-            treeNode4.SelectedImageIndex = 7;
-            treeNode4.Text = "设置";
-            treeNode5.ImageIndex = 8;
-            treeNode5.Name = "节点4";
-            treeNode5.SelectedImageIndex = 9;
-            treeNode5.Text = "试听";
+            treeNode6.ImageIndex = 0;
+            treeNode6.Name = "节点0";
+            treeNode6.SelectedImageIndex = 1;
+            treeNode6.Text = "独奏";
+            treeNode7.ImageIndex = 2;
+            treeNode7.Name = "节点1";
+            treeNode7.SelectedImageIndex = 3;
+            treeNode7.Text = "合奏";
+            treeNode8.ImageIndex = 4;
+            treeNode8.Name = "节点2";
+            treeNode8.SelectedImageIndex = 5;
+            treeNode8.Text = "外接";
+            treeNode9.ImageIndex = 6;
+            treeNode9.Name = "节点3";
+            treeNode9.SelectedImageIndex = 7;
+            treeNode9.Text = "设置";
+            treeNode10.ImageIndex = 8;
+            treeNode10.Name = "节点4";
+            treeNode10.SelectedImageIndex = 9;
+            treeNode10.Text = "试听";
             this.uiNavMenu1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5});
+            treeNode6,
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10});
             this.uiNavMenu1.ScrollBarColor = System.Drawing.Color.White;
             this.uiNavMenu1.ScrollBarHoverColor = System.Drawing.Color.White;
             this.uiNavMenu1.ScrollBarPressColor = System.Drawing.Color.White;
@@ -173,8 +173,8 @@
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(313, 20);
-            this.toolStripStatusLabel2.Text = "开源免费，请勿购买。|请勿修改程序文件名！";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(335, 20);
+            this.toolStripStatusLabel2.Text = "开源免费，请勿购买。|BUG反馈加群720145203";
             // 
             // MainFormEx
             // 
