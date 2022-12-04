@@ -205,13 +205,15 @@ namespace Daigassou.Forms
                 else
                 {
                     midiPlayController.StartPlay(0);
+                    btnStart.Symbol = 61516;
+                    btnStart.SymbolOffset = new Point(0, 1);
                 }
 
-                btnStart.Symbol = 61516;
-                btnStart.SymbolOffset = new Point(0, 1);
+                
             }
             else
             {
+                
                 midiPlayController.PausePlay();
                 btnStart.Symbol = 61515;
                 btnStart.SymbolOffset = new Point(2, 1);
@@ -251,6 +253,8 @@ namespace Daigassou.Forms
             midiPlayController.Playback_Finished_Notification += () => { ResetPlay(); };
             playProcessTimer.Start();
             isRunning = true;
+            btnStart.Symbol = 61516;
+            btnStart.SymbolOffset = new Point(0, 1);
         }
 
         private void btnConfirmSpeed_Click(object sender, EventArgs e)

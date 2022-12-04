@@ -115,12 +115,13 @@
             // 
             // uiDatetimePicker1
             // 
+            this.uiDatetimePicker1.DateFormat = "HH:mm:ss";
             this.uiDatetimePicker1.FillColor = System.Drawing.Color.White;
             this.uiDatetimePicker1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiDatetimePicker1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiDatetimePicker1.Location = new System.Drawing.Point(140, 3);
             this.uiDatetimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiDatetimePicker1.MaxLength = 19;
+            this.uiDatetimePicker1.MaxLength = 8;
             this.uiDatetimePicker1.MinimumSize = new System.Drawing.Size(63, 0);
             this.uiDatetimePicker1.Name = "uiDatetimePicker1";
             this.uiDatetimePicker1.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
@@ -130,7 +131,7 @@
             this.uiDatetimePicker1.SymbolDropDown = 61555;
             this.uiDatetimePicker1.SymbolNormal = 61555;
             this.uiDatetimePicker1.TabIndex = 27;
-            this.uiDatetimePicker1.Text = "2022-11-28 00:00:00";
+            this.uiDatetimePicker1.Text = "00:00:00";
             this.uiDatetimePicker1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiDatetimePicker1.Value = new System.DateTime(2022, 11, 28, 0, 0, 0, 0);
             this.uiDatetimePicker1.Watermark = "合奏定时";
@@ -437,6 +438,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(510, 350);
+            this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(203)))), ((int)(((byte)(189)))));
             this.Controls.Add(this.uiPanel3);
             this.Controls.Add(this.uiLine3);
             this.Controls.Add(this.uiPanel1);
@@ -448,6 +450,8 @@
             this.Style = Sunny.UI.UIStyle.Colorful;
             this.Text = "MuiltiPlayForm";
             this.ReceiveParams += new Sunny.UI.OnReceiveParams(this.MuiltiPlayForm_ReceiveParams);
+            this.Load += new System.EventHandler(this.MuiltiPlayForm_Load);
+            this.Enter += new System.EventHandler(this.MuiltiPlayForm_Enter);
             this.uiPanel1.ResumeLayout(false);
             this.uiPanel2.ResumeLayout(false);
             this.uiPanel3.ResumeLayout(false);

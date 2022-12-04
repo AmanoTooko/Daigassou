@@ -17,7 +17,7 @@ namespace Daigassou.Forms
         public MuiltiPlayForm()
         {
             InitializeComponent();
-            uiDatetimePicker1.Value = DateTime.Now;
+            
             networkParser = new NetworkParser();
         }
 
@@ -46,8 +46,6 @@ namespace Daigassou.Forms
 
             uiPanel1.Enabled = !value;
 
-            Settings.Default.isBackgroundKey = value;
-            Settings.Default.Save();
             if (value)
             {
                 if (ProcessKeyController.GetInstance().Process != null)
@@ -69,7 +67,7 @@ namespace Daigassou.Forms
                 else if (processList.Count == 1)
                 {
                     startNetworkParser(processList[0]);
-                    UIMessageTip.ShowOk($"已检测到游戏进程，自动绑定至Pid={ProcessKeyController.GetInstance().Process.Id}", 2000,
+                    UIMessageTip.ShowOk($"已检测到游戏进程，自动绑定至Pid={processList[0].Id}", 2000,
                         true, PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                 }
                 else
@@ -87,7 +85,7 @@ namespace Daigassou.Forms
                     {
                         startNetworkParser(processList[index]);
 
-                        UIMessageTip.ShowOk($"已绑定至Pid={ProcessKeyController.GetInstance().Process.Id}", 2000, true,
+                        UIMessageTip.ShowOk($"已绑定至Pid={processList[index].Id}", 2000, true,
                             PointToScreen(new Point(Location.X + 200, Location.Y + 200)));
                         foreach (var process in processList) Utils.Utils.SetGameTitle(process.MainWindowHandle, false);
                     }
@@ -154,6 +152,16 @@ namespace Daigassou.Forms
                         {eventId = eventCata.MIDI_CONTROL_START_TIMER, payload = (int) time.TotalMilliseconds});
             else
                 UIMessageTip.ShowError("合奏错误：定时的演奏时间已过");
+        }
+
+        private void MuiltiPlayForm_Load(object sender, EventArgs e)
+        {
+            uiDatetimePicker1.Value = DateTime.Now;
+        }
+
+        private void MuiltiPlayForm_Enter(object sender, EventArgs e)
+        {
+            uiDatetimePicker1.Value = DateTime.Now;
         }
     }
 }

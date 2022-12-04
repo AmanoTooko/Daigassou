@@ -199,5 +199,17 @@ namespace Daigassou.Properties {
                 this["keyboardOffset"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isFirewallSet {
+            get {
+                return ((bool)(this["isFirewallSet"]));
+            }
+            set {
+                this["isFirewallSet"] = value;
+            }
+        }
     }
 }

@@ -41,6 +41,7 @@
             this.uiTabControl1 = new Sunny.UI.UITabControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,7 +120,7 @@
             this.uiNavMenu1.SelectedHighColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.uiNavMenu1.SelectedImageIndex = 0;
             this.uiNavMenu1.ShowLines = false;
-            this.uiNavMenu1.Size = new System.Drawing.Size(164, 355);
+            this.uiNavMenu1.Size = new System.Drawing.Size(164, 351);
             this.uiNavMenu1.Style = Sunny.UI.UIStyle.Colorful;
             this.uiNavMenu1.TabControl = this.uiTabControl1;
             this.uiNavMenu1.TabIndex = 4;
@@ -140,7 +141,7 @@
             this.uiTabControl1.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
             this.uiTabControl1.Name = "uiTabControl1";
             this.uiTabControl1.SelectedIndex = 0;
-            this.uiTabControl1.Size = new System.Drawing.Size(510, 355);
+            this.uiTabControl1.Size = new System.Drawing.Size(510, 351);
             this.uiTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.uiTabControl1.Style = Sunny.UI.UIStyle.Colorful;
             this.uiTabControl1.TabIndex = 5;
@@ -155,18 +156,25 @@
             this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(241)))), ((int)(((byte)(242)))));
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 391);
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 387);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(674, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(674, 26);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(128, 17);
-            this.toolStripStatusLabel1.Text = "一些文字非常多的文字";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(64, 20);
+            this.toolStripStatusLabel1.Text = "Version";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(313, 20);
+            this.toolStripStatusLabel2.Text = "开源免费，请勿购买。|请勿修改程序文件名！";
             // 
             // MainFormEx
             // 
@@ -203,5 +211,6 @@
         private Sunny.UI.UITabControl uiTabControl1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
     }
 }

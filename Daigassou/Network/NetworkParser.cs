@@ -82,6 +82,7 @@ namespace Daigassou.Controller
         {
             try
             {
+                Stopwatch sw = Stopwatch.StartNew();
                 monitor.MessageReceivedEventHandler = (
                     TCPConnection connection,
                     long epoch,
@@ -97,8 +98,16 @@ namespace Daigassou.Controller
                 monitor.ProcessIDList.Add((uint) process.Id);
                 monitor.OodleImplementation = OodleImplementation.Ffxiv;
                 monitor.OodlePath = process.MainModule.FileName;
-                RegisterToFirewall();//todo:performance flame point?. only need once 
+                Debug.WriteLine(sw.ElapsedMilliseconds);
+                if (!Properties.Settings.Default.isFirewallSet)
+                {
+                    RegisterToFirewall();//todo:performance flame point?. only need once 
+                    Properties.Settings.Default.isFirewallSet = true;
+                    Properties.Settings.Default.Save();
+                }
+                Debug.WriteLine(sw.ElapsedMilliseconds);
                 monitor.Start();
+                Debug.WriteLine(sw.ElapsedMilliseconds);
             }
             catch (Exception)
             {
@@ -218,6 +227,7 @@ namespace Daigassou.Controller
         /// </summary>
         public static void RegisterToFirewall()
         {
+            
             try
             {
                 Process p = new Process();
@@ -232,28 +242,30 @@ namespace Daigassou.Controller
                 p.StandardInput.WriteLine(
                     "netsh advfirewall firewall add rule name=\"WinClient\" dir=in program=\""
                     + exePath
-                    + "\" action=allow localip=any remoteip=any security=notrequired description=DFAssist"
+                    + "\" action=allow localip=any remoteip=any security=notrequired description=Daigassou"
                 ); //cmd执行的语句
                 //p.StandardOutput.ReadToEnd(); //读取命令执行信息
                 p.StandardInput.WriteLine("exit"); //退出
-
+                
                 var netFwMgr = GetInstance<INetFwMgr>("HNetCfg.FwMgr");
                 var netAuthApps = netFwMgr.LocalPolicy.CurrentProfile.AuthorizedApplications;
 
                 var isExists = false;
                 foreach (var netAuthAppObject in netAuthApps)
                 {
+                    
                     var netAuthApp = netAuthAppObject as INetFwAuthorizedApplication;
                     if (
                         netAuthApp != null
                         && netAuthApp.ProcessImageFileName == exePath
                         && netAuthApp.Enabled
                     )
+                        
                     {
                         isExists = true;
                     }
                 }
-
+                
                 if (!isExists)
                 {
                     var netAuthApp = GetInstance<INetFwAuthorizedApplication>(
@@ -267,6 +279,7 @@ namespace Daigassou.Controller
 
                     netAuthApps.Add(netAuthApp);
                 }
+               
                 //Log.S("l-firewall-registered");
             }
             catch (Exception ex)

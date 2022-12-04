@@ -152,7 +152,15 @@ namespace Daigassou.Utils
 
         public static void CheckForUpdate()
         {
+            
             AutoUpdater.ParseUpdateInfoEvent += AutoUpdaterOnParseUpdateInfoEvent;
+            AutoUpdater.ShowSkipButton = false;
+            AutoUpdater.LetUserSelectRemindLater = false;
+            AutoUpdater.RemindLaterTimeSpan = RemindLaterFormat.Days;
+            AutoUpdater.RemindLaterAt = 1;
+#if DEBUG
+            AutoUpdater.Start("https://up.xiv.pub/version_test.json");
+#endif
             AutoUpdater.Start("https://up.xiv.pub/version.json");
         }
        

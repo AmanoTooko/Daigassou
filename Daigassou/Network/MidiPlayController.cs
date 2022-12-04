@@ -152,6 +152,11 @@ namespace DaigassouDX.Controller
 
         public void PausePlay()
         {
+            if ((MetricTimeSpan)playback.GetCurrentTime(TimeSpanType.Metric) ==new MetricTimeSpan(0))
+            {
+                isRunning = false;
+            }
+
             playback?.Stop();
             (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
         }
