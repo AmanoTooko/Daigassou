@@ -100,7 +100,7 @@ namespace Daigassou.Utils
                 {
                     if (ev == eventCata.MIDI_FILE_NAME_CROSS)
                     {
-                        var arr = Encoding.Default.GetBytes(message);
+                        var arr = Encoding.Default.GetBytes(message);//Issue: In ja-jp system, encoding will lost info
 
                         var len = arr.Length;
 
@@ -121,7 +121,7 @@ namespace Daigassou.Utils
                 }
         }
 
-        public static void CheckForUpdate()
+        public static void CheckForUpdate(AutoUpdater.ParseUpdateInfoHandler AutoUpdaterOnParseUpdateInfoEvent)
         {
             AutoUpdater.ParseUpdateInfoEvent += AutoUpdaterOnParseUpdateInfoEvent;
             AutoUpdater.ShowSkipButton = false;
@@ -138,35 +138,7 @@ namespace Daigassou.Utils
         }
 
 
-        private static void AutoUpdaterOnParseUpdateInfoEvent(ParseUpdateInfoEventArgs args)
-        {
-            dynamic json = JsonConvert.DeserializeObject(args.RemoteData);
-#if !DEBUG 
-            
-            NetworkParser.opcodeDict["countDownPacket"] = json.opcode.countDownPacket;
-            NetworkParser.opcodeDict["ensembleStopPacket"] = json.opcode.ensembleStopPacket;
-            NetworkParser.opcodeDict["partyStopPacket"] = json.opcode.partyStopPacket;
-            NetworkParser.opcodeDict["ensembleStartPacket"] = json.opcode.ensembleStartPacket;
-            NetworkParser.opcodeDict["InstruSendingPacket"] = json.opcode.InstruSendingPacket;
-#endif
-            args.UpdateInfo = new UpdateInfoEventArgs
-            {
-                CurrentVersion = json.version,
-                ChangelogURL = json.changelog,
-                DownloadURL = json.url,
-                Mandatory = new Mandatory
-                {
-                    Value = json.mandatory.value,
-                    UpdateMode = json.mandatory.mode,
-                    MinimumVersion = json.mandatory.minVersion
-                },
-                CheckSum = new CheckSum
-                {
-                    Value = json.checksum.value,
-                    HashingAlgorithm = json.checksum.hashingAlgorithm
-                }
-            };
-        }
+       
 
         public struct COPYDATASTRUCT
 

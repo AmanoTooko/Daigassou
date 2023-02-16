@@ -10,12 +10,12 @@ namespace Daigassou.Forms
 {
     public partial class PlayPage : UIPage
     {
+        private readonly Instrument instru;
+        private readonly object locker = new object();
         private readonly MidiFileParser midiFileParser;
         private readonly MidiPlayController midiPlayController;
         private readonly Timer playProcessTimer;
-        private readonly Instrument instru;
         private bool isRunning;
-
 
         public PlayPage()
         {
@@ -185,38 +185,50 @@ namespace Daigassou.Forms
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (btnStart.Symbol == 61515) // start
+            lock (locker)
             {
-                if (!isRunning)
+                if (btnStart.Symbol == 61515) // start
+                {
+                    if (!isRunning) //TODO:BUG WHEN RECEIVE 2 OR MORE EVENT WILL PAUSE 
+                    {
+                        if (e is UIPageParamsArgs)
+                        {
+                            var comm = (e as UIPageParamsArgs).Value as CommObject;
+                            ///midiPlayController.StartPlay(Convert.ToInt32(comm.payload));
+
+                            StartPlay(Convert.ToInt32(comm.payload));
+                        }
+                        else
+                        {
+                            StartPlay(1000);
+                        }
+                    }
+
+                    else
+                    {
+                        if (e is UIPageParamsArgs)
+                        {
+                            var comm = (e as UIPageParamsArgs).Value as CommObject;
+                            if (comm.eventId != eventCata.MIDI_CONTROL_START_KEY) return;
+                        }
+
+                        midiPlayController.StartPlay(0);
+                        btnStart.Symbol = 61516;
+                        btnStart.SymbolOffset = new Point(0, 1);
+                    }
+                }
+                else
                 {
                     if (e is UIPageParamsArgs)
                     {
                         var comm = (e as UIPageParamsArgs).Value as CommObject;
-                        ///midiPlayController.StartPlay(Convert.ToInt32(comm.payload));
-                        StartPlay(Convert.ToInt32(comm.payload));
+                        if (comm.eventId != eventCata.MIDI_CONTROL_START_KEY) return;
                     }
-                    else
-                    {
-                        StartPlay(1000);
-                    }
+
+                    midiPlayController.PausePlay();
+                    btnStart.Symbol = 61515;
+                    btnStart.SymbolOffset = new Point(2, 1);
                 }
-
-
-                else
-                {
-                    midiPlayController.StartPlay(0);
-                    btnStart.Symbol = 61516;
-                    btnStart.SymbolOffset = new Point(0, 1);
-                }
-
-                
-            }
-            else
-            {
-                
-                midiPlayController.PausePlay();
-                btnStart.Symbol = 61515;
-                btnStart.SymbolOffset = new Point(2, 1);
             }
         }
 
@@ -229,6 +241,7 @@ namespace Daigassou.Forms
             btnStart.SymbolOffset = new Point(2, 1);
             tbMidiProcess.Value = 0;
             Action actionDelegate = () => { lblProcess.Text = "停止播放：00:00/00:00"; };
+            lyricPoster.LrcStop();
             BeginInvoke(actionDelegate);
         }
 

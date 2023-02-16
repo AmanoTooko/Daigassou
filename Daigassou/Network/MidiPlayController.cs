@@ -16,7 +16,7 @@ namespace DaigassouDX.Controller
         private int _offset;
         private int _pitch;
         private double _speed;
-        private bool isRunning;
+        private volatile bool isRunning;
         public ProcessKeyController keyPlayer;
         private Playback playback;
         public Playback_Finished_Notice Playback_Finished_Notification;
@@ -75,14 +75,14 @@ namespace DaigassouDX.Controller
             _speed = 0.0;
             isRunning = false;
             if (playback?.OutputDevice == null)
+            {
                 keyPlayer.ReleaseAllKey();
+            }
             else
             {
                 playback?.OutputDevice.Dispose();
                 playback.OutputDevice = null;
-
             }
-                
         }
 
         public void SetPlayback(Playback pb)
@@ -157,13 +157,14 @@ namespace DaigassouDX.Controller
 
         public void PausePlay()
         {
-            if ((MetricTimeSpan)playback.GetCurrentTime(TimeSpanType.Metric) ==new MetricTimeSpan(0))
+            if ((MetricTimeSpan) playback.GetCurrentTime(TimeSpanType.Metric) ==
+                new MetricTimeSpan(0))
+                StopPlay(); //in wait. pb start, counter start, isrunning =true, 1000ms running start.
+            lock (playLock)
             {
-                isRunning = false;
+                playback?.Stop();
+                (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
             }
-
-            playback?.Stop();
-            (playback?.OutputDevice as OutputDevice)?.TurnAllNotesOff();
         }
 
         public void SetPreviewOffset(int offset)

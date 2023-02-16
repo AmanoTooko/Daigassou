@@ -14,6 +14,8 @@ using BondTech.HotkeyManagement.Win;
 using Melanchall.DryWetMidi.Interaction;
 using WK.Libraries.HotkeyListenerNS;
 using HotkeyEventArgs = NHotkey.HotkeyEventArgs;
+using AutoUpdaterDotNET;
+using Newtonsoft.Json;
 
 namespace Daigassou.Forms
 {
@@ -52,7 +54,7 @@ namespace Daigassou.Forms
 
             checkFileNameChanged();
             
-                Utils.Utils.CheckForUpdate();
+            Utils.Utils.CheckForUpdate(AutoUpdaterOnParseUpdateInfoEvent);
             
             
             toolStripStatusLabel1.Text = "当前版本： "+System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -61,7 +63,36 @@ namespace Daigassou.Forms
             
 
         }
-
+        private void AutoUpdaterOnParseUpdateInfoEvent(ParseUpdateInfoEventArgs args)
+        {
+            dynamic json = JsonConvert.DeserializeObject(args.RemoteData);
+#if !DEBUG 
+            
+            NetworkParser.opcodeDict["countDownPacket"] = json.opcode.countDownPacket;
+            NetworkParser.opcodeDict["ensembleStopPacket"] = json.opcode.ensembleStopPacket;
+            NetworkParser.opcodeDict["partyStopPacket"] = json.opcode.partyStopPacket;
+            NetworkParser.opcodeDict["ensembleStartPacket"] = json.opcode.ensembleStartPacket;
+            NetworkParser.opcodeDict["InstruSendingPacket"] = json.opcode.InstruSendingPacket;
+#endif
+            args.UpdateInfo = new UpdateInfoEventArgs
+            {
+                CurrentVersion = json.version,
+                ChangelogURL = json.changelog,
+                DownloadURL = json.url,
+                Mandatory = new Mandatory
+                {
+                    Value = json.mandatory.value,
+                    UpdateMode = json.mandatory.mode,
+                    MinimumVersion = json.mandatory.minVersion
+                },
+                CheckSum = new CheckSum
+                {
+                    Value = json.checksum.value,
+                    HashingAlgorithm = json.checksum.hashingAlgorithm
+                }
+            };
+            toolStripStatusLabel3.Text = "|更新检查完毕";
+        }
         private void checkFileNameChanged()
         {
             var targetName = Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule?.FileName),

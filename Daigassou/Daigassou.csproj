@@ -307,6 +307,7 @@
     <None Include="[大合奏]使用教程.md" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Test\FunctionTest.md" />
     <None Include="Resources\key22%282%29.png" />
     <None Include="Resources\key22.png" />
     <None Include="Resources\s2.png" />
