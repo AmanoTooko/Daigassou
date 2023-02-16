@@ -141,12 +141,14 @@ namespace Daigassou.Utils
         private static void AutoUpdaterOnParseUpdateInfoEvent(ParseUpdateInfoEventArgs args)
         {
             dynamic json = JsonConvert.DeserializeObject(args.RemoteData);
+#if !DEBUG 
+            
             NetworkParser.opcodeDict["countDownPacket"] = json.opcode.countDownPacket;
             NetworkParser.opcodeDict["ensembleStopPacket"] = json.opcode.ensembleStopPacket;
             NetworkParser.opcodeDict["partyStopPacket"] = json.opcode.partyStopPacket;
             NetworkParser.opcodeDict["ensembleStartPacket"] = json.opcode.ensembleStartPacket;
             NetworkParser.opcodeDict["InstruSendingPacket"] = json.opcode.InstruSendingPacket;
-
+#endif
             args.UpdateInfo = new UpdateInfoEventArgs
             {
                 CurrentVersion = json.version,

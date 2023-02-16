@@ -55,7 +55,7 @@ namespace Daigassou.Controller
     {
         //public static uint countDownPacket =  size=80 POS=0X26
         //public static uint ensembleStopPacket = size=48;
-        //public static uint partyStopPacket = size=48; 0x22 = MARK
+        //public static uint partyStopPacket = size=48; 0x20 = MARKID
         //public static uint ensembleStartPacket = size=88 0x32=bpm
         //public static uint ensemblePacket = size=1064
         //public static uint ensembleConfirmPacket = size=56,0x32=bpm
@@ -63,13 +63,13 @@ namespace Daigassou.Controller
 
         public static Dictionary<string, ushort> opcodeDict = new Dictionary<string, ushort>()
         {
-            {"countDownPacket", 0x0240},
-            {"ensembleStopPacket", 0x0102},
-            {"partyStopPacket", 0x0079},
-            {"ensembleStartPacket", 0x023C},
-            {"ensemblePacket", 0x25c},
-            {"ensembleConfirmPacket", 0x03a6},
-            {"InstruSendingPacket", 0x00b1}
+            {"countDownPacket", 0x0337},
+            {"ensembleStopPacket", 0x01A8},
+            {"partyStopPacket", 0x017B},
+            {"ensembleStartPacket", 0x00FD},
+            {"ensemblePacket", 0x018E},
+            {"ensembleConfirmPacket", 0x00E6},
+            {"InstruSendingPacket", 0x0387}
         };
 
         public bool ensembleProcessFlag = true;
@@ -82,7 +82,7 @@ namespace Daigassou.Controller
         {
             try
             {
-                Stopwatch sw = Stopwatch.StartNew();
+                
                 monitor.MessageReceivedEventHandler = (
                     TCPConnection connection,
                     long epoch,
@@ -94,20 +94,21 @@ namespace Daigassou.Controller
                     long epoch,
                     byte[] message
                 ) => MessageSent(connection, epoch, message);
+
                 monitor.MonitorType = Properties.Settings.Default.isUsingWinPCap? NetworkMonitorType.WinPCap: NetworkMonitorType.RawSocket; 
                 monitor.ProcessIDList.Add((uint) process.Id);
                 monitor.OodleImplementation = OodleImplementation.Ffxiv;
                 monitor.OodlePath = process.MainModule.FileName;
-                Debug.WriteLine(sw.ElapsedMilliseconds);
+                
                 if (!Properties.Settings.Default.isFirewallSet)
                 {
                     RegisterToFirewall();//todo:performance flame point?. only need once 
                     Properties.Settings.Default.isFirewallSet = true;
                     Properties.Settings.Default.Save();
                 }
-                Debug.WriteLine(sw.ElapsedMilliseconds);
+               
                 monitor.Start();
-                Debug.WriteLine(sw.ElapsedMilliseconds);
+               
             }
             catch (Exception)
             {

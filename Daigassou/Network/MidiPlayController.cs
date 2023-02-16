@@ -77,7 +77,12 @@ namespace DaigassouDX.Controller
             if (playback?.OutputDevice == null)
                 keyPlayer.ReleaseAllKey();
             else
+            {
                 playback?.OutputDevice.Dispose();
+                playback.OutputDevice = null;
+
+            }
+                
         }
 
         public void SetPlayback(Playback pb)

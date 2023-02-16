@@ -45,9 +45,11 @@ namespace Daigassou.Forms
             }
 
             uiPanel1.Enabled = !value;
-
+            radioBtnCtd.Enabled = !value;
+            radioBtnGA.Enabled = !value;
             if (value)
             {
+                
                 if (ProcessKeyController.GetInstance().Process != null)
                 {
                     startNetworkParser(ProcessKeyController.GetInstance().Process);
