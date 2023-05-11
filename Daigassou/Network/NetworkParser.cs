@@ -82,6 +82,7 @@ namespace Daigassou.Controller
         {
             try
             {
+                
                 monitor = new FFXIVNetworkMonitor();
                 monitor.MessageReceivedEventHandler = (
                     TCPConnection connection,
@@ -95,7 +96,7 @@ namespace Daigassou.Controller
                     byte[] message
                 ) => MessageSent(connection, epoch, message);
 
-                monitor. = true;
+                monitor.UseDeucalion= true;
                 //monitor.MonitorType = Properties.Settings.Default.isUsingWinPCap? NetworkMonitorType.WinPCap: NetworkMonitorType.RawSocket; 
                 monitor.ProcessID=((uint) process.Id);
                 monitor.OodleImplementation = OodleImplementation.FfxivTcp;
@@ -154,9 +155,9 @@ namespace Daigassou.Controller
         {
             var res = Parse(message);
 
-
+            
             ushort opCode = res.header.MessageType;
-
+           
             if (isUsingEnsembleAssist)
             {
                 if (opCode == opcodeDict["ensembleStartPacket"] ) //ensemble start

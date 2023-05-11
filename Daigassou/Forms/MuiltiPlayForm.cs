@@ -42,7 +42,9 @@ namespace Daigassou.Forms
                 networkParser.process = process;
                 networkParser.isUsingEnsembleAssist = radioBtnGA.Checked;
                 networkParser.StartNetworkMonitor();
+                networkParser.Play -= NetworkParser_Play;
                 networkParser.Play += NetworkParser_Play;
+
             }
 
             uiPanel1.Enabled = !value;
