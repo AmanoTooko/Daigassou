@@ -121,12 +121,11 @@
             this.uiNavMenu1.SelectedHighColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.uiNavMenu1.SelectedImageIndex = 0;
             this.uiNavMenu1.ShowLines = false;
-            this.uiNavMenu1.Size = new System.Drawing.Size(164, 351);
+            this.uiNavMenu1.Size = new System.Drawing.Size(164, 355);
             this.uiNavMenu1.Style = Sunny.UI.UIStyle.Colorful;
             this.uiNavMenu1.TabControl = this.uiTabControl1;
             this.uiNavMenu1.TabIndex = 4;
             this.uiNavMenu1.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiNavMenu1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uiNavMenu1.MenuItemClick += new Sunny.UI.UINavMenu.OnMenuItemClick(this.uiNavMenu1_MenuItemClick);
             // 
             // uiTabControl1
@@ -135,14 +134,13 @@
             this.uiTabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.uiTabControl1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiTabControl1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiTabControl1.Frame = null;
             this.uiTabControl1.ItemSize = new System.Drawing.Size(0, 1);
             this.uiTabControl1.Location = new System.Drawing.Point(164, 36);
             this.uiTabControl1.MainPage = "";
             this.uiTabControl1.MenuStyle = Sunny.UI.UIMenuStyle.Custom;
             this.uiTabControl1.Name = "uiTabControl1";
             this.uiTabControl1.SelectedIndex = 0;
-            this.uiTabControl1.Size = new System.Drawing.Size(510, 351);
+            this.uiTabControl1.Size = new System.Drawing.Size(510, 355);
             this.uiTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.uiTabControl1.Style = Sunny.UI.UIStyle.Colorful;
             this.uiTabControl1.TabIndex = 5;
@@ -150,7 +148,6 @@
             this.uiTabControl1.TabSelectedHighColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
             this.uiTabControl1.TabVisible = false;
             this.uiTabControl1.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiTabControl1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // statusStrip1
             // 
@@ -160,28 +157,28 @@
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 387);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 391);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(674, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(674, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(64, 20);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(50, 17);
             this.toolStripStatusLabel1.Text = "Version";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(335, 20);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(266, 17);
             this.toolStripStatusLabel2.Text = "开源免费，请勿购买。|BUG反馈加群720145203";
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(100, 20);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(79, 17);
             this.toolStripStatusLabel3.Text = "|检查更新中...";
             // 
             // MainFormEx

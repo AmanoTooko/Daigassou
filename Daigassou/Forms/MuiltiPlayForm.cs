@@ -24,6 +24,7 @@ namespace Daigassou.Forms
         public override void Init()
         {
             base.Init();
+            UIStyles.InitColorful(Color.FromArgb(255, 141, 155), Color.White);
             uiLine1.ForeColor = Color.FromArgb(255, 113, 128);
             uiLine2.ForeColor = Color.FromArgb(255, 113, 128);
             uiLine3.ForeColor = Color.FromArgb(255, 113, 128);

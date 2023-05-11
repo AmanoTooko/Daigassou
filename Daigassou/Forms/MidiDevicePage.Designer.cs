@@ -65,7 +65,6 @@
             this.uiLinkLabel1.TabStop = true;
             this.uiLinkLabel1.Text = "视频教程";
             this.uiLinkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.uiLinkLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uiLinkLabel1.Click += new System.EventHandler(this.uiLinkLabel1_Click);
             // 
             // uiSymbolLabel3
@@ -75,14 +74,12 @@
             this.uiSymbolLabel3.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel3.Name = "uiSymbolLabel3";
             this.uiSymbolLabel3.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.uiSymbolLabel3.Size = new System.Drawing.Size(105, 35);
+            this.uiSymbolLabel3.Size = new System.Drawing.Size(103, 35);
             this.uiSymbolLabel3.Style = Sunny.UI.UIStyle.Colorful;
             this.uiSymbolLabel3.Symbol = 361724;
-            this.uiSymbolLabel3.SymbolOffset = new System.Drawing.Point(4, 0);
             this.uiSymbolLabel3.SymbolSize = 26;
             this.uiSymbolLabel3.TabIndex = 33;
             this.uiSymbolLabel3.Text = "按键测试";
-            this.uiSymbolLabel3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // uiLine3
             // 
@@ -90,6 +87,7 @@
             this.uiLine3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiLine3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiLine3.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.uiLine3.LineColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiLine3.Location = new System.Drawing.Point(0, 0);
             this.uiLine3.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiLine3.Name = "uiLine3";
@@ -98,7 +96,6 @@
             this.uiLine3.TabIndex = 44;
             this.uiLine3.Text = "选择Midi设备";
             this.uiLine3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiLine3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // uiLine2
             // 
@@ -106,6 +103,7 @@
             this.uiLine2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiLine2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiLine2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(190)))), ((int)(((byte)(172)))));
+            this.uiLine2.LineColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(251)))), ((int)(((byte)(250)))));
             this.uiLine2.Location = new System.Drawing.Point(0, 120);
             this.uiLine2.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiLine2.Name = "uiLine2";
@@ -114,7 +112,6 @@
             this.uiLine2.TabIndex = 41;
             this.uiLine2.Text = "设备参数调整";
             this.uiLine2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiLine2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // uiSymbolLabel5
             // 
@@ -123,14 +120,12 @@
             this.uiSymbolLabel5.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel5.Name = "uiSymbolLabel5";
             this.uiSymbolLabel5.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.uiSymbolLabel5.Size = new System.Drawing.Size(105, 35);
+            this.uiSymbolLabel5.Size = new System.Drawing.Size(103, 35);
             this.uiSymbolLabel5.Style = Sunny.UI.UIStyle.Colorful;
             this.uiSymbolLabel5.Symbol = 362263;
-            this.uiSymbolLabel5.SymbolOffset = new System.Drawing.Point(4, 0);
             this.uiSymbolLabel5.SymbolSize = 26;
             this.uiSymbolLabel5.TabIndex = 33;
             this.uiSymbolLabel5.Text = "起始范围";
-            this.uiSymbolLabel5.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // btnConnect
             // 
@@ -153,7 +148,6 @@
             this.btnConnect.TabIndex = 34;
             this.btnConnect.Text = "连接";
             this.btnConnect.TipsFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnConnect.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // uiPanel3
@@ -181,7 +175,6 @@
             this.uiPanel3.TabIndex = 45;
             this.uiPanel3.Text = null;
             this.uiPanel3.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.uiPanel3.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // cbTVkeyboard
             // 
@@ -201,7 +194,6 @@
             this.cbTVkeyboard.TabIndex = 43;
             this.cbTVkeyboard.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cbTVkeyboard.Watermark = "下拉选择链接的输出设备";
-            this.cbTVkeyboard.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // uiSplit
             // 
@@ -214,7 +206,6 @@
             this.uiSplit.Style = Sunny.UI.UIStyle.Colorful;
             this.uiSplit.TabIndex = 42;
             this.uiSplit.Text = "uiSwitch1";
-            this.uiSplit.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uiSplit.ValueChanged += new Sunny.UI.UISwitch.OnValueChanged(this.uiSplit_ValueChanged);
             // 
             // uiSymbolLabel1
@@ -224,14 +215,13 @@
             this.uiSymbolLabel1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolLabel1.Name = "uiSymbolLabel1";
             this.uiSymbolLabel1.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.uiSymbolLabel1.Size = new System.Drawing.Size(105, 35);
+            this.uiSymbolLabel1.Size = new System.Drawing.Size(103, 35);
             this.uiSymbolLabel1.Style = Sunny.UI.UIStyle.Colorful;
             this.uiSymbolLabel1.Symbol = 361633;
-            this.uiSymbolLabel1.SymbolOffset = new System.Drawing.Point(4, 0);
+            this.uiSymbolLabel1.SymbolOffset = new System.Drawing.Point(-2, 0);
             this.uiSymbolLabel1.SymbolSize = 26;
             this.uiSymbolLabel1.TabIndex = 41;
             this.uiSymbolLabel1.Text = "键盘链接";
-            this.uiSymbolLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // uiLabel1
             // 
@@ -246,7 +236,6 @@
     "正后Key = 48的时候，调试完成\r\n注意事项：游戏按键到发音自带200ms左右延迟，目前无法解决。\r\n               *本地发声功能预计春分实" +
     "装";
             this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiLabel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // lblMidiKey
             // 
@@ -259,7 +248,6 @@
             this.lblMidiKey.TabIndex = 39;
             this.lblMidiKey.Text = "键盘起始Key +48";
             this.lblMidiKey.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblMidiKey.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // tbMidiKey
             // 
@@ -275,7 +263,6 @@
             this.tbMidiKey.Style = Sunny.UI.UIStyle.Colorful;
             this.tbMidiKey.TabIndex = 36;
             this.tbMidiKey.Value = 4;
-            this.tbMidiKey.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.tbMidiKey.ValueChanged += new System.EventHandler(this.tbMidiKey_ValueChanged);
             // 
             // uiPanel1
@@ -300,7 +287,6 @@
             this.uiPanel1.TabIndex = 42;
             this.uiPanel1.Text = null;
             this.uiPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.uiPanel1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // uiLight1
             // 
@@ -314,7 +300,6 @@
             this.uiLight1.Style = Sunny.UI.UIStyle.Colorful;
             this.uiLight1.TabIndex = 37;
             this.uiLight1.Text = "uiLight1";
-            this.uiLight1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // tbKeyTest
             // 
@@ -340,7 +325,6 @@
             this.tbKeyTest.TabIndex = 34;
             this.tbKeyTest.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.tbKeyTest.Watermark = "显示按下按键的Key值";
-            this.tbKeyTest.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // cbInputDevice
             // 
@@ -363,7 +347,6 @@
             this.cbInputDevice.TabIndex = 36;
             this.cbInputDevice.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.cbInputDevice.Watermark = "Midi输入设备";
-            this.cbInputDevice.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // uiToolTip1
             // 

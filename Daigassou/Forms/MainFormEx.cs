@@ -15,6 +15,7 @@ using Melanchall.DryWetMidi.Interaction;
 using WK.Libraries.HotkeyListenerNS;
 using HotkeyEventArgs = NHotkey.HotkeyEventArgs;
 using AutoUpdaterDotNET;
+using Daigassou.Controller;
 using Newtonsoft.Json;
 
 namespace Daigassou.Forms

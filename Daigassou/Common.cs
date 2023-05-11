@@ -73,7 +73,7 @@ namespace Daigassou.Utils
         public static List<Process> GetProcesses()
         {
             var processes_dx11 = Process.GetProcessesByName("ffxiv_dx11");
-            var processes_dx9 = Process.GetProcessesByName("ffxiv_dx9");
+            var processes_dx9 = Process.GetProcessesByName("ffxiv");
             return processes_dx11.ToList().Union(processes_dx9.ToList()).ToList();
         }
 
@@ -172,9 +172,9 @@ namespace Daigassou.Utils
 
         public EventHandler<HotkeyEventArgs> HotKeyHandler;
 
-        public HotkeyUtils(Form f)
+        public HotkeyUtils()
         {
-            //hkm = new HotKeyManager(f);
+           
             hotkeysArrayList = new ArrayList();
         }
 
@@ -182,7 +182,7 @@ namespace Daigassou.Utils
 
         public static HotkeyUtils GetInstance(Form f = null)
         {
-            if (hku == null) hku = new HotkeyUtils(f);
+            if (hku == null) hku = new HotkeyUtils();
 
             return hku;
         }

@@ -18,9 +18,6 @@ namespace Daigassou.Controller
         private readonly List<TimedObjectsManager<Note>> tracks;
         public int Index;
         private MidiFile midi;
-
-        private OutputDevice outputDevice;
-        private Playback playback;
         private TempoMap Tmap;
         private List<TrackChunk> trunks;
 

@@ -63,13 +63,13 @@ namespace Daigassou.Controller
 
         public static Dictionary<string, ushort> opcodeDict = new Dictionary<string, ushort>()
         {
-            {"countDownPacket", 0x0337},
-            {"ensembleStopPacket", 0x01A8},
-            {"partyStopPacket", 0x017B},
-            {"ensembleStartPacket", 0x00FD},
-            {"ensemblePacket", 0x018E},
-            {"ensembleConfirmPacket", 0x00E6},
-            {"InstruSendingPacket", 0x0387}
+            {"countDownPacket", 0x0343},
+            {"ensembleStopPacket", 0x03cd},
+            {"partyStopPacket", 0x0158},
+            {"ensembleStartPacket", 0x013E},
+            {"ensemblePacket", 0x024C},
+            {"ensembleConfirmPacket", 0x00FA},
+            {"InstruSendingPacket", 0x00E3}
         };
 
         public bool ensembleProcessFlag = true;
@@ -82,7 +82,7 @@ namespace Daigassou.Controller
         {
             try
             {
-                
+                monitor = new FFXIVNetworkMonitor();
                 monitor.MessageReceivedEventHandler = (
                     TCPConnection connection,
                     long epoch,
@@ -95,9 +95,10 @@ namespace Daigassou.Controller
                     byte[] message
                 ) => MessageSent(connection, epoch, message);
 
-                monitor.MonitorType = Properties.Settings.Default.isUsingWinPCap? NetworkMonitorType.WinPCap: NetworkMonitorType.RawSocket; 
-                monitor.ProcessIDList.Add((uint) process.Id);
-                monitor.OodleImplementation = OodleImplementation.Ffxiv;
+                monitor. = true;
+                //monitor.MonitorType = Properties.Settings.Default.isUsingWinPCap? NetworkMonitorType.WinPCap: NetworkMonitorType.RawSocket; 
+                monitor.ProcessID=((uint) process.Id);
+                monitor.OodleImplementation = OodleImplementation.FfxivTcp;
                 monitor.OodlePath = process.MainModule.FileName;
                 
                 if (!Properties.Settings.Default.isFirewallSet)
@@ -221,6 +222,9 @@ namespace Daigassou.Controller
                 return;
             }
             monitor?.Stop();
+            monitor.MessageReceivedEventHandler = (FFXIVNetworkMonitor.MessageReceived2)null;
+            monitor.MessageSentEventHandler = (FFXIVNetworkMonitor.MessageSent2)null;
+            monitor = (FFXIVNetworkMonitor)null;
         }
 
         /// <summary>
@@ -254,10 +258,8 @@ namespace Daigassou.Controller
                 var isExists = false;
                 foreach (var netAuthAppObject in netAuthApps)
                 {
-                    
-                    var netAuthApp = netAuthAppObject as INetFwAuthorizedApplication;
                     if (
-                        netAuthApp != null
+                        netAuthAppObject is INetFwAuthorizedApplication netAuthApp
                         && netAuthApp.ProcessImageFileName == exePath
                         && netAuthApp.Enabled
                     )
